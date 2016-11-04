@@ -1,0 +1,40 @@
+{
+  "name": "schedule-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schedule-me/schedule-me.git"
+  },
+  "author": "Lucy Ji, Chris Phan, Sergey Sarkisyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucyji1000/schedule-me/issues"
+  },
+  "homepage": "https://github.com/lucyji1000/schedule-me#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "jwt-simple": "^0.5.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.12.0",
+    "nodemon": "^1.11.0",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "request": "^2.78.0",
+    "sequelize": "^3.24.8",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}
