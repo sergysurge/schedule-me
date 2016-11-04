@@ -4,7 +4,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
 const cors = require('cors')
-const rootRouter = require('./routers/index')
+const rootRouter = require('./routers')
 const PORT = process.env.PORT || 8000
 
 const app = express()
