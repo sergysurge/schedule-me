@@ -19,6 +19,6 @@ app.use(cors())
 
 // app.use('/', express.static(path.join(__dirname, '../public')))
 
-// app.use('/api', rootRouter)
+app.use('/api', rootRouter)
 
 app.listen(app.get('port'), () => console.log('Server running on port', app.get('port')))
