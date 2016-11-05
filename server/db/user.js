@@ -16,6 +16,12 @@ module.exports = function (db) {
     },
     phoneNumber: {
       type: Sequelize.STRING
+    },
+    image: {
+      type: Sequelize.STRING,
+      validate: {
+        isUrl: true
+      }
     }
   })
   return User
