@@ -5,6 +5,9 @@ module.exports = function (db) {
     name: {
       type: Sequelize.STRING
     },
+    address: {
+      type: Sequelize.STRING
+    },
     phoneNumber: {
       type: Sequelize.STRING
     },
