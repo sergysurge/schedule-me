@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 
-
 module.exports = function (db) {
   let Appointment = db.define('appointment', {
     contactName: {
