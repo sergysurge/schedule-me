@@ -1,5 +1,6 @@
 const express = require('express')
-require('dotenv').config()
+// require('dotenv').config()
+require('./db/index')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -16,9 +17,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
 
+// app.use('/', express.static(path.join(__dirname, '../public')))
 
-app.use('/', express.static(path.join(__dirname, '../public')))
-
-app.use('/api', rootRouter)
+// app.use('/api', rootRouter)
 
 app.listen(app.get('port'), () => console.log('Server running on port', app.get('port')))
