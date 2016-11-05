@@ -1,8 +1,8 @@
-const Router = require('express').Router()
+// const Router = require('express').Router()
 
-Router.use('/users',)
-Router.use('/appointments',)
-Router.use('/companies',)
-Router.use('/auth',)
+// Router.use('/users',)
+// Router.use('/appointments',)
+// Router.use('/companies',)
+// Router.use('/auth',)
 
-module.exports = Router
+// module.exports = Router
