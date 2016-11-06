@@ -9,7 +9,7 @@ var generateToken = function (userId) {
     exp: date.setDate(date.getDate() + 7), // token expires in 7 days
     userId: userId
   }
-  var token = jwt.encode(payload, process.env.SECRET)
+  var token = jwt.encode(payload, process.env.JWT_TOKEN_SECRET)
   return token
 }
 

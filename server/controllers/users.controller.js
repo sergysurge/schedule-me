@@ -9,7 +9,6 @@ usersController.SIGNIN = function (req, res) {
 
   usersModel.signin(email, password)
     .then(function (response) {
-      console.log('response', response)
       if (response.success) {
         const token = generateToken(response.userId)
         res.status(200).json({
