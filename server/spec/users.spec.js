@@ -34,7 +34,7 @@ xdescribe('user routing', function() {
   })
 })
 
-xdescribe('User table unit tests', function (done) {
+xdescribe('User table unit tests', function () {
   it('should be able to create new user in User table', function (done) {
     User.create({
       firstName: 'dummy',
@@ -57,3 +57,34 @@ xdescribe('User table unit tests', function (done) {
   })
 })
 
+describe ('User signup', function (done) {
+  it ('should create new entry in User table', function (done) {
+    var newUser = {
+      firstName: 'blah',
+      lastName: 'blah',
+      email: 'blah@blah.com',
+      password: 'blah',
+      phoneNumber: '222-222-2222',
+      image: 'http://www.google.com'
+    }
+    var options = {
+      url: 'http://localhost:8000/api/users/signup',
+      method: 'POST',
+      json: {
+        user: newUser
+      }
+    }
+    request(options, function (err, response, body) {
+      expect(response.statusCode).to.equal(200)
+      expect(body).to.exist
+      done()
+    })
+  })
+
+  // it ('should send appropriate response if user already exists', function (done) {
+  //   request(options, function (err, response, body) {
+  //     expect(response.statusCode).to.equal(200)
+  //     expect(body).to.equal('user exists')
+  //   })
+  // })
+})

@@ -41,14 +41,8 @@ module.exports = function (db) {
       }
     },
     instanceMethods: {
-      checkPassword: function (candidatePassword, callback) {
-        bcrypt.compare(candidatePassword, this.password, function (err, match) {
-          if (err) {
-            console.log('error checking password: ', err)
-            callback(err, null)
-          }
-          callback(null, match)
-        })
+      checkPassword: function (candidatePassword) {
+        return bcrypt.compareSync(candidatePassword, this.password)
       }
     }
   })
