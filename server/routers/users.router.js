@@ -1,10 +1,10 @@
 const express = require('express')
 
-const usersController = require('../controllers/users.controller')
+const usersController = require('../controllers').usersController
 
 var UsersRouter = express.Router()
 
-UsersRouter.get('/', usersController.GET)
-UsersRouter.post('/', usersController.POST)
+UsersRouter.get('/signin', usersController.SIGNIN)
+UsersRouter.post('/signup', usersController.SIGNUP)
 
 module.exports = UsersRouter
