@@ -34,7 +34,7 @@ xdescribe('user routing', function() {
   })
 })
 
-describe('User table unit tests', function (done) {
+xdescribe('User table unit tests', function (done) {
   it('should be able to create new user in User table', function (done) {
     User.create({
       firstName: 'dummy',
@@ -56,3 +56,4 @@ describe('User table unit tests', function (done) {
     })
   })
 })
+
