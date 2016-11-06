@@ -1,6 +1,4 @@
 const User = require('../db').User
-const jwt = require('jwt-simple')
-
 const usersModel = {}
 
 usersModel.signin = function (email, password) {
@@ -12,11 +10,23 @@ usersModel.signin = function (email, password) {
   .then(function (user) {
     if (user) {
       if (user.checkPassword(password)) {
-        return 'correct password'
+        return {
+          'success': true,
+          'message': 'correct password',
+          'userId': user.id
+        }
+      } else {
+        return {
+          'success': false,
+          'message': 'incorrect password'
+        }
       }
-      return 'incorrect password'
+    } else {
+      return {
+        'success': false,
+        'message': 'user not found'
+      }
     }
-    return 'user not found'
   })
   .catch(function (err) {
     return err
@@ -38,9 +48,16 @@ usersModel.signup = function (user) {
   })
   .spread(function (newUser, created) {
     if (created) {
-      return newUser
+      return {
+        'success': true,
+        'message': 'new user created',
+        'userId': newUser.id
+      }
     }
-    return created
+    return {
+      'success': false,
+      'message': 'user already exists'
+    }
   })
 }
 

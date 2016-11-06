@@ -1,4 +1,6 @@
 const usersModel = require('../models').usersModel
+const generateToken = require('../helpers/jwt-tokens').generateToken
+
 const usersController = {}
 
 usersController.SIGNIN = function (req, res) {
@@ -6,14 +8,23 @@ usersController.SIGNIN = function (req, res) {
   var password = req.query.password
 
   usersModel.signin(email, password)
-    .then(function (result) {
-      if (result === 'correct password') {
-        res.status(200).send(result)
-      } else if (result === 'incorrect password') {
-        res.status(400).send(result)
-      } else if (result === 'user not found') {
-        res.status(200).send(result)
-      }  
+    .then(function (response) {
+      console.log('response', response)
+      if (response.success) {
+        const token = generateToken(response.userId)
+        res.status(200).json({
+          response: response,
+          token: token
+        })
+      } else if (response.message === 'incorrect password') {
+        res.status(400).json({
+          response: response
+        })
+      } else if (response.message === 'user not found') {
+        res.status(200).json({
+          response: response
+        })
+      }
     })
     .catch(function (err) {
       res.status(500).send(err)
@@ -21,16 +32,20 @@ usersController.SIGNIN = function (req, res) {
 }
 
 usersController.SIGNUP = function (req, res) {
-  console.log(req.body, 'asdfadf')
   var user = req.body.user
 
   usersModel.signup(user)
-    .then(function (result) {
-      if (result) {
-        // generate jwt token
-        res.status(200).json(result)
+    .then(function (response) {
+      if (response.success) {
+        const token = generateToken(response.userId)
+        res.status(200).json({
+          response: response,
+          token: token
+        })
       } else {
-        res.status(200).json('user exists')
+        res.status(200).json({
+          response: response
+        })
       }
     })
 }
