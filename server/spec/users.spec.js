@@ -148,7 +148,7 @@ describe ('User signup', function (done) {
   })
 })
 
-describe('User signin', function() {
+xdescribe('User signin', function() {
   const newEmail = 'nomore@onomore.com'
   const password = 'password'
 
@@ -206,4 +206,8 @@ describe('User signin', function() {
       })
     })
   })
+
+  // it('should send appropriate response if wrong password entered', function(done) {
+
+  // })
 })

@@ -1,4 +1,6 @@
 const User = require('../db').User
+const Company = require('../db').Company
+
 const usersModel = {}
 
 usersModel.signin = function (email, password) {
@@ -59,6 +61,42 @@ usersModel.signup = function (user) {
       'message': 'user already exists'
     }
   })
+}
+
+usersModel.getEmployeesByCompany = function (companyId) {
+  return Company.findById(companyId)
+    .then(function (company) {
+      company.getUsers()
+        .then(function (users) {
+          if (users.length) {
+            return {
+              'success': true,
+              'message': 'employees found',
+              'employees': users
+            }
+          }
+          return {
+            'success': true,
+            'message': 'no employees found'
+          }
+        })
+        .catch(function (err) {
+          return {
+            'success': false,
+            'message': err
+          }
+        })
+    })
+    .catch(function (err) {
+      return {
+        'success': false,
+        'message': err
+      }
+    })
+}
+
+usersModel.addUserToCompany = function (userId, companyId) {
+  
 }
 
 module.exports = usersModel

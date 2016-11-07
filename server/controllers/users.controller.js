@@ -7,7 +7,6 @@ usersController.SIGNIN = function (req, res) {
   const encodedCredentials = req.headers['authorization']
   var email, password
   [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
-  
   usersModel.signin(email, password)
     .then(function (response) {
       if (response.success) {
@@ -17,7 +16,7 @@ usersController.SIGNIN = function (req, res) {
           token: token
         })
       } else if (response.message === 'incorrect password') {
-        res.status(400).json({
+        res.status(403).json({
           response: response
         })
       } else if (response.message === 'user not found') {
@@ -32,7 +31,7 @@ usersController.SIGNIN = function (req, res) {
 }
 
 usersController.SIGNUP = function (req, res) {
-  var user = req.body.user
+  const user = req.body.user
 
   usersModel.signup(user)
     .then(function (response) {
@@ -48,6 +47,25 @@ usersController.SIGNUP = function (req, res) {
         })
       }
     })
+}
+
+usersController.GETEMPLOYEES = function (req, res) {
+  const companyId = req.query.companyId
+  usersModel.getEmployeesByCompany(companyId)
+    .then(function (response) {
+      res.status(200).json({
+        response: response
+      })
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        response: err
+      })
+    })
+}
+
+usersController.ADDEMPLOYEETOCOMPANY = function (req, res) {
+  
 }
 
 module.exports = usersController
