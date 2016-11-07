@@ -27,7 +27,6 @@ module.exports = function (db) {
   }, {
     hooks: {
       beforeCreate: function (user, options, callback) {
-        console.log('inside beforecreate')
         // hash password before saving
         var salt = bcrypt.genSaltSync(10)
         bcrypt.hash(user.password, salt, null, function (err, hash) {
@@ -41,14 +40,8 @@ module.exports = function (db) {
       }
     },
     instanceMethods: {
-      checkPassword: function (candidatePassword, callback) {
-        bcrypt.compare(candidatePassword, this.password, function (err, match) {
-          if (err) {
-            console.log('error checking password: ', err)
-            callback(err, null)
-          }
-          callback(null, match)
-        })
+      checkPassword: function (candidatePassword) {
+        return bcrypt.compareSync(candidatePassword, this.password)
       }
     }
   })

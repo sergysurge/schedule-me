@@ -1,5 +1,5 @@
 const express = require('express')
-// require('dotenv').config()
+require('dotenv').config()
 require('./db/index')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
