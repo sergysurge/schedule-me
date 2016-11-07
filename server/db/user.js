@@ -27,7 +27,6 @@ module.exports = function (db) {
   }, {
     hooks: {
       beforeCreate: function (user, options, callback) {
-        console.log('inside beforecreate')
         // hash password before saving
         var salt = bcrypt.genSaltSync(10)
         bcrypt.hash(user.password, salt, null, function (err, hash) {
