@@ -1,15 +1,39 @@
 const appointmentsController = {}
-const Appointment = require('../models').Appointments
+const Appointment = require('../models/index').appointmentsModel  
+
 appointmentsController.GET = function (req, res) {
-    console.log('get Appointments')
+    const post = req.params
+  Appointment
+  .getAppointments(post.employeeId)
+  .then(appointment => {
+    res.send(appointment)
+  })
 }
 
 appointmentsController.POST = function (req, res) {
-    console.log('post Appointments')
+  const post = req.body
+  Appointment
+  .addAppointment(post)
+  .then(appointment => {
+    res.send(appointment)
+  })
 }
 
-appointmentsController.PUT = function(req,res) {
-    console.log('put Appointments')
+appointmentsController.DELETE = function (req, res) {
+  Appointment
+  .deleteAppointment(req.body.appointmentId)
+  .then(appointment => {
+    res.send(appointment)
+  })
+}
+
+appointmentsController.PUT = function (req, res) {
+  const post = req.body
+  Appointment
+  .updateAppointment(post)
+  .then(appointment => {
+    res.send(appointment)
+  })
 }
 
 module.exports = appointmentsController
