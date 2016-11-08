@@ -5,13 +5,13 @@ const authenticateToken = function (req, res, next) {
   const token = getToken(req.headers)
   if (!token) {
     res.status(400).json({
-      message: 'unauthorized'
+      response: 'unauthorized'
     })
   } else {
     const decoded = jwt.decode(token, process.env.JWT_TOKEN_SECRET)
     if (decoded.exp <= Date.now() || decoded.iss !== 'ScheduleMe') {
       res.status(400).json({
-        message: 'invalid token'
+        response: 'invalid token'
       })
     } else {
       next()
