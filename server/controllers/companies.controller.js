@@ -1,6 +1,44 @@
 const companiesModel = require('../models').companiesModel
 const companiesController = {}
 
+/* BRAND NAMES CONTROLLERS CALLS */
+companiesController.GETALLBRANDNAMES = (req, res) => {
+  companiesModel.getallbrandnames()
+    .then(brandNames => {
+      res.send(brandNames)
+    })
+    .catch(err => {
+      console.log('error in GETALLBRANDNAMES companyController', err)
+      return err
+    })
+}
+
+companiesController.GETBRANDNAME = (req, res) => {
+  //console.log(req.params, 'req.params GETBRANDNAME, companiesController')
+  companiesModel.getbrandname(req.params)
+    .then(brandNames => {
+      res.send(brandNames)
+    })
+    .catch(err => {
+      console.log('error in GETBRANDNAME companyController', err)
+      return err
+    })
+}
+
+companiesController.POSTBRANDNAME = (req, res) => {
+  //console.log(req.body, 'req.body POSTBRANDNAME, companiesController')
+  companiesModel.postbrandname(req.body)
+    .then(newBrand => {
+      res.send(newBrand)
+    })
+    .catch(err => {
+      console.log('error in POSTBRANDNAME companyController', err)
+      return err
+    })
+}
+/* BRAND NAMES CONTROLLERS CALLS  END*/
+
+
 companiesController.GETONECOMPANY = (req, res) => {
   //console.log(req.params, 'req.params GETONECOMPANY, companiesController')
   companiesModel.getonecompany(req.params)
@@ -10,6 +48,7 @@ companiesController.GETONECOMPANY = (req, res) => {
     })
     .catch(err => {
       console.log('error in GETONECOMPANY company controller', err)
+      return err
     })
 }
 
@@ -22,6 +61,7 @@ companiesController.GETALLCOMPANIES = (req, res) => {
     })
     .catch(err => {
       console.log('error in GETALLCOMPANIES company controller', err)
+      return err
     })
 }
 
@@ -34,6 +74,7 @@ companiesController.POSTCOMPANY = (req, res) => {
     })
     .catch(err => {
       console.log('error in POSTCOMPANY company controller', err)
+      return err
     })
 }
 
@@ -46,6 +87,7 @@ companiesController.DELETECOMPANY = (req, res) => {
     })
     .catch(err => {
       console.log('error in DELETECOMPANY company controller', err)
+      return err
     })
 }
 
@@ -60,6 +102,7 @@ companiesController.UPDATECOMPANY = (req, res) => {
     })
     .catch(err => {
       console.log('error in UPDATECOMPANY company controller', err)
+      return err
     })
 }
 

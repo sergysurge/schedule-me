@@ -1,5 +1,50 @@
 const Company = require('../db').Company
+const BrandName = require('../db').BrandName
 const companiesModel = {}
+
+companiesModel.getallbrandnames = () => {
+  return BrandName.findAll()
+}
+
+//SEARCH BRAND NAME BY ID or STRING, NOT FULL STRING
+companiesModel.getbrandname = brand => {
+  console.log(brand, '***brand')
+  if (Number(brand.val)) {
+    return BrandName.findOne({
+      where: {id: brand.val}
+    })
+  } else {
+    return BrandName.findAll({
+      where: {name: {$ilike: '%' + brand.val + '%'}}
+    })
+  }
+}
+
+companiesModel.postbrandname = brandName => {
+  return BrandName.findOrCreate({
+    where: {
+      $or: [
+        { name: brandName.name },
+        {id: brandName.id}
+      ]
+    },
+    defaults: {
+      name: brandName.name
+    }
+  })
+  .spread((newBrandName, created) => {
+    if (created) {
+      return {
+        success: true,
+        message: 'Brand Name Created'
+      }
+    }
+    return {
+      success: false,
+      message: 'Brand Name Already Exists, please make a new Brand Name'
+    }
+  })
+}
 
 companiesModel.getonecompany = data => {
   console.log('MODEL getonecompany:', data)
@@ -23,7 +68,8 @@ companiesModel.postcompany = data => {
       description: data.description,
       website: data.website,
       image: data.image,
-      logo: data.logo
+      logo: data.logo,
+      BrandNameId: data.brandNameId
     }
   })
   .spread((newComapny, created) => {
@@ -59,7 +105,8 @@ companiesModel.updatecompany = data => {
     description: data.description,
     website: data.website,
     image: data.image,
-    logo: data.logo
+    logo: data.logo,
+    BrandNameId: data.brandNameId
   },
     {
       where: {id: data.id}

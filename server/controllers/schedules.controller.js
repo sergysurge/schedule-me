@@ -12,6 +12,7 @@ schedulesController.GETONESCHEDULE = (req, res) => {
     })
     .catch(err => {
       console.log('error in GETONESCHEDULE scheduleController', err)
+      return err
     })
 }
 
@@ -25,6 +26,7 @@ schedulesController.GETSCHEDULES = (req, res) => {
     })
     .catch(err => {
       console.log('error in GETSCHEDULES scheduleController', err)
+      return err
     })
 }
 
@@ -39,6 +41,7 @@ schedulesController.POSTONESCHEDULE = (req, res) => {
     })
     .catch(err => {
       console.log('error in POSTONESCHEDULE schedulesController :', err)
+      return err
     })
 }
 
@@ -53,6 +56,7 @@ schedulesController.POSTSCHEDULES = (req, res) => {
     })
     .catch(err => {
       console.log('error in POSTSCHEDULES schedulesController', err)
+      return err
     })
 }
 

@@ -10,4 +10,9 @@ CompaniesRouter.post('/postcompany', companiesController.POSTCOMPANY)
 CompaniesRouter.post('/deletecompany', companiesController.DELETECOMPANY)
 CompaniesRouter.post('/updatecompany', companiesController.UPDATECOMPANY)
 
+/* BRAND NAMES CONTROLLERS CALLS */
+
+CompaniesRouter.get('/getallbrandnames', companiesController.GETALLBRANDNAMES)
+CompaniesRouter.get('/getbrandname/:val', companiesController.GETBRANDNAME)
+CompaniesRouter.post('/postbrandname', companiesController.POSTBRANDNAME)
 module.exports = CompaniesRouter

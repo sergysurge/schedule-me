@@ -14,6 +14,11 @@ const UserCompany = db.define('UserCompany', {
   }
 })
 
+const BrandName = db.define('BrandName', {
+  name: Sequelize.STRING
+})
+
+BrandName.hasMany(Company)
 UserCompany.hasMany(Schedule)
 
 User.belongsToMany(Company, {through: UserCompany})
@@ -39,5 +44,6 @@ module.exports = {
   Company: Company,
   User: User,
   UserCompany: UserCompany,
-  Schedule: Schedule
+  Schedule: Schedule,
+  BrandName: BrandName
 }
