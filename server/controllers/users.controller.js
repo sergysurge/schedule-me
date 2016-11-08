@@ -4,9 +4,11 @@ const generateToken = require('../helpers/jwt-tokens').generateToken
 const usersController = {}
 
 usersController.SIGNIN = function (req, res) {
-  const encodedCredentials = req.headers['authorization']
-  var email, password
-  [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
+  var email = req.query.email
+  var password = req.query.password
+  // const encodedCredentials = req.headers['authorization']
+  // var email, password
+  // [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
   usersModel.signin(email, password)
     .then(function (response) {
       if (response.success) {
@@ -26,7 +28,9 @@ usersController.SIGNIN = function (req, res) {
       }
     })
     .catch(function (err) {
-      res.status(500).send(err)
+      res.status(500).json({
+        response: err
+      })
     })
 }
 
@@ -99,6 +103,7 @@ usersController.REMOVE_USER_FROM_COMPANY = function (req, res) {
 
 usersController.UPDATE_USER_INFO = function (req, res) {
   const user = req.body.user
+  // expects user object with id, oldPassword and newInfo fields
   usersModel.updateUserInfo(user)
     .then((response) => {
       res.status(200).json({

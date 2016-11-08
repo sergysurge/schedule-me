@@ -31,7 +31,10 @@ usersModel.signin = function (email, password) {
     }
   })
   .catch(function (err) {
-    return err
+    return {
+      'success': false,
+      'message': err
+    }
   })
 }
 
@@ -204,19 +207,28 @@ usersModel.updateUserInfo = function (userInfo) {
           'message': 'user not found'
         }
       }
-      return user.update(userInfo)
-        .then((updatedUser) => {
-          return {
-            'success': true,
-            'message': 'user info updated'
-          }
-        })
-        .catch((err) => {
-          return {
-            'success': false,
-            'message': err
-          }
-        })
+      // user must input correct password to update info
+      if (user.checkPassword(userInfo.oldPassword)) {
+        return user.update(userInfo.newInfo)
+          .then((updatedUser) => {
+            return {
+              'success': true,
+              'message': 'user info updated'
+            }
+          })
+          .catch((err) => {
+            return {
+              'success': false,
+              'message': err
+            }
+          })
+      } else {
+        // incorrect password
+        return {
+          'success': false,
+          'message': 'incorrect password'
+        }
+      }
     })
     .catch((err) => {
       return {
