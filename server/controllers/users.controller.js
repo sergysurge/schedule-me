@@ -49,7 +49,7 @@ usersController.SIGNUP = function (req, res) {
     })
 }
 
-usersController.GETEMPLOYEES = function (req, res) {
+usersController.GET_EMPLOYEES = function (req, res) {
   const companyId = req.query.companyId
   usersModel.getEmployeesByCompany(companyId)
     .then(function (response) {
@@ -64,8 +64,29 @@ usersController.GETEMPLOYEES = function (req, res) {
     })
 }
 
-usersController.ADDEMPLOYEETOCOMPANY = function (req, res) {
-  
+usersController.ADD_USER_TO_COMPANY = function (req, res) {
+  const userId = req.body.userId
+  const companyId = req.body.companyId
+  const isAdmin = req.body.isAdmin
+  usersModel.addUserToCompany(userId, companyId, isAdmin)
+    .then(function (response) {
+      if (response.sucess) {
+        res.status(200).json({
+          response: response
+        })
+      } else {
+        // relation already exists
+        res.status(200).json({
+          response: response
+        })
+      }
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        response: err
+      })
+    })
 }
+
 
 module.exports = usersController

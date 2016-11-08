@@ -7,7 +7,9 @@ var UsersRouter = express.Router()
 UsersRouter.get('/signin', usersController.SIGNIN)
 UsersRouter.post('/signup', usersController.SIGNUP)
 
-// UsersRouter.get('/employees', usersController.GETEMPLOYEES)
-// UsersRouter.put('/employees', usersController.SETEMPLOYEES)
+UsersRouter.get('/employees', usersController.GET_EMPLOYEES)
+UsersRouter.put('/employees', usersController.ADD_USER_TO_COMPANY)
+
+// UsersRouter.put('/update', usersController.UPDATE_USER_INFO)
 
 module.exports = UsersRouter

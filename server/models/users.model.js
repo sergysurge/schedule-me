@@ -66,18 +66,18 @@ usersModel.signup = function (user) {
 usersModel.getEmployeesByCompany = function (companyId) {
   return Company.findById(companyId)
     .then(function (company) {
-      company.getUsers()
-        .then(function (users) {
-          if (users.length) {
-            return {
-              'success': true,
-              'message': 'employees found',
-              'employees': users
-            }
-          }
+      if (!company) {
+        return {
+          'success': false,
+          'message': 'company not found'
+        }
+      }
+      return company.getUsers()
+        .then(function (users) { 
           return {
             'success': true,
-            'message': 'no employees found'
+            'message': 'employees found',
+            'employees': users
           }
         })
         .catch(function (err) {
@@ -95,8 +95,48 @@ usersModel.getEmployeesByCompany = function (companyId) {
     })
 }
 
-usersModel.addUserToCompany = function (userId, companyId) {
-  
+usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
+  return User.findById(userId)
+    .then(function (user) {
+      // check if user already connected to company
+      return user.getCompanies({
+        where: {
+          id: companyId
+        }
+      })
+      .then(function (companies) {
+        if (companies.length) {
+          return {
+            'success': false,
+            'message': 'relation between user and company already exists'
+          }
+        }
+        // add user to company
+        return Company.findById(companyId)
+          .then(function (company) {
+            return user.addCompany(company, { admin: isAdmin })
+              .then(function (association) {
+                return {
+                  'success': true,
+                  'message': 'user added to company',
+                  'association': association[0][0]
+                }
+              })
+              .catch(function (err) {
+                return {
+                  'success': false,
+                  'message': err
+                }
+              })
+          })
+          .catch(function (err) {
+            return {
+              'success': false,
+              'message': err
+            }
+          })
+      })
+    })
 }
 
 module.exports = usersModel
