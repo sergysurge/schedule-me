@@ -1,6 +1,8 @@
 const jwt = require('jwt-simple')
+const isUserAdmin = require('./helpers').isUserAdmin
+const getToken = require('./helpers').getToken
 
-const authenticateToken = function (req, res, next) {
+const authenticateToken = (req, res, next) => {
 // expects Authorization header of the form: 'Bearer <token>'
   const token = getToken(req.headers)
   if (!token) {
@@ -19,18 +21,29 @@ const authenticateToken = function (req, res, next) {
   }
 }
 
-function getToken (header) {
-  if (header['Authorization']) {
-    if (header['Authorization'].indexOf('Bearer') !== -1) {
-      return header['Authorization'].split(' ')[1]
-    } else {
-      return false
-    }
-  } else {
-    return false
-  }
+const checkAdminAuthorization = (req, res, next) => {
+  // check user_id and company_id for admin privelege
+  const userId = req.query.userId
+  const companyId = req.query.companyId
+  isUserAdmin(userId, companyId)
+    .then((response) => {
+      if (response) {
+        next()
+      } else {
+        res.status(400).json({
+          response: 'not authorized'
+        })
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        response: err
+      })
+    })
 }
 
+
 module.exports = {
-  authenticateToken: authenticateToken
+  authenticateToken: authenticateToken,
+  checkAdminAuthorization: checkAdminAuthorization
 }

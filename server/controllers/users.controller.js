@@ -1,5 +1,5 @@
 const usersModel = require('../models').usersModel
-const generateToken = require('../helpers/jwt-tokens').generateToken
+const generateToken = require('../helpers').generateToken
 
 const usersController = {}
 
