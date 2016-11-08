@@ -73,11 +73,21 @@ usersModel.getEmployeesByCompany = function (companyId) {
         }
       }
       return company.getUsers()
-        .then(function (users) { 
+        .then(function (users) {
+          var employees = users.map((user) => {
+            return {
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              phoneNumer: user.phoneNumber,
+              image: user.image
+            }
+          })
           return {
             'success': true,
             'message': 'employees found',
-            'employees': users
+            'employees': employees
           }
         })
         .catch(function (err) {
@@ -98,6 +108,12 @@ usersModel.getEmployeesByCompany = function (companyId) {
 usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
   return User.findById(userId)
     .then(function (user) {
+      if (!user) {
+        return {
+          'success': false,
+          'message': 'user not found'
+        }
+      }
       // check if user already connected to company
       return user.getCompanies({
         where: {
@@ -114,6 +130,12 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
         // add user to company
         return Company.findById(companyId)
           .then(function (company) {
+            if (!company) {
+              return {
+                'success': false,
+                'message': 'company not found'
+              }
+            }
             return user.addCompany(company, { admin: isAdmin })
               .then(function (association) {
                 return {
@@ -136,6 +158,40 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
             }
           })
       })
+    })
+}
+
+usersModel.removeUserFromCompany = function (userId, companyId) {
+  return Company.findById(companyId)
+    .then(function (company) {
+      if (!company) {
+        return {
+          'success': false,
+          'message': 'company not found'
+        }
+      }
+      return User.findById(userId)
+        .then(function (user) {
+          if (!user) {
+            return {
+              'success': false,
+              'message': 'user not found'
+            }
+          }
+          return company.removeUser(user)
+            .then(function () {
+              return {
+                'success': true,
+                'message': 'user removed'
+              }
+            })
+            .catch(function (err) {
+              return {
+                'success': false,
+                'message': err
+              }
+            })
+        })
     })
 }
 

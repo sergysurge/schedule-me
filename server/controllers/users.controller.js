@@ -70,16 +70,9 @@ usersController.ADD_USER_TO_COMPANY = function (req, res) {
   const isAdmin = req.body.isAdmin
   usersModel.addUserToCompany(userId, companyId, isAdmin)
     .then(function (response) {
-      if (response.sucess) {
-        res.status(200).json({
-          response: response
-        })
-      } else {
-        // relation already exists
-        res.status(200).json({
-          response: response
-        })
-      }
+      res.status(200).json({
+        response: response
+      })
     })
     .catch(function (err) {
       res.status(500).json({
@@ -88,5 +81,20 @@ usersController.ADD_USER_TO_COMPANY = function (req, res) {
     })
 }
 
+usersController.REMOVE_USER_FROM_COMPANY = function (req, res) {
+  const userId = req.body.userId
+  const companyId = req.body.companyId
+  usersModel.removeUserFromCompany(userId, companyId)
+    .then(function (response) {
+      res.status(200).json({
+        response: response
+      })
+    })
+    .catch(function (err) {
+      res.status(500).json({
+        response: err
+      })
+    })
+}
 
 module.exports = usersController
