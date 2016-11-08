@@ -26,18 +26,8 @@ module.exports = function (db) {
     }
   }, {
     hooks: {
-      beforeCreate: function (user, options, callback) {
-        // hash password before saving
-        var salt = bcrypt.genSaltSync(10)
-        bcrypt.hash(user.password, salt, null, function (err, hash) {
-          if (err) {
-            console.log('error hashing password: ', err)
-            callback(err, null)
-          }
-          user.password = hash
-          callback(null, user)
-        })
-      }
+      beforeCreate: hashPassword,
+      beforeUpdate: hashPassword
     },
     instanceMethods: {
       checkPassword: function (candidatePassword) {
@@ -47,5 +37,17 @@ module.exports = function (db) {
   })
 
   return User
+}
+
+function hashPassword (user, options, callback) {
+  // hash password before saving
+  var salt = bcrypt.genSaltSync(10)
+  bcrypt.hash(user.password, salt, null, function (err, hash) {
+    if (err) {
+      callback(err, null)
+    }
+    user.password = hash
+    callback(null, user)
+  })
 }
 
