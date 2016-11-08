@@ -195,4 +195,35 @@ usersModel.removeUserFromCompany = function (userId, companyId) {
     })
 }
 
+usersModel.updateUserInfo = function (userInfo) {
+  return User.findById(userInfo.id)
+    .then((user) => {
+      if (!user) {
+        return {
+          'success': false,
+          'message': 'user not found'
+        }
+      }
+      return user.update(userInfo)
+        .then((updatedUser) => {
+          return {
+            'success': true,
+            'message': 'user info updated'
+          }
+        })
+        .catch((err) => {
+          return {
+            'success': false,
+            'message': err
+          }
+        })
+    })
+    .catch((err) => {
+      return {
+        'success': false,
+        'message': err
+      }
+    })
+}
+
 module.exports = usersModel

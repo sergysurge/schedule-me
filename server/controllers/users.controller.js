@@ -97,4 +97,19 @@ usersController.REMOVE_USER_FROM_COMPANY = function (req, res) {
     })
 }
 
+usersController.UPDATE_USER_INFO = function (req, res) {
+  const user = req.body.user
+  usersModel.updateUserInfo(user)
+    .then((response) => {
+      res.status(200).json({
+        response: response
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        response: err
+      })
+    })
+}
+
 module.exports = usersController
