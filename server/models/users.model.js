@@ -3,13 +3,13 @@ const Company = require('../db').Company
 
 const usersModel = {}
 
-usersModel.signin = function (email, password) {
+usersModel.signin = (email, password) => {
   return User.findOne({
     where: {
       email: email
     }
   })
-  .then(function (user) {
+  .then((user) => {
     if (user) {
       if (user.checkPassword(password)) {
         return {
@@ -30,7 +30,7 @@ usersModel.signin = function (email, password) {
       }
     }
   })
-  .catch(function (err) {
+  .catch((err) => {
     return {
       'success': false,
       'message': err
@@ -38,7 +38,7 @@ usersModel.signin = function (email, password) {
   })
 }
 
-usersModel.signup = function (user) {
+usersModel.signup = (user) => {
   return User.findOrCreate({
     where: {
       email: user.email
@@ -51,7 +51,7 @@ usersModel.signup = function (user) {
       image: user.image
     }
   })
-  .spread(function (newUser, created) {
+  .spread((newUser, created) => {
     if (created) {
       return {
         'success': true,
@@ -66,9 +66,9 @@ usersModel.signup = function (user) {
   })
 }
 
-usersModel.getEmployeesByCompany = function (companyId) {
+usersModel.getEmployeesByCompany = (companyId) => {
   return Company.findById(companyId)
-    .then(function (company) {
+    .then((company) => {
       if (!company) {
         return {
           'success': false,
@@ -76,7 +76,7 @@ usersModel.getEmployeesByCompany = function (companyId) {
         }
       }
       return company.getUsers()
-        .then(function (users) {
+        .then((users) => {
           var employees = users.map((user) => {
             return {
               id: user.id,
@@ -93,14 +93,14 @@ usersModel.getEmployeesByCompany = function (companyId) {
             'employees': employees
           }
         })
-        .catch(function (err) {
+        .catch((err) => {
           return {
             'success': false,
             'message': err
           }
         })
     })
-    .catch(function (err) {
+    .catch((err) => {
       return {
         'success': false,
         'message': err
@@ -110,7 +110,7 @@ usersModel.getEmployeesByCompany = function (companyId) {
 
 usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
   return User.findById(userId)
-    .then(function (user) {
+    .then((user) => {
       if (!user) {
         return {
           'success': false,
@@ -123,7 +123,7 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
           id: companyId
         }
       })
-      .then(function (companies) {
+      .then((companies) => {
         if (companies.length) {
           return {
             'success': false,
@@ -132,7 +132,7 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
         }
         // add user to company
         return Company.findById(companyId)
-          .then(function (company) {
+          .then((company) => {
             if (!company) {
               return {
                 'success': false,
@@ -140,21 +140,21 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
               }
             }
             return user.addCompany(company, { admin: isAdmin })
-              .then(function (association) {
+              .then((association) => {
                 return {
                   'success': true,
                   'message': 'user added to company',
                   'association': association[0][0]
                 }
               })
-              .catch(function (err) {
+              .catch((err) => {
                 return {
                   'success': false,
                   'message': err
                 }
               })
           })
-          .catch(function (err) {
+          .catch((err) => {
             return {
               'success': false,
               'message': err
@@ -164,9 +164,9 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
     })
 }
 
-usersModel.removeUserFromCompany = function (userId, companyId) {
+usersModel.removeUserFromCompany = (userId, companyId) => {
   return Company.findById(companyId)
-    .then(function (company) {
+    .then((company) => {
       if (!company) {
         return {
           'success': false,
@@ -174,7 +174,7 @@ usersModel.removeUserFromCompany = function (userId, companyId) {
         }
       }
       return User.findById(userId)
-        .then(function (user) {
+        .then((user) => {
           if (!user) {
             return {
               'success': false,
@@ -182,13 +182,13 @@ usersModel.removeUserFromCompany = function (userId, companyId) {
             }
           }
           return company.removeUser(user)
-            .then(function () {
+            .then(() => {
               return {
                 'success': true,
                 'message': 'user removed'
               }
             })
-            .catch(function (err) {
+            .catch((err) => {
               return {
                 'success': false,
                 'message': err
@@ -198,7 +198,7 @@ usersModel.removeUserFromCompany = function (userId, companyId) {
     })
 }
 
-usersModel.updateUserInfo = function (userInfo) {
+usersModel.updateUserInfo = (userInfo) => {
   return User.findById(userInfo.id)
     .then((user) => {
       if (!user) {
