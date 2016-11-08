@@ -37,5 +37,6 @@ module.exports = {
   Appointment: Appointment,
   Company: Company,
   User: User,
-  UserCompany: UserCompany
+  UserCompany: UserCompany,
+  Schedule: Schedule
 }
