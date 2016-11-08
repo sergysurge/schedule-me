@@ -24,6 +24,7 @@ Company.belongsToMany(User, {through: UserCompany})
 
 Appointment.belongsTo(User, {as: 'customer'})
 Appointment.belongsTo(User, {as: 'employee'})
+Appointment.belongsTo(Company)
 
 // HELPER TO DROP ALL TABLES
 // db.sync({force: true}).then(function () {
