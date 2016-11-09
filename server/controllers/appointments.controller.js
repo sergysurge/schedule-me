@@ -1,8 +1,8 @@
 const appointmentsController = {}
-const Appointment = require('../models/index').appointmentsModel  
+const Appointment = require('../models/index').appointmentsModel
 
 appointmentsController.GET = function (req, res) {
-    const post = req.params
+  const post = req.params
   Appointment
   .getAppointments(post.employeeId)
   .then(appointment => {

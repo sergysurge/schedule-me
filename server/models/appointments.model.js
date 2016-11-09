@@ -22,18 +22,6 @@ appointmentsModel.addAppointment = (obj) => {
   return Appointments
     .create(obj)
         .then(newAppointment => {
-        //   User.find({
-
-        //   })
-        //   return newAppointment.setCustomer({})
-        //     .then(data => {
-        //       console.log('this is DATA', data)
-        //       return data
-        //   })
-        //   .catch(err => {
-        //     console.log('error with the creation of apointment relationship')
-        //     return err
-        //   })
           return newAppointment
         })
         .catch(err => {
