@@ -15,4 +15,13 @@ CompaniesRouter.post('/updatecompany', companiesController.UPDATECOMPANY)
 CompaniesRouter.get('/getallbrandnames', companiesController.GETALLBRANDNAMES)
 CompaniesRouter.get('/getbrandname/:val', companiesController.GETBRANDNAME)
 CompaniesRouter.post('/postbrandname', companiesController.POSTBRANDNAME)
+
+/* OPTIONS CONTROLLERS CALLS */
+CompaniesRouter.get('/getalloptions', companiesController.GETALLOPTIONS)
+CompaniesRouter.post('/postoneoption', companiesController.POSTONEOPTION)
+CompaniesRouter.post('/updateoption', companiesController.UPDATEOPTION)
+CompaniesRouter.post('/deleteoption', companiesController.DELETEOPTION)
+
+
+
 module.exports = CompaniesRouter

@@ -1,7 +1,65 @@
 const Company = require('../db').Company
 const BrandName = require('../db').BrandName
+const Option = require('../db').Option
 const companiesModel = {}
 
+/*            OPTIONS             */
+companiesModel.getalloptions = () => {
+  return Option.findAll()
+}
+
+companiesModel.postoneoption = (option) => {
+  return Option.findOrCreate({
+    where: {
+      service: option.service
+    },
+    defaults: {
+      duration: option.duration,
+      service: option.service,
+      description: option.description,
+      companyId: option.companyId
+    }
+  })
+  .spread((newOption, created) => {
+    if (created) {
+      return {
+        success: true,
+        message: 'Option Created : ' + option.name
+      }
+    }
+    return {
+      success: false,
+      message: 'Option ' + option.name + ' Already Exists, please make a new Option'
+    }
+  })
+}
+
+companiesModel.updateoption = option => {
+  return Option.update({
+    duration: option.duration,
+    service: option.service,
+    description: option.description,
+    companyId: option.companyId,
+    id: option.id
+  },
+    {
+      where: {
+        id: option.id
+      }
+    })
+}
+
+companiesModel.deleteoption = option => {
+  return Option.destroy({
+    where: {
+      id: option.id
+    }
+  })
+}
+
+/*            OPTIONS END             */
+
+/*            BRAND NAMES             */
 companiesModel.getallbrandnames = () => {
   return BrandName.findAll()
 }
@@ -25,7 +83,7 @@ companiesModel.postbrandname = brandName => {
     where: {
       $or: [
         { name: brandName.name },
-        {id: brandName.id}
+        { id: brandName.id }
       ]
     },
     defaults: {
@@ -45,7 +103,9 @@ companiesModel.postbrandname = brandName => {
     }
   })
 }
+/*            BRAND NAMES END             */
 
+/*            COMPANY             */
 companiesModel.getonecompany = data => {
   console.log('MODEL getonecompany:', data)
   return Company.findById(data.id)
@@ -112,4 +172,6 @@ companiesModel.updatecompany = data => {
       where: {id: data.id}
     })
 }
+
+/*            COMPANY END             */
 module.exports = companiesModel

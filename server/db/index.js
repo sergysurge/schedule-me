@@ -18,6 +18,13 @@ const BrandName = db.define('BrandName', {
   name: Sequelize.STRING
 })
 
+const Option = db.define('Option', {
+  duration: Sequelize.INTEGER,
+  service: Sequelize.STRING,
+  description: Sequelize.STRING
+})
+
+Company.hasMany(Option)
 BrandName.hasMany(Company)
 UserCompany.hasMany(Schedule)
 
@@ -45,5 +52,6 @@ module.exports = {
   User: User,
   UserCompany: UserCompany,
   Schedule: Schedule,
-  BrandName: BrandName
+  BrandName: BrandName,
+  Option: Option
 }
