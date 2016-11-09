@@ -11,54 +11,8 @@ describe('test spec', function () {
   })
 })
 
-xdescribe('user routing', function() {
-  it('should route requests for /api/users/signin', function (done) {
-    var options = {
-      url: 'http://localhost:8000/api/users/signin',
-      method: 'GET'
-    }
-    request(options, function (err, response, body) {
-      expect(response.statusCode).to.equal(200)
-      done()
-    })
-  })
-  it('should route requests for /api/users/signup', function (done) {
-    var options = {
-      url: 'http://localhost:8000/api/users/signup',
-      method: 'POST'
-    }
-    request(options, function (err, response, body) {
-      expect(response.statusCode).to.equal(200)
-      done()
-    })
-  })
-})
-
-xdescribe('User table unit tests', function () {
-  it('should be able to create new user in User table', function (done) {
-    User.create({
-      firstName: 'dummy',
-      lastName: 'dummy',
-      email: 'lu@lu.com',
-      password: 'lu',
-      phoneNumber: '111-111-1111',
-      image: 'http://www.google.com'
-    })
-    .then(function (user) {
-      expect(user.firstName).to.equal('dummy')
-      expect(user.password).to.not.equal('dummy')
-      user.destroy()
-      done()
-    })
-    .catch(function (err) {
-      console.log('error creating user: ', err)
-      done()
-    })
-  })
-})
-
 describe ('User signup', function (done) {
-  it ('should create new entry in User table', function (done) {
+  it ('new user should be able to sign up', function (done) {
     var newUser = {
       firstName: 'test1',
       lastName: 'test1',
@@ -134,12 +88,8 @@ describe ('User signup', function (done) {
         expect(body.response.success).to.equal(false)
         expect(body.response.message).to.equal('user already exists')
 
-        User.findOne({
-          where: {
-            id: userId
-          }
-        })
-        .then(function (user) {
+        User.findById(userId)
+        .then((user) => {
           user.destroy()
           done()
         })
@@ -148,10 +98,10 @@ describe ('User signup', function (done) {
   })
 })
 
-xdescribe('User signin', function() {
-  const newEmail = 'nomore@onomore.com'
-  const password = 'password'
-
+describe('User signin', function () {
+  const newEmail = 'testing5@testing5.com'
+  var password = 'password'
+  var newUserId
   const signinOptions = {
     url: 'http://localhost:8000/api/users/signin',
     method: 'GET',
@@ -159,7 +109,14 @@ xdescribe('User signin', function() {
       'Authorization': new Buffer(`${newEmail}:${password}`).toString('base64')
     }
   }
-  const newUser = {
+  const signinWithWrongPasswordOptions = {
+    url: 'http://localhost:8000/api/users/signin',
+    method: 'GET',
+    headers: {
+      'Authorization': new Buffer(`${newEmail}:wrongPassword`).toString('base64')
+    }
+  }
+  var newUser = {
     firstName: 'new',
     lastName: 'new',
     email: newEmail,
@@ -184,30 +141,33 @@ xdescribe('User signin', function() {
         user: newUser
       }
     }
+    // create new user
     request(signupOptions, function (err, response, body) {
       expect(response.statusCode).to.equal(200)
       expect(body.response.success).to.equal(true)
 
-      request(signinOptions, function (err, response, body) {
+      // signin with wrong password
+      request(signinWithWrongPasswordOptions, function (err, response, body) {
         const parsed = JSON.parse(body)
-        expect(response.statusCode).to.equal(200)
-        expect(parsed.response.success).to.equal(true)
-        expect(parsed.token).to.exist
+        expect(response.statusCode).to.equal(403)
+        expect(parsed.response.message).to.equal('incorrect password')
 
-        User.findOne({
-          where: {
-            id: parsed.response.userId
-          }
+        // signin with correct password
+        request(signinOptions, function (err, response, body) {
+          const parsed = JSON.parse(body)
+          expect(response.statusCode).to.equal(200)
+          expect(parsed.response.success).to.equal(true)
+          expect(parsed.token).to.exist
+          // save user id to delete new user at end of test
+          newUserId = parsed.response.userId
+
+          User.findById(newUserId)
+            .then((user) => {
+              user.destroy()
+            })
+          done()
         })
-        .then(function (user) {
-          user.destroy()
-        })
-        done()
       })
     })
   })
-
-  // it('should send appropriate response if wrong password entered', function(done) {
-
-  // })
 })

@@ -1,5 +1,5 @@
 const jwt = require('jwt-simple')
-const User = require('./models').User
+const User = require('../db').User
 
 const getToken = (header) => {
   if (header['authorization']) {
