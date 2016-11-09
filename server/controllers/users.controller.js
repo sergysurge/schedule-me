@@ -1,14 +1,14 @@
 const usersModel = require('../models').usersModel
-const generateToken = require('../helpers/jwt-tokens').generateToken
+const generateToken = require('../helpers').generateToken
 
 const usersController = {}
 
 usersController.SIGNIN = function (req, res) {
-  var email = req.query.email
-  var password = req.query.password
-  // const encodedCredentials = req.headers['authorization']
-  // var email, password
-  // [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
+  // var email = req.query.email
+  // var password = req.query.password
+  const encodedCredentials = req.headers['authorization']
+  var email, password
+  [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
   usersModel.signin(email, password)
     .then((response) => {
       if (response.success) {
