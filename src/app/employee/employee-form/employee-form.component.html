@@ -1,0 +1,36 @@
+<!--<p-dropdown [options]="cars"></p-dropdown>-->
+
+<!--<select id="employee"><option *ngFor="let employee of employees" [value]="employee">{{employee.label}}</option></select>-->
+<h1>Make Appointment</h1>
+<form >
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" name="name" >
+    </div>
+    <div class="form-group">
+      <label>Employee</label>
+    <select id="employee">
+      <option *ngFor="let employee of employees" [value]="employee">
+        {{employee.label}}
+      </option>
+    </select>
+    <div class="ui-g-12 ui-md-4">
+      <label>Date</label>
+      <p-calendar></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+    </div>
+    <div class="form-group">
+      <label>Times</label>
+      <select multiple name="hours" class="form-control">
+        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.value}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Service</label>
+      <select multiple name="service" class="form-control">
+        <option *ngFor="let service of services" [value]="service.value">{{service.value}}</option>
+      </select>
+    </div>
+
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
