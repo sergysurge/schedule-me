@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ElementRef } from '@angular/core';
+// import * as jQuery from 'jquery';
+declare var jQuery: JQueryStatic;
 @Component({
   selector: 'app-employee-schedule',
   templateUrl: './employee-schedule.component.html',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeScheduleComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private schedule: ElementRef, private el: ElementRef) { }
+  // schedule = ;
   ngOnInit() {
   }
+  // ngAfterViewInit() {
+  //   this.schedule = jQuery(this.el.nativeElement.children[0]);
+  // }
 
 }

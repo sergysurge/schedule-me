@@ -8,7 +8,7 @@ import { AppServiceService } from './app-service.service';
 import { EmployeeServiceService } from './employee/employee-service.service'
 
 import { EmployeeModule } from './employee/employee.module';
-import { ScheduleModule , DropdownModule , CalendarModule} from 'primeng/primeng';
+// import { ScheduleModule , DropdownModule , CalendarModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -19,9 +19,9 @@ import { ScheduleModule , DropdownModule , CalendarModule} from 'primeng/primeng
     BrowserModule,
     FormsModule,
     HttpModule,
-    EmployeeModule,
-    ScheduleModule,
-    DropdownModule
+    EmployeeModule
+    // ScheduleModule,
+    // DropdownModule
   ],
   providers: [AppServiceService, EmployeeServiceService],
   bootstrap: [AppComponent]
