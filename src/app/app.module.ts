@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppServiceService } from './app-service.service';
+import { CompanyModule } from './company/company.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AppServiceService } from './app-service.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    CompanyModule
   ],
   providers: [AppServiceService],
   bootstrap: [AppComponent]

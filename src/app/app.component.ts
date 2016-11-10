@@ -15,4 +15,5 @@ export class AppComponent {
   }
   title = 'app works!';
   companies;
+  trial;
 }
