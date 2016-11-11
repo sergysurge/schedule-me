@@ -1,0 +1,56 @@
+
+<!---->
+<h3> Current Employees </h3>
+<div>
+  <ul >
+    <li *ngFor="let d of asyncString | async">{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
+  </ul>
+</div>
+<hr>
+<h3> Search for User </h3>
+  <p> Under Construction</p>
+<hr>
+
+<h3> Add Employee </h3>
+<form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="userId"> UserId </label>
+    <input type="number" id="userId" class="form-control" formControlName="userId">
+    <div *ngIf="!addEmployeeForm.controls['userId'].valid">
+      suck it
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="companyId"> CompanyId </label>
+    <input type="number" id="companyId" class="form-control" formControlName="companyId">
+    <div *ngIf="!addEmployeeForm.controls['companyId'].valid">
+      suck it
+    </div>
+  </div>
+  <div class="radio" *ngFor="let a of admin">
+    <label>
+      <input type="radio" formControlName="isAdmin" [value]="a"> {{a}}
+    </label>
+  </div>
+  <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>
+</form>
+
+<h3> Delete Employee </h3>
+
+<form [formGroup]="deleteEmployeeForm" (ngSubmit)="deleteEmployeeSubmit()">
+  <div class="form-group">
+    <label for="userId">Enter User Id</label>
+    <input type="number" id="userId" class="form-control" formControlName="userId">
+    <label for="companyId">Enter Company Id</label>
+    <input type="number" id="companyId" class="form-control" formControlName="companyId">
+  </div>
+  <button type="submit" [disabled]="!deleteEmployeeForm.valid">Submit</button>
+</form>
+
+
+<!-- classes - ng-untouched, ng-pristine, ng-invalid -->
+<!-- if you want to just set the values for the fields,
+use [ngModel]="addEmployee" -->
+<!-- if you want doubledata binding just set the values for the fields,
+use [(ngModel)]="addEmployee" 
+****** IF DOUBLE DATA BINDING, CAN STILL SUBMIT FORM IF INVALID? THE DATA DOES CHANGE-->
