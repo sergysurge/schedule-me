@@ -1,5 +1,6 @@
 const Appointments = require('../db').Appointment
 const User = require('../db').User
+const Company = require('../db').Company
 const appointmentsModel = {}
 
 appointmentsModel.getEmployeeAppointments = (employeeId) => {
@@ -23,7 +24,13 @@ appointmentsModel.getCustomerAppointments = (customerId) => {
     .findAll({
       where: {
         customerId: customerId
-      }
+      },
+      include: [{
+        model: User,
+        as: 'employee'
+      }, {
+        model: Company
+      }]
     })
     .then(appointments => {
       return appointments
