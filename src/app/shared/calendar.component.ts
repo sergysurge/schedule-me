@@ -12,6 +12,7 @@ require('style-loader!fullcalendar/dist/fullcalendar.css');
 export class CalendarComponent implements AfterViewInit {
 
   constructor(private el: ElementRef) { }
+  
   @Input() calendarConfig
   schedule: any;
 
@@ -25,7 +26,7 @@ export class CalendarComponent implements AfterViewInit {
   
   // events: any[] = [{title: 'blah', start: this.x, end: this.y}];
 
-  // options = {
+  // calendarConfig = {
   //   header: this.headers,
   //   defaultView: 'agendaWeek',
   //   events: this.events,
