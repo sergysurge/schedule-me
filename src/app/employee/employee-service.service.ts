@@ -18,6 +18,7 @@ export class EmployeeServiceService {
       //   console.log(response)
       // })
   }
+
   makeAppointment(body: Object): Promise<any> {
     return this.http.post('/api/appointments', body)
       .toPromise()
@@ -28,4 +29,13 @@ export class EmployeeServiceService {
     return this.http.get('api/users/employees/?companyId='+ id)
       .map((response: Response) => response)
   }
+
+
+
+  // getEmployeeCalendarData(userCompanyId): Observable<any> {
+  //   const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
+  //   // const employeeAppointmentsUrl = ''
+  //   // return this.http.get()
+  // }
+
 }
