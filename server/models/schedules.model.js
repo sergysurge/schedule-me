@@ -1,20 +1,21 @@
 const Schedule = require('../db').Schedule
-
+const UserCompany = require('../db').UserCompany
 const scheduleModel = {}
 
 scheduleModel.getoneschedule = userCompanyId => {
-  // console.log('MODEL getoneschedule:', userCompanyId)
-  return Schedule.findAll({
-    where: {
-      UserCompanyId: userCompanyId
-    }
-  })
-  .then((schedules) => {
-    return schedules
-  })
-  .catch((err) => {
-    return err
-  })
+  return UserCompany.findById(userCompanyId)
+    .then((userCompany) => {
+      return userCompany.getSchedules()
+      .then((schedules) => {
+        return schedules
+      })
+      .catch((err) => {
+        return err
+      })
+    })
+    .catch((err) => {
+      return err
+    })
 }
 
 scheduleModel.getschedules = userCompanyIdsArray => {
