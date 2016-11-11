@@ -5,7 +5,7 @@ const schedulesController = {}
 //should be used with user_controller get company id
 schedulesController.GETONESCHEDULE = (req, res) => {
   //console.log(req.params, 'req.params GETONESCHEDULE, schedulesController')
-  scheduleModel.getoneschedule(req.params)
+  scheduleModel.getoneschedule(req.params.userCompanyId)
     .then(schedule => {
       //console.log('ABOUT TO SEND ONE SCHEDULE FROM CONTROLLER ', schedule)
       res.send(schedule)
@@ -18,8 +18,9 @@ schedulesController.GETONESCHEDULE = (req, res) => {
 
 //should send the user_company_id as array [1,2,3]
 schedulesController.GETSCHEDULES = (req, res) => {
+  const userCompanyIdsArray = JSON.parse(req.query.userCompanyIds)
   //console.log(req.params. 'req.params GETSCHEDULES, scheduleController')
-  scheduleModel.getschedules(req.params)
+  scheduleModel.getschedules(userCompanyIdsArray)
     .then(schedules => {
       //console.log('ABOUT TO SEND ALL Schedules FROM scheduleController ', schedules)
       res.send(schedules)
