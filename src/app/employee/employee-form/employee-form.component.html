@@ -5,36 +5,42 @@
 <form >
     <div class="form-group">
       <label>Name</label>
-      <input type="text" class="form-control" name="name"  >
+      <input type="text" class="form-control" name="name" [(ngModel)]="person.name" placeholder="Name" >
     </div>
     <div class="form-group">
       <label>Number</label>
-      <input type="text" class="form-control" name="number" >
+      <input type="text" class="form-control" name="number" [(ngModel)]="person.number" placeholder="Number">
     </div>
     <div class="form-group">
       <label>Employee</label>
-    <select id="employee">
-      <option *ngFor="let employee of employees" [value]="employee">
-        {{employee.label}}
+    <select [(ngModel)]="person.employee" [ngModelOptions]="{standalone: true}">
+      <option *ngFor="let employee of employees" [ngValue]="employee">
+        {{employee.firstName}}
       </option>
     </select>
     <div class="ui-g-12 ui-md-4">
       <label>Date</label>
-      <p-calendar></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+      <p-calendar [(ngModel)]="person.date" [ngModelOptions]="{standalone: true}"></p-calendar> 
+      <span style="margin-left:35px">{{date3|date}}</span>
     </div>
     <div class="form-group">
       <label>Times</label>
-      <select multiple name="hours" class="form-control">
-        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.value}}</option>
+      <select multiple name="hours" class="form-control" [(ngModel)]="person.time" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let hour of hours" [value]="hour.label">{{hour.label}}</option>
       </select>
     </div>
     <div class="form-group">
       <label>Service</label>
-      <select multiple name="service" class="form-control">
-        <option *ngFor="let service of services" [value]="service.value">{{service.value}}</option>
+      <select multiple name="service" class="form-control" [(ngModel)]="person.service" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let service of services" [value]="service.label">{{service.label}}</option>
       </select>
     </div>
-
+    {{person.date}}
+    {{person.name}}
+    {{person.number}}
+    {{person.employee}}
+    {{person.time}}
+    {{person.service}}
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button (click)='onClicked()' class="btn btn-default">Submit</button>
   </form>

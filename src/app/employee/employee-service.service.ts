@@ -17,4 +17,12 @@ export class EmployeeServiceService {
       //   console.log(response)
       // })
   }
+  makeAppointment(body: Object): Observable<any> {
+    return this.http.post('/api/appointments', body)
+      .map((response: Response) => response)
+  }
+  getEmployees(id: Number): Observable<any> {
+    return this.http.get('api/users/employees/?companyId='+ id)
+      .map((response: Response) => response)
+  }
 }

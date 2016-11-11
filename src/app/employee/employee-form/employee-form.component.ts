@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import {SelectItem} from 'primeng/primeng';
+
+import {EmployeeServiceService} from '../employee-service.service'
 
 @Component({
   selector: 'app-employee-form',
@@ -16,8 +18,29 @@ export class EmployeeFormComponent {
 
     selectedEmployee: string = 'Lucy';
 
-    constructor() {
+    person = {
+      name: '',
+      number: '',
+      employee: '',
+      date: '',
+      times: '',
+      service: ''
+    }
+  @Output() clicked = new EventEmitter<string>();
+    onClicked(){
+    alert(this.employees);
+    this.clicked.emit('It works!')
+    }
+    constructor(employeeServiceService:EmployeeServiceService) {
        
+        employeeServiceService.getEmployees(1)
+        .subscribe(
+          employee => {
+          this.employees = employee.json().response.employees
+          console.log("emmmmmmmpppploooyyeees", this.employees)
+        }
+        )
+
         this.employees = [];
         this.employees.push({label: 'Lucy', value: 'Audi'});
         this.employees.push({label: 'Chris', value: 'BMW'});
@@ -34,7 +57,6 @@ export class EmployeeFormComponent {
         this.services.push({label: "Manicure",value: "Manicure"})
         this.services.push({label: "Pedicure",value: "Pedicure"})
         this.services.push({label: "Wax",value: "Wax"})
-    }
-
-
+        
+  }
 }
