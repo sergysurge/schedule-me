@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { AppServiceService } from './app-service.service';
 
 import { CustomerModule } from './customer/customer.module';
-import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+// import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     CustomerModule,
-    AppRoutingModule
+    SharedModule
   ],
   providers: [AppServiceService],
   bootstrap: [AppComponent]

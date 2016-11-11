@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-customer-appointments',
+  selector: 'app-appointment-calendar',
   template: `
     <p>
-      customer-appointments Works!
+      appointment-calendar Works!
     </p>
   `,
   styles: []
 })
-export class CustomerAppointmentsComponent implements OnInit {
+export class AppointmentCalendarComponent implements OnInit {
 
   constructor() { }
 
