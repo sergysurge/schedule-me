@@ -1,3 +1,27 @@
-<p>
-  employee-schedule works!
-</p>
+<h1> Schedules </h1>
+<h3> Current Employees </h3>
+<div>
+  <ul>
+    <li (click)="setEmployee(e.id)"*ngFor="let e of employees | async"> {{e.id}} | {{e.admin}} | {{e.userId}}</li>
+  </ul>
+</div>
+<h3> Employee Scheduel</h3>
+<div>
+  <ul>
+    <li (click)="setDay(i)" *ngFor="let d of days; let i = index"> {{d}}</li>
+  </ul>
+</div>
+<div *ngIf="step1GotDay && step2GotEmployee">
+  <h3 > Set one day </h3>
+  {{selectedEmployeeId}}  |  {{selectedDay}}
+  <form [formGroup]="employeeScheduleForm" (ngSubmit)="postOneSched()">
+    <label for="startTime"> start </label>
+    <input type="data" id="startTime" class="form-control" formControlName="startTime" placeholder="2016-11-11 16:30:48.999 +00:00" >
+    <label for="endTime"> end </label>
+    <input type="data" id="endTime" class="form-control" formControlName="endTime">
+    <label for="comment"> comment </label>
+    <input type="text" id="comment" class="form-control" formControlName="comment">
+    <button type="submit" [disabled]="!employeeScheduleForm.valid">Submit</button>
+  </form>
+</div>
+

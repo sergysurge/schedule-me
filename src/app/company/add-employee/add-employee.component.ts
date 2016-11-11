@@ -11,7 +11,7 @@ import { CompanyService } from '../company.service';
 })
 
 export class AddEmployeeComponent implements OnInit {
-  asyncString = this.companyService.getEmployees(1)
+  asyncString = this.companyService.getUsersFromCompany(1)
 
   admin = ['true', 'false']
   addEmployee = {
@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
     })
     .subscribe(data => {
       console.log(data, 'dis da data')
-      this.asyncString = this.companyService.getEmployees(1)
+      this.asyncString = this.companyService.getUsersFromCompany(1)
     })
     console.log(this.addEmployee)
   }
@@ -44,7 +44,7 @@ export class AddEmployeeComponent implements OnInit {
     })
     .subscribe(data => {
       console.log(data)
-      this.asyncString = this.companyService.getEmployees(1)
+      this.asyncString = this.companyService.getUsersFromCompany(1)
     })
   }
 

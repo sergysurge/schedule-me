@@ -8,8 +8,16 @@ export class CompanyService {
 
   
   constructor(private http: Http) { }
+  postOneEmployeeSched(employeeSched) {
+    return this.http.post('/api/schedules/oneschedule', employeeSched)
+  }
 
   getEmployees(companyId) {
+    return this.http.get('/api/users/getemployees/' + companyId)
+    .map((response:Response) => response.json())
+  }
+
+  getUsersFromCompany(companyId) {
     return this.http.get('/api/users/employees?companyId=' + companyId)
     .map((response: Response) => response.json().response.employees)
   }
