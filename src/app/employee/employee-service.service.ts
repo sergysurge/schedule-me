@@ -17,4 +17,11 @@ export class EmployeeServiceService {
       //   console.log(response)
       // })
   }
+
+
+  // getEmployeeCalendarData(userCompanyId): Observable<any> {
+  //   const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
+  //   // const employeeAppointmentsUrl = ''
+  //   // return this.http.get()
+  // }
 }

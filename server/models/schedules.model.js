@@ -1,4 +1,5 @@
 const Schedule = require('../db').Schedule
+
 const scheduleModel = {}
 
 scheduleModel.getoneschedule = userCompanyId => {
