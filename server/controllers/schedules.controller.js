@@ -33,7 +33,7 @@ schedulesController.GETSCHEDULES = (req, res) => {
 //PROMT TO SELECT USER-WORKER (employee), grab usercompanyid
 //THEN POST SCHEDULE FOR HIM/her
 schedulesController.POSTONESCHEDULE = (req, res) => {
-  //console.log(req.body, 'req.body POSTONESCHEDULE, schedulesController')
+  console.log(req.body, 'req.body POSTONESCHEDULE, schedulesController')
   scheduleModel.postoneschedule(req.body)
     .then(userSched => {
       console.log('Schedule created :', userSched)

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const schedulesController = require('../controllers').schedulesController
+const schedulesController = require('../controllers/schedules.controller')
 
 var SchedulesRouter = express.Router()
 
