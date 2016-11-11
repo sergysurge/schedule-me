@@ -7,7 +7,6 @@ import { CustomerService } from '../customer.service';
     <p>
       appointment-calendar Works!
     </p>
-    <div>{{calendarConfig}}</div>
     <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
   `,
   styles: []
@@ -52,7 +51,7 @@ export class AppointmentCalendarComponent implements OnInit {
             header: this.headers,
             defaultView: 'agendaWeek',
             events: this.calendarEvents,
-            editable: true
+            editable: false
           }
         },
         (err) => console.error(err)
