@@ -5,36 +5,35 @@
 <form >
     <div class="form-group">
       <label>Name</label>
-      <input type="text" class="form-control" name="name"  >
+      <input type="text" class="form-control" name="name" [(ngModel)]="person.contactName" placeholder="Name" >
     </div>
     <div class="form-group">
       <label>Number</label>
-      <input type="text" class="form-control" name="number" >
+      <input type="text" class="form-control" name="number" [(ngModel)]="person.contactNumber" placeholder="Number">
     </div>
     <div class="form-group">
       <label>Employee</label>
-    <select id="employee">
-      <option *ngFor="let employee of employees" [value]="employee">
-        {{employee.label}}
+    <select [(ngModel)]="person.employeeId" [ngModelOptions]="{standalone: true}">
+      <option *ngFor="let employee of employees" [ngValue]="employee.id">
+        {{employee.firstName}}
       </option>
     </select>
     <div class="ui-g-12 ui-md-4">
       <label>Date</label>
-      <p-calendar></p-calendar> <span style="margin-left:35px">{{date3|date}}</span>
+      <p-calendar [(ngModel)]="start" [ngModelOptions]="{standalone: true}"></p-calendar>
     </div>
     <div class="form-group">
       <label>Times</label>
-      <select multiple name="hours" class="form-control">
-        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.value}}</option>
+      <select multiple name="hours" class="form-control" [(ngModel)]="times" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let hour of hours" [value]="hour.label">{{hour.label}}</option>
       </select>
     </div>
     <div class="form-group">
       <label>Service</label>
-      <select multiple name="service" class="form-control">
-        <option *ngFor="let service of services" [value]="service.value">{{service.value}}</option>
+      <select multiple name="service" class="form-control" [(ngModel)]="person.description" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let service of services" [value]="service">{{service.label}}</option>
       </select>
     </div>
-
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button (click)='makeAppointment()' class="btn btn-default">Submit</button>
   </form>
