@@ -3,7 +3,19 @@ const generateToken = require('../helpers').generateToken
 
 const usersController = {}
 
-usersController.SIGNIN = function (req, res) {
+usersController.GETALLEMPLOYEES = (req, res) => {
+  console.log(req.params, 'look here ****')
+  usersModel.getAllEmployeesCompanyId(req.params)
+    .then(response => {
+      res.send(response)
+    })
+    .catch(err => {
+      console.log('error in GETALLEMPLOYEES usersController', err)
+      return err
+    })
+}
+
+usersController.SIGNIN = (req, res) => {
   // var email = req.query.email
   // var password = req.query.password
   const encodedCredentials = req.headers['authorization']

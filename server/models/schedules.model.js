@@ -19,7 +19,7 @@ scheduleModel.postoneschedule = userSched => {
     startTime: userSched.startTime,
     endTime: userSched.endTime,
     comment: userSched.comment,
-    UserCompanyId: userSched.userCompanyId
+    UserCompanyId: userSched.UserCompanyId
   })
 }
 
