@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from './company.service';
+import { AccordionModule } from 'primeng/primeng';
 
 @Component({
   selector: 'app-company',

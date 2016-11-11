@@ -13,6 +13,7 @@ import { CompanyModule } from './company/company.module';
 import { CustomerModule } from './customer/customer.module';
 import { SharedModule } from './shared/shared.module';
 // import { AppRoutingModule } from './app-routing.module';
+import { AccordionModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
     EmployeeModule,
     // ScheduleModule,
     // DropdownModule,
+    AccordionModule,
     CompanyModule,
     ReactiveFormsModule,
     CustomerModule,

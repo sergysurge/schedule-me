@@ -6,12 +6,14 @@ import { CompanyService } from './company.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeScheduleComponent } from './employee-schedule/employee-schedule.component';
 import { OptionsComponent } from './options/options.component';
+import { AccordionModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccordionModule
   ],
   declarations: [
     CompanyComponent,
