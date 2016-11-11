@@ -7,8 +7,8 @@ import { CustomerService } from '../customer.service';
     <p>
       appointment-calendar Works!
     </p>
-    <div>{{customerAppointments}}</div>
-    <app-calendar [calendarConfig]='calendarConfig'></app-calendar>
+    <div>{{calendarConfig}}</div>
+    <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
   `,
   styles: []
 })
@@ -48,7 +48,12 @@ export class AppointmentCalendarComponent implements OnInit {
               }
             }
           )
-          console.log(this.calendarEvents)
+          this.calendarConfig = {
+            header: this.headers,
+            defaultView: 'agendaWeek',
+            events: this.calendarEvents,
+            editable: true
+          }
         },
         (err) => console.error(err)
       )

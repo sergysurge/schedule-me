@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input, OnChanges } from '@angular/core';
 import * as jQuery from 'jquery';
 import 'fullcalendar';
 import * as moment from 'moment';
@@ -9,7 +9,7 @@ require('style-loader!fullcalendar/dist/fullcalendar.css');
   selector: 'app-calendar',
   template: `<div></div>`
 })
-export class CalendarComponent implements AfterViewInit {
+export class CalendarComponent implements OnChanges {
 
   constructor(private el: ElementRef) { }
   
@@ -35,7 +35,15 @@ export class CalendarComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.schedule = jQuery(this.el.nativeElement.children[0]);
-    this.schedule.fullCalendar(this.calendarConfig);
+  }
+
+  ngOnChanges(changes:any) {
+    // set options for calendar only after receiving data from parent component
+    var configChange = changes.calendarConfig.currentValue;
+    if(configChange) {
+      this.schedule.fullCalendar(this.calendarConfig);
+    }
+    
   }
 
 }
