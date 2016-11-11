@@ -2,11 +2,27 @@ const Appointments = require('../db').Appointment
 const User = require('../db').User
 const appointmentsModel = {}
 
-appointmentsModel.getAppointments = (employeeId) => {
+appointmentsModel.getEmployeeAppointments = (employeeId) => {
   return Appointments
     .findAll({
       where: {
         employeeId: employeeId
+      }
+    })
+    .then(appointments => {
+      return appointments
+    })
+    .catch(err => {
+      console.log('error working in getting appointment', err)
+      return err
+    })
+}
+
+appointmentsModel.getCustomerAppointments = (customerId) => {
+  return Appointments
+    .findAll({
+      where: {
+        customerId: customerId
       }
     })
     .then(appointments => {
