@@ -29,6 +29,7 @@
     "@angular/platform-browser": "~2.1.0",
     "@angular/platform-browser-dynamic": "~2.1.0",
     "@angular/router": "~3.1.0",
+    "@types/jquery": "^2.0.34",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "core-js": "^2.4.1",
@@ -38,6 +39,7 @@
     "fullcalendar": "^3.0.1",
     "jquery": "^3.1.1",
     "jwt-simple": "^0.5.0",
+    "moment": "^2.16.0",
     "morgan": "^1.7.0",
     "mysql": "^2.12.0",
     "nodemon": "^1.11.0",
@@ -48,6 +50,7 @@
     "rxjs": "5.0.0-beta.12",
     "sequelize": "^3.24.8",
     "sqlite3": "^3.1.8",
+    "style-loader": "^0.13.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.6.23"
   },

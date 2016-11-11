@@ -10,6 +10,9 @@ import { EmployeeModule } from './employee/employee.module';
 // import { ScheduleModule , DropdownModule , CalendarModule} from 'primeng/primeng';
 import { CompanyModule } from './company/company.module';
 
+import { CustomerModule } from './customer/customer.module';
+import { SharedModule } from './shared/shared.module';
+// import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { CompanyModule } from './company/company.module';
     // ScheduleModule,
     // DropdownModule,
     CompanyModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CustomerModule,
+    SharedModule
   ],
   providers: [AppServiceService, EmployeeServiceService],
   bootstrap: [AppComponent]
