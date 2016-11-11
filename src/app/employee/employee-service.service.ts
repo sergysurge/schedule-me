@@ -32,10 +32,11 @@ export class EmployeeServiceService {
 
 
 
-  // getEmployeeCalendarData(userCompanyId): Observable<any> {
-  //   const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
-  //   // const employeeAppointmentsUrl = ''
-  //   // return this.http.get()
-  // }
+  getEmployeeCalendarData(userCompanyId): Observable<any> {
+    const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
+    // const employeeAppointmentsUrl = ''
+    return this.http.get(employeeSchedulesUrl)
+      .map((response: Response) => response)
+  }
 
 }
