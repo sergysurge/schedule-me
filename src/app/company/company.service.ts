@@ -6,10 +6,28 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CompanyService {
 
+  
   constructor(private http: Http) { }
-  addEmployee(body): Observable<any> {
+
+  getEmployees(companyId) {
+    return this.http.get('/api/users/employees?companyId=' + companyId)
+    .map((response: Response) => response.json().response.employees)
+  }
+
+  deleteEmployee(body) {
+    return this.http.delete('api/users/employees?userId=' + body.userId + '&' + 'companyId=' + body.companyId)
+    .map((response:Response) => response)
+  }
+
+  addEmployee(body: any): Observable<any> {
+    // const headers = new Headers('Content-Type', 'Application/json');
     return this.http.put('/api/users/employees', body)
-    .map((res:Response) => res)
+    .map((response:Response) => response)
     //.catch(err => return err)
   }
+
+  //getAllBrandNames
+
+  
+
 }

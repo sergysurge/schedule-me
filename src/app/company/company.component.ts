@@ -13,11 +13,11 @@ export class CompanyComponent implements OnInit {
   isAdmin = 'true';
 
   constructor(companyService: CompanyService) {
-    companyService.addEmployee({userId: this.userId, companyId: this.companyId, isAdmin: this.isAdmin})
-      .subscribe(
-        employee => console.log(employee)
-        //this.employee = employee.json()
-      )
+    // companyService.addEmployee({userId: this.userId, companyId: this.companyId, isAdmin: this.isAdmin})
+    //   .subscribe(
+    //     employee => console.log(employee)
+    //     //this.employee = employee.json()
+    //   )
    }
 
   ngOnInit() {

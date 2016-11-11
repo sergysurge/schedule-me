@@ -86,8 +86,8 @@ usersController.ADD_USER_TO_COMPANY = (req, res) => {
 }
 
 usersController.REMOVE_USER_FROM_COMPANY = (req, res) => {
-  const userId = req.body.userId
-  const companyId = req.body.companyId
+  const userId = req.query.userId
+  const companyId = req.query.companyId
   usersModel.removeUserFromCompany(userId, companyId)
     .then((response) => {
       res.status(200).json({
