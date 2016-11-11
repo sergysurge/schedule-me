@@ -1,7 +1,14 @@
 const User = require('../db').User
 const Company = require('../db').Company
+const UserCompany = require('../db').UserCompany
 
 const usersModel = {}
+
+usersModel.getAllEmployeesCompanyId = companyId => {
+  return UserCompany.findAll({
+    where: {companyId: companyId.companyId}
+  })
+}
 
 usersModel.signin = (email, password) => {
   return User.findOne({
