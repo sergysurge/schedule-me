@@ -12,8 +12,13 @@ import { EmployeeServiceService } from '../employee-service.service';
 export class EmployeeScheduleComponent implements OnInit {
 
   constructor(private employeeService: EmployeeServiceService) { }
-  calendarConfig: any;
-  calendarEvents: any[] = [];
+
+  calendarConfig: any
+  appointments: any[]
+  schedules: any[]
+  calendars: any[]
+  userId: number = 1
+  userCompanyId: number = 1
 
   headers = {
     left: 'prev, next, today',
@@ -22,23 +27,45 @@ export class EmployeeScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employeeService.getEmployeeCalendarData(6)
+    this.employeeService.getEmployeeCalendarData(userId, userCompanyId)
       .subscribe(
         (calendarEntries) => {
-          this.calendarEvents = calendarEntries.json().map((calendarEntry) => {
-            return {
-              title: calendarEntry.comment,
-              start: calendarEntry.startTime,
-              end: calendarEntry.endTime
+          this.schedules = calendarEntries[0]
+            .map((calendarEntry) => {
+              return {
+                title: calendarEntry.description,
+                start: calendarEntry.startTime,
+                end: calendarEntry.endTime
+              }
+            })
+
+          this.appointments = calendarEntries[1]
+            .map((calendarEntry) => {
+              return {
+                title: calendarEntry.description,
+                start: calendarEntry.startTime,
+                end: calendarEntry.endTime
+              }
+            })
+
+          this.eventSources = [
+            {
+              events: this.schedules,
+              color: 'blue'
+            },
+            {
+              appointments: this.appointments,
+              color: 'pink'
             }
-          })
+          ]
           this.calendarConfig = {
             header: this.headers,
             defaultView: 'agendaWeek',
-            events: this.calendarEvents,
+            eventSources: this.calendars,
             editable: true
           }
-        }
+        },
+        (err) => console.error(err)
       )
   }
 
