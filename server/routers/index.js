@@ -8,7 +8,7 @@ const SchedulesRouter = require('./schedules.router')
 Router.use('/users', UsersRouter)
 Router.use('/appointments', AppointmentsRouter)
 Router.use('/companies', CompaniesRouter)
-Router.use('/auth', UsersRouter)
+// Router.use('/auth', UsersRouter)
 Router.use('/schedules', SchedulesRouter)
 
 module.exports = Router
