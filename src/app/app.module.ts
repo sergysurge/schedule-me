@@ -12,7 +12,7 @@ import { CompanyModule } from './company/company.module';
 
 import { CustomerModule } from './customer/customer.module';
 import { SharedModule } from './shared/shared.module';
-// import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,8 @@ import { SharedModule } from './shared/shared.module';
     CompanyModule,
     ReactiveFormsModule,
     CustomerModule,
-    SharedModule
+    SharedModule,
+    AppRoutingModule
   ],
   providers: [AppServiceService, EmployeeServiceService],
   bootstrap: [AppComponent]
