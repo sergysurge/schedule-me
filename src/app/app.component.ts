@@ -8,17 +8,7 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  onSubmit(form:NgForm) {
-    console.log('working now ; ', form)
-  }
-  constructor (appServiceService: AppServiceService) { 
-    appServiceService.getCompanies()
-      .subscribe(
-        companies => this.companies = companies.json()
-        // companies => this.companies = companies
-      )
-  }
+  constructor () { }
   title = 'app works!';
-  companies;
-  trial;
+
 }
