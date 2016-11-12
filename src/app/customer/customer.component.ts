@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppointmentCalendarComponent } from './appointment-calendar/appointment-calendar.component';
+// import { AppointmentCalendarComponent } from './appointment-calendar/appointment-calendar.component';
 
 @Component({
   selector: 'app-customer',
@@ -7,7 +7,14 @@ import { AppointmentCalendarComponent } from './appointment-calendar/appointment
     <p>
       customer works!
     </p>
-    <app-appointment-calendar></app-appointment-calendar>
+
+    <ul>
+      <li><a [routerLink]="['account']">My Account</a></li>
+      <li><a [routerLink]="['appointments']">My Appointments</a></li>
+      <li><a [routerLink]="['search']">Search Businesses</a></li>
+    </ul>
+
+    <router-outlet></router-outlet>
   `,
   styles: []
 })

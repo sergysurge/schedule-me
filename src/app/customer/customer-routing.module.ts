@@ -1,25 +1,31 @@
-// import { NgModule } from '@angular/core'
-// import { RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { AppointmentCalendarComponent } from './appointment-calendar/appointment-calendar.component'
+import { SearchCompaniesComponent } from './search-companies/search-companies.component'
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component'
+import { CustomerComponent } from './customer.component'
+import { MyAccountComponent } from './my-account/my-account.component'
 
-// const routes: Routes = [
-//     // { path: ':userId/appointments', component: CustomerAppointmentsComponent },
-//     // { path: 'search', component: CustomerSearchComponent },
-//     { path: 'appointments', component: CustomerAppointmentsComponent },
-//     { path: 'companies/search', component: SearchCompaniesComponent },
-//     { path: 'companies/:companyId', component: CompanyDetailComponent }
-//     // { path: 'appointments/:appointmentId', component: AppointmentDetailComponent}
-//     // { path: 'companies/:companyId', component: CustomerCompanyComponent }
-// ]
+const routes: Routes = [
+    { 
+        path: 'users', 
+        component: CustomerComponent,
+        children: [
+            { path: 'account', component: MyAccountComponent },
+            { path: 'appointments', component: AppointmentCalendarComponent },
+            { path: 'search', component: SearchCompaniesComponent }
+        ]
+    }
+]
 
-// @NgModule({
-//     imports: [
-//         RouterModule.forChild(routes)
-//     ],
-//     // providers: [guardService],
-//     exports: [
-//         RouterModule
-//     ]
-// })
+@NgModule({
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
 
-// export class CustomerRoutingModule { }
+export class CustomerRoutingModule { }
 
