@@ -17,13 +17,13 @@ usersController.GETALLEMPLOYEES = (req, res) => {
 
 usersController.SIGNIN = (req, res) => {
   // var email = req.query.email
-  // var password = req.query.password
-  // const encodedCredentials = req.headers['authorization']
   var email, password
-  console.log(req.query)
-  email = req.query.email
-  password = req.query.password
-  // [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
+  const encodedCredentials = req.headers['authorization']
+  // var email, password
+  // console.log(req.query)
+  // let email = req.query.email
+  // let password = req.query.password
+  [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
   usersModel.signin(email, password)
     .then((response) => {
       if (response.success) {

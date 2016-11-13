@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from './auth.service'
 import { Router } from '@angular/router'
@@ -14,21 +14,21 @@ import { Router } from '@angular/router'
       <br>
       <input type="text" formControlName="firstName">
       <br>
-      <span *ngIf="signupForm.controls.firstName.hasError('required') && submitted">First name is required.</span>
+      <span *ngIf="!signupForm.controls.firstName.valid && submitted">First name is required.</span>
       <br>
 
       <label for="lastName">Last Name</label>
       <br>
       <input type="text" formControlName="lastName">
       <br>
-      <span *ngIf="signupForm.controls.lastName.hasError('required') && submitted">Last name is required.</span>
+      <span *ngIf="!signupForm.controls.lastName.valid && submitted">Last name is required.</span>
       <br>
 
       <label for="email">Email</label>
       <br>
       <input type="email" formControlName="email">
       <br>
-      <span *ngIf="signupForm.controls.email.pristine && submitted">Email is required.</span>
+      <span *ngIf="!signupForm.controls.email.valid && submitted">Email is required.</span>
       <br>
 
       <label for="password">Password</label>
@@ -42,16 +42,16 @@ import { Router } from '@angular/router'
       <br>
       <input type="password" formControlName="verifyPassword">
       <br>
-      <span *ngIf="signupForm.controls.verifyPassword.pristine && submitted">Please verify your password.</span>
+      <span *ngIf="signupForm.controls.verifyPassword.hasError('required') && submitted">Please verify your password.</span>
       <br>
       <button type="submit">Signup</button>
       <br>
-      <span *ngIf="userExists">{{errorMsg}}</span>
+      <span *ngIf="userExists">Account already exists under this email, please sign in</span>
     </form>
   `,
   styles: []
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
@@ -60,6 +60,7 @@ export class SignupComponent implements OnInit {
   public signupForm: FormGroup
   public errorMsg: string
   public userExists: Boolean = false
+  private subscription
 
   ngOnInit() {
 
@@ -75,7 +76,7 @@ export class SignupComponent implements OnInit {
   onSubmit(userData: any){
     this.submitted = true
     this.passwordsMatch = userData.password === userData.verifyPassword
-    console.log(this.passwordsMatch)
+
     if (this.passwordsMatch) {
       let user = {
         firstName: userData.firstName,
@@ -84,7 +85,7 @@ export class SignupComponent implements OnInit {
         password: userData.password
       }
       
-      this.authService.submitUserData(user)
+      this.subscription = this.authService.submitUserData(user)
         .subscribe(
           (res) => {
             if (res.response.success) {
@@ -94,12 +95,19 @@ export class SignupComponent implements OnInit {
               this.userExists = true
             }
           },
-          (err) => {console.error(err)},
-          () => {console.log('done')}
+          (err) => {
+            this.errorMsg = "Server error, try again later"
+            console.error(err)
+          },
+          () => {
+            console.log('done')
+          }
         )
-
     } 
+  }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
 }
