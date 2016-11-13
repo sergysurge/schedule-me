@@ -25,7 +25,7 @@
     <div class="form-group">
       <label>Times</label>
       <select multiple name="hours" class="form-control" [(ngModel)]="times" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of hours" [value]="hour.label">{{hour.label}}</option>
+        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.label}}</option>
       </select>
     </div>
     <div class="form-group">
