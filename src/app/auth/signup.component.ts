@@ -45,7 +45,8 @@ import { Router } from '@angular/router'
       <span *ngIf="signupForm.controls.verifyPassword.pristine && submitted">Please verify your password.</span>
       <br>
       <button type="submit">Signup</button>
-
+      <br>
+      <span *ngIf="userExists">{{errorMsg}}</span>
     </form>
   `,
   styles: []
@@ -58,6 +59,7 @@ export class SignupComponent implements OnInit {
   public passwordsMatch: Boolean = true
   public signupForm: FormGroup
   public errorMsg: string
+  public userExists: Boolean = false
 
   ngOnInit() {
 
@@ -88,7 +90,8 @@ export class SignupComponent implements OnInit {
             if (res.response.success) {
               this.router.navigate(['users'])
             } else if (res.response.message === 'user already exists') {
-              this.errorMsg = 'Account already exists under this email, please sign in'
+              this.errorMsg = 'Account already exists under this email, please signin'
+              this.userExists = true
             }
           },
           (err) => {console.error(err)},
@@ -98,8 +101,5 @@ export class SignupComponent implements OnInit {
     } 
 
   }
-
-  
-
 
 }
