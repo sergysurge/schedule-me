@@ -1,15 +1,24 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { EmployeeServiceService } from '../employee-service.service';
 
 @Component({
   selector: 'app-employee-schedule',
   template: `
     <p>employee schedule</p>
-    <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+    <div id="employee-calendar">
+      <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+    </div>
   `,
-  styles: []
+  styles: [`
+    #employee-calendar {
+      height: 500px;
+      font-size: 14px;
+      padding: 0px 250px;
+      overflow: scroll;
+    }
+  `]
 })
-export class EmployeeScheduleComponent implements OnInit {
+export class EmployeeScheduleComponent implements OnInit, OnDestroy {
 
   constructor(private employeeService: EmployeeServiceService) { }
 
@@ -19,6 +28,7 @@ export class EmployeeScheduleComponent implements OnInit {
   calendars: any[]
   userId: number = 1
   userCompanyId: number = 1
+  calendarSubscription
 
   headers = {
     left: 'prev, next, today',
@@ -27,7 +37,7 @@ export class EmployeeScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employeeService.getEmployeeCalendarData(userId, userCompanyId)
+    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, this.userCompanyId)
       .subscribe(
         (calendarEntries) => {
           this.schedules = calendarEntries[0]
@@ -48,13 +58,15 @@ export class EmployeeScheduleComponent implements OnInit {
               }
             })
 
-          this.eventSources = [
+          console.log(this.schedules, this.appointments)
+
+          this.calendars = [
             {
               events: this.schedules,
               color: 'blue'
             },
             {
-              appointments: this.appointments,
+              events: this.appointments,
               color: 'pink'
             }
           ]
@@ -69,5 +81,8 @@ export class EmployeeScheduleComponent implements OnInit {
       )
   }
 
+  ngOnDestroy() {
+    this.calendarSubscription.unsubscribe()
+  }
 
 }
