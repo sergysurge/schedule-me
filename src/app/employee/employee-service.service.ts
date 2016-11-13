@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/Rx'
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkjoin';
+// import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class EmployeeServiceService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private headers: Headers, private requestOptions: RequestOptions) { }
   getAppointment(): Observable<any> {
     return this.http.get('/api/appointments/2')
       .map((response: Response) => response)
@@ -36,13 +37,24 @@ export class EmployeeServiceService {
   getEmployeeCalendarData(userId, userCompanyId): Observable<any> {
     const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
     const employeeAppointmentsUrl = `/api/appointments/${userId}`
+
+    let token = localStorage.getItem('jwt-token');
+    let authHeader = `Bearer ${token}`
+    let headers = new Headers({ 'authorization': authHeader })
+    let options = new RequestOptions({ headers: headers })
     
     return Observable.forkJoin(
-      this.http.get(employeeSchedulesUrl)
-        .map((response: Response) => response.json()),
+      this.http.get(employeeSchedulesUrl, options)
+        .map((response: Response) => response.json())
+        .catch(this.handleError),
       this.http.get(employeeAppointmentsUrl)
         .map((response: Response) => response.json())
+        .catch(this.handleError)
     )
+  }
+  
+  handleError(err: Response) {
+    return Observable.throw(err.json() || 'Server error')
   }
 
 }

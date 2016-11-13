@@ -1,16 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/Rx';
+// import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CustomerService {
 
-  constructor(private http: Http) { }
-  getCustomerAppointments(customerId:number): Observable<any> {
-    return this.http.get(`/api/appointments/customer/${customerId}`)
+  constructor(private http: Http, private requestOptions: RequestOptions) { }
+
+  getCustomerAppointments(userId): Observable<any> {
+    let token = localStorage.getItem('jwt-token');
+    let authHeader = `Bearer ${token}`
+    let headers = new Headers({ 'authorization': authHeader })
+    let options = new RequestOptions({ headers: headers })
+
+    return this.http.get(`/api/appointments/customer/${userId}`, options)
       .map((response: Response) => response.json())
-      // .catch((err) => {Observable.throw(err.json().error)})
-      
+      .catch(this.handleError)
+  }
+
+  handleError(err: Response) {
+    return Observable.throw(err.json() || 'Server error')
   }
 }

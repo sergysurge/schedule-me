@@ -1,6 +1,6 @@
 const jwt = require('jwt-simple')
-const isUserAdmin = require('./helpers').isUserAdmin
-const getToken = require('./helpers').getToken
+const isUserAdmin = require('../helpers').isUserAdmin
+const getToken = require('../helpers').getToken
 
 const authenticateToken = (req, res, next) => {
 // expects Authorization header of the form: 'Bearer <token>'

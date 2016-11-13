@@ -67,7 +67,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   calendarConfig: any
   customerAppointments: Array<any>
   customerCalendarEvents: Array<any>
-  userId: number = 6
+  userId = localStorage.getItem('userId')
   subscription: any
   
 
