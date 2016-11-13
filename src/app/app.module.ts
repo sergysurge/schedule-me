@@ -14,11 +14,16 @@ import { CustomerModule } from './customer/customer.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home.component';
+import { SignupComponent } from './auth/signup.component';
+import { SigninComponent } from './auth/signin.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

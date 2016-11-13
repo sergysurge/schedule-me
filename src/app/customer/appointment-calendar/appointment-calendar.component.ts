@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import * as moment from 'moment';
-import { CustomerAppointmentEvent } from './customer-appointment-event';
 
 @Component({
   selector: 'app-appointment-calendar',
