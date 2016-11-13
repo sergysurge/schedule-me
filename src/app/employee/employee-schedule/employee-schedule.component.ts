@@ -26,8 +26,8 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
   appointments: any[]
   schedules: any[]
   calendars: any[]
-  userId: number = 1
-  userCompanyId: number = 1
+  userId: number = 5
+  userCompanyId: number = 5
   calendarSubscription
 
   headers = {
@@ -57,8 +57,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
                 end: calendarEntry.endTime
               }
             })
-
-          console.log(this.schedules, this.appointments)
 
           this.calendars = [
             {

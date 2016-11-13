@@ -13,20 +13,38 @@ import { CustomerAppointmentEvent } from './customer-appointment-event';
     </div>
     
     <div id="appointments">
-      <h4>Upcoming Appointments</h4>
-      
+
+      <h4>My Upcoming Appointments</h4>
+
+      <div class="appointment-box" *ngFor="let appointment of customerAppointments">
+        <span class="company-name">{{appointment.company.name}}</span>
+        <br>
+        <span class="appointment-description">{{appointment.description}}</span>
+        <br>
+        <span class="appointment-start">{{appointment.startTime | date: 'MMM d, y h:mm a'}}</span>
+      </div>
+
     </div>
   `,
   styles: [`
     #calendar {
-      height: 500px;
-      font-size: 12px;
+      height: 600px;
+      font-size: 14px;
       padding: 0px 250px;
       overflow: scroll;
     }
     #appointments {
       margin: auto;
     }
+    .appointment-box {
+      width: 300px;
+      height: 100px;
+      float: left;
+      border: 2px solid black;
+      margin: 20px 20px;
+      padding: 20px 20px;
+    }
+
   `]
 })
 export class AppointmentCalendarComponent implements OnInit, OnDestroy {
@@ -50,8 +68,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   calendarConfig: any
   customerAppointments: Array<any>
   customerCalendarEvents: Array<any>
-  userId: number = 1
-  // calendars: any[]
+  userId: number = 6
   subscription: any
   
 
@@ -76,14 +93,13 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
               }
             }
           )
+          
           this.calendarConfig = {
             header: this.headers,
             defaultView: 'agendaWeek',
             events: this.customerCalendarEvents,
             editable: false,
-            eventClick: this.handleEventClick,
-            height: 400,
-            aspectRatio: 1
+            eventClick: this.handleEventClick
           }
 
         },
