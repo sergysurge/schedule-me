@@ -75,7 +75,7 @@ appointmentsModel.updateAppointment = (obj) => {
       return appointment.update({
         contactName: obj.contactName,
         contactNumber: obj.contactNumber,
-        description: obj.description,
+        service: obj.service,
         startTime: obj.startTime,
         endTime: obj.endTime,
         customerId: obj.customerId,

@@ -16,6 +16,9 @@ module.exports = function (db) {
     },
     endTime: {
       type: Sequelize.DATE
+    },
+    comment: {
+      type: Sequelize.STRING
     }
   })
   return Appointment

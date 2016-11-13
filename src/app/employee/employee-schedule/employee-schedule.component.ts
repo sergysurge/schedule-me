@@ -1,19 +1,34 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { EmployeeServiceService } from '../employee-service.service';
 
 @Component({
   selector: 'app-employee-schedule',
   template: `
     <p>employee schedule</p>
-    <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+    <div id="employee-calendar">
+      <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+    </div>
   `,
-  styles: []
+  styles: [`
+    #employee-calendar {
+      height: 500px;
+      font-size: 14px;
+      padding: 0px 250px;
+      overflow: scroll;
+    }
+  `]
 })
-export class EmployeeScheduleComponent implements OnInit {
+export class EmployeeScheduleComponent implements OnInit, OnDestroy {
 
   constructor(private employeeService: EmployeeServiceService) { }
-  calendarConfig: any;
-  calendarEvents: any[] = [];
+
+  calendarConfig: any
+  appointments: any[]
+  schedules: any[]
+  calendars: any[]
+  userId: number = 5
+  userCompanyId: number = 5
+  calendarSubscription
 
   headers = {
     left: 'prev, next, today',
@@ -22,25 +37,51 @@ export class EmployeeScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employeeService.getEmployeeCalendarData(2)
+
+    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, this.userCompanyId)
       .subscribe(
         (calendarEntries) => {
-          this.calendarEvents = calendarEntries.json().map((calendarEntry) => {
-            return {
-              title: calendarEntry.comment,
-              start: calendarEntry.startTime,
-              end: calendarEntry.endTime
+          this.schedules = calendarEntries[0]
+            .map((calendarEntry) => {
+              return {
+                title: calendarEntry.description,
+                start: calendarEntry.startTime,
+                end: calendarEntry.endTime
+              }
+            })
+
+          this.appointments = calendarEntries[1]
+            .map((calendarEntry) => {
+              return {
+                title: calendarEntry.description,
+                start: calendarEntry.startTime,
+                end: calendarEntry.endTime
+              }
+            })
+
+          this.calendars = [
+            {
+              events: this.schedules,
+              color: 'blue'
+            },
+            {
+              events: this.appointments,
+              color: 'pink'
             }
-          })
+          ]
           this.calendarConfig = {
             header: this.headers,
             defaultView: 'agendaWeek',
-            events: this.calendarEvents,
+            eventSources: this.calendars,
             editable: true
           }
-        }
+        },
+        (err) => console.error(err)
       )
   }
 
+  ngOnDestroy() {
+    this.calendarSubscription.unsubscribe()
+  }
 
 }
