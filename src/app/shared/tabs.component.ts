@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TabComponent } from './tab.component'
+
 @Component({
   selector: 'app-tabs',
   template: `
-    <ul class="nav nav-tabs">
-      <li *ngFor="let tab of tabs" (click)="onSelectTab(tab)" [class.active]="tab.active">
+    <ul class="{{tabsStyle}}">
+      <li class="{{tabTitleClass}}" *ngFor="let tab of tabs" (click)="onSelectTab(tab)" [class.active]="tab.active">
         <a>{{ tab.title }}</a>
       </li>
     </ul>
@@ -12,11 +13,12 @@ import { TabComponent } from './tab.component'
   `,
   styles: []
 })
+
 export class TabsComponent {
 
-  constructor() { }
-
   tabs: TabComponent[] = []
+  @Input() tabsStyle: string
+  @Input() tabTitleClass: string
 
   addTab(tab: TabComponent) {
     this.tabs.push(tab)
