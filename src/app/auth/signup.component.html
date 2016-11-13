@@ -1,0 +1,44 @@
+<p>
+      login Works!
+    </p>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)" novalidate>
+
+    <label for="firstName">First Name</label>
+    <br>
+    <input type="text" formControlName="firstName">
+    <br>
+    <span *ngIf="!signupForm.controls.firstName.valid && submitted">First name is required.</span>
+    <br>
+
+    <label for="lastName">Last Name</label>
+    <br>
+    <input type="text" formControlName="lastName">
+    <br>
+    <span *ngIf="!signupForm.controls.lastName.valid && submitted">Last name is required.</span>
+    <br>
+
+    <label for="email">Email</label>
+    <br>
+    <input type="email" formControlName="email">
+    <br>
+    <span *ngIf="!signupForm.controls.email.valid && submitted">Email is required.</span>
+    <br>
+
+    <label for="password">Password</label>
+    <br>
+    <input type="password" formControlName="password">
+    <br>
+    <span *ngIf="signupForm.controls.password.hasError('required') && submitted">Password is required</span>
+    <span *ngIf="signupForm.controls.password.hasError('minLength') && submitted">Password must be at least 6 characters</span>
+    <br>
+    <label for="verifyPassword">Verify Password</label>
+    <br>
+    <input type="password" formControlName="verifyPassword">
+    <br>
+    <span *ngIf="signupForm.controls.verifyPassword.hasError('required') && submitted">Please verify your password.</span>
+    <span *ngIf="submitted && passwordMismatch">Passwords don't match</span>
+    <br>
+    <button type="submit">Signup</button>
+    <br>
+    <span *ngIf="userExists">Account already exists under this email, please sign in</span>
+</form>

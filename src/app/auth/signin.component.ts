@@ -5,32 +5,7 @@ import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-signin',
-  template: `
-    <p>
-      signin Works!
-    </p>
-    <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm.value)" novalidate>
-
-      <label for="email">Email</label>
-      <br>
-      <input type="email" formControlName="email">
-      <br>
-      <span *ngIf="!signinForm.controls.email.valid && submitted">Email is required.</span>
-      <br>
-
-      <label for="password">Password</label>
-      <br>
-      <input type="password" formControlName="password">
-      <br>
-      <span *ngIf="!signinForm.controls.password.valid && submitted">Password is required (minimum 5 characters).</span>
-      <br>
-      <button type="submit">Signup</button>
-      <br>
-      <span *ngIf="incorrectMsg">Wrong email or password</span>
-      <span *ngIf="errorMsg">Server error, try again later</span>
-
-    </form>
-  `,
+  templateUrl: './signin.component.html',
   styles: []
 })
 export class SigninComponent implements OnInit {
@@ -41,7 +16,7 @@ export class SigninComponent implements OnInit {
   public incorrectMsg: Boolean = false
   public errorMsg: Boolean = false
   public signinForm: FormGroup
-  private subscription
+  private subscription: any
 
   ngOnInit() {
     this.submitted = false
@@ -74,7 +49,9 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
 
