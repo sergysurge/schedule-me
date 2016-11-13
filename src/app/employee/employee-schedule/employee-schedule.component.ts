@@ -22,7 +22,7 @@ export class EmployeeScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employeeService.getEmployeeCalendarData(6)
+    this.employeeService.getEmployeeCalendarData(2)
       .subscribe(
         (calendarEntries) => {
           this.calendarEvents = calendarEntries.json().map((calendarEntry) => {
