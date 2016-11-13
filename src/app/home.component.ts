@@ -7,9 +7,7 @@ import { SigninComponent } from './auth/signin.component';
     <p>
       home Works!
     </p>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
+    <app-signup></app-signup>
   `,
   styles: []
 })

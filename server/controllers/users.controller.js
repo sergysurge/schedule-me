@@ -48,7 +48,7 @@ usersController.SIGNIN = (req, res) => {
 
 usersController.SIGNUP = (req, res) => {
   const user = req.body.user
-
+  console.log(req.body, '___________')
   usersModel.signup(user)
     .then((response) => {
       if (response.success) {

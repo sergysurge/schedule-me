@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home.component';
 import { SignupComponent } from './auth/signup.component';
 import { SigninComponent } from './auth/signin.component';
-
+import { AuthService } from './auth/auth.service'
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { SigninComponent } from './auth/signin.component';
     SharedModule,
     AppRoutingModule
   ],
-  providers: [AppServiceService/*, EmployeeServiceService*/],
+  providers: [AppServiceService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

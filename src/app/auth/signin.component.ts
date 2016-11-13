@@ -8,14 +8,22 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
       signin Works!
     </p>
     <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" novalidate>
-      <label>Email</label>
-      <input type="email" formControlName="email">
-      <span [hidden]="signinForm.controls.email.pristine && !submitted">Email is required.</span>
+
+      <label for="email">Email</label>
       <br>
-      <label>Password</label>
+      <input type="email" formControlName="email">
+      <br>
+      <span *ngIf="signinForm.controls.email.hasError('required') && submitted">Email is required.</span>
+      <br>
+
+      <label for="password">Password</label>
+      <br>
       <input type="password" formControlName="password">
-      <span [hidden]="signinForm.controls.password.pristine && !submitted">Password is required (minimum 5 characters).</span>
+      <br>
+      <span *ngIf="signinForm.controls.password.hasError('required') && !submitted">Password is required (minimum 5 characters).</span>
+      <br>
       <button type="submit">Signup</button>
+
     </form>
   `,
   styles: []
