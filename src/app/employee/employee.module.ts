@@ -7,6 +7,7 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { EmployeeAppointmentsComponent } from './employee-appointments/employee-appointments.component';
 import { DropdownModule, CalendarModule} from 'primeng/primeng';
 import { SharedModule } from '../shared/shared.module';
+import { EmployeeServiceService } from './employee-service.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
     EmployeeFormComponent,
     EmployeeAppointmentsComponent
   ],
+  providers: [EmployeeServiceService],
   declarations: [EmployeeComponent, EmployeeScheduleComponent, EmployeeFormComponent, EmployeeAppointmentsComponent]
 })
 export class EmployeeModule { 

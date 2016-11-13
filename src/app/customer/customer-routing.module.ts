@@ -11,6 +11,7 @@ const routes: Routes = [
         path: 'users', 
         component: CustomerComponent,
         children: [
+            { path: '', redirectTo: 'appointments', pathMatch: 'full' },
             { path: 'account', component: MyAccountComponent },
             { path: 'appointments', component: AppointmentCalendarComponent },
             { path: 'search', component: SearchCompaniesComponent }

@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkjoin';
 
 @Injectable()
 export class EmployeeServiceService {
@@ -32,11 +33,16 @@ export class EmployeeServiceService {
 
 
 
-  getEmployeeCalendarData(userCompanyId): Observable<any> {
+  getEmployeeCalendarData(userId, userCompanyId): Observable<any> {
     const employeeSchedulesUrl = `/api/schedules/${userCompanyId}`
-    // const employeeAppointmentsUrl = ''
-    return this.http.get(employeeSchedulesUrl)
-      .map((response: Response) => response)
+    const employeeAppointmentsUrl = `/api/appointments/${userId}`
+    
+    return Observable.forkJoin(
+      this.http.get(employeeSchedulesUrl)
+        .map((response: Response) => response.json()),
+      this.http.get(employeeAppointmentsUrl)
+        .map((response: Response) => response.json())
+    )
   }
 
 }
