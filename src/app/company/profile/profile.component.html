@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-body" id="profileImage">
+  </div>
+  <div class="panel-body">
+    {{company.name}}
+    <h3> company information </h3>
+    <!--{{company | async}}-->
+    {{company.website}}
+    <img [src]="company.image">
+    {{companyArr}}
+    {{companyArr[6] && companyArr[6][1]}} 
+    
+    <img [src]="companyArr[6] && companyArr[6][1]">
+    <ul> 
+      <li *ngFor="let item of companyArr">
+        {{item[0]}} : {{item[1]}}
+        
+      </li>
+    </ul>
+  </div>
+</div>

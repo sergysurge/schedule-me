@@ -7,7 +7,7 @@ import { CompanyComponent } from './company/company.component'
 const routes: Routes = [
     { path: 'users', component: CustomerComponent },
     { path: 'work', component: EmployeeComponent },
-    { path: 'company', component: CompanyComponent },
+    { path: 'company/:id', component: CompanyComponent },
     { path: '**', redirectTo: 'users', pathMatch: 'full' }
 ]
 
