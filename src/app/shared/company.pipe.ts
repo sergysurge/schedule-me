@@ -4,15 +4,15 @@ import { Pipe, PipeTransform } from '@angular/core'
 
 export class CompanyFilterPipe implements PipeTransform {
     transform(value: any, args: any[]):any {
-        console.log(value, args)
         if (args) {
             let target = args[0].toLowerCase()
-            return value.filter((company) => {
-                let nameMatch = company.name? company.name.toLowerCase().indexOf(target) !== -1 : false
-                // let brandMatch = company.brandName? company.name.toLowerCase().indexOf(target) !== -1 : false
-                let descriptionMatch = company.description? company.description.toLowerCase().indexOf(target) !== -1 : false
-                return (nameMatch || descriptionMatch)
+            let filtered = value.filter((entry) => {
+                let nameMatch = entry.company.name? entry.company.name.toLowerCase().indexOf(target) !== -1 : false
+                let brandMatch = entry.company.brandName? entry.company.name.toLowerCase().indexOf(target) !== -1 : false
+                let descriptionMatch = entry.company.description? entry.company.description.toLowerCase().indexOf(target) !== -1 : false
+                return (nameMatch || brandMatch || descriptionMatch)
             })
+            return filtered.length ? filtered : -1
         }
         return value
     }

@@ -1,18 +1,19 @@
 <form>
+    <label>Search</label>
     <input type="text" #listFilter (keyup)="o">
-    <br>
-    <button type="submit">Search</button>
 </form>
-    <div id="container">
-        <div class="company" *ngFor="let company of allCompanies | companyFilter:listFilter.value">
-            <div class="name">{{company.name}}</div>
-            <img class="image" src="{{company.image}}">
-            <div class="contact">
-                <span>{{company.phoneNumber}}</span>
-                <br>
-                <span>{{company.website}}</span>
-            </div>
-            <div class="address">{{company.address}}</div>
-            <div class="description">{{company.description}}</div>
-        </div>
+<div id="container">
+    <div class="company" *ngFor="let company of companyDataToRender | companyFilter:listFilter.value">
+    <!--<span *ngIf="company == -1">Sorry no results match your search</span>-->
+    <div class="brand">{{company.brandName}}</div>
+    <div class="name">{{company.company.name}}</div>
+    <img class="image" src="{{company.company.image}}">
+    <div class="contact">
+        <span>{{company.company.phoneNumber}}</span>
+        <br>
+        <span>{{company.company.website}}</span>
     </div>
+        <div class="address">{{company.company.address}}</div>
+        <div class="description">{{company.company.description}}</div>
+    </div>
+</div>
