@@ -3,17 +3,17 @@
     <input type="text" #listFilter (keyup)="o">
 </form>
 <div id="container">
-    <div class="company" *ngFor="let company of companyDataToRender | companyFilter:listFilter.value">
+    <div class="company" *ngFor="let company of companies | companyFilter:listFilter.value">
         <span *ngIf="company == -1">Sorry no results match your search</span>
-        <div *ngIf="company !== -1" class="brand">{{company.brandName}}</div>
-        <div *ngIf="company !== -1" class="name">{{company.company.name}}</div>
-        <img *ngIf="company !== -1" class="image" src="{{company.company.image}}">
+        <div *ngIf="company !== -1" class="brand">{{company.BrandName.name}}</div>
+        <div *ngIf="company !== -1" class="name">{{company.name}}</div>
+        <img *ngIf="company !== -1" class="image" src="{{company.image}}">
         <div *ngIf="company !== -1" class="contact">
-            <span>{{company.company.phoneNumber}}</span>
+            <span>{{company.phoneNumber}}</span>
             <br>
-            <span>{{company.company.website}}</span>
+            <span>{{company.website}}</span>
         </div>
-        <div *ngIf="company !== -1" class="address">{{company.company.address}}</div>
-        <div *ngIf="company !== -1" class="description">{{company.company.description}}</div>
+        <div *ngIf="company !== -1" class="address">{{company.address}}</div>
+        <div *ngIf="company !== -1" class="description">{{company.description}}</div>
     </div>
 </div>

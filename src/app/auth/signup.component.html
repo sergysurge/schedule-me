@@ -36,7 +36,7 @@
     <input type="password" formControlName="verifyPassword">
     <br>
     <span *ngIf="signupForm.controls.verifyPassword.hasError('required') && submitted">Please verify your password.</span>
-    <span *ngIf="submitted && passwordMismatch">Passwords don't match</span>
+    <span *ngIf="submitted && passwordError">Passwords don't match</span>
     <br>
     <button type="submit">Signup</button>
     <br>

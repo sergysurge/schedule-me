@@ -12,11 +12,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   public submitted: Boolean = false
-  public passwordsMatch: Boolean = true
+  // public passwordsMatch: Boolean = true
   public signupForm: FormGroup
   public errorMsg: string
   public userExists: Boolean = false
-  public passwordMismatch: Boolean = true
+  public passwordError: Boolean = false
   private subscription: any
 
   ngOnInit() {
@@ -32,11 +32,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSubmit(userData: any){
     this.submitted = true
-    this.passwordsMatch = userData.password === userData.verifyPassword
-    if (!this.passwordsMatch) {
-      this.passwordMismatch = true
+    console.log(userData.password, userData.verifyPassword)
+    // this.passwordsMatch = userData.password === userData.verifyPassword
+    if (userData.password !== userData.verifyPassword) {
+      this.passwordError = true
     }
-    if (this.signupForm.valid && this.passwordsMatch) {
+    else if (this.signupForm.valid) {
       let user = {
         firstName: userData.firstName,
         lastName: userData.lastName,
