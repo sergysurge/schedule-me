@@ -114,10 +114,26 @@ usersController.REMOVE_USER_FROM_COMPANY = (req, res) => {
     })
 }
 
+usersController.GET_USER_DETAILS = (req, res) => {
+  const userId = req.params.userId
+  usersModel.getUserDetails(userId)
+    .then((response) => {
+      res.status(200).json({
+        response: response
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({
+        response: err
+      })
+    })
+}
+
 usersController.UPDATE_USER_INFO = (req, res) => {
-  const user = req.body.user
+  const userId = req.params.userId
+  const userData = req.body.userData
   // expects user object with id, oldPassword and newInfo fields
-  usersModel.updateUserInfo(user)
+  usersModel.updateUserInfo(userId, userData)
     .then((response) => {
       res.status(200).json({
         response: response

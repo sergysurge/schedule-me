@@ -219,8 +219,8 @@ usersModel.removeUserFromCompany = (userId, companyId) => {
     })
 }
 
-usersModel.updateUserInfo = (userInfo) => {
-  return User.findById(userInfo.id)
+usersModel.updateUserInfo = (userId, userData) => {
+  return User.findById(userId)
     .then((user) => {
       if (!user) {
         return {
@@ -249,6 +249,37 @@ usersModel.updateUserInfo = (userInfo) => {
           'success': false,
           'message': 'incorrect password'
         }
+      }
+    })
+    .catch((err) => {
+      return {
+        'success': false,
+        'message': err
+      }
+    })
+}
+
+usersModel.getUserDetails = (userId) => {
+  return User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return {
+          'success': false,
+          'message': 'user not found'
+        }
+      }
+      // send everything except password
+      let userDetails = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumer: user.phoneNumber,
+        image: user.image
+      }
+      return {
+        'success': true,
+        'message': 'user found',
+        'userDetails': userDetails
       }
     })
     .catch((err) => {
