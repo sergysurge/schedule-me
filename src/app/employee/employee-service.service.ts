@@ -28,7 +28,7 @@ export class EmployeeServiceService {
   }
 
   getEmployees(id: Number): Observable<any> {
-    return this.http.get('api/users/employees/?companyId='+ id)
+    return this.http.get('api/users/employees/' + id)
       .map((response: Response) => response)
   }
 

@@ -39,49 +39,49 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.userAssociations = this.authService.getUserAssociations()
-    this.userId = Number(localStorage.getItem('userId'))
-    let userCompanyIds = Object.keys(this.userAssociations)
-    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, userCompanyIds)
-      .subscribe(
-        (calendarEntries) => {
-          this.schedules = calendarEntries[0]
-            .map((calendarEntry) => {
-              return {
-                title: calendarEntry.description,
-                start: calendarEntry.startTime,
-                end: calendarEntry.endTime
-              }
-            })
+    // this.userAssociations = this.authService.getUserAssociations()
+    // this.userId = Number(localStorage.getItem('userId'))
+    // let userCompanyIds = Object.keys(this.userAssociations)
+    // this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, userCompanyIds)
+    //   .subscribe(
+    //     (calendarEntries) => {
+    //       this.schedules = calendarEntries[0]
+    //         .map((calendarEntry) => {
+    //           return {
+    //             title: calendarEntry.description,
+    //             start: calendarEntry.startTime,
+    //             end: calendarEntry.endTime
+    //           }
+    //         })
 
-          this.appointments = calendarEntries[1]
-            .map((calendarEntry) => {
-              return {
-                title: calendarEntry.description,
-                start: calendarEntry.startTime,
-                end: calendarEntry.endTime
-              }
-            })
+    //       this.appointments = calendarEntries[1]
+    //         .map((calendarEntry) => {
+    //           return {
+    //             title: calendarEntry.description,
+    //             start: calendarEntry.startTime,
+    //             end: calendarEntry.endTime
+    //           }
+    //         })
 
-          this.calendars = [
-            {
-              events: this.schedules,
-              color: 'blue'
-            },
-            {
-              events: this.appointments,
-              color: 'pink'
-            }
-          ]
-          this.calendarConfig = {
-            header: this.headers,
-            defaultView: 'agendaWeek',
-            eventSources: this.calendars,
-            editable: true
-          }
-        },
-        (err) => console.error(err)
-      )
+    //       this.calendars = [
+    //         {
+    //           events: this.schedules,
+    //           color: 'blue'
+    //         },
+    //         {
+    //           events: this.appointments,
+    //           color: 'pink'
+    //         }
+    //       ]
+    //       this.calendarConfig = {
+    //         header: this.headers,
+    //         defaultView: 'agendaWeek',
+    //         eventSources: this.calendars,
+    //         editable: true
+    //       }
+    //     },
+    //     (err) => console.error(err)
+    //   )
   }
 
   ngOnDestroy() {

@@ -67,7 +67,7 @@ usersController.SIGNUP = (req, res) => {
 }
 
 usersController.GET_EMPLOYEES = (req, res) => {
-  const companyId = req.query.companyId
+  const companyId = req.params.companyId
   usersModel.getEmployeesByCompany(companyId)
     .then((response) => {
       res.status(200).json({

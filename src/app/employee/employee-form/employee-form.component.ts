@@ -54,7 +54,7 @@ export class EmployeeFormComponent {
 
     constructor(private employeeServiceService:EmployeeServiceService) {
  
-        employeeServiceService.getEmployees(3)
+        employeeServiceService.getEmployees(1)
         .subscribe(
           employee => {
           this.employees = employee.json().response.employees
