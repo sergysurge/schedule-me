@@ -117,7 +117,9 @@ companiesModel.getonecompany = data => {
 }
 
 companiesModel.getallcompanies = () => {
-  return Company.findAll()
+  return Company.findAll({
+    include: [ {model: BrandName} ]
+  })
 }
 
 companiesModel.postcompany = data => {

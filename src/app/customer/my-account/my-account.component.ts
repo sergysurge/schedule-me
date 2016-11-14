@@ -9,8 +9,8 @@ import { CustomerService } from '../customer.service';
     </p>
     <h3>My Account</h3>
     <div id="profile">
-      <div id="name">{{}}</div>
-      <img src="{{}}">
+      <div id="name"></div>
+      
     </div>
   `,
   styles: [
