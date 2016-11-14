@@ -17,7 +17,7 @@ import { HomeComponent } from './home.component';
 import { SignupComponent } from './auth/signup.component';
 import { SigninComponent } from './auth/signin.component';
 import { AuthService } from './auth/auth.service'
-
+import { AuthGuard } from './auth/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +38,7 @@ import { AuthService } from './auth/auth.service'
     SharedModule,
     AppRoutingModule
   ],
-  providers: [AppServiceService, AuthService],
+  providers: [AppServiceService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

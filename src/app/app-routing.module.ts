@@ -6,10 +6,11 @@ import { CompanyComponent } from './company/company.component'
 import { HomeComponent } from './home.component'
 // import { SignupComponent } from './auth/signup.component'
 // import { SigninComponent } from './auth/signin.component'
+import { AuthGuard } from './auth/auth-guard.service'
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'users', component: CustomerComponent },
+    { path: 'users', component: CustomerComponent, canActivate: [AuthGuard] },
     { path: 'work', component: EmployeeComponent },
     { path: 'company', component: CompanyComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
@@ -19,7 +20,7 @@ const routes: Routes = [
     imports: [
         RouterModule.forRoot(routes)
     ],
-    // providers: [guardService],
+    providers: [AuthGuard],
     exports: [
         RouterModule
     ]

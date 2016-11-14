@@ -52,4 +52,18 @@ export class AuthService {
     this.router.navigate([''])
   }
 
+  isLoggedIn() {
+    return localStorage.getItem('jwt-token') != null && localStorage.getItem('userId') != null
+  }
+
+  getUserAssociations() {
+    // return object of form { <UserCompanyId>: [<companyId>, <isAdmin>,], ...}
+    let associations = JSON.parse(localStorage.getItem('userAssociations'))
+    console.log('asdfasdf, ', associations)
+    return associations.reduce((mapping, association) => {
+      mapping[association.id] = [association.companyId, association.admin]
+      return mapping
+    }, {})
+  }
+  
 }

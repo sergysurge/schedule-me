@@ -5,11 +5,12 @@ import { SearchCompaniesComponent } from './search-companies/search-companies.co
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component'
 import { CustomerComponent } from './customer.component'
 import { MyAccountComponent } from './my-account/my-account.component'
-
+import { AuthGuard } from '../auth/auth-guard.service'
 const routes: Routes = [
     { 
         path: 'users', 
         component: CustomerComponent,
+        canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'appointments', pathMatch: 'full' },
             { path: 'account', component: MyAccountComponent },

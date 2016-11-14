@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class EmployeeServiceService {
 
-  constructor(private http: Http, private headers: Headers, private requestOptions: RequestOptions) { }
+  constructor(private http: Http) { }
   getAppointment(): Observable<any> {
     return this.http.get('/api/appointments/2')
       .map((response: Response) => response)
