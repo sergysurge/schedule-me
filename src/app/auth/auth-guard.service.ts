@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         return false
     }
 
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
         console.log('inside can activate child')
         return this.canActivate(route, state)
     }

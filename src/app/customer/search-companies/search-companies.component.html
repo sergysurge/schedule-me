@@ -1,0 +1,14 @@
+<app-search-form></app-search-form>
+    <div id="container">
+        <div class="company" *ngFor="let company of allCompanies">
+            <div class="name">{{company.name}}</div>
+            <img class="image" src="{{company.image}}">
+            <div class="contact">
+                <span>{{company.phoneNumber}}</span>
+                <br>
+                <span>{{company.website}}</span>
+            </div>
+            <div class="address">{{company.address}}</div>
+            <div class="description">{{company.description}}</div>
+        </div>
+    </div>

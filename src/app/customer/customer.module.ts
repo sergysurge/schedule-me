@@ -9,13 +9,17 @@ import { AppointmentCalendarComponent } from './appointment-calendar/appointment
 import { CustomerService } from './customer.service';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchFormComponent } from './search-companies/search-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     CustomerRoutingModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule 
   ],
   exports: [
     CustomerComponent
@@ -25,7 +29,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     SearchCompaniesComponent, 
     AppointmentCalendarComponent,
     MakeAppointmentComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    SearchFormComponent
   ],
   providers: [CustomerService]
 })
