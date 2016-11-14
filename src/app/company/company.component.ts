@@ -8,9 +8,7 @@ import { CompanyService } from './company.service';
 })
 
 export class CompanyComponent implements OnInit {
-  userId = '1';
-  companyId = '1';
-  isAdmin = 'true';
+
 
   constructor(companyService: CompanyService) {
     
