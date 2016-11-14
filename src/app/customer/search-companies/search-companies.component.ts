@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CustomerService } from '../customer.service'
-
+// import { CompanyFilter } from '.../shared/company.pipe'
 @Component({
   selector: 'app-search-companies',
   templateUrl: './search-companies.component.html',
@@ -23,6 +23,7 @@ export class SearchCompaniesComponent implements OnInit, OnDestroy {
               company.image = this.defaultImage
             }
           })
+          console.log(companies)
           this.allCompanies = companies
         },
         (err) => console.error(err),

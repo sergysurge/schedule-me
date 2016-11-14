@@ -1,6 +1,10 @@
-<app-search-form></app-search-form>
+<form>
+    <input type="text" #listFilter (keyup)="o">
+    <br>
+    <button type="submit">Search</button>
+</form>
     <div id="container">
-        <div class="company" *ngFor="let company of allCompanies">
+        <div class="company" *ngFor="let company of allCompanies | companyFilter:listFilter.value">
             <div class="name">{{company.name}}</div>
             <img class="image" src="{{company.image}}">
             <div class="contact">
