@@ -16,11 +16,13 @@ usersController.GETALLEMPLOYEES = (req, res) => {
 }
 
 usersController.SIGNIN = (req, res) => {
-  // var email = req.query.email
-  // var password = req.query.password
   const encodedCredentials = req.headers['authorization']
-  var email, password
-  [email, password] = new Buffer(encodedCredentials, 'base64').toString().split(':')
+
+  // let email = req.query.email
+  // let password = req.query.password
+  let decoded = new Buffer(encodedCredentials, 'base64').toString().split(':')
+  let email = decoded[0]
+  let password = decoded[1]
   usersModel.signin(email, password)
     .then((response) => {
       if (response.success) {
@@ -48,7 +50,6 @@ usersController.SIGNIN = (req, res) => {
 
 usersController.SIGNUP = (req, res) => {
   const user = req.body.user
-
   usersModel.signup(user)
     .then((response) => {
       if (response.success) {

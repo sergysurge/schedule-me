@@ -1,0 +1,24 @@
+<p>
+      signin Works!
+</p>
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm.value)" novalidate>
+
+    <label for="email">Email</label>
+    <br>
+    <input type="email" formControlName="email">
+    <br>
+    <span *ngIf="!signinForm.controls.email.valid && submitted">Email is required.</span>
+    <br>
+
+    <label for="password">Password</label>
+    <br>
+    <input type="password" formControlName="password">
+    <br>
+    <span *ngIf="!signinForm.controls.password.valid && submitted">Password is required (minimum 5 characters).</span>
+    <br>
+    <button type="submit">Signin</button>
+    <br>
+    <span *ngIf="incorrectMsg">Wrong email or password</span>
+    <span *ngIf="errorMsg">Server error, try again later</span>
+
+</form>

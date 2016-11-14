@@ -19,11 +19,25 @@ usersModel.signin = (email, password) => {
   .then((user) => {
     if (user) {
       if (user.checkPassword(password)) {
-        return {
-          'success': true,
-          'message': 'correct password',
-          'userId': user.id
-        }
+        return UserCompany.findAll({
+          where: {
+            userId: user.id
+          }
+        })
+        .then((associations) => {
+          return {
+            'success': true,
+            'message': 'correct password',
+            'userId': user.id,
+            'associations': associations
+          }
+        })
+        .catch((err) => {
+          return {
+            'success': false,
+            'message': `error retrieving associations for user: ${err}`
+          }
+        })
       } else {
         return {
           'success': false,

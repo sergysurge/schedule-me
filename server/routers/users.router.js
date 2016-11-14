@@ -1,5 +1,5 @@
 const express = require('express')
-
+const authenticateToken = require('../middlewares').authenticateToken
 const usersController = require('../controllers').usersController
 
 var UsersRouter = express.Router()

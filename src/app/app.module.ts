@@ -14,11 +14,16 @@ import { CustomerModule } from './customer/customer.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home.component';
-
+import { SignupComponent } from './auth/signup.component';
+import { SigninComponent } from './auth/signin.component';
+import { AuthService } from './auth/auth.service'
+import { AuthGuard } from './auth/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import { HomeComponent } from './home.component';
     SharedModule,
     AppRoutingModule
   ],
-  providers: [AppServiceService/*, EmployeeServiceService*/],
+  providers: [AppServiceService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

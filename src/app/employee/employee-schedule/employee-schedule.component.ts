@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { EmployeeServiceService } from '../employee-service.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-employee-schedule',
@@ -20,14 +21,14 @@ import { EmployeeServiceService } from '../employee-service.service';
 })
 export class EmployeeScheduleComponent implements OnInit, OnDestroy {
 
-  constructor(private employeeService: EmployeeServiceService) { }
+  constructor(private employeeService: EmployeeServiceService, private authService: AuthService) { }
 
   calendarConfig: any
   appointments: any[]
   schedules: any[]
   calendars: any[]
-  userId: number = 5
-  userCompanyId: number = 5
+  userId: number
+  userAssociations
   calendarSubscription
 
   headers = {
@@ -38,7 +39,11 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, this.userCompanyId)
+    this.userAssociations = this.authService.getUserAssociations()
+    this.userId = Number(localStorage.getItem('userId'))
+    let userCompanyIds = Object.keys(this.userAssociations)
+    console.log('+++++', this.userAssociations)
+    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, userCompanyIds)
       .subscribe(
         (calendarEntries) => {
           this.schedules = calendarEntries[0]

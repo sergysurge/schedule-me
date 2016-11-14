@@ -2,6 +2,7 @@ const jwt = require('jwt-simple')
 const User = require('../db').User
 
 const getToken = (header) => {
+  console.log('inside gettoken: ', header)
   if (header['authorization']) {
     if (header['authorization'].indexOf('Bearer') !== -1) {
       return header['authorization'].split(' ')[1]

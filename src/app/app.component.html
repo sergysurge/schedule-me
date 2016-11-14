@@ -1,9 +1,11 @@
 <h1>
   {{title}}
 </h1>
-
-<a [routerLink]="['users']">My Page</a>
-<a [routerLink]="['company']">My Companies</a>
-<a [routerLink]="['work']">Work</a>
+<ul *ngIf="isLoggedIn">
+  <li><a [routerLink]="['users']">My Page</a></li>
+  <li><a [routerLink]="['company']">My Companies</a></li>
+  <li><a [routerLink]="['work']">Work</a></li>
+  <li (click)="onSignOut()"><a>Sign Out</a></li>
+</ul>
 <router-outlet></router-outlet>
 
