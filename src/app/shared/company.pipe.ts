@@ -12,7 +12,7 @@ export class CompanyFilterPipe implements PipeTransform {
                 let descriptionMatch = entry.company.description? entry.company.description.toLowerCase().indexOf(target) !== -1 : false
                 return (nameMatch || brandMatch || descriptionMatch)
             })
-            return filtered.length ? filtered : -1
+            return filtered.length ? filtered : [-1]
         }
         return value
     }

@@ -4,16 +4,16 @@
 </form>
 <div id="container">
     <div class="company" *ngFor="let company of companyDataToRender | companyFilter:listFilter.value">
-    <!--<span *ngIf="company == -1">Sorry no results match your search</span>-->
-    <div class="brand">{{company.brandName}}</div>
-    <div class="name">{{company.company.name}}</div>
-    <img class="image" src="{{company.company.image}}">
-    <div class="contact">
-        <span>{{company.company.phoneNumber}}</span>
-        <br>
-        <span>{{company.company.website}}</span>
-    </div>
-        <div class="address">{{company.company.address}}</div>
-        <div class="description">{{company.company.description}}</div>
+        <span *ngIf="company == -1">Sorry no results match your search</span>
+        <div *ngIf="company !== -1" class="brand">{{company.brandName}}</div>
+        <div *ngIf="company !== -1" class="name">{{company.company.name}}</div>
+        <img *ngIf="company !== -1" class="image" src="{{company.company.image}}">
+        <div *ngIf="company !== -1" class="contact">
+            <span>{{company.company.phoneNumber}}</span>
+            <br>
+            <span>{{company.company.website}}</span>
+        </div>
+        <div *ngIf="company !== -1" class="address">{{company.company.address}}</div>
+        <div *ngIf="company !== -1" class="description">{{company.company.description}}</div>
     </div>
 </div>
