@@ -69,7 +69,8 @@ companiesModel.getbrandname = brand => {
   console.log(brand, '***brand')
   if (Number(brand.val)) {
     return BrandName.findOne({
-      where: {id: brand.val}
+      where: {id: brand.val},
+      include: [{model: Company}]
     })
   } else {
     return BrandName.findAll({
@@ -87,7 +88,8 @@ companiesModel.postbrandname = brandName => {
       ]
     },
     defaults: {
-      name: brandName.name
+      name: brandName.name,
+      companyId: brandName.companyId
     }
   })
   .spread((newBrandName, created) => {
@@ -108,7 +110,10 @@ companiesModel.postbrandname = brandName => {
 /*            COMPANY             */
 companiesModel.getonecompany = data => {
   console.log('MODEL getonecompany:', data)
-  return Company.findById(data.id)
+  return Company.find({
+    where: {id: data.id},
+    include: [ {model: BrandName} ]
+  })
 }
 
 companiesModel.getallcompanies = () => {
@@ -166,7 +171,7 @@ companiesModel.updatecompany = data => {
     website: data.website,
     image: data.image,
     logo: data.logo,
-    BrandNameId: data.brandNameId
+    BrandNameId: data.BrandNameId
   },
     {
       where: {id: data.id}

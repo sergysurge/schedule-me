@@ -6,6 +6,7 @@ import { CompanyService } from './company.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeScheduleComponent } from './employee-schedule/employee-schedule.component';
 import { OptionsComponent } from './options/options.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { OptionsComponent } from './options/options.component';
     CompanyComponent,
     AddEmployeeComponent,
     EmployeeScheduleComponent,
-    OptionsComponent
+    OptionsComponent,
+    ProfileComponent
   ],
   exports: [
     CompanyComponent
