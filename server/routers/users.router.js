@@ -7,7 +7,7 @@ var UsersRouter = express.Router()
 UsersRouter.get('/signin', usersController.SIGNIN)
 UsersRouter.post('/signup', usersController.SIGNUP)
 
-UsersRouter.get('/:userId', usersController.GET_USER_DETAILS)
+UsersRouter.get('/', usersController.GET_USER_DETAILS)
 UsersRouter.put('/:userId/update', usersController.UPDATE_USER_INFO)
 
 UsersRouter.get('/employees', usersController.GET_EMPLOYEES)

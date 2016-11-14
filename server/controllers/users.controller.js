@@ -115,8 +115,9 @@ usersController.REMOVE_USER_FROM_COMPANY = (req, res) => {
 }
 
 usersController.GET_USER_DETAILS = (req, res) => {
-  const userId = req.params.userId
-  usersModel.getUserDetails(userId)
+  const userId = req.query.userId || null
+  const userEmail = req.query.email || null
+  usersModel.getUserDetails(userId, userEmail)
     .then((response) => {
       res.status(200).json({
         response: response

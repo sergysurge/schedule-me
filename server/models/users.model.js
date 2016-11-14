@@ -259,35 +259,35 @@ usersModel.updateUserInfo = (userId, userData) => {
     })
 }
 
-usersModel.getUserDetails = (userId) => {
-  return User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        return {
-          'success': false,
-          'message': 'user not found'
-        }
-      }
-      // send everything except password
-      let userDetails = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phoneNumer: user.phoneNumber,
-        image: user.image
-      }
-      return {
-        'success': true,
-        'message': 'user found',
-        'userDetails': userDetails
-      }
-    })
-    .catch((err) => {
+usersModel.getUserDetails = (userId, email) => {
+  return User.findOne({
+    where: {
+      $or: [
+        {id: userId},
+        {email: email}
+      ]
+    },
+    attributes: { exclude: ['password'] }
+  })
+  .then((user) => {
+    if (!user) {
       return {
         'success': false,
-        'message': err
+        'message': 'user not found'
       }
-    })
+    }
+    return {
+      'success': true,
+      'message': 'user found',
+      'user': user
+    }
+  })
+  .catch((err) => {
+    return {
+      'success': false,
+      'message': err
+    }
+  })
 }
 
 module.exports = usersModel
