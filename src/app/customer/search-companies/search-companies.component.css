@@ -1,0 +1,47 @@
+.company {
+    font-size: 16px;
+    width: 700px;
+    height: 300px;
+    border: 2px solid black;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+.brandName {
+    font-size: 24px;
+    position: absolute;
+    left: 20px;
+}
+.name {
+    font-size: 24px;
+    position: absolute;
+    left: 20px;
+    top: 40px;
+}
+.image {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(0%, -50%)
+}
+.contact {
+    position: absolute;
+    left: 20px;
+    top: 80px;
+}
+.address {
+    position: absolute;
+    left: 20px;
+    top: 120px;
+    margin: 20px 0px 20px 0px;
+}
+.description {
+    position: absolute;
+    left: 20px;
+    top: 180px;
+}

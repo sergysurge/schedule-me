@@ -42,7 +42,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
     this.userAssociations = this.authService.getUserAssociations()
     this.userId = Number(localStorage.getItem('userId'))
     let userCompanyIds = Object.keys(this.userAssociations)
-    console.log('+++++', this.userAssociations)
     this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, userCompanyIds)
       .subscribe(
         (calendarEntries) => {

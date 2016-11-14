@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './calendar.component';
 import { TabsComponent } from './tabs.component';
 import { TabComponent } from './tab.component';
-
+import { CompanyFilterPipe } from './company.pipe'
 @NgModule({
   imports: [
     CommonModule
@@ -11,12 +11,14 @@ import { TabComponent } from './tab.component';
   exports: [
     CalendarComponent,
     TabsComponent,
-    TabComponent
+    TabComponent,
+    CompanyFilterPipe
   ],
   declarations: [
     CalendarComponent, 
     TabsComponent, 
-    TabComponent
+    TabComponent,
+    CompanyFilterPipe
   ]
 })
 export class SharedModule { }
