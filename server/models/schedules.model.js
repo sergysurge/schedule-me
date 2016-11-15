@@ -39,6 +39,7 @@ scheduleModel.postoneschedule = userSched => {
   return Schedule.create({
     startTime: userSched.startTime,
     endTime: userSched.endTime,
+    block: userSched.block,
     description: userSched.description,
     UserCompanyId: userSched.UserCompanyId
   })
