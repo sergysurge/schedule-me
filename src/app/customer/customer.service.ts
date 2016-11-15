@@ -16,7 +16,10 @@ export class CustomerService {
     let options = new RequestOptions({ headers: headers })
 
     return this.http.get(`/api/appointments/customer/${userId}`, options)
-      .map((response: Response) => response.json())
+      .map((response: Response) => {
+        console.log(response)
+        return response.json()
+      })
       .catch(this.handleError)
   }
 

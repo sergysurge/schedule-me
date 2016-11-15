@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
+import 'rxjs/Rx'
+import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router'
 
 @Injectable()
 export class AuthService {
+
+  private isUserLoggedIn: boolean 
+  private subject: Subject<boolean> = new Subject<boolean>()
 
   constructor(private http: Http, private router: Router) { }
   
@@ -23,6 +28,7 @@ export class AuthService {
             }
             return parsed
         })
+        .catch(this.handleError)
 
   }
 
@@ -40,6 +46,7 @@ export class AuthService {
           localStorage.setItem('userId', parsed.response.userId)
           localStorage.setItem('jwt-token', parsed.token)
           localStorage.setItem('userAssociations', JSON.stringify(parsed.response.associations))
+          this.setUserLoggedIn(true)
         }
         return parsed
       })
@@ -49,11 +56,16 @@ export class AuthService {
     localStorage.removeItem('jwt-token')
     localStorage.removeItem('userId')
     localStorage.removeItem('userAssociations')
+    this.setUserLoggedIn(false)
     this.router.navigate([''])
   }
 
-  isLoggedIn() {
-    return localStorage.getItem('jwt-token') != null && localStorage.getItem('userId') != null
+  setUserLoggedIn(loggedIn: boolean): void {
+    this.isUserLoggedIn = loggedIn
+    this.subject.next(loggedIn)
+  }
+  getIsUserLoggedIn(): Observable<boolean> {
+    return this.subject.asObservable()
   }
 
   getUserAssociations() {
@@ -63,6 +75,10 @@ export class AuthService {
       mapping[association.id] = [association.companyId, association.admin]
       return mapping
     }, {})
+  }
+
+  handleError(err: Response) {
+    return Observable.throw(err.json() || 'Server error')
   }
   
 }

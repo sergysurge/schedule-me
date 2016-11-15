@@ -3,11 +3,11 @@
   {{title}}
 </h1>
 <ul>
-  <li [hidden]="isLoggedIn"><a [routerLink]="['users']">My Page</a></li>
-  <li [hidden]="isLoggedIn"><a [routerLink]="['company']">My Companies</a></li>
-  <li [hidden]="isLoggedIn"><a [routerLink]="['work']">Work</a></li>
-  <li [hidden]="isLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
+  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['users']">My Page</a></li>
+  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['company']">My Companies</a></li>
+  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['work']">Work</a></li>
+  <li [hidden]="!isUserLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
 </ul>
-{{isLoggedIn}}
+{{isUserLoggedIn}}
 <router-outlet></router-outlet>
 </div>

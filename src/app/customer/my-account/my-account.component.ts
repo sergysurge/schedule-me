@@ -9,8 +9,8 @@ import { Router } from '@angular/router'
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
 
-  public showEditBox: boolean = false
-  public user: any
+  private showEditBox: boolean = false
+  private user: any
   private defaultImage: string = 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'
   private subscription: any
   private userId: number = Number(localStorage.getItem('userId'))

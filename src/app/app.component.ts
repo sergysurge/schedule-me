@@ -9,18 +9,22 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn: boolean
 
+  private isUserLoggedIn: boolean
   constructor (private authService: AuthService) { 
     // this.isLoggedIn = this.authService.isLoggedIn()
   }
   
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn()
+    this.authService.getIsUserLoggedIn()
+      .subscribe(
+        (loggedIn) => { this.isUserLoggedIn = loggedIn; console.log('getting') },
+        (err) => { console.error(err) },
+        () => { console.log('done') }
+      )
   }
   
   onSignOut() {
-    this.isLoggedIn = false
     this.authService.signout()
   }
 }
