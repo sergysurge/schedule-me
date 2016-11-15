@@ -32,6 +32,10 @@ export class EmployeeServiceService {
       .map((response: Response) => response)
   }
 
+  getSchedule( body: Object){
+    return this.http.get(`/api/schedules/`)
+    .map((response: Response) => response)
+  }
 
 
   getEmployeeCalendarData(userId, userCompanyIds): Observable<any> {
