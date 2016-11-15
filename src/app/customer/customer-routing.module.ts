@@ -17,7 +17,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'appointments', pathMatch: 'full' },
             { path: 'account', component: MyAccountComponent },
             { path: 'appointments', component: AppointmentCalendarComponent },
-            { path: 'search', component: SearchCompaniesComponent }
+            { path: 'search', component: SearchCompaniesComponent },
+            { path: 'search/:companyId', component: MakeAppointmentComponent }
         ]
     }
 ]
