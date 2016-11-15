@@ -11,7 +11,7 @@ import { CompanyService } from '../company.service';
 })
 
 export class AddEmployeeComponent implements OnInit {
-  asyncString = this.companyService.getUsersFromCompany(1)
+  //asyncString = this.companyService.getUsersFromCompany(1)
 
   admin = ['true', 'false']
   addEmployee = {
@@ -23,6 +23,34 @@ export class AddEmployeeComponent implements OnInit {
   companyId
   addEmployeeForm : FormGroup
   deleteEmployeeForm : FormGroup
+  userSearch = 'poopie face'
+  userNotFound = false
+  userShow = false
+  userFetched = {
+    id: '',
+    email: '',
+    lastName: '',
+    firstName: ''
+  }
+  searchUser(name) {
+    console.log(name)
+    this.companyService.getUsers(name)
+      .subscribe(data => {
+        console.log(data, 'data we got back from user')
+        console.log(data.response, 'good?')
+        if (!data.response.success) {
+          this.userNotFound = true
+          this.userShow = false
+        } else if (data.response.success) {
+          this.userNotFound = false
+          this.userShow = true
+        }
+        this.userFetched.id = data.response.user.id
+        this.userFetched.email = data.response.user.email
+        this.userFetched.lastName = data.response.user.lastName
+        this.userFetched.firstName = data.response.user.firstName
+      })
+  }
 
   onSubmit() {
     this.companyService.addEmployee({
@@ -32,7 +60,7 @@ export class AddEmployeeComponent implements OnInit {
     })
     .subscribe(data => {
       console.log(data, 'dis da data')
-      this.asyncString = this.companyService.getUsersFromCompany(1)
+      //this.asyncString = this.companyService.getUsersFromCompany(1)
     })
     console.log(this.addEmployee)
   }
@@ -44,11 +72,14 @@ export class AddEmployeeComponent implements OnInit {
     })
     .subscribe(data => {
       console.log(data)
-      this.asyncString = this.companyService.getUsersFromCompany(1)
+      // this.asyncString = this.companyService.getUsersFromCompany(1)
     })
   }
-
+  asynctrial
+  companyIds = localStorage.getItem('companyId') || 1
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
+    this.asynctrial = this.companyService.getEmployees(this.companyIds)
+
     this.addEmployeeForm = formBuilder.group({
       'userId' : [this.addEmployee.userId, Validators.required],
       'companyId' : [this.addEmployee.companyId, Validators.required],

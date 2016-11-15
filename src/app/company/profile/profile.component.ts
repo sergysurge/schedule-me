@@ -15,7 +15,17 @@ export class ProfileComponent implements OnDestroy, OnInit{
   private subscription: Subscription
   private company: any
   private paramId
-  
+  private brands: Subscription
+  private brandNamesAll: any
+  private brandNameCustom
+  postBrandName(brandNameCustom) {
+    let body = {
+      name: brandNameCustom,
+      companyId: localStorage.getItem('companyId') || 1
+    }
+    this.companyService.postBrandName(body)
+    .subscribe(data => console.log(data))
+  }
    //called before ngOnInit()
   constructor(private companyService:CompanyService, private router:Router, private activatedRoute:ActivatedRoute) {
    this.company = this.companyService.company;
@@ -27,6 +37,10 @@ export class ProfileComponent implements OnDestroy, OnInit{
           //console.log(this.company, ' AFTER')
         })
    })
+   this.brandNamesAll = this.companyService.brandNamesAll
+   this.brands = this.companyService.getAllBrandNames()
+   .subscribe(data => console.log(data, "in profile component"))
+
   }
 
   ngOnInit() {
