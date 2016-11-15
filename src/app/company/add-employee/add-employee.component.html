@@ -3,28 +3,32 @@
 <h3> Current Employees </h3>
 <div>
   <ul >
-    <li *ngFor="let d of asyncString | async">{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
+    <li *ngFor="let d of asynctrial | async">{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
   </ul>
 </div>
 <hr>
 <h3> Search for User </h3>
-  <p> Under Construction</p>
+  <input type="text" placeholder="email@gmail.com OR 23 (userId)" [(ngModel)]="userSearch"> <button type="submit" (click)="searchUser(userSearch)">search</button>
+  <br>
+  <p *ngIf="userNotFound"> Please Try Again! <p>
+    <div *ngIf="userShow">
+      {{userFetched.id}} {{userFetched.email}}
+    </div>
 <hr>
-
 <h3> Add Employee </h3>
 <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="userId"> UserId </label>
     <input type="number" id="userId" class="form-control" formControlName="userId">
     <div *ngIf="!addEmployeeForm.controls['userId'].valid">
-      suck it
+      INVAID, TRY AGAIN
     </div>
   </div>
   <div class="form-group">
     <label for="companyId"> CompanyId </label>
     <input type="number" id="companyId" class="form-control" formControlName="companyId">
     <div *ngIf="!addEmployeeForm.controls['companyId'].valid">
-      suck it
+      INVAID, TRY AGAIN
     </div>
   </div>
   <div class="radio" *ngFor="let a of admin">

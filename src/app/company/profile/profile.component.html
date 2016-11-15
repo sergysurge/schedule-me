@@ -17,4 +17,12 @@
     <hr>
     <img [src]="company.image">
   </div>
+  <h3> Brand Names Available </h3>
+  <ul>
+    <li *ngFor="let b of brandNamesAll"> {{b.id}} {{b.name}}
+    </li>
+  </ul>
+  <h3> Add Custom Brand Name </h3>
+  <input type="text" [(ngModel)]="brandNameCustom">
+  <button (click)="postBrandName(brandNameCustom)">create</button>
 </div>
