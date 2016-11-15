@@ -1,0 +1,33 @@
+<form [formGroup]="editAccountForm" (ngSubmit)="onSubmit(editAccountForm.value)" novalidate>
+    <label for="password">Enter password to edit account details</label>
+    <input type="password" formControlName="password">
+    <br>
+    <span *ngIf="editAccountForm.controls.password.hasError('required') && submitted">Password is required</span>
+    <br>
+
+    <label for="firstName">First Name</label>
+    <input type="text" [(ngModel)]="user.firstName" formControlName="firstName">
+    <br>
+
+    <label for="lastName">Last Name</label>
+    <input type="text" [(ngModel)]="user.lastName" formControlName="lastName">
+    <br>
+
+    <label for="phoneNumber">Phone Number</label>
+    <input type='tel' [(ngModel)]="user.phoneNumber" formControlName="phoneNumber">
+    <br>
+    <label for="email">Email</label>
+    <input type="email" [(ngModel)]="user.email" formControlName="email">
+    <br>
+
+    <label for="image">Profile Photo</label>
+    <input type="url" [(ngModel)]="user.image" formControlName="image">
+    <br>
+
+    <button type="submit">Save Changes</button>
+    <br>
+  
+    <span *ngIf="showErrorMsg">Server error, please try again later</span>
+    <span *ngIf="incorrectPassword">Incorrect password</span>
+    <span *ngIf="showSuccessMsg">Account updated!</span>
+</form>

@@ -220,6 +220,8 @@ usersModel.removeUserFromCompany = (userId, companyId) => {
 }
 
 usersModel.updateUserInfo = (userId, userData) => {
+  let updateFields = Object.keys(userData)
+
   return User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -229,8 +231,10 @@ usersModel.updateUserInfo = (userId, userData) => {
         }
       }
       // user must input correct password to update info
-      if (user.checkPassword(userInfo.oldPassword)) {
-        return user.update(userInfo.newInfo)
+      if (user.checkPassword(userData.password)) {
+        return user.update(userData, {
+          fields: updateFields
+        })
           .then((updatedUser) => {
             return {
               'success': true,
