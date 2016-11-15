@@ -16,5 +16,5 @@
 </div>
     
 <div id="edit" *ngIf="showEditBox">
-    <app-edit-account [user]="user"></app-edit-account>
+    <app-edit-account (userUpdate)="onUserUpdated($event)" [user]="user"></app-edit-account>
 </div>

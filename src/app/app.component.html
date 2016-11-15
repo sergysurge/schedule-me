@@ -8,6 +8,5 @@
   <li [hidden]="!isUserLoggedIn"><a [routerLink]="['work']">Work</a></li>
   <li [hidden]="!isUserLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
 </ul>
-{{isUserLoggedIn}}
 <router-outlet></router-outlet>
 </div>

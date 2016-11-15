@@ -10,10 +10,8 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  private isUserLoggedIn: boolean
-  constructor (private authService: AuthService) { 
-    // this.isLoggedIn = this.authService.isLoggedIn()
-  }
+  public isUserLoggedIn: boolean = true
+  constructor (private authService: AuthService) { }
   
   ngOnInit() {
     this.authService.getIsUserLoggedIn()

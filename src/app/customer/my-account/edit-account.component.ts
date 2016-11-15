@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CustomerService } from '../customer.service'
 @Component({
@@ -19,28 +19,28 @@ export class EditAccountComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
 
   @Input() user: any
+  @Output() userUpdate = new EventEmitter()
 
   ngOnInit() {
     this.editAccountForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', []],
       email: ['', [Validators.required]],
       image: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
-
   }
 
   onSubmit(update) {
     this.submitted = true
-    console.log(update)
     if (this.editAccountForm.valid) {
       this.subscription = this.customerService.submitUserUpdates(this.userId, update)
         .subscribe(
           (res) => {
             if (res.response.success) {
               this.showSuccessMsg = true
+              this.userUpdate.emit(update)
             } else if (res.response.message === 'incorrect password') {
               this.incorrectPassword = true
             }
@@ -53,6 +53,8 @@ export class EditAccountComponent implements OnInit {
             console.log('done')
           }
         )
+    } else {
+      console.log('asdfadf')
     }
   }
 }
