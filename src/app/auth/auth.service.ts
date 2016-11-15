@@ -28,6 +28,7 @@ export class AuthService {
             }
             return parsed
         })
+        .catch(this.handleError)
 
   }
 
@@ -74,6 +75,10 @@ export class AuthService {
       mapping[association.id] = [association.companyId, association.admin]
       return mapping
     }, {})
+  }
+
+  handleError(err: Response) {
+    return Observable.throw(err.json() || 'Server error')
   }
   
 }

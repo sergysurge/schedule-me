@@ -20,7 +20,7 @@ scheduleModel.getoneschedule = userCompanyId => {
 
 scheduleModel.getschedules = userCompanyIdsArray => {
   // console.log('MODEL getschedules', userCompanyIdsArray)
-
+  console.log(userCompanyIdsArray)
   return Schedule.findAll({
     where: {
       UserCompanyId: userCompanyIdsArray
