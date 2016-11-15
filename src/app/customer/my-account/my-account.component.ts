@@ -34,9 +34,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscription && this.subscription.unsubscribe()
   }
 
   onEdit() {

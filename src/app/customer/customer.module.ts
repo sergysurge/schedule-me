@@ -12,6 +12,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
 import { EditAccountComponent } from './my-account/edit-account.component';
+import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { EditAccountComponent } from './my-account/edit-account.component';
     MakeAppointmentComponent,
     MyAccountComponent,
     SearchFormComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    MakeAppointmentCompanyProfileComponent
   ],
   providers: [CustomerService]
 })

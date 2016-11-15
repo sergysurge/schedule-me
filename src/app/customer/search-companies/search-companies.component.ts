@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CustomerService } from '../customer.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-search-companies',
@@ -13,7 +14,7 @@ export class SearchCompaniesComponent implements OnInit, OnDestroy {
   private subscription: any
 
   public defaultImage = 'http://www.freeiconspng.com/uploads/retail-store-icon-15.png'
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private router: Router) { }
   
   ngOnInit() {
     this.subscription = this.customerService.getCompanies()
@@ -34,8 +35,10 @@ export class SearchCompaniesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.subscription) {
-      this.subscription.unsubscribe()
-    }
+    this.subscription && this.subscription.unsubscribe()
+  }
+
+  onCompanyClick(company) {
+    this.router.navigate(['/users/search/', company.id])
   }
 }

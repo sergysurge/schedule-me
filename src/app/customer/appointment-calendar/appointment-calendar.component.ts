@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-appointment-calendar',
@@ -68,7 +69,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   customerAppointments: Array<any>
   customerCalendarEvents: Array<any>
   userId = localStorage.getItem('userId')
-  subscription: any
+  private subscription: Subscription
   
 
   headers = {
@@ -107,7 +108,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription && this.subscription.unsubscribe()
   }
 
   handleEventClick(calEvent, jsEvent, view) {
