@@ -59,7 +59,6 @@ export class CustomerService {
       headers: headers,
       body: updatedValues
     })
-    // console.log(userId, user)
     return this.http.put(`/api/users/${userId}/update`, options)
       .map((response: Response) => response.json())
       .catch(this.handleError)

@@ -221,7 +221,7 @@ usersModel.removeUserFromCompany = (userId, companyId) => {
 
 usersModel.updateUserInfo = (userId, userData) => {
   let updateFields = Object.keys(userData)
-  console.log(userData.updatedValues)
+
   return User.findById(userId)
     .then((user) => {
       if (!user) {

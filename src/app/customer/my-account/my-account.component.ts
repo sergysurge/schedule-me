@@ -4,67 +4,8 @@ import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-my-account',
-  template: `
-    <h3>My Account</h3>
-    <div id="profile">
-      <div id="name">Name: {{user?.firstName}} {{user?.lastName}}</div>
-      <div id="photo">
-        <img src="{{user?.image}}">
-      </div>
-      <div id="contact">
-        <span>Contact Information</span>
-        <div id="phone">Phone Number: {{user?.phoneNumber}}</div>
-        <div id="email">Email: {{user?.email}}</div>
-      </div>
-      <button type="button" class="btn btn-default" (click)="onEdit()">
-        <span class="glyphicon glyphicon-edit"></span> Edit
-      </button>
-    </div>
-    
-    <div id="edit" *ngIf="showEditBox">
-      <app-edit-account [user]="user"></app-edit-account>
-    </div>
-
-  `,
-  styles: [
-    `
-      #profile {
-        border: 2px solid black;
-        width: 700px;
-        height: 300px;
-        position: relative;
-        padding: 20px;
-        font-size: 16px;
-      }
-      #photo {
-        position: absolute;
-        right: 20px;
-        transform: translate(-50%, 0%)
-        width: 150px;
-        height: 150px;
-      }
-      #photo img {
-        width: 160px;
-        height: 150px;
-      }
-      #name {
-        font-size: 24px;
-        position: absolute;
-        top: 20px;
-        left: 20px;
-      }
-      #contact {
-        position: absolute;
-        left: 20px;
-        top: 60px;
-      }
-      button {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-      }
-    `
-  ]
+  templateUrl: './my-account.component.html',
+  styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
 
@@ -85,7 +26,6 @@ export class MyAccountComponent implements OnInit, OnDestroy {
             if (!this.user.image) {
               this.user.image = this.defaultImage
             }
-
           }
         },
         (err) => {console.error(err)},

@@ -131,12 +131,8 @@ usersController.GET_USER_DETAILS = (req, res) => {
 }
 
 usersController.UPDATE_USER_INFO = (req, res) => {
-  console.log('+++++', req.body.body)
-  // console.log(req.body.)
   const userId = req.params.userId
   const userData = req.body.body
-  console.log(userData, '++++++++++++++')
-  // expects user object with id and userData with password, updateFields, and updatedValues
   usersModel.updateUserInfo(userId, userData)
     .then((response) => {
       res.status(200).json({
