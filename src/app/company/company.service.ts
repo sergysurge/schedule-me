@@ -14,7 +14,11 @@ export class CompanyService {
 
   getEmployees(companyId) {
     return this.http.get('/api/users/getemployees/' + companyId)
-    .map((response:Response) => response.json())
+    .map((response:Response) => {
+      console.log(response, 'dis **** response');
+      let data = response.json()
+      return data[0].users
+    })
   }
 
   getUsersFromCompany(companyId) {

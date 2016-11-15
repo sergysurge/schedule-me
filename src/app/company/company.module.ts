@@ -7,12 +7,13 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeScheduleComponent } from './employee-schedule/employee-schedule.component';
 import { OptionsComponent } from './options/options.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { CalendarModule} from 'primeng/primeng';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule
   ],
   declarations: [
     CompanyComponent,
