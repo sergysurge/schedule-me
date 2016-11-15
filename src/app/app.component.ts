@@ -9,14 +9,18 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn: Boolean
-  constructor (private authService: AuthService) { }
+  isLoggedIn: boolean
+
+  constructor (private authService: AuthService) { 
+    // this.isLoggedIn = this.authService.isLoggedIn()
+  }
   
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn()
   }
   
   onSignOut() {
+    this.isLoggedIn = false
     this.authService.signout()
   }
 }

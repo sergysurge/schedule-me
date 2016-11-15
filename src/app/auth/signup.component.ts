@@ -12,7 +12,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   public submitted: Boolean = false
-  // public passwordsMatch: Boolean = true
   public signupForm: FormGroup
   public errorMsg: string
   public userExists: Boolean = false

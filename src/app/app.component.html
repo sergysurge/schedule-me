@@ -2,11 +2,12 @@
 <h1>
   {{title}}
 </h1>
-<ul *ngIf="isLoggedIn">
-  <li><a [routerLink]="['users']">My Page</a></li>
-  <li><a [routerLink]="['company']">My Companies</a></li>
-  <li><a [routerLink]="['work']">Work</a></li>
-  <li (click)="onSignOut()"><a>Sign Out</a></li>
+<ul>
+  <li [hidden]="isLoggedIn"><a [routerLink]="['users']">My Page</a></li>
+  <li [hidden]="isLoggedIn"><a [routerLink]="['company']">My Companies</a></li>
+  <li [hidden]="isLoggedIn"><a [routerLink]="['work']">Work</a></li>
+  <li [hidden]="isLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
 </ul>
+{{isLoggedIn}}
 <router-outlet></router-outlet>
 </div>

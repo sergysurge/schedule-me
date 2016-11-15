@@ -11,6 +11,7 @@ import { MakeAppointmentComponent } from './make-appointment/make-appointment.co
 import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
+import { EditAccountComponent } from './my-account/edit-account.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { SearchFormComponent } from './search-companies/search-form.component';
     AppointmentCalendarComponent,
     MakeAppointmentComponent,
     MyAccountComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    EditAccountComponent
   ],
   providers: [CustomerService]
 })

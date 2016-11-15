@@ -8,7 +8,7 @@ import { Router } from '@angular/router'
 export class AuthService {
 
   constructor(private http: Http, private router: Router) { }
-
+  
   submitUserData(user) {
       let headers = new Headers()
       headers.append('Content-Type', 'application/json')
@@ -59,7 +59,6 @@ export class AuthService {
   getUserAssociations() {
     // return object of form { <UserCompanyId>: [<companyId>, <isAdmin>,], ...}
     let associations = JSON.parse(localStorage.getItem('userAssociations'))
-    console.log('asdfasdf, ', associations)
     return associations.reduce((mapping, association) => {
       mapping[association.id] = [association.companyId, association.admin]
       return mapping
