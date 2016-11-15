@@ -24,16 +24,31 @@ export class EmployeeFormComponent {
     service: {};
 
     person = {
-      contactName: '',
-      contactNumber: '',
+      contactName: undefined,
+      contactNumber: undefined,
       description: undefined,
       startTime: undefined,
       endTime: undefined,
-      customerId :'1',
-      employeeId : '',
-      companyId : '1'
+      customerId :undefined,
+      employeeId : undefined,
+      companyId : undefined
     }
   @Output() clicked = new EventEmitter<string>();
+
+  // getTime(employeeServiceService:EmployeeServiceService){
+  //   let arr= []
+  //   let arr2= []
+  //   this.employees.forEach(curr=>{
+  //     arr.push(curr)
+  //   })
+  //   arr.forEach(curr=>{
+  //     arr2.push(curr.id)
+  //   })
+  //    employeeServiceService.getSchedule(arr2)
+  //    .subscribe({
+
+  //    })
+  // }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
     let start = moment(this.start).utcOffset(0)
@@ -59,10 +74,11 @@ export class EmployeeFormComponent {
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
  
         this.user = this.authService.getUserAssociations()
+        console.log(this.user)
         for(var key in this.user){
           this.user.companyId = this.user[key][0]
+          this.person.customerId = key
         }
-
         employeeServiceService.getEmployees(this.user.companyId)
         .subscribe(
           employee => {
