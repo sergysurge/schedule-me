@@ -7,6 +7,7 @@ usersController.GETALLEMPLOYEES = (req, res) => {
   console.log(req.params, 'look here ****')
   usersModel.getAllEmployeesCompanyId(req.params)
     .then(response => {
+      console.log(response, '**here**')
       res.send(response)
     })
     .catch(err => {

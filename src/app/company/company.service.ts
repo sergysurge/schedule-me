@@ -14,7 +14,11 @@ export class CompanyService {
 
   getEmployees(companyId) {
     return this.http.get('/api/users/getemployees/' + companyId)
-    .map((response:Response) => response.json())
+    .map((response:Response) => {
+      console.log(response, 'dis **** response');
+      let data = response.json()
+      return data[0].users
+    })
   }
 
   getUsersFromCompany(companyId) {
@@ -39,8 +43,7 @@ export class CompanyService {
     return this.http.get('api/companies/getonecompany/' + companyId)
     .map((response: Response) => {
       let data = response.json()
-      console.log(response.json(), 'SERVICE = JSON')
-      this.company.BrandNameId = data.BrandNameId || null;
+      this.company.brandName = data.BrandName.name || null;
       this.company.address = data.address || null;
       this.company.createdAt = data.createdAt || null;
       this.company.updatedAt = data.updatedAt || null;
@@ -51,7 +54,7 @@ export class CompanyService {
       this.company.name = data.name || null;
       this.company.website = data.website || null;
       this.company.phoneNumber = data.phoneNumber || null;
-      console.log(this.company, 'SERVICE = POPULATED COMPANY')
+      console.log(this.company, 'COMPANYSERVICE = POPULATED COMPANY')
       return response.json()
     })
   }
