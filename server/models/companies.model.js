@@ -4,8 +4,15 @@ const Option = require('../db').Option
 const companiesModel = {}
 
 /*            OPTIONS             */
-companiesModel.getalloptions = () => {
-  return Option.findAll()
+companiesModel.getalloptions = (companyId) => {
+  return Option.findAll({
+    where: {
+      companyId: companyId
+    }
+  })
+  .then(options => {
+    return options
+  })
 }
 
 companiesModel.postoneoption = (option) => {

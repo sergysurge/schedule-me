@@ -10,10 +10,7 @@ import { EmployeeServiceService } from '../employee-service.service'
 export class EmployeeAppointmentsComponent {
 
   constructor(employeeServiceService:EmployeeServiceService) { 
-    employeeServiceService.getAppointment()
-    .subscribe(
-      appointments => this.appointments = appointments.json()
-    )
+  
   }
 
   appointments;

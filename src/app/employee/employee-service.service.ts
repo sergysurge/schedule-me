@@ -10,16 +10,16 @@ import { Observable } from 'rxjs/Observable';
 export class EmployeeServiceService {
 
   constructor(private http: Http) { }
-  getAppointment(): Observable<any> {
-    return this.http.get('/api/appointments/2')
-      .map((response: Response) => response)
-      // .catch((error))
-      // .toPromise()
-      // .then(response => console.log(response))
-      // .map(response => {
-      //   console.log(response)
-      // })
-  }
+  // getAppointment(id:Number): Observable<any> {
+  //   return this.http.get(`/api/appointments/5`)
+  //     .map((response: Response) => response)
+  //     // .catch((error))
+  //     // .toPromise()
+  //     // .then(response => console.log(response))
+  //     // .map(response => {
+  //     //   console.log(response)
+  //     // })
+  // }
 
   makeAppointment(body: Object): Promise<any> {
     return this.http.post('/api/appointments', body)
@@ -28,7 +28,7 @@ export class EmployeeServiceService {
   }
 
   getEmployees(id: Number): Observable<any> {
-    return this.http.get('api/users/employees/' + id)
+    return this.http.get(`api/users/employees/${id}`)
       .map((response: Response) => response)
   }
 

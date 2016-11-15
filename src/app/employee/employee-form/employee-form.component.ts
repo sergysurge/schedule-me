@@ -3,7 +3,10 @@ import * as moment from 'moment'
 
 import {SelectItem} from 'primeng/primeng';
 
-import {EmployeeServiceService} from '../employee-service.service'
+import { EmployeeServiceService } from '../employee-service.service'
+import { AuthService } from '../../auth/auth.service'
+import { CompanyService } from '../../company/company.service'
+
 
 @Component({
   selector: 'app-employee-form',
@@ -12,12 +15,13 @@ import {EmployeeServiceService} from '../employee-service.service'
 })
 export class EmployeeFormComponent {
     date : Date ; 
-    public user: {}
+    user: any
     employees: SelectItem[];
     hours: SelectItem[];
     services: SelectItem[];
     start;
     times;
+    service: {};
 
     person = {
       contactName: '',
@@ -39,7 +43,7 @@ export class EmployeeFormComponent {
 
 
     let end = moment(start)
-    end.add(this.person.description[0].value,'m')
+    end.add(this.person.description[0].duration,'m')
     this.person.description = this.person.description[0].label
     this.person.endTime = end
 
@@ -52,14 +56,24 @@ export class EmployeeFormComponent {
     )
   }
 
-    constructor(private employeeServiceService:EmployeeServiceService) {
+    constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
  
-        employeeServiceService.getEmployees(1)
+        this.user = this.authService.getUserAssociations()
+        for(var key in this.user){
+          this.user.companyId = this.user[key][0]
+        }
+
+        employeeServiceService.getEmployees(this.user.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json().response.employees
         }
         )
+
+        companyService.getOptions(this.user.companyId)
+        .subscribe(options=>{
+            this.services = options
+        })
 
         this.employees = [];
         
@@ -110,10 +124,7 @@ export class EmployeeFormComponent {
         this.hours.push({label: "07:45 PM",value: "19:45"})
         this.hours.push({label: "08:00 PM",value: "20:00"})
 
-        this.services =[]
-        this.services.push({label: "Manicure",value: 15})
-        this.services.push({label: "Pedicure",value: 30})
-        this.services.push({label: "Wax",value: 15})  
+ 
   }
 
 }
