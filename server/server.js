@@ -1,8 +1,8 @@
 const express = require('express')
+const path = require('path')
 require('dotenv').config()
 const logger = require('morgan')
 const bodyParser = require('body-parser')
-const path = require('path')
 const cors = require('cors')
 const rootRouter = require('./routers')
 const PORT = process.env.PORT || 8000

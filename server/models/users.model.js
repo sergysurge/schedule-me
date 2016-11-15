@@ -5,8 +5,9 @@ const UserCompany = require('../db').UserCompany
 const usersModel = {}
 
 usersModel.getAllEmployeesCompanyId = companyId => {
-  return UserCompany.findAll({
-    where: {companyId: companyId.companyId}
+  return Company.findAll({
+    include: {model: User},
+    where: {id: companyId.companyId}
   })
 }
 

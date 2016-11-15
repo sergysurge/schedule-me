@@ -1,26 +1,39 @@
 <h1> Schedules </h1>
-<h3> Current Employees </h3>
+<h3> Choose An Employee </h3>
 <div>
   <ul>
-    <li (click)="setEmployee(e.id)"*ngFor="let e of employees | async"> {{e.id}} | {{e.admin}} | {{e.userId}}</li>
+    <li (click)="setEmployee(e.id, e.firstName, e.lastName, e.UserCompany.admin)" *ngFor="let e of employees"> user id: {{e.id}} | {{e.firstName}} {{e.lastName}} | admin: {{e.UserCompany.admin}}
+    </li>
   </ul>
 </div>
-<h3> Employee Scheduel</h3>
-<div>
-  <ul>
-    <li (click)="setDay(i)" *ngFor="let d of days; let i = index"> {{d}}</li>
-  </ul>
-</div>
-<div *ngIf="step1GotDay && step2GotEmployee">
+<h2 *ngIf="step2GotEmployee"> Grabbed {{selectedEmployeeId.id}} | {{selectedEmployeeId.nameFirst}} {{selectedEmployeeId.nameLast}} | admin: {{selectedEmployeeId.admin}}</h2>
+<h3> Employee Schedule</h3>
+
+<div *ngIf="step2GotEmployee">
   <h3 > Set one day </h3>
-  {{selectedEmployeeId}}  |  {{selectedDay}}
   <form [formGroup]="employeeScheduleForm" (ngSubmit)="postOneSched()">
-    <label for="startTime"> start </label>
-    <input type="data" id="startTime" class="form-control" formControlName="startTime" placeholder="2016-11-11 16:30:48.999 +00:00" >
+    <!--<input type="date" id="date" class="form-control" formControlName="date" placeholder="11">  Month /
+    
+    <input type="date"/>
+    <input type="datetime"/>-->
+    <label> date </label>
+    <input type="date"  formControlName="date"/>
+    <label> start Time </label>
+    <input type="time"  step="900" formControlName="startTime"/>
+    <label> end Time </label>
+    <input type="time"  step="900" formControlName="endTime"/>
+    <br>
+    <!--<input min='8' max="24" step="15" type="time">
+    <input min='8:00' max="24:00" step="00:15" type="time">
+    <input min='28800' max="12:00" step="900" type="time">-->
+    <!--<input type="date" id="day" class="form-control" formControlName="day" placeholder="30"> Day /
+    <input type="date" id="year" class="form-control" formControlName="year" placeholder="2016"> Year-->
+    <!--<label for="startTime"> start </label>
+    <input type="data" id="startTime" class="form-control" formControlName="startTime" placeholder="2016-11-11 16:30:48.999 +00:00" [value]="startTime">
     <label for="endTime"> end </label>
-    <input type="data" id="endTime" class="form-control" formControlName="endTime">
-    <label for="comment"> comment </label>
-    <input type="text" id="comment" class="form-control" formControlName="comment">
+    <input type="data" id="endTime" class="form-control" formControlName="endTime">-->
+    <label for="description"> description </label>
+    <input type="text" id="description" formControlName="description">
     <button type="submit" [disabled]="!employeeScheduleForm.valid">Submit</button>
   </form>
 </div>
