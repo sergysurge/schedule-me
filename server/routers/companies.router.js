@@ -17,10 +17,10 @@ CompaniesRouter.get('/getbrandname/:val', companiesController.GETBRANDNAME)
 CompaniesRouter.post('/postbrandname', companiesController.POSTBRANDNAME)
 
 /* OPTIONS CONTROLLERS CALLS */
-CompaniesRouter.get('/getalloptions', companiesController.GETALLOPTIONS)
+CompaniesRouter.get('/getalloptions/:companyId', companiesController.GETALLOPTIONS)
 CompaniesRouter.post('/postoneoption', companiesController.POSTONEOPTION)
-CompaniesRouter.post('/updateoption', companiesController.UPDATEOPTION)
-CompaniesRouter.post('/deleteoption', companiesController.DELETEOPTION)
+CompaniesRouter.put('/updateoption', companiesController.UPDATEOPTION)
+CompaniesRouter.delete('/deleteoption', companiesController.DELETEOPTION)
 
 
 

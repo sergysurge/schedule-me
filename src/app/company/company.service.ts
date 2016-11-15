@@ -58,6 +58,16 @@ export class CompanyService {
 
   //getAllBrandNames
 
+  //options
+  addOptions (body:any): Observable<any>{
+    return this.http.post('api/companies/postoneoption',body)
+    .map((response:Response) => response)
+  }
+
+  getOptions (body:any): Observable<any>{
+    return this.http.get('api/companies/getalloptions/'+body)
+    .map((response:Response) => response.json())
+  }
   
 
 }

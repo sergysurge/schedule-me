@@ -3,7 +3,7 @@ const companiesController = {}
 
 /* OPTIONS CONTROLLERS CALLS */
 companiesController.GETALLOPTIONS = (req, res) => {
-  companiesModel.getalloptions()
+  companiesModel.getalloptions(req.params.companyId)
     .then(alloptions => {
       res.send(alloptions)
     })
