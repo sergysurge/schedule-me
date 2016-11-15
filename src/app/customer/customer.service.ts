@@ -17,9 +17,19 @@ export class CustomerService {
 
     return this.http.get(`/api/appointments/customer/${userId}`, options)
       .map((response: Response) => {
-        console.log(response)
         return response.json()
       })
+      .catch(this.handleError)
+  }
+  
+  getCompanyById(companyId) {
+    let token = localStorage.getItem('jwt-token');
+    let authHeader = `Bearer ${token}`
+    let headers = new Headers({ 'authorization': authHeader })
+    let options = new RequestOptions({ headers: headers })
+
+    return this.http.get(`/api/companies/getonecompany/${companyId}`)
+      .map((response: Response) => response.json())
       .catch(this.handleError)
   }
 
@@ -66,6 +76,8 @@ export class CustomerService {
       .map((response: Response) => response.json())
       .catch(this.handleError)
   }
+
+  // getCompanyData(companyId)
 
   handleError(err: Response) {
     return Observable.throw(err.json() || 'Server error')

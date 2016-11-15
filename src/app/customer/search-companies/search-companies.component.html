@@ -1,6 +1,8 @@
 <form>
-    <label>Search</label>
-    <input type="text" #listFilter (keyup)="o">
+    <div class="form-group">
+        <label>Search</label>
+        <input type="text" class="form-control" #listFilter (keyup)="o">
+    </div>
 </form>
 <div id="container">
     <div class="company" *ngFor="let company of companies | companyFilter:listFilter.value">
@@ -15,5 +17,9 @@
         </div>
         <div *ngIf="company !== -1" class="address">{{company.address}}</div>
         <div *ngIf="company !== -1" class="description">{{company.description}}</div>
+        
+        <button type="button" class="btn btn-default" (click)="onCompanyClick(company)">
+            more <span class="glyphicon glyphicon-triangle-right"></span>
+        </button>
     </div>
 </div>

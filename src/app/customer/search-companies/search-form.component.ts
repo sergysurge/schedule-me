@@ -29,13 +29,4 @@ export class SearchFormComponent implements OnInit {
     })
   }
 
-  // onSubmit(form) {
-  //   this.submitted = true
-  //   if (this.searchForm.valid) {
-  //     this.customerService.submitSearch(form)
-  //   }
-  // }
-  filter() {
-    
-  }
 }
