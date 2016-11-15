@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
 @Injectable()
 export class AuthService {
 
-  private isUserLoggedIn: boolean 
+  private isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
   private subject: Subject<boolean> = new Subject<boolean>()
 
   constructor(private http: Http, private router: Router) { }
