@@ -9,6 +9,7 @@ import { CustomerService } from '../customer.service'
 })
 export class EditAccountComponent implements OnInit {
   
+  public user: any = this.customerService.user
   public editAccountForm: FormGroup
   public submitted: boolean = false
   public incorrectPassword: boolean = false
@@ -19,8 +20,8 @@ export class EditAccountComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
 
-  @Input() user: any
-  @Output() userUpdate = new EventEmitter()
+  // @Input() user: any
+  // @Output() userUpdate = new EventEmitter()
 
   ngOnInit() {
     this.editAccountForm = this.formBuilder.group({
@@ -41,7 +42,7 @@ export class EditAccountComponent implements OnInit {
           (res) => {
             if (res.response.success) {
               this.showSuccessMsg = true
-              this.userUpdate.emit(update)
+              // this.userUpdate.emit(update)
             } else if (res.response.message === 'incorrect password') {
               this.incorrectPassword = true
             }
@@ -54,8 +55,6 @@ export class EditAccountComponent implements OnInit {
             console.log('done')
           }
         )
-    } else {
-      console.log('asdfadf')
     }
   }
 

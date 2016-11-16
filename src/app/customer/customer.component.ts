@@ -4,10 +4,6 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-customer',
   template: `
-    <p>
-      customer works!
-    </p>
-
     <ul>
       <li><a [routerLink]="['account']">My Account</a></li>
       <li><a [routerLink]="['appointments']">My Appointments</a></li>
