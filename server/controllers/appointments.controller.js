@@ -49,4 +49,15 @@ appointmentsController.PUT = function (req, res) {
     })
 }
 
+appointmentsController.GET_COMPANY_APPOINTMENTS = function (req, res) {
+  const companyId = req.params.companyId
+  appointmentsModel
+    .getAppointmentsForCompany(companyId)
+    .then((response) => {
+      res.status(200).json({
+        response: response
+      })
+    })
+}
+
 module.exports = appointmentsController
