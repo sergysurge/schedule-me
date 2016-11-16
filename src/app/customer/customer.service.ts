@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import 'rxjs/Rx';
+import { Subject } from 'rxjs/Rx';
 // import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 export class CustomerService {
 
   constructor(private http: Http, private requestOptions: RequestOptions) { }
+  user: any
+  private subject: Subject<any> = new Subject<any>()
 
   getCustomerAppointments(userId): Observable<any> {
     let token = localStorage.getItem('jwt-token');
@@ -59,11 +61,19 @@ export class CustomerService {
     })
 
     return this.http.get('/api/users/', options)
-      .map((response: Response) => response.json())
+      .map((response: Response) => {
+        console.log('64', response)
+        if(response.json().response.success){
+          console.log('service', response.json())
+          this.user = response.json().response.user
+        }
+        return response.json()
+      })
       .catch(this.handleError)
   }
 
   submitUserUpdates(userId, updatedValues) {
+    this.setUser(updatedValues)
     let token = localStorage.getItem('jwt-token');
     let authHeader = `Bearer ${token}`
     let headers = new Headers({ 'authorization': authHeader })
@@ -77,6 +87,13 @@ export class CustomerService {
       .catch(this.handleError)
   }
 
+  getUser() {
+    return this.subject.asObservable()
+  }
+  setUser(user) {
+    this.user = user
+    this.subject.next(this.user)
+  }
   // getCompanyData(companyId)
 
   handleError(err: Response) {

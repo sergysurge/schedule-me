@@ -16,7 +16,10 @@ const routes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
             { path: '', redirectTo: 'appointments', pathMatch: 'full' },
-            { path: 'account', component: MyAccountComponent,
+            { 
+                path: 'account', 
+                component: MyAccountComponent,
+                canActivateChild: [AuthGuard],
                 children: [
                     { path: '', component: EditAccountStartComponent },
                     { path: 'edit', component: EditAccountComponent }
