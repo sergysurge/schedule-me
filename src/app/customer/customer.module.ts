@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
 import { EditAccountComponent } from './my-account/edit-account.component';
 import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
+import { EditAccountGuard } from './my-account/edit-account-guard.service'
+import { EditAccountStartComponent } from './my-account/edit-account-start.component'
 
 @NgModule({
   imports: [
@@ -34,8 +36,9 @@ import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-
     MyAccountComponent,
     SearchFormComponent,
     EditAccountComponent,
+    EditAccountStartComponent,
     MakeAppointmentCompanyProfileComponent
   ],
-  providers: [CustomerService]
+  providers: [CustomerService, EditAccountGuard]
 })
 export class CustomerModule { }

@@ -24,7 +24,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.companyIdSubscription = this.route.params
       .subscribe(
-        (params: any) =>{
+        (params: any) => {
           this.companyId = params['companyId']
           this.customerService.getCompanyById(this.companyId)
             .subscribe(
@@ -35,7 +35,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
       )
 
     // this.calendarSubscription = this.customerService.getCompanyCalendar(this.companyId)
-    //   .subscribe()
+    //   .subscribe(())
   }
 
   ngOnDestroy() {

@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
 @Injectable()
 export class AuthService {
 
-  private isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
+  isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
   private subject: Subject<boolean> = new Subject<boolean>()
 
   constructor(private http: Http, private router: Router) { }
@@ -65,6 +65,7 @@ export class AuthService {
     this.subject.next(loggedIn)
   }
   getIsUserLoggedIn(): Observable<boolean> {
+    console.log('inside get', this.isUserLoggedIn)
     return this.subject.asObservable()
   }
 

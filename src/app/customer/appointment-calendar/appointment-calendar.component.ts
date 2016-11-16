@@ -17,9 +17,11 @@ import { Subscription } from 'rxjs/Rx'
       <h4>My Upcoming Appointments</h4>
 
       <div class="appointment-box" *ngFor="let appointment of customerAppointments">
-        <span class="company-name">{{appointment.company.name}}</span>
+        <span class="company-name">{{appointment.company?.name}}</span>
         <br>
-        <span class="appointment-description">{{appointment.description}}</span>
+        <span class="appointment-description">{{appointment?.description}}</span>
+        <br>
+        <span>For: {{appointment?.contactName}}</span>
         <br>
         <span class="appointment-start">{{appointment.startTime | date: 'MMM d, y h:mm a'}}</span>
       </div>
@@ -81,18 +83,20 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.customerService.getCustomerAppointments(this.userId)
       .subscribe(
-        (appointments) => {
+        (appointments) => { console.log(appointments, 'asdfasfå')
           this.customerAppointments = appointments
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
-              const comment = `${appointment.description} at ${appointment.company.name}`
+              let comment = ''
+              if(appointment.description && appointment.company) {
+                comment = `${appointment.description} at ${appointment.company.name}`
+              } 
               return {
                 title: comment,
                 start: appointment.startTime,
                 end: appointment.endTime
               }
-            }
-          )
+            })
           
           this.calendarConfig = {
             header: this.headers,

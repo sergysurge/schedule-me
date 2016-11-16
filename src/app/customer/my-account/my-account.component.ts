@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Router } from '@angular/router'
 
@@ -15,7 +15,9 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   private subscription: any
   private userId: number = Number(localStorage.getItem('userId'))
 
-  constructor(private customerService: CustomerService) { }
+  @Output() userDetails = new EventEmitter<any>() 
+
+  constructor(private customerService: CustomerService, private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.customerService.getUserInformation(this.userId, null)
@@ -38,7 +40,9 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   }
 
   onEdit() {
-    this.showEditBox = !this.showEditBox
+    // this.showEditBox = !this.showEditBox
+    this.router.navigate(['users/account/edit'])
+    // this.userDetails.emit(user)
   }
 
   onUserUpdated(user) {
