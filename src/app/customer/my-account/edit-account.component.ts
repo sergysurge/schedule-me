@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CustomerService } from '../customer.service'
+
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
@@ -57,4 +58,8 @@ export class EditAccountComponent implements OnInit {
       console.log('asdfadf')
     }
   }
+
+  // dialogueService(msg: string) {
+
+  // }
 }

@@ -1,51 +1,53 @@
-<form [formGroup]="editAccountForm" (ngSubmit)="onSubmit(editAccountForm.value)" novalidate>
-    <div class="form-group">
-        <label for="password">Enter password to edit account details</label>
-        <input type="password" formControlName="password">
-        <span *ngIf="editAccountForm.controls.password.hasError('required') && submitted">Password is required</span>
-        <span *ngIf="incorrectPassword">Incorrect password</span>
+<div id="edit-box">
+    <form [formGroup]="editAccountForm" (ngSubmit)="onSubmit(editAccountForm.value)" novalidate>
+        <div class="form-group">
+            <label for="password">Enter password to edit account details</label>
+            <input type="password" formControlName="password">
+            <span *ngIf="editAccountForm.controls.password.hasError('required') && submitted">Password is required</span>
+            <span *ngIf="incorrectPassword">Incorrect password</span>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="firstName">First Name: </label>
+            <input type="text" class="form-countrol" [ngModel]="user?.firstName" formControlName="firstName">
+            <span *ngIf="editAccountForm.controls.firstName.hasError('required') && submitted">Please enter first name</span>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name: </label>
+            <input type="text" class="form-countrol" [ngModel]="user?.lastName" formControlName="lastName">
+            <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter last name</span>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number: </label>
+            <input type='tel' class="form-countrol" [ngModel]="user?.phoneNumber" formControlName="phoneNumber">
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="email" class="form-countrol" [ngModel]="user?.email" formControlName="email">
+            <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter email</span>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Profile Photo: </label>
+            <input type="url" class="form-countrol" [ngModel]="user?.image" formControlName="image">
+            <br>
+        </div>
+
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
+        </button>
         <br>
-    </div>
+    
+        <span *ngIf="showErrorMsg">Server error, please try again later</span>
+        <span *ngIf="showSuccessMsg">Account updated!</span>
 
-    <div class="form-group">
-        <label for="firstName">First Name: </label>
-        <input type="text" class="form-countrol" [ngModel]="user.firstName" formControlName="firstName">
-        <span *ngIf="editAccountForm.controls.firstName.hasError('required') && submitted">Please enter first name</span>
-        <br>
-    </div>
-
-    <div class="form-group">
-        <label for="lastName">Last Name: </label>
-        <input type="text" class="form-countrol" [ngModel]="user.lastName" formControlName="lastName">
-        <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter last name</span>
-        <br>
-    </div>
-
-    <div class="form-group">
-        <label for="phoneNumber">Phone Number: </label>
-        <input type='tel' class="form-countrol" [ngModel]="user.phoneNumber" formControlName="phoneNumber">
-        <br>
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email: </label>
-        <input type="email" class="form-countrol" [ngModel]="user.email" formControlName="email">
-        <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter email</span>
-        <br>
-    </div>
-
-    <div class="form-group">
-        <label for="image">Profile Photo: </label>
-        <input type="url" class="form-countrol" [ngModel]="user.image" formControlName="image">
-        <br>
-    </div>
-
-    <button type="submit" class="btn btn-default">
-        <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
-    </button>
-    <br>
-  
-    <span *ngIf="showErrorMsg">Server error, please try again later</span>
-    <span *ngIf="showSuccessMsg">Account updated!</span>
-
-</form>
+    </form>
+</div>

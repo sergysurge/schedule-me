@@ -15,6 +15,7 @@
     </button>
 </div>
     
-<div id="edit" *ngIf="showEditBox">
+<router-outlet></router-outlet>
+<!--<div id="edit" [hidden]="showEditBox">
     <app-edit-account (userUpdate)="onUserUpdated($event)" [user]="user"></app-edit-account>
-</div>
+</div>-->

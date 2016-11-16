@@ -14,7 +14,7 @@ appointmentsModel.getEmployeeAppointments = (employeeId) => {
       return appointments
     })
     .catch(err => {
-      console.log('error working in getting appointment', err)
+      console.log('error working in getting appointment asdfasdfa', err)
       return err
     })
 }
