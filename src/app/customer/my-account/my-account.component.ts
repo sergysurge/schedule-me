@@ -9,44 +9,46 @@ import { Router } from '@angular/router'
 })
 export class MyAccountComponent implements OnInit, OnDestroy {
 
-  public showEditBox: boolean = false
-  public user: any
+  public user: any //this.customerService.user
   private defaultImage: string = 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'
-  private subscription: any
   private userId: number = Number(localStorage.getItem('userId'))
+  private subscription: any
+  private userSubscription
 
-  @Output() userDetails = new EventEmitter<any>() 
-
-  constructor(private customerService: CustomerService, private router: Router) { }
+  constructor(private customerService: CustomerService, private router: Router) { 
+    this.userSubscription = this.customerService.getUser()
+      .subscribe(
+        (user) => {this.user = user},
+        (err) => {console.log(err)}
+      )
+  }
 
   ngOnInit() {
-    this.subscription = this.customerService.getUserInformation(this.userId, null)
-      .subscribe(
-        (result) => {
-          if (result.response.success) {
-            this.user = result.response.user
-            if (!this.user.image) {
-              this.user.image = this.defaultImage
+    if (!this.user) {
+      this.subscription = this.customerService.getUserInformation(this.userId, null)
+        .subscribe(
+          (result) => {
+            if (result.response.success) {
+              this.user = result.response.user
+              if (!this.user.image) {
+                this.user.image = this.defaultImage
+              }
             }
-          }
-        },
-        (err) => {console.error(err)},
-        () => {console.log('done')}
-      )
+          },
+          (err) => {console.error(err)},
+          () => {console.log('done')}
+        )
+    }
   }
 
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe()
+    this.userSubscription && this.userSubscription.unsubscribe()
   }
 
   onEdit() {
-    // this.showEditBox = !this.showEditBox
     this.router.navigate(['users/account/edit'])
-    // this.userDetails.emit(user)
   }
 
-  onUserUpdated(user) {
-    this.user = user
-  }
 
 }
