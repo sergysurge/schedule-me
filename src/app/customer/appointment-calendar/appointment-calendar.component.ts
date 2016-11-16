@@ -5,49 +5,8 @@ import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-appointment-calendar',
-  template: `
-    <h3>My Appointments</h3>
-
-    <div id="calendar">
-      <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
-    </div>
-    
-    <div id="appointments">
-
-      <h4>My Upcoming Appointments</h4>
-
-      <div class="appointment-box" *ngFor="let appointment of customerAppointments">
-        <span class="company-name">{{appointment.company?.name}}</span>
-        <br>
-        <span class="appointment-description">{{appointment?.description}}</span>
-        <br>
-        <span>For: {{appointment?.contactName}}</span>
-        <br>
-        <span class="appointment-start">{{appointment.startTime | date: 'MMM d, y h:mm a'}}</span>
-      </div>
-
-    </div>
-  `,
-  styles: [`
-    #calendar {
-      height: 600px;
-      font-size: 14px;
-      padding: 0px 250px;
-      overflow: scroll;
-    }
-    #appointments {
-      margin: auto;
-    }
-    .appointment-box {
-      width: 300px;
-      height: 100px;
-      float: left;
-      border: 2px solid black;
-      margin: 20px 20px;
-      padding: 20px 20px;
-    }
-
-  `]
+  templateUrl: './appointment-calendar.component.html',
+  styleUrls: []
 })
 export class AppointmentCalendarComponent implements OnInit, OnDestroy {
 
@@ -83,7 +42,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.customerService.getCustomerAppointments(this.userId)
       .subscribe(
-        (appointments) => { console.log(appointments, 'asdfasfå')
+        (appointments) => { 
           this.customerAppointments = appointments
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {

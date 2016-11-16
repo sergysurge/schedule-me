@@ -21,8 +21,15 @@ const routes: Routes = [
                 component: MyAccountComponent,
                 canActivateChild: [AuthGuard],
                 children: [
-                    { path: '', component: EditAccountStartComponent },
-                    { path: 'edit', component: EditAccountComponent }
+                    { 
+                        path: '', 
+                        component: EditAccountStartComponent
+                    },
+                    { 
+                        path: 'edit', 
+                        component: EditAccountComponent,
+                        canDeactivate: [EditAccountGuard]
+                    }
                 ] 
             },
             { path: 'appointments', component: AppointmentCalendarComponent },

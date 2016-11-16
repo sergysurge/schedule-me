@@ -1,0 +1,21 @@
+<h3>My Appointments</h3>
+
+    <div id="calendar">
+      <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+    </div>
+    
+    <div id="appointments">
+
+      <h4>My Upcoming Appointments</h4>
+
+      <div class="appointment-box" *ngFor="let appointment of customerAppointments">
+        <span class="company-name">{{appointment.company?.name}}</span>
+        <br>
+        <span class="appointment-description">{{appointment?.description}}</span>
+        <br>
+        <span>For: {{appointment?.contactName}}</span>
+        <br>
+        <span class="appointment-start">{{appointment.startTime | date: 'MMM d, y h:mm a'}}</span>
+      </div>
+
+</div>
