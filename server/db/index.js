@@ -25,7 +25,8 @@ const Option = db.define('Option', {
 })
 
 Company.hasMany(Option)
-Company.hasOne(BrandName)
+BrandName.hasMany(Company)
+Company.belongsTo(BrandName)
 UserCompany.hasMany(Schedule)
 
 User.belongsToMany(Company, {through: UserCompany})
