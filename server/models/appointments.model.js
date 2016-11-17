@@ -84,4 +84,33 @@ appointmentsModel.updateAppointment = (obj) => {
     })
 }
 
+appointmentsModel.getAppointmentsForCompany = (companyId) => {
+  return Appointments
+    .findAll({
+      where: {
+        companyId: companyId
+      },
+      include: [
+        {
+          model: User,
+          as: 'employee',
+          attributes: ['id', 'firstName', 'lastName']
+        }
+      ]
+    })
+    .then((appointments) => {
+      return {
+        success: true,
+        message: 'appointments found',
+        appointments: appointments
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        message: err
+      }
+    })
+}
+
 module.exports = appointmentsModel

@@ -97,30 +97,24 @@ usersModel.getEmployeesByCompany = (companyId) => {
           'message': 'company not found'
         }
       }
-      return company.getUsers()
-        .then((users) => {
-          var employees = users.map((user) => {
-            return {
-              id: user.id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-              phoneNumer: user.phoneNumber,
-              image: user.image
-            }
-          })
-          return {
-            'success': true,
-            'message': 'employees found',
-            'employees': employees
-          }
-        })
-        .catch((err) => {
-          return {
-            'success': false,
-            'message': err
-          }
-        })
+      return company.getUsers({
+        attributes: {
+          exclude: ['password']
+        }
+      })
+      .then((users) => {
+        return {
+          'success': true,
+          'message': 'employees found',
+          'employees': users
+        }
+      })
+      .catch((err) => {
+        return {
+          'success': false,
+          'message': err
+        }
+      })
     })
     .catch((err) => {
       return {
