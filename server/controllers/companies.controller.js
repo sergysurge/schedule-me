@@ -53,6 +53,12 @@ companiesController.DELETEOPTION = (req, res) => {
 /* OPTIONS CONTROLLERS CALLS END */
 
 /* BRAND NAMES CONTROLLERS CALLS */
+companiesController.UPDATEORSETBRANDNAME = (req, res) => {
+  companiesModel.updateorsetbrandname(req.body)
+  
+
+}
+
 companiesController.GETALLBRANDNAMES = (req, res) => {
   companiesModel.getallbrandnames()
     .then(brandNames => {
