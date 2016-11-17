@@ -1,48 +1,107 @@
+<!--COMPANY PROFILE PANEL-->
 <div class="panel panel-default">
-  <div class="panel-body" id="profileImage">
+  <div class="panel-heading">
+    <h3 class="text-center"> Company Profile </h3>
   </div>
   <div class="panel-body">
-    <h3> Company Information </h3>
     <img [src]="company.logo">
     <hr>
-    Name : {{company.brandName}}
+    Name : {{this.companyService.company.brandName}}
     <hr>
-    Address : {{company.address}}
+    Address : {{this.companyService.company.address}}
     <hr>
-    Phone : {{company.phoneNumber}}
+    Phone : {{this.companyService.company.phoneNumber}}
     <hr>
-    Website : <a href="{{company.website}}"> {{company.website}} </a>
+    Website : <a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}} </a>
     <hr>
-    Description : {{company.description}}
+    Description : {{this.companyService.company.description}}
     <hr>
-    <img [src]="company.image">
+    <img [src]="this.companyService.company.image">
   </div>
-  <h3> Brand Names Available </h3>
-  <ul>
-    <li *ngFor="let b of this.companyService.brandNamesAll"> {{b.id}} {{b.name}}
-    </li>
-  </ul>
+</div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="text-center"> Available Brand Names</h3>
-    </div>
-    <div class="panel-body">
-      <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
-      <select multiple class="form-control">
-        <option *ngFor="let b of this.companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
-      </select>
-      <button class="btn btn-default col-sm-offset-2 col-sm-2" [disabled]="selectedBrandNamesAll.id === false" (click)="companyPostBrandName(selectedBrandNamesAll)"> select brand </button> {{selectedbrandNamesAll}}
-    </div>
+<!--UPDATE COMPANY PROFILE PANEL-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="text-center"> Update Profile </h3>
   </div>
- 
-  <!--<h3> Add Custom Brand Name </h3>
-  <input type="text" [(ngModel)]="brandNameCustom">
-  <button (click)="companyPostBrandName(brandNameCustom)">create</button>
-</div>-->
+  <div class="panel-body">
+    <form class="form-horizontal" 
 
-  <!--Add Custom Brand Name Form-->
+    [formGroup]="profileUpdateForm" (ngSubmit)="companyUpdateProfile()">
+      <div class="form-group">
+        <label for="BrandNameId" class="col-sm-2 control-label">BrandNameId</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="BrandNameId" [value]="this.companyService.company.BrandNameId" formControlName="BrandNameId">
+          <span class="help-block" id="helpBlock"> enter your BrandNameId here</span>
+        </div>
+        <label for="address" class="col-sm-2 control-label">address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="address" [value]="this.companyService.company.address" formControlName="address">
+          <span class="help-block" id="helpBlock"> enter your address here</span>
+        </div>
+        <label for="description" class="col-sm-2 control-label">description</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="description" [value]="this.companyService.company.description" formControlName="description">
+          <span class="help-block" id="helpBlock"> enter your description here</span>
+        </div>
+        <label for="id" class="col-sm-2 control-label">id</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="id" [value]="this.companyService.company.id" formControlName="id">
+          <span class="help-block" id="helpBlock"> enter your id here</span>
+        </div>
+        <label for="image" class="col-sm-2 control-label">image</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="image" [value]="this.companyService.company.image" formControlName="image">
+          <span class="help-block" id="helpBlock"> enter your image here</span>
+        </div>
+        <label for="logo" class="col-sm-2 control-label">logo</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="logo" [value]="this.companyService.company.logo" formControlName="logo">
+          <span class="help-block" id="helpBlock"> enter your logo here</span>
+        </div>
+         <label for="name" class="col-sm-2 control-label">name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="name" [value]="this.companyService.company.name" formControlName="name">
+          <span class="help-block" id="helpBlock"> enter your store name here</span>
+        </div>
+        <label for="phoneNumber" class="col-sm-2 control-label">phoneNumber</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="phoneNumber" [value]="this.companyService.company.phoneNumber" formControlName="phoneNumber">
+          <span class="help-block" id="helpBlock"> enter your phoneNumber here</span>
+        </div>
+        <label for="website" class="col-sm-2 control-label">website</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="website" [value]="this.companyService.company.website" formControlName="website">
+          <span class="help-block" id="helpBlock"> enter your website here</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default" > create </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--[disabled]="!profileUpdateForm.valid"-->
 
+
+<!--AVAILABLE BRAND NAMES PANEL-->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="text-center"> Available Brand Names</h3>
+  </div>
+  <div class="panel-body">
+    <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
+    <select multiple class="form-control">
+      <option *ngFor="let b of this.companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
+    </select>
+    <button class="btn btn-default col-sm-offset-2 col-sm-2" [disabled]="selectedBrandNamesAll.id === false" (click)="companySetBrand()"> select brand </button> {{selectedbrandNamesAll}}
+  </div>
+</div>
+
+<!--ADD BRAND NAME PANEL-->
 <div class="panel panel-default">
   <div class="panel-heading">
   <h3 class="text-center"> Add Brand Name </h3>

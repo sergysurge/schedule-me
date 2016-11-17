@@ -21,7 +21,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
   private brandNameCustom
   private selectedBrandNamesAll = {
     id: false,
-    name: ''
+    name: '',
+
   }
 
   companySelectedBrandNamesAll(id, name) {
@@ -34,19 +35,53 @@ export class ProfileComponent implements OnDestroy, OnInit{
     this.companyService.getAllBrandNames()
       .subscribe(data => console.log(data, "from companyGetAllBrandNames"))
   } 
+  //sets brand name, people should then first click this then update/create profile
+  companySetBrand() {
+    this.companyService.company.BrandNameId = this.selectedBrandNamesAll.id
+  }
 
   companyPostBrandName() {
     let body = {
       name: this.brandNamePostForm.value.brandNameCustom
     }
-    console.log(body)
-    console.log(this.brandNamePostForm.value.brandNameCustom)
     this.companyService.postBrandName(body)
-    .subscribe(data => console.log(data, "from "))
+    .subscribe(data => {
+      this.companyService.brandNamesAll = []
+      this.companyGetAllBrandNames()
+      console.log(data, "from ")
+  })
+  }
+  /* profile component methods and variables */
+  companyUpdateProfile() {
+    let tempBrandName = this.companyService.company.brandName
+    let body = {
+      id: this.profileUpdateForm.value.id || this.companyService.company.id,
+      name: this.profileUpdateForm.value.name || this.companyService.company.name,
+      address: this.profileUpdateForm.value.address || this.companyService.company.address,
+      phoneNumber: this.profileUpdateForm.value.phoneNumber || this.companyService.company.phoneNumber,
+      description: this.profileUpdateForm.value.description || this.companyService.company.description,
+      website: this.profileUpdateForm.value.website || this.companyService.company.website,
+      image: this.profileUpdateForm.value.image || this.companyService.company.image,
+      logo: this.profileUpdateForm.value.logo || this.companyService.company.logo,
+      BrandNameId: this.profileUpdateForm.value.BrandNameId || this.companyService.company.BrandNameId
+    }
+    this.companyService.updateProfile(body)
+      .subscribe(data => {
+        if (data.status === 200) {
+          this.companyService.company = body
+          this.companyService.company.brandName = tempBrandName
+          console.log(data.status, 'company updated')
+        }
+        else (console.log('inccorrent updating'))
+
+      })
   }
 
-  private brandNamePostForm : FormGroup
 
+  /* end of profile component methods and variables */
+
+  private brandNamePostForm : FormGroup
+  private profileUpdateForm : FormGroup
    /* called before ngOnInit() */
   constructor(private companyService:CompanyService, private router:Router, private activatedRoute:ActivatedRoute, private formBuilder: FormBuilder) {
 
@@ -68,7 +103,23 @@ export class ProfileComponent implements OnDestroy, OnInit{
    this.brandNamePostForm = formBuilder.group({
      'brandNameCustom': [this.brandNameCustom, Validators.required]
    })
+
+   /* profileUpdateForm goes here */
+   this.profileUpdateForm = formBuilder.group({
+      'BrandNameId': [this.companyService.company.BrandNameId, Validators.required],
+      //'brandName': [this.companyService.company.brandName, Validators.required],
+      'address': [this.companyService.company.address, Validators.required],
+      'description': [this.companyService.company.description, Validators.required],
+      'id': [this.companyService.company.id, Validators.required],
+      'image': [this.companyService.company.image, Validators.required],
+      'logo': [this.companyService.company.logo, Validators.required],
+      'name': [this.companyService.company.name, Validators.required],
+      'phoneNumber': [this.companyService.company.phoneNumber, Validators.required],
+      'website': [this.companyService.company.website, Validators.required]
+   })
+
    }
+
 
   ngOnInit() {
   }
