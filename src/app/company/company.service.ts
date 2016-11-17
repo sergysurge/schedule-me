@@ -50,6 +50,10 @@ export class CompanyService {
       return response.json()
       })
   }
+
+  updateProfile(body) {
+    return this.http.put('api/companies/updatecompany', body)
+  }
   /* COMPANY PROFILE COMPONENT END */
   
 
@@ -102,7 +106,7 @@ export class CompanyService {
   postBrandName(body) {
     return this.http.post('/api/companies/postbrandname', body)
     .map((response:Response) => {
-      this.getAllBrandNames()
+      //this.getAllBrandNames()
       return response.json()
     })
   }  

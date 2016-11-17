@@ -73,18 +73,18 @@ companiesModel.getallbrandnames = () => {
 }
 
 
-companiesModel.updateorsetbrandname = (body) => {
-  let brandId = body.brandId
-  let brandName = body.brandName
-  let companyId = body.companyId
-  BrandName.upsert({
-    id: brandId,
-    name: brandName,
-    companyId: companyId
-  })
-  .then(data => console.log(data, '**** what are we getting back asdf'))
-  .catch(err => console.log(err, 'error in updateorsetbrandname'))
-}
+// companiesModel.updateorsetbrandname = (body) => {
+//   let brandId = body.brandId
+//   let brandName = body.brandName
+//   let companyId = body.companyId
+//   BrandName.upsert({
+//     id: brandId,
+//     name: brandName,
+//     companyId: companyId
+//   })
+//   .then(data => console.log(data, '**** what are we getting back asdf'))
+//   .catch(err => console.log(err, 'error in updateorsetbrandname'))
+// }
 
 
 //SEARCH BRAND NAME BY ID or STRING, NOT FULL STRING
@@ -188,7 +188,8 @@ companiesModel.deletecompany = data => {
 //should be given all values to change
 companiesModel.updatecompany = data => {
   console.log('MODEL updatecompany:', data)
-  return Company.update({
+  return Company.upsert({
+    id: data.id,
     name: data.name,
     address: data.address,
     phoneNumber: data.phoneNumber,
@@ -197,10 +198,7 @@ companiesModel.updatecompany = data => {
     image: data.image,
     logo: data.logo,
     BrandNameId: data.BrandNameId
-  },
-    {
-      where: {id: data.id}
-    })
+  })
 }
 
 /*            COMPANY END             */

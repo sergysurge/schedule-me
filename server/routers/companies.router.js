@@ -7,8 +7,8 @@ var CompaniesRouter = express.Router()
 CompaniesRouter.get('/getonecompany/:id', companiesController.GETONECOMPANY)
 CompaniesRouter.get('/getallcompanies', companiesController.GETALLCOMPANIES)
 CompaniesRouter.post('/postcompany', companiesController.POSTCOMPANY)
-CompaniesRouter.post('/deletecompany', companiesController.DELETECOMPANY)
-CompaniesRouter.post('/updatecompany', companiesController.UPDATECOMPANY)
+CompaniesRouter.delete('/deletecompany', companiesController.DELETECOMPANY)
+CompaniesRouter.put('/updatecompany', companiesController.UPDATECOMPANY)
 
 /* BRAND NAMES CONTROLLERS CALLS */
 CompaniesRouter.put('/updateorsetbrandname', companiesController.UPDATEORSETBRANDNAME)
