@@ -67,11 +67,28 @@ companiesModel.deleteoption = option => {
 /*            OPTIONS END             */
 
 /*            BRAND NAMES             */
+//**done
 companiesModel.getallbrandnames = () => {
   return BrandName.findAll()
 }
 
+
+companiesModel.updateorsetbrandname = (body) => {
+  let brandId = body.brandId
+  let brandName = body.brandName
+  let companyId = body.companyId
+  BrandName.upsert({
+    id: brandId,
+    name: brandName,
+    companyId: companyId
+  })
+  .then(data => console.log(data, '**** what are we getting back asdf'))
+  .catch(err => console.log(err, 'error in updateorsetbrandname'))
+}
+
+
 //SEARCH BRAND NAME BY ID or STRING, NOT FULL STRING
+//**Done
 companiesModel.getbrandname = brand => {
   console.log(brand, '***brand')
   if (Number(brand.val)) {
@@ -85,7 +102,7 @@ companiesModel.getbrandname = brand => {
     })
   }
 }
-
+//**DONE
 companiesModel.postbrandname = brandName => {
   return BrandName.findOrCreate({
     where: {
@@ -95,8 +112,7 @@ companiesModel.postbrandname = brandName => {
       ]
     },
     defaults: {
-      name: brandName.name,
-      companyId: brandName.companyId
+      name: brandName.name
     }
   })
   .spread((newBrandName, created) => {
@@ -115,20 +131,20 @@ companiesModel.postbrandname = brandName => {
 /*            BRAND NAMES END             */
 
 /*            COMPANY             */
+//**DONE
 companiesModel.getonecompany = data => {
   console.log('MODEL getonecompany:', data)
   return Company.find({
     where: {id: data.id},
-    include: [ {model: BrandName} ]
+    include: [{all: true}]
   })
 }
-
+//**DONE
 companiesModel.getallcompanies = () => {
   return Company.findAll({
-    include: [ {model: BrandName} ]
   })
 }
-
+//**DONE
 companiesModel.postcompany = data => {
   console.log('MODEL postcompany:', data)
   return Company.findOrCreate({
@@ -143,7 +159,7 @@ companiesModel.postcompany = data => {
       website: data.website,
       image: data.image,
       logo: data.logo,
-      BrandNameId: data.brandNameId
+      BrandNameId: data.BrandNameId
     }
   })
   .spread((newComapny, created) => {
@@ -159,7 +175,7 @@ companiesModel.postcompany = data => {
     }
   })
 }
-
+//**DONE
 companiesModel.deletecompany = data => {
   console.log('MODEL deletecompany:', data)
   return Company.destroy({

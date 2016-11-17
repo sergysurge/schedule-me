@@ -19,10 +19,53 @@
   </div>
   <h3> Brand Names Available </h3>
   <ul>
-    <li *ngFor="let b of brandNamesAll"> {{b.id}} {{b.name}}
+    <li *ngFor="let b of this.companyService.brandNamesAll"> {{b.id}} {{b.name}}
     </li>
   </ul>
-  <h3> Add Custom Brand Name </h3>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="text-center"> Available Brand Names</h3>
+    </div>
+    <div class="panel-body">
+      <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
+      <select multiple class="form-control">
+        <option *ngFor="let b of this.companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
+      </select>
+      <button class="btn btn-default col-sm-offset-2 col-sm-2" [disabled]="selectedBrandNamesAll.id === false" (click)="companyPostBrandName(selectedBrandNamesAll)"> select brand </button> {{selectedbrandNamesAll}}
+    </div>
+  </div>
+ 
+  <!--<h3> Add Custom Brand Name </h3>
   <input type="text" [(ngModel)]="brandNameCustom">
-  <button (click)="postBrandName(brandNameCustom)">create</button>
+  <button (click)="companyPostBrandName(brandNameCustom)">create</button>
+</div>-->
+
+  <!--Add Custom Brand Name Form-->
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <h3 class="text-center"> Add Brand Name </h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" 
+
+    [formGroup]="brandNamePostForm" (ngSubmit)="companyPostBrandName()">
+      <div class="form-group">
+        <label for="customBrand" class="col-sm-2 control-label">Brand Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" aria-describedby="helpBlock" id="customBrand" placeholder="ex. Schedule-Me" formControlName="brandNameCustom">
+          <span class="help-block" id="helpBlock"> enter your brand name here</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default" 
+          
+          [disabled]="!brandNamePostForm.valid"> create </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+

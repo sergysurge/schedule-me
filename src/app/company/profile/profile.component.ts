@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
+import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { CompanyService } from '../company.service';
 import { Subscription } from "rxjs/Rx";
 
@@ -15,33 +16,59 @@ export class ProfileComponent implements OnDestroy, OnInit{
   private subscription: Subscription
   private company: any
   private paramId
-  private brands: Subscription
-  private brandNamesAll: any
+
+  
   private brandNameCustom
-  postBrandName(brandNameCustom) {
-    let body = {
-      name: brandNameCustom,
-      companyId: localStorage.getItem('companyId') || 1
-    }
-    this.companyService.postBrandName(body)
-    .subscribe(data => console.log(data))
+  private selectedBrandNamesAll = {
+    id: false,
+    name: ''
   }
-   //called before ngOnInit()
-  constructor(private companyService:CompanyService, private router:Router, private activatedRoute:ActivatedRoute) {
+
+  companySelectedBrandNamesAll(id, name) {
+    this.selectedBrandNamesAll.id = id
+    this.selectedBrandNamesAll.name = name
+    console.log(this.selectedBrandNamesAll, 'from companySelectedBrandNamesAll')
+  }
+  
+  companyGetAllBrandNames() {
+    this.companyService.getAllBrandNames()
+      .subscribe(data => console.log(data, "from companyGetAllBrandNames"))
+  } 
+
+  companyPostBrandName() {
+    let body = {
+      name: this.brandNamePostForm.value.brandNameCustom
+    }
+    console.log(body)
+    console.log(this.brandNamePostForm.value.brandNameCustom)
+    this.companyService.postBrandName(body)
+    .subscribe(data => console.log(data, "from "))
+  }
+
+  private brandNamePostForm : FormGroup
+
+   /* called before ngOnInit() */
+  constructor(private companyService:CompanyService, private router:Router, private activatedRoute:ActivatedRoute, private formBuilder: FormBuilder) {
+
+    /*ON company/# path, # of companyId gets rendered*/
    this.company = this.companyService.company;
    this.subscription = activatedRoute.params.subscribe(
       (param: any) => {
         this.paramId = param['id']
         this.companyService.getCompanyById(this.paramId)
-        .subscribe((companyInc: any) => {
+          .subscribe((companyInc: any) => {
           //console.log(this.company, ' AFTER')
         })
    })
-   this.brandNamesAll = this.companyService.brandNamesAll
-   this.brands = this.companyService.getAllBrandNames()
-   .subscribe(data => console.log(data, "in profile component"))
 
-  }
+   /* getting all brandNames available */
+   this.companyGetAllBrandNames()
+
+   /* brandNamePostForm goes here */
+   this.brandNamePostForm = formBuilder.group({
+     'brandNameCustom': [this.brandNameCustom, Validators.required]
+   })
+   }
 
   ngOnInit() {
   }
