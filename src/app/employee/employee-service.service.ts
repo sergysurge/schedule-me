@@ -21,6 +21,14 @@ export class EmployeeServiceService {
   //     // })
   // }
 
+  //chris MAYBE USE 
+  // available: any = []
+
+  // setAvailable(body: Object) {
+  //   this.available = body
+  //   console.log('Whats up',this.available)
+  // }
+  
   makeAppointment(body: Object): Promise<any> {
     return this.http.post('/api/appointments', body)
       .toPromise()
@@ -28,13 +36,15 @@ export class EmployeeServiceService {
   }
 
   getEmployees(id: Number): Observable<any> {
-    return this.http.get(`api/users/employees/${id}`)
+    return this.http.get(`api/users/getemployees/${id}`)
       .map((response: Response) => response)
   }
 
-  getSchedule( body: Object){
-    return this.http.get(`/api/schedules/`)
-    .map((response: Response) => response)
+  getSchedule(body: any): Promise<any>{
+    let id = JSON.stringify(body)
+    return this.http.get(`/api/schedules/?userCompanyIds=${id}`)
+    .toPromise()
+    .then(response => response.json())
   }
 
 
