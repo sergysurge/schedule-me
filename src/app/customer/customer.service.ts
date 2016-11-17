@@ -11,14 +11,16 @@ export class CustomerService {
   
   user: any
   companyEmployees: any
-  employeeSchedules: any
+  companySchedules: any
+  companyAppointments: any
   companyId: any
 
   private token = localStorage.getItem('jwt-token');
   private authHeader = `Bearer ${this.token}`
   private headers = new Headers({ 'authorization': this.authHeader })
 
-  private subject: Subject<any> = new Subject<any>()
+  private userSubject: Subject<any> = new Subject<any>()
+  private employeesSubject: Subject<any> = new Subject<any>()
 
   getCustomerAppointments(userId): Observable<any> {
     let options = new RequestOptions({ headers: this.headers })
@@ -42,8 +44,26 @@ export class CustomerService {
     let options = new RequestOptions({ headers: this.headers })
 
     return this.http.get('/api/companies/getallcompanies')
-      .map((response: Response) => response.json())
+      .map((response: Response) => {console.log(response); return response.json() })
       .catch(this.handleError)
+  }
+
+  getEmployees() {
+    return this.employeesSubject.asObservable()
+  }
+
+  setEmployees(employees) {
+    this.companyEmployees = employees
+    this.employeesSubject.next(this.companyEmployees)
+  }
+
+  getUser() {
+    return this.userSubject.asObservable()
+  }
+
+  setUser(user) {
+    this.user = user
+    this.userSubject.next(this.user)
   }
 
   getUserInformation(userId, email) {
@@ -78,15 +98,8 @@ export class CustomerService {
       .catch(this.handleError)
   }
 
-  getUser() {
-    return this.subject.asObservable()
-  }
-  setUser(user) {
-    this.user = user
-    this.subject.next(this.user)
-  }
   
-  getCompanyCalendarData(companyId): Observable<any> {
+  getCompanySchedules(companyId): Observable<any> {
     let options = new RequestOptions({
       headers: this.headers
     })
@@ -96,16 +109,28 @@ export class CustomerService {
         if (!parsed.success) { // company not found
           return []
         } 
-        this.companyEmployees = parsed.employees
+        this.setEmployees(parsed.employees)
+        // this.companyEmployees = parsed.employees
         return this.companyEmployees.map((employee) => employee.UserCompany.id)
       })
       .flatMap((userCompanyIds) => {
         let userCompanyIdsString = JSON.stringify(userCompanyIds)
         return this.http.get(`/api/schedules/?userCompanyIds=${userCompanyIdsString}`, options)
           .map((response: Response) => {
-            this.employeeSchedules = response.json()
-            return this.employeeSchedules
+            this.companySchedules = response.json()
+            return this.companyEmployees, this.companySchedules
           })
+      })
+  }
+
+  getCompanyAppointments(companyId): Observable<any> {
+    let options = new RequestOptions({
+      headers: this.headers
+    })
+    return this.http.get(`/api/appointments/company/${companyId}`, options)
+      .map((response: Response) => {
+        this.companyAppointments = response.json().response.appointments
+        return this.companyAppointments
       })
   }
 
