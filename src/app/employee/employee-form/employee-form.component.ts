@@ -15,10 +15,12 @@ import { CompanyService } from '../../company/company.service'
 })
 export class EmployeeFormComponent {
     date : Date ; 
-    user: any
+    user: any;
     employees: SelectItem[];
     hours: SelectItem[];
     services: SelectItem[];
+    allschedule: SelectItem[];
+    public available;
     start;
     times;
     service: {};
@@ -33,46 +35,72 @@ export class EmployeeFormComponent {
       employeeId : undefined,
       companyId : undefined
     }
+    
   @Output() clicked = new EventEmitter<string>();
 
-  // getTime(employeeServiceService:EmployeeServiceService){
-  //   let arr= []
-  //   let arr2= []
-  //   this.employees.forEach(curr=>{
-  //     arr.push(curr)
-  //   })
-  //   arr.forEach(curr=>{
-  //     arr2.push(curr.id)
-  //   })
-  //    employeeServiceService.getSchedule(arr2)
-  //    .subscribe({
+  getTime(employeeServiceService:EmployeeServiceService){
+    let arr= []
+    let arr2= []
+    let current = []
+    console.log(this.available)
+    if(this.person.employeeId === undefined || this.person.description === undefined){
+      alert('Please select all fields')
+      console.log(this.employees)
+    }else{
+      this.employees.forEach(curr=>{
+        arr.push(curr)
+      })
+      arr.forEach(curr=>{
+        arr2.push(curr.id)
+      })
 
-  //    })
-  // }
-
-  makeAppointment(employeeServiceService:EmployeeServiceService){
-    let start = moment(this.start).utcOffset(0)
-    this.times = this.times.toString().split(':')
-    start.set({'hour': this.times[0], 'minute': this.times[1]})
-    this.person.startTime = start
-
-
-    let end = moment(start)
-    end.add(this.person.description[0].duration,'m')
-    this.person.description = this.person.description[0].label
-    this.person.endTime = end
-
-    // console.log('person end',this.person)
-    this.employeeServiceService.makeAppointment(this.person)
-    .then(
-      appointment => {
-        console.log(appointment)
-        }
-    )
+      this.employeeServiceService.getSchedule(arr2)
+      .then(
+        schedule => { 
+          this.available = schedule
+          this.available.forEach(curr=>{
+            current.push(curr)
+          })
+          current.forEach(curr=>{
+            if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
+              this.available = JSON.parse(curr.block)
+            }
+          })
+          }
+      )
+    }
   }
 
+  makeAppointment(employeeServiceService:EmployeeServiceService){
+
+    if(this.person.contactName === undefined || this.person.contactNumber === undefined || this.person.startTime === undefined || this.person.startTime === undefined || this.person.employeeId === undefined || this.person.description === undefined){
+      alert('Please select all fields')
+    }else{
+
+      this.person.employeeId = this.person.employeeId.id
+      let start = moment(this.start).utcOffset(0)
+      this.times = this.times.toString().split(':')
+      start.set({'hour': this.times[0], 'minute': this.times[1]})
+      this.person.startTime = start
+
+      let end = moment(start)
+      end.add(this.person.description[0].duration,'m')
+      this.person.description = this.person.description[0].label
+      this.person.endTime = end
+
+      // console.log('person end',this.person)
+      this.employeeServiceService.makeAppointment(this.person)
+      .then(
+        appointment => {
+          console.log(appointment)
+          }
+      )
+  }
+}
+
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
- 
+        // this.available = employeeServiceService.available
+
         this.user = this.authService.getUserAssociations()
         console.log(this.user)
         for(var key in this.user){
@@ -82,7 +110,8 @@ export class EmployeeFormComponent {
         employeeServiceService.getEmployees(this.user.companyId)
         .subscribe(
           employee => {
-          this.employees = employee.json().response.employees
+            console.log('users',employee.json()[0].users)
+          this.employees = employee.json()[0].users
         }
         )
 
