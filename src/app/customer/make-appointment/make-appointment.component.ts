@@ -3,15 +3,10 @@ import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../customer.service';
 
+
 @Component({
   selector: 'app-make-appointment',
-  template: `
-    <app-make-appointment-company-profile [company]="company"></app-make-appointment-company-profile>
-    <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
-    <ul>
-      <li ><a>asdf</a></li>
-    </ul>
-  `,
+  templateUrl: './make-appointment.component.html',
   styles: []
 })
 export class MakeAppointmentComponent implements OnInit, OnDestroy {
@@ -23,11 +18,15 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   public employeeAppointments: any
   public employees: any = []
   public companyAppointments: any
+
+  private mapUserCompanyIdToUser: any = {}
   private companyIdSubscription: Subscription
-  private schedulesSubscription: Subscription
-  private appointmentsSubscription: Subscription
+  private calendarSubscription: Subscription
+  // private schedulesSubscription: Subscription
+  // private appointmentsSubscription: Subscription
   private companyId: number
   private eventSources: Array<any>
+
   
   constructor(private route: ActivatedRoute, private customerService: CustomerService) { }
 
@@ -40,7 +39,18 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.customerService.getEmployees()
       .subscribe(
-        (employees) => { this.employees = employees }
+        (employees) => { 
+          this.employees = employees 
+          console.log(this.employees, 'this.employees')
+          this.employees.reduce((map, employee) => {
+            map[employee.UserCompany.id] = {
+              employeeId: employee.id,
+              firstName: employee.firstName,
+              lastName: employee.lastName
+            }
+            return map
+          }, this.mapUserCompanyIdToUser)
+        }
       )
 
     this.companyIdSubscription = this.route.params
@@ -55,43 +65,57 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
         }
       )
 
-    this.schedulesSubscription = this.customerService.getCompanySchedules(this.companyId)
+    this.calendarSubscription = this.customerService.getCompanySchedulesAndAppointments(this.companyId)
       .subscribe(
-        (res) => {
-          console.log(res)
-          this.companySchedules = res 
-          this.employeeSchedules = this.filterSchedulesByEmployee(this.companySchedules)
-        },
-        (err) => { console.log(err) }
-      )
-    
-    this.appointmentsSubscription = this.customerService.getCompanyAppointments(this.companyId)
-      .subscribe(
-        (res) => {
-          this.companyAppointments = res
-          this.employeeAppointments = this.filterSchedulesByEmployee(this.companyAppointments)
-        },
-        (err) => { console.log(err) }
+        (data) => {
+          this.companyAppointments = data[0].map((appointment) => {
+            return {
+              employeeId: appointment.employeeId,
+              employeeFirstName: appointment.employee.firstName,
+              employeeLastName: appointment.employee.LastName,
+              startTime: appointment.startTime,
+              endTime: appointment.endTime
+            }
+          })
+          this.companySchedules = data[1].map((schedule) => {
+            return {
+              employeeId: this.mapUserCompanyIdToUser[schedule.UserCompanyId].employeeId,
+              employeeFirstName: this.mapUserCompanyIdToUser[schedule.UserCompanyId].firstName,
+              employeeLastName: this.mapUserCompanyIdToUser[schedule.UserCompanyId].lastName,
+              startTime: schedule.startTime,
+              endTime: schedule.endTime
+            }
+          })
+          this.employeeAppointments = this.categorizeByEmployeeId(this.companyAppointments)
+          this.employeeSchedules = this.categorizeByEmployeeId(this.companySchedules)
+          console.log('apppointments: ', this.employeeAppointments)
+          console.log('schedules: ', this.employeeSchedules)
+
+          // this.employeeAppointments = this.filterSchedulesByEmployee(this.companyAppointments)
+        }
       )
   }
 
   ngOnDestroy() {
     this.companyIdSubscription && this.companyIdSubscription.unsubscribe()
-    this.schedulesSubscription && this.schedulesSubscription.unsubscribe()
-    this.appointmentsSubscription && this.schedulesSubscription.unsubscribe()
+    this.calendarSubscription && this.calendarSubscription.unsubscribe()
+    // this.schedulesSubscription && this.schedulesSubscription.unsubscribe()
+    // this.appointmentsSubscription && this.schedulesSubscription.unsubscribe()
   }
 
-  filterSchedulesByEmployee(schedules) {
-    // filters schedules by userCompanyId, { <userCompanyId>: <[schedules]>}
+  categorizeByEmployeeId(schedules) {
+    // filters schedules by employeeId, { <employeeId>: <[schedules]>}
     return schedules.reduce((filtered, schedule) => {
-      if (filtered[schedule.UserCompanyId]) {
-        filtered[schedule.UserCompanyId].push(schedule)
+      if (filtered[schedule.employeeId]) {
+        filtered[schedule.employeeId].push(schedule)
         return filtered
       }
-      filtered[schedule.UserCompanyId] = [schedule]
+      filtered[schedule.employeeId] = [schedule]
       return filtered
     }, {})
   }
+
+
 }
 
 // this.eventSources = [
