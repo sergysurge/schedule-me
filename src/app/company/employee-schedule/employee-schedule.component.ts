@@ -121,7 +121,10 @@ export class EmployeeScheduleComponent implements OnInit {
   }
   employeeScheduleForm : FormGroup
 
-  constructor(private companyService: CompanyService, private formBuilder: FormBuilder) { 
+  constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
+    this.companyService.navigateProfilePageOnRefresh()
+    this.companyService.adminCheck()
+
     this.companyService.getEmployees(this.companyId)
     .subscribe(data => {
       this.employees = data

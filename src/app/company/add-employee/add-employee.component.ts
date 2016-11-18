@@ -78,6 +78,9 @@ export class AddEmployeeComponent implements OnInit {
   asynctrial
   companyIds = localStorage.getItem('companyId') || 1
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
+    this.companyService.navigateProfilePageOnRefresh()
+    this.companyService.adminCheck()
+
     this.asynctrial = this.companyService.getEmployees(this.companyIds)
 
     this.addEmployeeForm = formBuilder.group({

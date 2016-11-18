@@ -2,12 +2,15 @@ import { Injectable, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CompanyService {
 
   /* COMPANY PROFILE COMPONENT */
-  company: any = {}
+  company: any = {
+    id: localStorage.getItem('localCompanyId')
+  }
 
   getCompanyById(companyId) {
     return this.http.get('api/companies/getonecompany/' + companyId)
@@ -56,8 +59,50 @@ export class CompanyService {
   }
   /* COMPANY PROFILE COMPONENT END */
   
+  /* AUTH, CHECKING ADMIN FROM */
+  adminSuccessLink() {
+    let ans = false
+    let associations = JSON.parse(localStorage.getItem('userAssociations'))
+    // console.log(associations, 'these are the user associations in company.service', typeof associations)
+    associations.forEach(item => {
+      if (this.company.id === item.companyId) {
+        ans = item.admin
+      }
+    })
+    if (window.location.pathname === "/admin/company/1") {
+      ans = false
+    }
+    return ans
+  }
+  adminCheck() {
+    let associations = JSON.parse(localStorage.getItem('userAssociations')) || [{id: 1, admin: false}]
+    // console.log(associations, 'these are the user associations in company.service', typeof associations)
+    let isAdmin = false;
+    associations.forEach(item => {
+      if (this.company.id === item.companyId) {
+        isAdmin = item.admin
+      }
+    })
+    if (isAdmin === false) {
+      this.router.navigate(['company/', localStorage.getItem('localCompanyId')])
+    }
+  }
+  navigateAdminPage() {
+    this.router.navigate(['admin/company/', this.company.id])
+  }
 
-  constructor(private http: Http) { }
+  navigateProfilePageOnRefresh() {
+    let path = window.location.pathname.slice(17)
+    if (window.location.pathname.indexOf("employees") 
+    || window.location.pathname.indexOf("schedules") || window.location.pathname.indexOf("options")) {
+      if (!!this.company.name === false) {
+        this.router.navigate(['/company/', this.company.id])
+      }
+    }
+  }
+   /* AUTH, CHECKING ADMIN FROM */
+
+  constructor(private http: Http, private router: Router) { }
   postOneEmployeeSched(employeeSched) {
     return this.http.post('/api/schedules/oneschedule', employeeSched)
   }

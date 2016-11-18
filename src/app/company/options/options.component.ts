@@ -29,7 +29,10 @@ export class OptionsComponent implements OnInit {
   }
 
 
-  constructor(private companyService: CompanyService, private authService: AuthService) { }
+  constructor(private companyService: CompanyService, private authService: AuthService) {
+    this.companyService.navigateProfilePageOnRefresh()
+    this.companyService.adminCheck()
+   }
 
   ngOnInit() {
   }
