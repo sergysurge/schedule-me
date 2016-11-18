@@ -15,7 +15,7 @@ import { EditAccountComponent } from './my-account/edit-account.component';
 import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
 import { EditAccountStartComponent } from './my-account/edit-account-start.component'
-
+import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component'
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +37,8 @@ import { EditAccountStartComponent } from './my-account/edit-account-start.compo
     SearchFormComponent,
     EditAccountComponent,
     EditAccountStartComponent,
-    MakeAppointmentCompanyProfileComponent
+    MakeAppointmentCompanyProfileComponent,
+    SelectEmployeeFormComponent
   ],
   providers: [CustomerService, EditAccountGuard]
 })

@@ -3,15 +3,10 @@ import { Subscription } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../customer.service';
 
+
 @Component({
   selector: 'app-make-appointment',
-  template: `
-    <app-make-appointment-company-profile [company]="company"></app-make-appointment-company-profile>
-    <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
-    <ul>
-      <li ><a>asdf</a></li>
-    </ul>
-  `,
+  templateUrl: './make-appointment.component.html',
   styles: []
 })
 export class MakeAppointmentComponent implements OnInit, OnDestroy {
@@ -23,24 +18,43 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   public employeeAppointments: any
   public employees: any = []
   public companyAppointments: any
-  private companyIdSubscription: Subscription
-  private schedulesSubscription: Subscription
-  private appointmentsSubscription: Subscription
-  private companyId: number
-  private eventSources: Array<any>
-  
-  constructor(private route: ActivatedRoute, private customerService: CustomerService) { }
+  public checkedEmployees: any = {} // keep track of selected employees for calendar
 
-  // this.calendarHeaders = {
-  //   left: 'prev, next, today',
-  //   center: 'title',
-  //   right: 'month, agendaWeek, agendaDay'
-  // }
+  private mapUserCompanyIdToUser: any = {}
+  private companyIdSubscription: Subscription
+  private calendarSubscription: Subscription
+  private companyId: number
+  public eventSources: Array<any> = []
+
+  
+  constructor(private route: ActivatedRoute, private customerService: CustomerService) {
+    this.calendarHeaders = {
+      left: 'prev, next, today',
+      center: 'title',
+      right: 'month, agendaWeek, agendaDay'
+    }
+    this.calendarConfig = {
+      header: this.calendarHeaders,
+      defaultView: 'agendaWeek',
+      eventSources: [],
+      editable: false
+    }
+  }
 
   ngOnInit() {
     this.customerService.getEmployees()
       .subscribe(
-        (employees) => { this.employees = employees }
+        (employees) => { 
+          this.employees = employees 
+          this.employees.forEach((employee) => {
+            this.mapUserCompanyIdToUser[employee.UserCompany.id] = {
+              employeeId: employee.id,
+              firstName: employee.firstName,
+              lastName: employee.lastName
+            }
+            this.checkedEmployees[employee.id] = true
+          })
+        }
       )
 
     this.companyIdSubscription = this.route.params
@@ -55,55 +69,91 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
         }
       )
 
-    this.schedulesSubscription = this.customerService.getCompanySchedules(this.companyId)
+    this.calendarSubscription = this.customerService.getCompanySchedulesAndAppointments(this.companyId)
       .subscribe(
-        (res) => {
-          console.log(res)
-          this.companySchedules = res 
-          this.employeeSchedules = this.filterSchedulesByEmployee(this.companySchedules)
-        },
-        (err) => { console.log(err) }
+        (data) => {
+          this.companyAppointments = data[0].map((appointment) => {
+            return {
+              employeeId: appointment.employeeId,
+              employeeFirstName: appointment.employee.firstName,
+              employeeLastName: appointment.employee.lastName,
+              startTime: appointment.startTime,
+              endTime: appointment.endTime
+            }
+          })
+          this.companySchedules = data[1].map((schedule) => {
+            return {
+              employeeId: this.mapUserCompanyIdToUser[schedule.UserCompanyId].employeeId,
+              employeeFirstName: this.mapUserCompanyIdToUser[schedule.UserCompanyId].firstName,
+              employeeLastName: this.mapUserCompanyIdToUser[schedule.UserCompanyId].lastName,
+              startTime: schedule.startTime,
+              endTime: schedule.endTime
+            }
+          })
+          this.employeeAppointments = this.categorizeByEmployeeId(this.companyAppointments, 'appointment')
+          this.employeeSchedules = this.categorizeByEmployeeId(this.companySchedules, 'schedule')   
+          this.updateEventSources(this.employees)
+        }
       )
-    
-    this.appointmentsSubscription = this.customerService.getCompanyAppointments(this.companyId)
-      .subscribe(
-        (res) => {
-          this.companyAppointments = res
-          this.employeeAppointments = this.filterSchedulesByEmployee(this.companyAppointments)
-        },
-        (err) => { console.log(err) }
-      )
+  }
+
+  onCheckedEmployeeChange(checkedEmployees) {
+    let updatedEmployees = []
+    for(var employee in checkedEmployees) {
+      if (checkedEmployees[employee]) {
+        let found = this.employees.find((emp) => { 
+          return emp.id === Number(employee)
+        })
+        found !== -1 && updatedEmployees.push(found)
+      }
+    }
+    this.updateEventSources(updatedEmployees)
   }
 
   ngOnDestroy() {
     this.companyIdSubscription && this.companyIdSubscription.unsubscribe()
-    this.schedulesSubscription && this.schedulesSubscription.unsubscribe()
-    this.appointmentsSubscription && this.schedulesSubscription.unsubscribe()
+    this.calendarSubscription && this.calendarSubscription.unsubscribe()
   }
 
-  filterSchedulesByEmployee(schedules) {
-    // filters schedules by userCompanyId, { <userCompanyId>: <[schedules]>}
+  categorizeByEmployeeId(schedules, type) {
+    let append = ''
+    if (type === 'schedule') {
+      append = 'working'
+    } else if (type === 'appointment') {
+      append = 'appointment'
+    }
+    // filters schedules by employeeId, { <employeeId>: <[schedules]>}
     return schedules.reduce((filtered, schedule) => {
-      if (filtered[schedule.UserCompanyId]) {
-        filtered[schedule.UserCompanyId].push(schedule)
+      if (filtered[schedule.employeeId]) {
+        filtered[schedule.employeeId].push({
+          title: `${schedule.employeeFirstName} ${schedule.employeeLastName} ${append}`,
+          start: schedule.startTime,
+          end: schedule.endTime
+        })
         return filtered
       }
-      filtered[schedule.UserCompanyId] = [schedule]
+      filtered[schedule.employeeId] = [{
+          title: `${schedule.employeeFirstName} ${schedule.employeeLastName} ${append}`,
+          start: schedule.startTime,
+          end: schedule.endTime
+      }]
       return filtered
     }, {})
   }
+
+  updateEventSources(employees) {
+    this.eventSources = []
+    employees.forEach((employee) => {
+      if(this.employeeSchedules[employee.id]) {
+        this.eventSources.push({
+          events: this.employeeSchedules[employee.id],
+          color: 'light blue'
+        })
+        this.eventSources.push({
+          events: this.employeeAppointments[employee.id],
+          color: 'gray'
+        })
+      }
+    })
+  }
 }
-
-// this.eventSources = [
-//   {
-//     event: this.employeeCalendar
-//   }
-// ]
-
-//           this.calendarConfig = {
-//             header: this.headers,
-//             defaultView: 'agendaWeek',
-//             eventSources: this.eventSources,
-//             editable: false,
-//             eventClick: this.handleEventClick
-//           }

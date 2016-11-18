@@ -142,6 +142,7 @@ companiesModel.getonecompany = data => {
 //**DONE
 companiesModel.getallcompanies = () => {
   return Company.findAll({
+    include: [{ all: true }]
   })
 }
 //**DONE
