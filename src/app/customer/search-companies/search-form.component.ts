@@ -1,15 +1,12 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-// import { CustomerService } from '../customer.service'
+
 
 @Component({
   selector: 'app-search-form',
   template: `
     <form [formGroup]="searchForm" novalidate (ngSubmit)="onSubmit(searchForm.value)">
-      <input type="text" formControlName="search" placeholder="What do you want to do?">
-      <button type="submit">Search</button>
-      <br>
-      <span *ngIf="!searchForm.controls.search.valid && submitted">Please enter some value</span>
+      <input type="text" formControlName="search">
     </form>
   `,
   styles: []
@@ -20,7 +17,7 @@ export class SearchFormComponent implements OnInit {
   public submitted: boolean
   public searchForm: FormGroup
   public filteredList = []
-  public list = ['a', 'b', 'c']
+
 
   ngOnInit() {
     this.submitted = false

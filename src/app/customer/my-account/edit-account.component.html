@@ -47,7 +47,7 @@
         <br>
     
         <span *ngIf="showErrorMsg">Server error, please try again later</span>
-        <span *ngIf="showSuccessMsg">Account updated!</span>
+        <div class="alert alert-success" role="alert" *ngIf="showSuccessMsg">Account updated!</div>
 
     </form>
 </div>

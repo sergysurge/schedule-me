@@ -35,7 +35,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
     this.subscription = this.customerService.getCustomerAppointments(this.userId)
       .subscribe(
         (appointments) => { 
-          console.log('appointments: ', appointments)
           this.customerAppointments = appointments
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
