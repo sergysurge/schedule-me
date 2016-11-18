@@ -1,13 +1,14 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { EmployeeServiceService } from '../employee-service.service';
 import { AuthService } from '../../auth/auth.service';
+import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-employee-schedule',
   template: `
     <p>employee schedule</p>
     <div id="employee-calendar">
-      <app-calendar [calendarConfig]="calendarConfig"></app-calendar>
+      <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
     </div>
   `,
   styles: [`
@@ -20,21 +21,28 @@ import { AuthService } from '../../auth/auth.service';
   `]
 })
 export class EmployeeScheduleComponent implements OnInit, OnDestroy {
-
-  constructor(private employeeService: EmployeeServiceService, private authService: AuthService) { }
-
   calendarConfig: any
   appointments: any[]
   schedules: any[]
-  calendars: any[]
+  eventSources: any[]
   userId: number
-  userAssociations
-  calendarSubscription
+  headers: any
+  private userAssociations
+  private calendarSubscription: Subscription
 
-  headers = {
-    left: 'prev, next, today',
-    center: 'title',
-    right: 'month, agendaWeek, agendaDay, listDay'
+  constructor(private employeeService: EmployeeServiceService, private authService: AuthService) {
+    this.headers = {
+      left: 'prev, next, today',
+      center: 'title',
+      right: 'month, agendaWeek, agendaDay, listDay'
+    }
+
+    this.calendarConfig = {
+      header: this.headers,
+      defaultView: 'agendaWeek',
+      eventSources: [],
+      editable: true
+    }
   }
 
   ngOnInit() {
@@ -63,29 +71,23 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy {
               }
             })
 
-          this.calendars = [
+          this.eventSources = [
             {
               events: this.schedules,
-              color: 'blue'
+              color: 'light blue'
             },
             {
               events: this.appointments,
-              color: 'pink'
+              color: 'green'
             }
           ]
-          this.calendarConfig = {
-            header: this.headers,
-            defaultView: 'agendaWeek',
-            eventSources: this.calendars,
-            editable: true
-          }
         },
         (err) => console.error(err)
       )
   }
 
   ngOnDestroy() {
-    this.calendarSubscription.unsubscribe()
+    this.calendarSubscription && this.calendarSubscription.unsubscribe()
   }
 
 }

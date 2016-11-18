@@ -11,37 +11,30 @@ require('style-loader!fullcalendar/dist/fullcalendar.css');
 })
 export class CalendarComponent implements OnChanges {
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) { 
+  }
   
   @Input() calendarConfig
+  @Input() eventSources
   schedule: any;
 
-  // headers = {
-  //   left: 'prev, next, today',
-  //   center: 'title',
-  //   right: 'month, agendaWeek, agendaDay, listDay'
+  // ngAfterViewInit() {
+  //   this.schedule = jQuery(this.el.nativeElement.children[0]);
   // }
-  // x: any = moment("2016-11-10T19:19", moment.ISO_8601);
-  // y: any = moment("2016-11-10T22:19", moment.ISO_8601);
-  
-  // events: any[] = [{title: 'blah', start: this.x, end: this.y}];
-
-  // calendarConfig = {
-  //   header: this.headers,
-  //   defaultView: 'agendaWeek',
-  //   events: this.events,
-  //   editable: true
-  // }
-
-  ngAfterViewInit() {
-    this.schedule = jQuery(this.el.nativeElement.children[0]);
-  }
 
   ngOnChanges(changes:any) {
-    // set options for calendar only after receiving data from parent component
-    var configChange = changes.calendarConfig.currentValue;
-    if(configChange) {
-      this.schedule.fullCalendar(this.calendarConfig);
+    if (!this.schedule) {
+      this.schedule = jQuery(this.el.nativeElement.children[0])
+    }
+    if(changes.calendarConfig) {
+      this.schedule.fullCalendar(changes.calendarConfig.currentValue)
+
+    }
+    if(changes.eventSources && changes.eventSources.currentValue) {
+      this.schedule.fullCalendar('removeEventSources')
+      for(let i = 0; i < changes.eventSources.currentValue.length; i++) {
+        this.schedule.fullCalendar('addEventSource', changes.eventSources.currentValue[i])
+      }
     }
     
   }

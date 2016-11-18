@@ -9,8 +9,28 @@ import { Subscription } from 'rxjs/Rx'
   styleUrls: []
 })
 export class AppointmentCalendarComponent implements OnInit, OnDestroy {
+  public calendarConfig: any
+  public customerAppointments: Array<any>
+  public customerCalendarEvents: Array<any>
+  public eventSources: Array<any>
+  userId = localStorage.getItem('userId')
+  headers: any
+  private subscription: Subscription
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService) { 
+    this.headers = {
+      left: 'prev, next, today',
+      center: 'title',
+      right: 'month, agendaWeek, agendaDay, listDay'
+    }
+              this.calendarConfig = {
+            header: this.headers,
+            defaultView: 'agendaWeek',
+            eventSources: [],
+            // events: this.customerCalendarEvents,
+            editable: false
+          }
+  }
 
 //   interface CustomerAppointmentEvent {
 //     id?: number;
@@ -26,23 +46,14 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
 //     employee?: any;
 //     company?: any;
 //  }
-  calendarConfig: any
-  customerAppointments: Array<any>
-  customerCalendarEvents: Array<any>
-  userId = localStorage.getItem('userId')
-  private subscription: Subscription
   
 
-  headers = {
-    left: 'prev, next, today',
-    center: 'title',
-    right: 'month, agendaWeek, agendaDay, listDay'
-  }
 
   ngOnInit() {
     this.subscription = this.customerService.getCustomerAppointments(this.userId)
       .subscribe(
         (appointments) => { 
+          console.log('appointments: ', appointments)
           this.customerAppointments = appointments
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
@@ -56,14 +67,20 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
                 end: appointment.endTime
               }
             })
-          
-          this.calendarConfig = {
-            header: this.headers,
-            defaultView: 'agendaWeek',
+          console.log(this.customerCalendarEvents, '++++++++74')
+        
+          this.eventSources = [{
             events: this.customerCalendarEvents,
-            editable: false,
-            eventClick: this.handleEventClick
-          }
+            color: 'light blue'
+          }]
+          // this.calendarConfig = {
+          //   header: this.headers,
+          //   defaultView: 'agendaWeek',
+          //   eventSources: [],
+          //   // events: this.customerCalendarEvents,
+          //   editable: false,
+          //   eventClick: this.handleEventClick
+          // }
 
         },
         (err) => console.error(err)
@@ -74,9 +91,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
     this.subscription && this.subscription.unsubscribe()
   }
 
-  handleEventClick(calEvent, jsEvent, view) {
-    console.log(calEvent)
-  }
 
   // filterCalendarData(appointments) {
   //   appointments.reduce((appointment) => {

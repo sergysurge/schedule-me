@@ -18,38 +18,42 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   public employeeAppointments: any
   public employees: any = []
   public companyAppointments: any
+  public checkedEmployees: any = {} // keep track of selected employees for calendar
 
   private mapUserCompanyIdToUser: any = {}
   private companyIdSubscription: Subscription
   private calendarSubscription: Subscription
-  // private schedulesSubscription: Subscription
-  // private appointmentsSubscription: Subscription
   private companyId: number
-  private eventSources: Array<any>
+  public eventSources: Array<any> = []
 
   
-  constructor(private route: ActivatedRoute, private customerService: CustomerService) { }
-
-  // this.calendarHeaders = {
-  //   left: 'prev, next, today',
-  //   center: 'title',
-  //   right: 'month, agendaWeek, agendaDay'
-  // }
+  constructor(private route: ActivatedRoute, private customerService: CustomerService) {
+    this.calendarHeaders = {
+      left: 'prev, next, today',
+      center: 'title',
+      right: 'month, agendaWeek, agendaDay'
+    }
+    this.calendarConfig = {
+      header: this.calendarHeaders,
+      defaultView: 'agendaWeek',
+      eventSources: [],
+      editable: false
+    }
+  }
 
   ngOnInit() {
     this.customerService.getEmployees()
       .subscribe(
         (employees) => { 
           this.employees = employees 
-          console.log(this.employees, 'this.employees')
-          this.employees.reduce((map, employee) => {
-            map[employee.UserCompany.id] = {
+          this.employees.forEach((employee) => {
+            this.mapUserCompanyIdToUser[employee.UserCompany.id] = {
               employeeId: employee.id,
               firstName: employee.firstName,
               lastName: employee.lastName
             }
-            return map
-          }, this.mapUserCompanyIdToUser)
+            this.checkedEmployees[employee.id] = true
+          })
         }
       )
 
@@ -72,7 +76,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
             return {
               employeeId: appointment.employeeId,
               employeeFirstName: appointment.employee.firstName,
-              employeeLastName: appointment.employee.LastName,
+              employeeLastName: appointment.employee.lastName,
               startTime: appointment.startTime,
               endTime: appointment.endTime
             }
@@ -86,48 +90,70 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
               endTime: schedule.endTime
             }
           })
-          this.employeeAppointments = this.categorizeByEmployeeId(this.companyAppointments)
-          this.employeeSchedules = this.categorizeByEmployeeId(this.companySchedules)
-          console.log('apppointments: ', this.employeeAppointments)
-          console.log('schedules: ', this.employeeSchedules)
-
-          // this.employeeAppointments = this.filterSchedulesByEmployee(this.companyAppointments)
+          this.employeeAppointments = this.categorizeByEmployeeId(this.companyAppointments, 'appointment')
+          this.employeeSchedules = this.categorizeByEmployeeId(this.companySchedules, 'schedule')   
+          this.updateEventSources(this.employees)
         }
       )
+  }
+
+  onCheckedEmployeeChange(checkedEmployees) {
+    let updatedEmployees = []
+    for(var employee in checkedEmployees) {
+      if (checkedEmployees[employee]) {
+        let found = this.employees.find((emp) => { 
+          return emp.id === Number(employee)
+        })
+        found !== -1 && updatedEmployees.push(found)
+      }
+    }
+    this.updateEventSources(updatedEmployees)
   }
 
   ngOnDestroy() {
     this.companyIdSubscription && this.companyIdSubscription.unsubscribe()
     this.calendarSubscription && this.calendarSubscription.unsubscribe()
-    // this.schedulesSubscription && this.schedulesSubscription.unsubscribe()
-    // this.appointmentsSubscription && this.schedulesSubscription.unsubscribe()
   }
 
-  categorizeByEmployeeId(schedules) {
+  categorizeByEmployeeId(schedules, type) {
+    let append = ''
+    if (type === 'schedule') {
+      append = 'working'
+    } else if (type === 'appointment') {
+      append = 'appointment'
+    }
     // filters schedules by employeeId, { <employeeId>: <[schedules]>}
     return schedules.reduce((filtered, schedule) => {
       if (filtered[schedule.employeeId]) {
-        filtered[schedule.employeeId].push(schedule)
+        filtered[schedule.employeeId].push({
+          title: `${schedule.employeeFirstName} ${schedule.employeeLastName} ${append}`,
+          start: schedule.startTime,
+          end: schedule.endTime
+        })
         return filtered
       }
-      filtered[schedule.employeeId] = [schedule]
+      filtered[schedule.employeeId] = [{
+          title: `${schedule.employeeFirstName} ${schedule.employeeLastName} ${append}`,
+          start: schedule.startTime,
+          end: schedule.endTime
+      }]
       return filtered
     }, {})
   }
 
-
+  updateEventSources(employees) {
+    this.eventSources = []
+    employees.forEach((employee) => {
+      if(this.employeeSchedules[employee.id]) {
+        this.eventSources.push({
+          events: this.employeeSchedules[employee.id],
+          color: 'light blue'
+        })
+        this.eventSources.push({
+          events: this.employeeAppointments[employee.id],
+          color: 'gray'
+        })
+      }
+    })
+  }
 }
-
-// this.eventSources = [
-//   {
-//     event: this.employeeCalendar
-//   }
-// ]
-
-//           this.calendarConfig = {
-//             header: this.headers,
-//             defaultView: 'agendaWeek',
-//             eventSources: this.eventSources,
-//             editable: false,
-//             eventClick: this.handleEventClick
-//           }
