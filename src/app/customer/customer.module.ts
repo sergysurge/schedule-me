@@ -15,7 +15,10 @@ import { EditAccountComponent } from './my-account/edit-account.component';
 import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
 import { EditAccountStartComponent } from './my-account/edit-account-start.component'
-import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component'
+import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component';
+import { ScheduleAppointmentComponent } from './make-appointment/schedule-appointment.component';
+import { EmployeeServiceService } from '../employee/employee-service.service'
+import { EmployeeModule } from '../employee/employee.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { SelectEmployeeFormComponent } from './make-appointment/select-employee-
     CustomerRoutingModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    EmployeeModule 
   ],
   exports: [
     CustomerComponent
@@ -38,8 +42,9 @@ import { SelectEmployeeFormComponent } from './make-appointment/select-employee-
     EditAccountComponent,
     EditAccountStartComponent,
     MakeAppointmentCompanyProfileComponent,
-    SelectEmployeeFormComponent
+    SelectEmployeeFormComponent,
+    ScheduleAppointmentComponent
   ],
-  providers: [CustomerService, EditAccountGuard]
+  providers: [CustomerService, EditAccountGuard, EmployeeServiceService]
 })
 export class CustomerModule { }
