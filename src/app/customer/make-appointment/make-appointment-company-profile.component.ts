@@ -5,11 +5,10 @@ import { Subscription } from 'rxjs/Rx';
 @Component({
   selector: 'app-make-appointment-company-profile',
   template: `
-    <p>
-      make-appointment-company-profile Works!
-    </p>
     <div>
-      <h2>{{company?.name}}</h2>
+      <div class="page-header">
+        <h2>{{company?.name}}</h2>
+      </div>
       <div id="contact">
         <div>
           <span>Phone Number: {{company?.phoneNumber}}</span>
@@ -17,7 +16,6 @@ import { Subscription } from 'rxjs/Rx';
         <div>
           <span>Website: {{company?.website}}</span>
         </div>
-      </div>
       <div id="image">
         <img src={{company?.image}}>
       </div>
