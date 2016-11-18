@@ -1,17 +1,24 @@
-<h3>My Account</h3>
-<div id="profile">
-    <div class="name">First Name: {{user?.firstName}}</div> 
-    <div class="name">Last Name: {{user?.lastName}}</div>
-    <div id="photo">
-        <img src="{{user?.image}}">
-    </div>
-    <div id="contact">
+<div class="page-header">
+    <h2>My Account</h2>
+</div>
+
+<div id="profile" class="row">
+    <div class="col-xs-4 offset-md-2">
+        <div class="name">First Name: {{user?.firstName}}</div> 
+        <div class="name">Last Name: {{user?.lastName}}</div>
         <div id="phone">Phone Number: {{user?.phoneNumber}}</div>
         <div id="email">Email: {{user?.email}}</div>
     </div>
-    <button type="button" class="btn btn-default" (click)="onEdit()">
-        <span class="glyphicon glyphicon-edit"></span> Edit
-    </button>
+    <div class="col-xs-4 offset-md-8">
+        <img src="{{user?.image}}">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <button type="button" class="btn btn-default" (click)="onEdit()">
+            <span class="glyphicon glyphicon-edit"></span> Edit
+        </button>
+    </div>
 </div>
     
 <router-outlet></router-outlet>

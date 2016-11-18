@@ -1,43 +1,43 @@
-<div id="edit-box">
+<div class="input-group">
     <form [formGroup]="editAccountForm" (ngSubmit)="onSubmit(editAccountForm.value)" novalidate>
         <div class="form-group">
-            <label for="password">Enter password to edit account details</label>
-            <input type="password" formControlName="password">
+            <label for="password">Enter password to edit account details</label><br>
+            <input type="password" class="form-control" formControlName="password">
             <span *ngIf="editAccountForm.controls.password.hasError('required') && submitted">Password is required</span>
             <span *ngIf="incorrectPassword">Incorrect password</span>
             <br>
         </div>
 
         <div class="form-group">
-            <label for="firstName">First Name: </label>
-            <input type="text" class="form-countrol" [ngModel]="user.firstName" formControlName="firstName">
+            <label for="firstName">First Name: </label><br>
+            <input type="text" class="form-control" formControlName="firstName">
             <span *ngIf="editAccountForm.controls.firstName.hasError('required') && submitted">Please enter first name</span>
             <br>
         </div>
 
         <div class="form-group">
-            <label for="lastName">Last Name: </label>
-            <input type="text" class="form-countrol" [ngModel]="user.lastName" formControlName="lastName">
+            <label for="lastName">Last Name: </label><br>
+            <input type="text" class="form-control" formControlName="lastName">
             <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter last name</span>
             <br>
         </div>
 
         <div class="form-group">
-            <label for="phoneNumber">Phone Number: </label>
-            <input type='tel' class="form-countrol" [ngModel]="user.phoneNumber" formControlName="phoneNumber">
+            <label for="phoneNumber">Phone Number: </label><br>
+            <input type='tel' class="form-control" formControlName="phoneNumber">
             <br>
         </div>
 
         <div class="form-group">
-            <label for="email">Email: </label>
-            <input type="email" class="form-countrol" [ngModel]="user.email" formControlName="email">
+            <label for="email">Email: </label><br>
+            <input type="email" class="form-control" formControlName="email">
             <span *ngIf="editAccountForm.controls.lastName.hasError('required') && submitted">Please enter email</span>
             <br>
         </div>
 
         <div class="form-group">
-            <label for="image">Profile Photo: </label>
-            <input type="url" class="form-countrol" [ngModel]="user.image" formControlName="image">
+            <label for="image">Profile Photo: </label><br>
+            <input type="url" class="form-control" formControlName="image">
             <br>
         </div>
 

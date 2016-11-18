@@ -78,7 +78,8 @@ export class CustomerService {
     return this.http.get('/api/users/', options)
       .map((response: Response) => {
         if(response.json().response.success){
-          this.user = response.json().response.user
+          this.setUser(response.json().response.user)
+          // this.user = response.json().response.user
         }
         return response.json()
       })

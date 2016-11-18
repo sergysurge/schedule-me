@@ -1,10 +1,16 @@
 <div class="container">
-
-<ul>
-  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['users']">My Page</a></li>
-  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['company']">My Companies</a></li>
-  <li [hidden]="!isUserLoggedIn"><a [routerLink]="['work']">Work</a></li>
-  <li [hidden]="!isUserLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
-</ul>
-<router-outlet></router-outlet>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">ScheduleMe</a>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+        <li [hidden]="!isUserLoggedIn"><a [routerLink]="['users']">My Page</a></li>
+        <li [hidden]="!isUserLoggedIn"><a [routerLink]="['company']">My Companies</a></li>
+        <li [hidden]="!isUserLoggedIn"><a [routerLink]="['work']">Work</a></li>
+        <li [hidden]="!isUserLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
