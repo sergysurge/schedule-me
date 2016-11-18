@@ -1,27 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CustomerService } from '../customer.service'
+import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
   styleUrls: ['./edit-account.component.css']
 })
-export class EditAccountComponent implements OnInit {
+export class EditAccountComponent implements OnInit, OnDestroy {
   
-  public user: any = this.customerService.user
+  public user: any
   public editAccountForm: FormGroup
   public submitted: boolean = false
   public incorrectPassword: boolean = false
   public showErrorMsg: boolean = false
   public showSuccessMsg: boolean = false
-  private subscription: any
+  private submitSubscription: Subscription
+  private userSubscription: Subscription
   private userId: number = Number(localStorage.getItem('userId'))
   
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
-
-  // @Input() user: any
-  // @Output() userUpdate = new EventEmitter()
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) {
+    this.userSubscription = this.customerService.getUser()
+      .subscribe(
+        (user) => { 
+          this.user = user
+          this.editAccountForm.controls['firstName'].setValue(this.user.firstName || '')
+          this.editAccountForm.controls['lastName'].setValue(this.user.lastName || '')
+          this.editAccountForm.controls['phoneNumber'].setValue(this.user.phoneNumber || '')
+          this.editAccountForm.controls['email'].setValue(this.user.email || '')
+          this.editAccountForm.controls['image'].setValue(this.user.image || '') 
+        },
+        (err) => { console.log(err) }
+      )
+  }
 
   ngOnInit() {
     this.editAccountForm = this.formBuilder.group({
@@ -32,12 +44,22 @@ export class EditAccountComponent implements OnInit {
       image: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
+    if(!this.user) {
+      this.userSubscription = this.customerService.getUserInformation(this.userId, null)
+        .subscribe(
+          (user) => { 
+            this.user = user
+          },
+          (err) => { console.log(err) }
+        )
+    }
+
   }
 
   onSubmit(update) {
     this.submitted = true
     if (this.editAccountForm.valid) {
-      this.subscription = this.customerService.submitUserUpdates(this.userId, update)
+      this.submitSubscription = this.customerService.submitUserUpdates(this.userId, update)
         .subscribe(
           (res) => {
             if (res.response.success) {
@@ -58,7 +80,9 @@ export class EditAccountComponent implements OnInit {
     }
   }
 
-  // dialogueService(msg: string) {
+  ngOnDestroy() {
+    this.userSubscription && this.userSubscription.unsubscribe()
+    this.submitSubscription && this.submitSubscription.unsubscribe()
+  }
 
-  // }
 }

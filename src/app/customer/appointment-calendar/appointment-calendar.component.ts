@@ -23,37 +23,18 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
       center: 'title',
       right: 'month, agendaWeek, agendaDay, listDay'
     }
-              this.calendarConfig = {
-            header: this.headers,
-            defaultView: 'agendaWeek',
-            eventSources: [],
-            // events: this.customerCalendarEvents,
-            editable: false
-          }
+    this.calendarConfig = {
+      header: this.headers,
+      defaultView: 'agendaWeek',
+      eventSources: [],
+      editable: false
+    }
   }
-
-//   interface CustomerAppointmentEvent {
-//     id?: number;
-//     contactName?: string;
-//     contactNumber?: string;
-//     description?: string;
-//     startTime?: any;
-//     endTime?: any;
-//     comment?: string;
-//     customerId?: number;
-//     employeeId?: number;
-//     companyId?: number;
-//     employee?: any;
-//     company?: any;
-//  }
-  
-
 
   ngOnInit() {
     this.subscription = this.customerService.getCustomerAppointments(this.userId)
       .subscribe(
         (appointments) => { 
-          console.log('appointments: ', appointments)
           this.customerAppointments = appointments
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
@@ -73,14 +54,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
             events: this.customerCalendarEvents,
             color: 'light blue'
           }]
-          // this.calendarConfig = {
-          //   header: this.headers,
-          //   defaultView: 'agendaWeek',
-          //   eventSources: [],
-          //   // events: this.customerCalendarEvents,
-          //   editable: false,
-          //   eventClick: this.handleEventClick
-          // }
 
         },
         (err) => console.error(err)
@@ -90,11 +63,4 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe()
   }
-
-
-  // filterCalendarData(appointments) {
-  //   appointments.reduce((appointment) => {
-
-  //   })
-  // }
 }

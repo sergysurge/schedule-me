@@ -7,8 +7,9 @@ import { Subscription } from 'rxjs/Rx';
   template: `
     <div class="form-group">
         <label for="options">Employees: </label>
-        <div *ngFor="let employee of employees">
-            <input type="checkbox" value="true" (change)="updateChecked(employee, $event)" checked> {{employee.firstName}} {{employee.lastName}}
+        <div *ngFor="let employee of employees" class="input-group">
+          <input type="checkbox" value="true" (change)="updateChecked(employee, $event)" checked>
+          {{employee.firstName}} {{employee.lastName}}
         </div>
     </div>
   `,
