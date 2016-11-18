@@ -28,6 +28,11 @@ export class EmployeeServiceService {
   //   this.available = body
   //   console.log('Whats up',this.available)
   // }
+  updateBlock(body: Object): Promise<any> {
+    return this.http.put('/api/schedules', body)
+    .toPromise()
+    .then(response => response.json())
+  }
   
   makeAppointment(body: Object): Promise<any> {
     return this.http.post('/api/appointments', body)

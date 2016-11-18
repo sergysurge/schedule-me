@@ -16,6 +16,18 @@ schedulesController.GETONESCHEDULE = (req, res) => {
     })
 }
 
+schedulesController.CHANGESCHEDULE = (req, res) => {
+  let obj = req.body
+  scheduleModel.changeSchedule(obj.id, obj.block)
+    .then(schedule => {
+      res.send(schedule)
+    })
+    .catch(err => {
+      console.log('ERROR in CHANGE Schedule scheduleController', err)
+      return err
+    })
+}
+
 //should send the user_company_id as array [1,2,3]
 schedulesController.GETSCHEDULES = (req, res) => {
   const userCompanyIdsArray = JSON.parse(req.query.userCompanyIds)

@@ -23,7 +23,9 @@ export class EmployeeFormComponent {
     public available;
     start;
     times;
+    open;
     service: {};
+    temp;
 
     person = {
       contactName: undefined,
@@ -42,10 +44,8 @@ export class EmployeeFormComponent {
     let arr= []
     let arr2= []
     let current = []
-    console.log(this.available)
     if(this.person.employeeId === undefined || this.person.description === undefined){
       alert('Please select all fields')
-      console.log(this.employees)
     }else{
       this.employees.forEach(curr=>{
         arr.push(curr)
@@ -64,6 +64,7 @@ export class EmployeeFormComponent {
           current.forEach(curr=>{
             if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
               this.available = JSON.parse(curr.block)
+              this.temp = curr
             }
           })
           }
@@ -71,24 +72,36 @@ export class EmployeeFormComponent {
     }
   }
 
+  editBlock(){
+      let remove = this.available.indexOf(this.open[0])
+      this.available.splice(remove,(this.person.description[0].duration)/15)
+      this.temp.block = JSON.stringify(this.available)
+
+      this.employeeServiceService.updateBlock(this.temp)
+      .then(
+        update => {console.log(update)}
+      )
+  }
+
   makeAppointment(employeeServiceService:EmployeeServiceService){
 
-    if(this.person.contactName === undefined || this.person.contactNumber === undefined || this.person.startTime === undefined || this.person.startTime === undefined || this.person.employeeId === undefined || this.person.description === undefined){
+    if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined){
       alert('Please select all fields')
     }else{
 
+      this.editBlock()
+
       this.person.employeeId = this.person.employeeId.id
       let start = moment(this.start).utcOffset(0)
-      this.times = this.times.toString().split(':')
-      start.set({'hour': this.times[0], 'minute': this.times[1]})
+      this.open = this.open[0].value.toString().split(':')
+      start.set({'hour': this.open[0], 'minute': this.open[1]})
       this.person.startTime = start
 
       let end = moment(start)
       end.add(this.person.description[0].duration,'m')
-      this.person.description = this.person.description[0].label
+      this.person.description = this.person.description[0].service
       this.person.endTime = end
 
-      // console.log('person end',this.person)
       this.employeeServiceService.makeAppointment(this.person)
       .then(
         appointment => {
@@ -102,15 +115,14 @@ export class EmployeeFormComponent {
         // this.available = employeeServiceService.available
 
         this.user = this.authService.getUserAssociations()
-        console.log(this.user)
         for(var key in this.user){
           this.user.companyId = this.user[key][0]
           this.person.customerId = key
+          this.person.companyId =this.user[key][0]
         }
         employeeServiceService.getEmployees(this.user.companyId)
         .subscribe(
           employee => {
-            console.log('users',employee.json()[0].users)
           this.employees = employee.json()[0].users
         }
         )
@@ -121,54 +133,6 @@ export class EmployeeFormComponent {
         })
 
         this.employees = [];
-        
-        this.hours = []
-        this.hours.push({label: "09:00 AM",value: "09:00"})
-        this.hours.push({label: "09:15 AM",value: "09:15"})
-        this.hours.push({label: "09:30 AM",value: "09:30"})
-        this.hours.push({label: "09:45 AM",value: "09:45"})
-        this.hours.push({label: "10:00 AM",value: "10:00"})
-        this.hours.push({label: "10:15 AM",value: "10:15"})
-        this.hours.push({label: "10:30 AM",value: "10:30"})
-        this.hours.push({label: "10:45 AM",value: "10:45"})
-        this.hours.push({label: "11:00 AM",value: "11:00"})
-        this.hours.push({label: "11:15 AM",value: "11:15"})
-        this.hours.push({label: "11:30 AM",value: "11:30"})
-        this.hours.push({label: "11:45 AM",value: "11:45"})
-        this.hours.push({label: "12:00 PM",value: "12:00"})
-        this.hours.push({label: "12:15 PM",value: "12:15"})
-        this.hours.push({label: "12:30 PM",value: "12:30"})
-        this.hours.push({label: "12:45 PM",value: "12:45"})
-        this.hours.push({label: "01:00 PM",value: "13:00"})
-        this.hours.push({label: "01:15 PM",value: "13:15"})
-        this.hours.push({label: "01:30 PM",value: "13:30"})
-        this.hours.push({label: "01:45 PM",value: "13:45"})
-        this.hours.push({label: "02:00 PM",value: "14:00"})
-        this.hours.push({label: "02:15 PM",value: "14:15"})
-        this.hours.push({label: "02:30 PM",value: "14:30"})
-        this.hours.push({label: "02:45 PM",value: "14:45"})
-        this.hours.push({label: "03:00 PM",value: "15:00"})
-        this.hours.push({label: "03:15 PM",value: "15:15"})
-        this.hours.push({label: "03:30 PM",value: "15:30"})
-        this.hours.push({label: "03:45 PM",value: "15:45"})
-        this.hours.push({label: "04:00 PM",value: "16:00"})
-        this.hours.push({label: "04:15 PM",value: "16:15"})
-        this.hours.push({label: "04:30 PM",value: "16:30"})
-        this.hours.push({label: "04:45 PM",value: "16:45"})
-        this.hours.push({label: "05:00 PM",value: "17:00"})
-        this.hours.push({label: "05:15 PM",value: "17:15"})
-        this.hours.push({label: "05:30 PM",value: "17:30"})
-        this.hours.push({label: "05:45 PM",value: "17:45"})
-        this.hours.push({label: "06:00 PM",value: "18:00"})
-        this.hours.push({label: "06:15 PM",value: "18:15"})
-        this.hours.push({label: "06:30 PM",value: "18:30"})
-        this.hours.push({label: "06:45 PM",value: "18:45"})
-        this.hours.push({label: "07:00 PM",value: "19:00"})
-        this.hours.push({label: "07:15 PM",value: "19:15"})
-        this.hours.push({label: "07:30 PM",value: "19:30"})
-        this.hours.push({label: "07:45 PM",value: "19:45"})
-        this.hours.push({label: "08:00 PM",value: "20:00"})
-
  
   }
 

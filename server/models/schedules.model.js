@@ -2,6 +2,19 @@ const Schedule = require('../db').Schedule
 const UserCompany = require('../db').UserCompany
 const scheduleModel = {}
 
+scheduleModel.changeSchedule = (scheduleId, updateBlock) => {
+  return Schedule.findById(scheduleId)
+    .then(schedule => {
+      return schedule.update({
+        block: updateBlock
+      })
+      .then(end => {
+        return end
+      })
+    })
+}
+
+
 scheduleModel.getoneschedule = userCompanyId => {
   return UserCompany.findById(userCompanyId)
     .then((userCompany) => {
