@@ -8,5 +8,6 @@ SchedulesRouter.get('/', schedulesController.GETSCHEDULES)
 SchedulesRouter.get('/:userCompanyId', schedulesController.GETONESCHEDULE)
 SchedulesRouter.post('/oneschedule', schedulesController.POSTONESCHEDULE)
 SchedulesRouter.post('/schedules', schedulesController.POSTSCHEDULES)
+SchedulesRouter.put('/', schedulesController.CHANGESCHEDULE)
 
 module.exports = SchedulesRouter
