@@ -72,9 +72,22 @@ export class EmployeeFormComponent {
     }
   }
 
+  checkBlock(){
+    let check = this.available.indexOf(this.open[0])
+    let dur = (this.person.description[0].duration)/15
+    if(this.available[check+dur].label === "Not Available"){
+      return false
+    }else{
+      return true
+    }
+  }
+  
   editBlock(){
       let remove = this.available.indexOf(this.open[0])
-      this.available.splice(remove,(this.person.description[0].duration)/15)
+      for(var i = remove; i< remove+(this.person.description[0].duration)/15; i++){
+        this.available[i].label = "Not available"
+      }
+      
       this.temp.block = JSON.stringify(this.available)
 
       this.employeeServiceService.updateBlock(this.temp)
@@ -85,34 +98,39 @@ export class EmployeeFormComponent {
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
 
-    if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined){
-      alert('Please select all fields')
-    }else{
+      if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
+        if(this.open[0].label === "Not available"){
+          alert('Appointment Not Available')
+        }else{
+          alert('Please select all fields')
+        }
+      }else{
+        if(this.checkBlock()){
+          alert('Not enough time for the service')
+        }else{
+        this.editBlock()
+        this.person.employeeId = this.person.employeeId.id
+        let start = moment(this.start).utcOffset(0)
+        this.open = this.open[0].value.toString().split(':')
+        start.set({'hour': this.open[0], 'minute': this.open[1]})
+        this.person.startTime = start
 
-      this.editBlock()
+        let end = moment(start)
+        end.add(this.person.description[0].duration,'m')
+        this.person.description = this.person.description[0].service
+        this.person.endTime = end
 
-      this.person.employeeId = this.person.employeeId.id
-      let start = moment(this.start).utcOffset(0)
-      this.open = this.open[0].value.toString().split(':')
-      start.set({'hour': this.open[0], 'minute': this.open[1]})
-      this.person.startTime = start
-
-      let end = moment(start)
-      end.add(this.person.description[0].duration,'m')
-      this.person.description = this.person.description[0].service
-      this.person.endTime = end
-
-      this.employeeServiceService.makeAppointment(this.person)
-      .then(
-        appointment => {
-          console.log(appointment)
-          }
-      )
-  }
+        this.employeeServiceService.makeAppointment(this.person)
+        .then(
+          appointment => {
+            console.log(appointment)
+            }
+        )
+      }
+    }
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
-        // this.available = employeeServiceService.available
 
         this.user = this.authService.getUserAssociations()
         for(var key in this.user){
