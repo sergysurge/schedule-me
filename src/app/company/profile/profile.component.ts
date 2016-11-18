@@ -85,11 +85,17 @@ export class ProfileComponent implements OnDestroy, OnInit{
    /* called before ngOnInit() */
   constructor(private companyService:CompanyService, private router:Router, private activatedRoute:ActivatedRoute, private formBuilder: FormBuilder) {
 
+    /* IF CLIENT REFRESHES ON EMPLOYEES/SCHEDULES/OPTIONS THE LOGO AND OTHER INFORMATION 
+    DELETES.      **IF USER REFRESHES ON THOSE PAGES, WE SEND EM BACK TO COMPANY/1 */
+
+    
+
     /*ON company/# path, # of companyId gets rendered*/
    this.company = this.companyService.company;
    this.subscription = activatedRoute.params.subscribe(
       (param: any) => {
         this.paramId = param['id']
+        localStorage.setItem('localCompanyId', this.paramId)
         this.companyService.getCompanyById(this.paramId)
           .subscribe((companyInc: any) => {
           //console.log(this.company, ' AFTER')
@@ -122,6 +128,7 @@ export class ProfileComponent implements OnDestroy, OnInit{
 
 
   ngOnInit() {
+    this.companyService.adminCheck()
   }
 
   ngOnDestroy() {

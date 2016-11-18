@@ -1,3 +1,7 @@
+<!--ADMIN CHECK IF YES THEN BUTTON AND ALERT-->
+<div class="alert alert-success" role="alert" (click)="this.companyService.navigateAdminPage()" *ngIf="this.companyService.adminSuccessLink()">
+  YOU ARE A COMPANY ADMIN! ACCESS THE ADMIN PAGE HERE
+</div>
 
 <!--COMPANY PROFILE PANEL-->
 <div class="panel panel-default">
@@ -96,7 +100,7 @@
   <div class="panel-body">
     <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
     <select multiple class="form-control">
-      <option *ngFor="let b of this.companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
+      <option *ngFor="let b of companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
     </select>
     <button class="btn btn-default col-sm-offset-2 col-sm-2" [disabled]="selectedBrandNamesAll.id === false" (click)="companySetBrand()"> select brand </button> {{selectedbrandNamesAll}}
   </div>
