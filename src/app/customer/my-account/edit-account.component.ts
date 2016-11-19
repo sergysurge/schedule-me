@@ -25,23 +25,25 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       .subscribe(
         (user) => { 
           this.user = user
+          console.log(this.user, '++++28')
           this.editAccountForm.controls['firstName'].setValue(this.user.firstName || '')
           this.editAccountForm.controls['lastName'].setValue(this.user.lastName || '')
           this.editAccountForm.controls['phoneNumber'].setValue(this.user.phoneNumber || '')
           this.editAccountForm.controls['email'].setValue(this.user.email || '')
-          this.editAccountForm.controls['image'].setValue(this.user.image || '') 
+          // this.editAccountForm.controls['image'].setValue(this.user.image || '') 
         },
         (err) => { console.log(err) }
       )
   }
 
   ngOnInit() {
+    console.log('initing+++++')
     this.editAccountForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phoneNumber: ['', []],
       email: ['', [Validators.required]],
-      image: ['', [Validators.required]],
+      image: ['', []],
       password: ['', [Validators.required]]
     })
     if(!this.user) {
@@ -49,6 +51,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
         .subscribe(
           (user) => { 
             this.user = user
+            console.log(this.user)
           },
           (err) => { console.log(err) }
         )
@@ -57,11 +60,13 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(update) {
+    console.log('update', update)
     this.submitted = true
     if (this.editAccountForm.valid) {
       this.submitSubscription = this.customerService.submitUserUpdates(this.userId, update)
         .subscribe(
           (res) => {
+            console.log('++++++69', res)
             if (res.response.success) {
               this.showSuccessMsg = true
               // this.userUpdate.emit(update)

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Router } from '@angular/router'
-
+import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
@@ -12,8 +12,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   public user: any //this.customerService.user
   private defaultImage: string = 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'
   private userId: number = Number(localStorage.getItem('userId'))
-  private subscription: any
-  private userSubscription
+  private subscription: Subscription
+  private userSubscription: Subscription
 
   constructor(private customerService: CustomerService, private router: Router) { 
     this.userSubscription = this.customerService.getUser()
