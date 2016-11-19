@@ -3,4 +3,4 @@
 <h2>Schedule</h2>
 <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
 <app-select-employee-form (checkedEmployeeChange)="onCheckedEmployeeChange($event)" [employees]="employees"></app-select-employee-form>
-<app-schedule-appointment></app-schedule-appointment>
+<app-schedule-appointment [companyId]="companyId"></app-schedule-appointment>
