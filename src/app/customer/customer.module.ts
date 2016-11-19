@@ -18,7 +18,9 @@ import { EditAccountStartComponent } from './my-account/edit-account-start.compo
 import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component';
 import { ScheduleAppointmentComponent } from './make-appointment/schedule-appointment.component';
 import { EmployeeServiceService } from '../employee/employee-service.service'
-import { EmployeeModule } from '../employee/employee.module'
+import { EmployeeModule } from '../employee/employee.module';
+import { DropdownModule, CalendarModule} from 'primeng/primeng';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +29,9 @@ import { EmployeeModule } from '../employee/employee.module'
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    EmployeeModule 
+    EmployeeModule,
+    DropdownModule,
+    CalendarModule
   ],
   exports: [
     CustomerComponent
