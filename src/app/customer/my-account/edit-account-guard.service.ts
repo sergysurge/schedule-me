@@ -8,7 +8,7 @@ export class EditAccountGuard implements CanDeactivate<EditAccountComponent> {
     constructor(private router: Router) { }
     canDeactivate( component: EditAccountComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         console.log('inside can deactivate')
-        if(component && component.editAccountForm.pristine) {
+        if(component && component.editAccountForm.pristine || component.submitted) {
             return true
         }
         return window.confirm("Discard changes?")
