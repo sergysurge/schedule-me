@@ -91,36 +91,36 @@ export class ScheduleAppointmentComponent {
   @Input() companyId
 
     getTime(employeeServiceService:EmployeeServiceService){
-    // let arr= []
-    // let arr2= []
-    // let current = []
-    // if(this.person.employeeId === undefined || this.person.description === undefined){
-    //   alert('Please select all fields')
-    // }else{
-    //   this.employees.forEach(curr=>{
-    //     arr.push(curr)
-    //   })
-    //   arr.forEach(curr=>{
-    //     arr2.push(curr.id)
-    //   })
 
-    //   this.employeeServiceService.getSchedule(arr2)
-    //   .then(
-    //     schedule => { 
-    //       this.available = schedule
-    //       this.available.forEach(curr=>{
-    //         current.push(curr)
-    //       })
-    //       current.forEach(curr=>{
-    //         if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
-    //           this.available = JSON.parse(curr.block)
-    //           this.temp = curr
-    //         }
-    //       })
-    //       }
-    //   )
-    // }
-    console.log(this.companyId)
+    let arr= []
+    let arr2= []
+    let current = []
+    if(this.person.employeeId === undefined || this.person.description === undefined){
+      alert('Please select all fields')
+    }else{
+      this.employees.forEach(curr=>{
+        arr.push(curr)
+      })
+      arr.forEach(curr=>{
+        arr2.push(curr.id)
+      })
+
+      this.employeeServiceService.getSchedule(arr2)
+      .then(
+        schedule => { 
+          this.available = schedule
+          this.available.forEach(curr=>{
+            current.push(curr)
+          })
+          current.forEach(curr=>{
+            if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
+              this.available = JSON.parse(curr.block)
+              this.temp = curr
+            }
+          })
+          }
+      )
+    }
   }
 
   checkBlock(){
@@ -191,7 +191,9 @@ export class ScheduleAppointmentComponent {
           
         console.log('STILL DOESNT WORK',this.person)
     
-        employeeServiceService.getEmployees(this.person.companyId)
+       
+        
+        employeeServiceService.getEmployees(this.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
@@ -201,7 +203,6 @@ export class ScheduleAppointmentComponent {
 
 
         companyService.getOptions(this.person.companyId)
-
         .subscribe(options=>{
             this.services = options
         })
