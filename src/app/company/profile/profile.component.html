@@ -26,7 +26,7 @@
 </div>
 
 <!--UPDATE COMPANY PROFILE PANEL-->
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
     <h3 class="text-center"> Update Profile </h3>
   </div>
@@ -93,7 +93,7 @@
 
 
 <!--AVAILABLE BRAND NAMES PANEL-->
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
     <h3 class="text-center"> Available Brand Names</h3>
   </div>
@@ -107,7 +107,7 @@
 </div>
 
 <!--ADD BRAND NAME PANEL-->
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
   <h3 class="text-center"> Add Brand Name </h3>
   </div>

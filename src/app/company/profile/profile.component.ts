@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { CompanyService } from '../company.service';
@@ -78,6 +78,7 @@ export class ProfileComponent implements OnDestroy, OnInit{
   }
 
 
+
   /* end of profile component methods and variables */
 
   private brandNamePostForm : FormGroup
@@ -98,6 +99,9 @@ export class ProfileComponent implements OnDestroy, OnInit{
         localStorage.setItem('localCompanyId', this.paramId)
         this.companyService.getCompanyById(this.paramId)
           .subscribe((companyInc: any) => {
+
+          this.companyService.profileUpdateControl()
+          console.log(this.companyService.profileUpdate, 'profile updated or not')
           //console.log(this.company, ' AFTER')
         })
    })
@@ -129,6 +133,7 @@ export class ProfileComponent implements OnDestroy, OnInit{
 
   ngOnInit() {
     this.companyService.adminCheck()
+    this.companyService.profileUpdateControl()
   }
 
   ngOnDestroy() {

@@ -11,7 +11,7 @@ export class CompanyService {
   company: any = {
     id: localStorage.getItem('localCompanyId')
   }
-
+  
   getCompanyById(companyId) {
     return this.http.get('api/companies/getonecompany/' + companyId)
     .map((response: Response) => {
@@ -100,7 +100,19 @@ export class CompanyService {
       }
     }
   }
-   /* AUTH, CHECKING ADMIN FROM */
+
+  profileUpdate = false
+
+  profileUpdateControl() {
+    let path = window.location.pathname.slice(1,6)
+    console.log(path, 'this is the path')
+    if (path === 'admin') {
+      this.profileUpdate = true
+    } else {
+      this.profileUpdate = false
+    }
+  }
+   /* AUTH, CHECKING ADMIN FROM END */
 
   constructor(private http: Http, private router: Router) { }
   postOneEmployeeSched(employeeSched) {
