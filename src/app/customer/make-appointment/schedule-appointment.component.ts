@@ -88,37 +88,38 @@ export class ScheduleAppointmentComponent {
     
   @Output() clicked = new EventEmitter<string>();
 
-    getTime(employeeServiceService:EmployeeServiceService){
-    // let arr= []
-    // let arr2= []
-    // let current = []
-    // if(this.person.employeeId === undefined || this.person.description === undefined){
-    //   alert('Please select all fields')
-    // }else{
-    //   this.employees.forEach(curr=>{
-    //     arr.push(curr)
-    //   })
-    //   arr.forEach(curr=>{
-    //     arr2.push(curr.id)
-    //   })
+  @Input() companyId
 
-    //   this.employeeServiceService.getSchedule(arr2)
-    //   .then(
-    //     schedule => { 
-    //       this.available = schedule
-    //       this.available.forEach(curr=>{
-    //         current.push(curr)
-    //       })
-    //       current.forEach(curr=>{
-    //         if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
-    //           this.available = JSON.parse(curr.block)
-    //           this.temp = curr
-    //         }
-    //       })
-    //       }
-    //   )
-    // }
-    console.log(this.companyId)
+    getTime(employeeServiceService:EmployeeServiceService){
+    let arr= []
+    let arr2= []
+    let current = []
+    if(this.person.employeeId === undefined || this.person.description === undefined){
+      alert('Please select all fields')
+    }else{
+      this.employees.forEach(curr=>{
+        arr.push(curr)
+      })
+      arr.forEach(curr=>{
+        arr2.push(curr.id)
+      })
+
+      this.employeeServiceService.getSchedule(arr2)
+      .then(
+        schedule => { 
+          this.available = schedule
+          this.available.forEach(curr=>{
+            current.push(curr)
+          })
+          current.forEach(curr=>{
+            if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
+              this.available = JSON.parse(curr.block)
+              this.temp = curr
+            }
+          })
+          }
+      )
+    }
   }
 
   checkBlock(){
@@ -182,20 +183,20 @@ export class ScheduleAppointmentComponent {
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
 
 
+          this.user.companyId = this.companyId
           this.person.customerId = localStorage.getItem('userId')
-          this.person.companyId =localStorage.getItem('localCompanyId')
-          console.log('local',localStorage)
-          
-        console.log('STILL DOESNT WORK',this.person)
-    
-        employeeServiceService.getEmployees(this.person.companyId)
+          this.person.companyId =this.companyId
+          console.log('This.person line 188',this.person)
+        
+        employeeServiceService.getEmployees(this.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
         }
         )
 
-        companyService.getOptions(this.person.companyId)
+
+        companyService.getOptions(this.companyId)
         .subscribe(options=>{
             this.services = options
         })
