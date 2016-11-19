@@ -11,19 +11,7 @@ import { CompanyService } from '../company.service';
 })
 
 export class AddEmployeeComponent implements OnInit {
-  //asyncString = this.companyService.getUsersFromCompany(1)
-
-  admin = ['true', 'false']
-  addEmployee = {
-    userId: '1',
-    companyId: '1',
-    isAdmin: 'true'
-  }
-  userId
-  companyId
-  addEmployeeForm : FormGroup
-  deleteEmployeeForm : FormGroup
-  userSearch = 'poopie face'
+ /* USER SEARCH */
   userNotFound = false
   userShow = false
   userFetched = {
@@ -32,12 +20,12 @@ export class AddEmployeeComponent implements OnInit {
     lastName: '',
     firstName: ''
   }
+  userSearch
+  
   searchUser(name) {
-    console.log(name)
+    console.log(name, 'this is name')
     this.companyService.getUsers(name)
       .subscribe(data => {
-        console.log(data, 'data we got back from user')
-        console.log(data.response, 'good?')
         if (!data.response.success) {
           this.userNotFound = true
           this.userShow = false
@@ -51,6 +39,16 @@ export class AddEmployeeComponent implements OnInit {
         this.userFetched.firstName = data.response.user.firstName
       })
   }
+  /* USER SEARCH END */
+  
+  admin = ['true', 'false']
+  addEmployee = {
+    userId: '1',
+    companyId: '1',
+    isAdmin: 'true'
+  }
+  userId
+  companyId
 
   onSubmit() {
     this.companyService.addEmployee({
@@ -77,9 +75,16 @@ export class AddEmployeeComponent implements OnInit {
   }
   asynctrial
   companyIds = localStorage.getItem('companyId') || 1
+
+
+  addEmployeeForm : FormGroup
+  deleteEmployeeForm : FormGroup
+
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
+    /* DO NOT TOUCH, AUTH AND REDIRECT */
     this.companyService.navigateProfilePageOnRefresh()
     this.companyService.adminCheck()
+    /* DO NOT TOUCH, AUTH AND REDIRECT END */
 
     this.asynctrial = this.companyService.getEmployees(this.companyIds)
 
@@ -96,17 +101,5 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  // constructor(companyService: CompanyService) {
-  //   companyService.addEmployee({userId: this.userId, companyId: this.companyId, isAdmin: this.isAdmin})
-  //     .subscribe(
-  //       employee => console.log(employee)
-  //       //this.employee = employee.json()
-  //     )
-  //  }
-
-  // ngOnInit() {
-  // }
-  employee;
 }
 

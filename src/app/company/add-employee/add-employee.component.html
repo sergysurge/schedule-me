@@ -3,18 +3,23 @@
 <h3> Current Employees </h3>
 <div>
   <ul >
-    <li *ngFor="let d of asynctrial | async">{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
+    <li *ngFor="let d of asynctrial | async" >{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
   </ul>
 </div>
 <hr>
+
+
+<!--EMPLOYEE ADDDING-->
 <h3> Search for User </h3>
-  <input type="text" placeholder="email@gmail.com OR 23 (userId)" [(ngModel)]="userSearch"> <button type="submit" (click)="searchUser(userSearch)">search</button>
+  <input type="text" placeholder="email@gmail.com OR 23 (userId)" [(ngModel)]="userSearch"> 
+  <button type="submit" (click)="searchUser(userSearch)">search</button>
   <br>
   <p *ngIf="userNotFound"> Please Try Again! <p>
     <div *ngIf="userShow">
       {{userFetched.id}} {{userFetched.email}}
     </div>
 <hr>
+
 <h3> Add Employee </h3>
 <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
   <div class="form-group">

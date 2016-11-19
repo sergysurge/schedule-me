@@ -8,12 +8,6 @@ import { OptionsComponent } from './options/options.component'
 
 const routes: Routes = [
     { 
-        path: 'company/:id',
-        component: ProfileComponent,
-        //canActivateChild: [AuthGuard],
-        
-    },
-    { 
       path: 'admin/company/:id',
       component: CompanyComponent,
       children: [

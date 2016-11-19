@@ -69,7 +69,7 @@ export class CompanyService {
         ans = item.admin
       }
     })
-    if (window.location.pathname === "/admin/company/1") {
+    if (window.location.pathname === ("/admin/company/" + this.company.id)) {
       ans = false
     }
     return ans
@@ -79,12 +79,12 @@ export class CompanyService {
     // console.log(associations, 'these are the user associations in company.service', typeof associations)
     let isAdmin = false;
     associations.forEach(item => {
-      if (this.company.id === item.companyId) {
+      if (Number(this.company.id) === Number(item.companyId)) {
         isAdmin = item.admin
       }
     })
     if (isAdmin === false) {
-      this.router.navigate(['company/', localStorage.getItem('localCompanyId')])
+      this.router.navigate(['users/search/', localStorage.getItem('localCompanyId')])
     }
   }
   navigateAdminPage() {
@@ -92,11 +92,10 @@ export class CompanyService {
   }
 
   navigateProfilePageOnRefresh() {
-    let path = window.location.pathname.slice(17)
     if (window.location.pathname.indexOf("employees") 
     || window.location.pathname.indexOf("schedules") || window.location.pathname.indexOf("options")) {
       if (!!this.company.name === false) {
-        this.router.navigate(['/company/', this.company.id])
+        this.router.navigate(['/users/search/', this.company.id])
       }
     }
   }
@@ -146,14 +145,12 @@ export class CompanyService {
   }
 
   /*  COMPANY MODEL */
-
+  //GOOD
   getUsers(input) {
     if (1 + input > 1) {
-      console.log('number', input)
       return this.http.get('api/users/?userId=' + input + '&email=')
       .map((response: Response) => response.json())
     } else if (typeof input === 'string') {
-      console.log('string', input)
       return this.http.get('api/users/?userId=&email=' + input)
       .map((response:Response) => response.json())
     }
