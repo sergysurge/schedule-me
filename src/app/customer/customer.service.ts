@@ -61,6 +61,7 @@ export class CustomerService {
   }
 
   setUser(user) {
+    console.log('setting user', user)
     this.user = user
     this.userSubject.next(this.user)
   }

@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 export class MyAccountComponent implements OnInit, OnDestroy {
 
   public user: any //this.customerService.user
-  private defaultImage: string = 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'
+  public userPicture: string = 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'
   private userId: number = Number(localStorage.getItem('userId'))
   private subscription: any
   private userSubscription
@@ -30,8 +30,8 @@ export class MyAccountComponent implements OnInit, OnDestroy {
           (result) => {
             if (result.response.success) {
               this.user = result.response.user
-              if (!this.user.image) {
-                this.user.image = this.defaultImage
+              if (this.user.image) {
+                this.userPicture = this.user.image
               }
             }
           },
