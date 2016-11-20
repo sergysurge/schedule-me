@@ -23,7 +23,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   private mapUserCompanyIdToUser: any = {}
   private companyIdSubscription: Subscription
   private calendarSubscription: Subscription
-  private companyId: number
+  private companyId: any
   public eventSources: Array<any> = []
 
   
@@ -62,6 +62,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: any) => {
           this.companyId = params['companyId']
+          localStorage.setItem('localCompanyId', this.companyId)
           this.customerService.getCompanyById(this.companyId)
             .subscribe(
               (company) => { this.company = company },
