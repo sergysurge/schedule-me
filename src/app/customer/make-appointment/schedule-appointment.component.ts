@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import * as moment from 'moment'
-
+import { Subscription } from 'rxjs/Rx'
 import {SelectItem} from 'primeng/primeng';
 
 import { EmployeeServiceService } from '../../employee/employee-service.service'
@@ -12,55 +12,10 @@ import { CompanyService } from '../../company/company.service'
 
 @Component({
   selector: 'app-schedule-appointment',
-  template: `
-   <h1>Make Appointment</h1>
-<form >
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control" name="name" [(ngModel)]="person.contactName" placeholder="Name" >
-    </div>
-    <div class="form-group">
-      <label>Number</label>
-      <input type="text" class="form-control" name="number" [(ngModel)]="person.contactNumber" placeholder="Number">
-    </div>
-    <div class="form-group">
-      <label>Employee</label>
-    <select [(ngModel)]="person.employeeId" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let employee of employees" [ngValue]="employee">
-        {{employee.firstName}}
-      </option>
-    </select>
-    <div class="ui-g-12 ui-md-4">
-      <label>Date</label>
-      <input type="date"  [(ngModel)]="start" [ngModelOptions]="{standalone: true}"/>
-    </div>
-    <div class="form-group">
-      <label>Service</label>
-      <select multiple name="service" class="form-control" [(ngModel)]="person.description" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let service of services" [value]="service">{{service.service}}</option>
-      </select>
-    </div>
-    <button (click)='getTime()' class="btn btn-default">check</button>
-    <!--<div class="form-group">
-      <label>Times</label>
-      <select multiple name="hours" class="form-control" [(ngModel)]="times" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.label}}</option>
-      </select>
-    </div>-->
-    <div class="form-group">
-      <label>Available</label>
-      <select multiple name="available" class="form-control" [(ngModel)]="open" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of available" [value]="hour">{{hour.label}}</option>
-      </select>
-    </div>
-    </div>
-
-    <button (click)='makeAppointment()' class="btn btn-default">Submit</button>
-  </form>
-  `,
+  templateUrl: './schedule-appointment.component.html',
   styles: []
 })
-export class ScheduleAppointmentComponent {
+export class ScheduleAppointmentComponent implements OnDestroy {
   
   date : Date ; 
     user: any;
@@ -74,6 +29,9 @@ export class ScheduleAppointmentComponent {
     open;
     service: {};
     temp;
+    public appointmentSuccess: boolean = false
+    public serverError: boolean = false
+    private subscription: Subscription
 
     person = {
       contactName: undefined,
@@ -86,15 +44,16 @@ export class ScheduleAppointmentComponent {
       companyId : undefined
     }
     
-  @Output() clicked = new EventEmitter<string>();
+  // @Output() clicked = new EventEmitter<string>();
 
   @Input() companyId
-
-    getTime(employeeServiceService:EmployeeServiceService){
+  @Output() newAppointment = new EventEmitter<any>()
+  getTime(employeeServiceService:EmployeeServiceService){
 
     let arr= []
     let arr2= []
     let current = []
+    // let values.mapent = []
     if(this.person.employeeId === undefined || this.person.description === undefined){
       alert('Please select all fields')
     }else{
@@ -126,6 +85,7 @@ export class ScheduleAppointmentComponent {
   checkBlock(){
     let check = this.available.indexOf(this.open[0])
     let dur = (this.person.description[0].duration)/15
+    console.log(this.available, 'avail')
     if(this.available[check+dur].label === "Not available"){
       return false
     }else{
@@ -136,6 +96,7 @@ export class ScheduleAppointmentComponent {
   editBlock(){
       let remove = this.available.indexOf(this.open[0])
       for(var i = remove; i< remove+(this.person.description[0].duration)/15; i++){
+        console.log(this.available[i], i, 'asdf')
         this.available[i].label = "Not available"
       }
       
@@ -148,7 +109,7 @@ export class ScheduleAppointmentComponent {
   }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
-
+    // debugger;
       if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
         if(this.open[0].label === "Not available"){
           alert('Appointment Not Available')
@@ -176,10 +137,22 @@ export class ScheduleAppointmentComponent {
         .then(
           appointment => {
             console.log(appointment)
-            }
+            this.appointmentSuccess = true
+            this.newAppointment.emit(appointment)
+          }
+        )
+        .catch(
+          (err) => {
+            this.serverError = true
+            console.log(err)
+          }
         )
       }
     }
+}
+
+ngOnDestroy() {
+  this.subscription && this.subscription.unsubscribe()
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
@@ -189,10 +162,11 @@ export class ScheduleAppointmentComponent {
           this.person.customerId = localStorage.getItem('userId')
           this.person.companyId =localStorage.getItem('localCompanyId')
       
-        employeeServiceService.getEmployees(this.person.companyId)
+        this.subscription = employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
+          console.log('get employees', this.employees)
         }
         )
 
