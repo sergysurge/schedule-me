@@ -52,7 +52,6 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
               firstName: employee.firstName,
               lastName: employee.lastName
             }
-            // console.log(this.mapUserCompanyIdToUser, 'map')
             this.checkedEmployees[employee.id] = true
           })
         }
@@ -65,7 +64,9 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
           localStorage.setItem('localCompanyId', this.companyId)
           this.customerService.getCompanyById(this.companyId)
             .subscribe(
-              (company) => { this.company = company },
+              (company) => { 
+                this.company = company 
+              },
               (err) => { console.log(err) }
             )
         }

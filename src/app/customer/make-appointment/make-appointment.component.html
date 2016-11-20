@@ -1,8 +1,21 @@
-<app-make-appointment-company-profile [company]="company"></app-make-appointment-company-profile>
-<hr>
-<h2>Schedule</h2>
-<app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
-<app-select-employee-form (checkedEmployeeChange)="onCheckedEmployeeChange($event)" [employees]="employees"></app-select-employee-form>
-<app-schedule-appointment [companyId]="companyId"></app-schedule-appointment>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">{{company?.name}}</h1>
+    </div>
+    <div class="panel-body">
+        <app-public-company-profile [companyId]="companyId"></app-public-company-profile>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel heading">
+        <h1 class="panel-title">Book an Appointment!</h1>
+    </div>
+    <div class="panel-body">
+        <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+        <app-select-employee-form (checkedEmployeeChange)="onCheckedEmployeeChange($event)" [employees]="employees"></app-select-employee-form>
+        <app-schedule-appointment [companyId]="companyId"></app-schedule-appointment>
+    </div>
+</div>
 
 

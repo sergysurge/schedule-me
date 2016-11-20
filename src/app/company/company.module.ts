@@ -26,7 +26,8 @@ import { CompanyRoutingModule } from './company-routing.module';
     ProfileComponent
   ],
   exports: [
-    CompanyComponent
+    CompanyComponent,
+    ProfileComponent
   ],
   providers: [CompanyService]
 })
