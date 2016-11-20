@@ -58,27 +58,55 @@ export class AddEmployeeComponent implements OnInit {
     })
     .subscribe(data => {
       console.log(data, 'dis da data')
+      this.companyService.getEmployees(localStorage.getItem('localCompanyId'))
+      .subscribe(data => console.log(data, 'after submitting'))
       //this.asyncString = this.companyService.getUsersFromCompany(1)
     })
     console.log(this.addEmployee)
   }
 
-  deleteEmployeeSubmit() {
+
+  // SELECT AND DELETE AN EMPLOYEE
+
+  consolelog(ds) {
+    console.log(ds)
+  }
+
+  deleteEmployeeSubmit(id, name) {
+    let confDelete =  confirm(`Are you sure you would like to delete ${name}`)
+    if (confDelete === false) {
+      return
+    } else {
     this.companyService.deleteEmployee({
-      userId: this.deleteEmployeeForm.value.userId, 
-      companyId: this.deleteEmployeeForm.value.companyId
+      userId: id, 
+      companyId: localStorage.getItem('localCompanyId')
     })
     .subscribe(data => {
       console.log(data)
+      this.companyService.getEmployees(localStorage.getItem('localCompanyId'))
+      .subscribe(data => console.log(data, 'after submitting'))
       // this.asyncString = this.companyService.getUsersFromCompany(1)
     })
+    }
   }
-  asynctrial
+  showAdminControl = false;
+  updateAdminSubmit(add) {
+    if (this.showAdminControl === true) {
+      if (add) {
+        console.log(add, 'FINISH THIS, YOU SHOULD UPDATE THE USERs')
+        console.log('CHECKED, everything works, just need to send request to update')
+      }
+    }
+    this.showAdminControl === false ? this.showAdminControl = true : this.showAdminControl = false;
+    console.log(this.showAdminControl, 'admin control')
+  }
+ 
   companyIds = localStorage.getItem('companyId') || 1
 
 
   addEmployeeForm : FormGroup
   deleteEmployeeForm : FormGroup
+
 
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
     /* DO NOT TOUCH, AUTH AND REDIRECT */
@@ -86,13 +114,20 @@ export class AddEmployeeComponent implements OnInit {
     this.companyService.adminCheck()
     /* DO NOT TOUCH, AUTH AND REDIRECT END */
 
-    this.asynctrial = this.companyService.getEmployees(this.companyIds)
 
+    /* CONTROLLER get employees */
+    this.companyService.getEmployees(localStorage.getItem('localCompanyId')).subscribe()
+    /* CONTROLLER get employees END */
+
+
+    /* FORM add employee */
     this.addEmployeeForm = formBuilder.group({
       'userId' : [this.addEmployee.userId, Validators.required],
       'companyId' : [this.addEmployee.companyId, Validators.required],
       'isAdmin' : [this.addEmployee.isAdmin]
     })
+     /* FORM add employee END */
+
     this.deleteEmployeeForm = formBuilder.group({
       'userId' : [this.userId, Validators.required],
       'companyId' : [this.companyId, Validators.required]

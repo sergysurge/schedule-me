@@ -1,13 +1,32 @@
+<!--NEW CURRENT EMPLOYEES PANEL-->
+<div class="panel panel-default col-sm-3" *ngFor="let empAll of this.companyService.employees">
+  <div class="panel-heading ">
+    <h3 class="text-center"> {{empAll.name}}</h3>
+  </div>
+  <div class="panel-body ">
+    <img [src]="empAll.image" class="img-rounded" width="auto" height="150px">
+    
+    <hr>
+    phone: {{empAll.phoneNumber}}
+    
+    <hr>
+    email: {{empAll.email}}
+    <hr>
+    admin: {{empAll.admin}} 
 
-<!---->
-<h3> Current Employees </h3>
-<div>
-  <ul >
-    <li *ngFor="let d of asynctrial | async" >{{d.id}} | {{d.firstName}} | {{d.lastName}} | {{d.image}} | {{d.phoneNumber}} | {{d.email}}</li>
-  </ul>
+    <div *ngIf="showAdminControl">
+      <hr>
+      admin: 
+    <label class="radio" *ngFor="let add of admin" >
+      <input  name="add" (click)="updateAdminSubmit(add)" type="radio" value="add"> {{add}}
+      </label>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <button type="button" (click)="deleteEmployeeSubmit(empAll.id, empAll.name)"> Delete Employee</button>
+    <button type="button" (click)="updateAdminSubmit()"> Update Admin</button>
+  </div>
 </div>
-<hr>
-
 
 <!--EMPLOYEE ADDDING-->
 <h3> Search for User </h3>
@@ -44,7 +63,7 @@
   <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>
 </form>
 
-<h3> Delete Employee </h3>
+<!--<h3> Delete Employee </h3>
 
 <form [formGroup]="deleteEmployeeForm" (ngSubmit)="deleteEmployeeSubmit()">
   <div class="form-group">
@@ -54,7 +73,7 @@
     <input type="number" id="companyId" class="form-control" formControlName="companyId">
   </div>
   <button type="submit" [disabled]="!deleteEmployeeForm.valid">Submit</button>
-</form>
+</form>-->
 
 
 <!-- classes - ng-untouched, ng-pristine, ng-invalid -->

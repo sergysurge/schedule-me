@@ -113,18 +113,34 @@ export class CompanyService {
   }
    /* AUTH, CHECKING ADMIN FROM END */
 
-  constructor(private http: Http, private router: Router) { }
-  postOneEmployeeSched(employeeSched) {
-    return this.http.post('/api/schedules/oneschedule', employeeSched)
-  }
-  
+  /* API ADD EMPLOYEES */
+  employees: any = []
+
   getEmployees(companyId) {
     return this.http.get('/api/users/getemployees/' + companyId)
     .map((response:Response) => {
       console.log(response, 'dis **** response');
-      let data = response.json()
-      return data[0].users
+      this.employees = []
+      let allEmployees = response.json()[0].users
+
+      allEmployees.forEach( data => {
+        let employee = {
+        id: data.id,
+        name : data.firstName + ' ' + data.lastName,
+        image : data.image || 'DEFAULT',
+        email : data.email,
+        phoneNumber: data.phoneNumber,
+        empSince: data.UserCompany.createdAt,
+        admin: data.UserCompany.admin
+      }
+      this.employees.push(employee)
+      })
+      
     })
+  }
+
+  postOneEmployeeSched(employeeSched) {
+    return this.http.post('/api/schedules/oneschedule', employeeSched)
   }
 
   getUsersFromCompany(companyId) {
@@ -175,5 +191,6 @@ export class CompanyService {
     .map((response:Response) => response.json())
   }
   
+  constructor(private http: Http, private router: Router) { }
 
 }
