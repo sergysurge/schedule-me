@@ -14,7 +14,7 @@ export class CustomerService {
   companySchedules: any
   companyAppointments: any
   companyId: any
-
+  company: any
   private token = localStorage.getItem('jwt-token');
   private authHeader = `Bearer ${this.token}`
   private headers = new Headers({ 'authorization': this.authHeader })
@@ -36,14 +36,17 @@ export class CustomerService {
     let options = new RequestOptions({ headers: this.headers })
 
     return this.http.get(`/api/companies/getonecompany/${companyId}`, options)
-      .map((response: Response) => response.json())
+      .map((response: Response) => {
+        this.company = response.json() 
+        return this.company
+      })
       .catch(this.handleError)
   }
 
   getCompanies() {
     let options = new RequestOptions({ headers: this.headers })
     return this.http.get('/api/companies/getallcompanies', options)
-      .map((response: Response) => {console.log(response); return response.json() })
+      .map((response: Response) => { return response.json() })
       .catch(this.handleError)
   }
 
@@ -61,7 +64,6 @@ export class CustomerService {
   }
 
   setUser(user) {
-    console.log('setting user', user)
     this.user = user
     this.userSubject.next(this.user)
   }
@@ -106,7 +108,6 @@ export class CustomerService {
     return Observable.forkJoin(
       this.http.get(`/api/appointments/company/${companyId}`, options)
         .map((response: Response) => {
-          console.log('107: ', response.json())
           this.companyAppointments = response.json().response.appointments
           return this.companyAppointments
         }),

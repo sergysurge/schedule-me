@@ -23,7 +23,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   private mapUserCompanyIdToUser: any = {}
   private companyIdSubscription: Subscription
   private calendarSubscription: Subscription
-  private companyId: number
+  private companyId: any
   public eventSources: Array<any> = []
 
   
@@ -52,7 +52,6 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
               firstName: employee.firstName,
               lastName: employee.lastName
             }
-            console.log(this.mapUserCompanyIdToUser, 'map')
             this.checkedEmployees[employee.id] = true
           })
         }
@@ -62,9 +61,12 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: any) => {
           this.companyId = params['companyId']
+          localStorage.setItem('localCompanyId', this.companyId)
           this.customerService.getCompanyById(this.companyId)
             .subscribe(
-              (company) => { this.company = company },
+              (company) => { 
+                this.company = company 
+              },
               (err) => { console.log(err) }
             )
         }
