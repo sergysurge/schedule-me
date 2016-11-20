@@ -115,7 +115,6 @@ export class ScheduleAppointmentComponent {
           current.forEach(curr=>{
             if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
               this.available = JSON.parse(curr.block)
-              console.log('hello line 118',this.available)
               this.temp = curr
             }
           })
@@ -127,10 +126,10 @@ export class ScheduleAppointmentComponent {
   checkBlock(){
     let check = this.available.indexOf(this.open[0])
     let dur = (this.person.description[0].duration)/15
-    if(this.available[check+dur].label === "Not Available"){
-      return true
-    }else{
+    if(this.available[check+dur].label === "Not available"){
       return false
+    }else{
+      return true
     }
   }
   
@@ -142,10 +141,10 @@ export class ScheduleAppointmentComponent {
       
       this.temp.block = JSON.stringify(this.available)
 
-      this.employeeServiceService.updateBlock(this.temp)
-      .then(
-        update => {console.log(update)}
-      )
+      // this.employeeServiceService.updateBlock(this.temp)
+      // .then(
+      //   update => {console.log(update)}
+      // )
   }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
@@ -157,7 +156,7 @@ export class ScheduleAppointmentComponent {
           alert('Please select all fields')
         }
       }else{
-        if(this.checkBlock()){
+        if(!this.checkBlock()){
           alert('Not enough time for the service')
         }else{
         this.editBlock()
