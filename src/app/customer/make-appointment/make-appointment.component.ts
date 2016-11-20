@@ -52,7 +52,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
               firstName: employee.firstName,
               lastName: employee.lastName
             }
-            console.log(this.mapUserCompanyIdToUser, 'map')
+            // console.log(this.mapUserCompanyIdToUser, 'map')
             this.checkedEmployees[employee.id] = true
           })
         }

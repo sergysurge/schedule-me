@@ -126,7 +126,7 @@ export class ScheduleAppointmentComponent {
   checkBlock(){
     let check = this.available.indexOf(this.open[0])
     let dur = (this.person.description[0].duration)/15
-    if(this.available[check+dur].label === "Not Available"){
+    if(this.available[check+dur].label === "Not available"){
       return false
     }else{
       return true
@@ -141,10 +141,10 @@ export class ScheduleAppointmentComponent {
       
       this.temp.block = JSON.stringify(this.available)
 
-      this.employeeServiceService.updateBlock(this.temp)
-      .then(
-        update => {console.log(update)}
-      )
+      // this.employeeServiceService.updateBlock(this.temp)
+      // .then(
+      //   update => {console.log(update)}
+      // )
   }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
@@ -156,7 +156,7 @@ export class ScheduleAppointmentComponent {
           alert('Please select all fields')
         }
       }else{
-        if(this.checkBlock()){
+        if(!this.checkBlock()){
           alert('Not enough time for the service')
         }else{
         this.editBlock()
@@ -171,6 +171,7 @@ export class ScheduleAppointmentComponent {
         this.person.description = this.person.description[0].service
         this.person.endTime = end
 
+        console.log(this.person)
         this.employeeServiceService.makeAppointment(this.person)
         .then(
           appointment => {
@@ -187,28 +188,19 @@ export class ScheduleAppointmentComponent {
 
           this.person.customerId = localStorage.getItem('userId')
           this.person.companyId =localStorage.getItem('localCompanyId')
-          console.log('local',localStorage)
-          
-        console.log('STILL DOESNT WORK',this.person)
-    
-       
-        
-        employeeServiceService.getEmployees(this.companyId)
+      
+        employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
         }
         )
 
-
-
         companyService.getOptions(this.person.companyId)
         .subscribe(options=>{
             this.services = options
         })
-
         this.employees = [];
- 
   }
 
 }
