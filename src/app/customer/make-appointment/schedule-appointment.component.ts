@@ -115,6 +115,7 @@ export class ScheduleAppointmentComponent {
           current.forEach(curr=>{
             if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
               this.available = JSON.parse(curr.block)
+              console.log('hello line 118',this.available)
               this.temp = curr
             }
           })
@@ -127,9 +128,9 @@ export class ScheduleAppointmentComponent {
     let check = this.available.indexOf(this.open[0])
     let dur = (this.person.description[0].duration)/15
     if(this.available[check+dur].label === "Not Available"){
-      return false
-    }else{
       return true
+    }else{
+      return false
     }
   }
   
@@ -171,6 +172,7 @@ export class ScheduleAppointmentComponent {
         this.person.description = this.person.description[0].service
         this.person.endTime = end
 
+        console.log(this.person)
         this.employeeServiceService.makeAppointment(this.person)
         .then(
           appointment => {
@@ -187,28 +189,19 @@ export class ScheduleAppointmentComponent {
 
           this.person.customerId = localStorage.getItem('userId')
           this.person.companyId =localStorage.getItem('localCompanyId')
-          console.log('local',localStorage)
-          
-        console.log('STILL DOESNT WORK',this.person)
-    
-       
-        
-        employeeServiceService.getEmployees(this.companyId)
+      
+        employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
         }
         )
 
-
-
         companyService.getOptions(this.person.companyId)
         .subscribe(options=>{
             this.services = options
         })
-
         this.employees = [];
- 
   }
 
 }
