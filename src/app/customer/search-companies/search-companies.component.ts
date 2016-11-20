@@ -9,24 +9,17 @@ import { Router } from '@angular/router'
 })
 
 export class SearchCompaniesComponent implements OnInit, OnDestroy {
-  // public companyDataToRender = []
+
   private companies = []
   private subscription: any
 
-  public defaultImage = 'http://www.freeiconspng.com/uploads/retail-store-icon-15.png'
+  public defaultCompanyImage = 'http://www.freeiconspng.com/uploads/retail-store-icon-15.png'
   constructor(private customerService: CustomerService, private router: Router) { }
   
   ngOnInit() {
     this.subscription = this.customerService.getCompanies()
       .subscribe(
         (companies) => {
-        
-          companies.forEach((company) => {
-            if (!company.image) {
-              // add default image if none provided
-              company.image = this.defaultImage
-            }
-          })
           this.companies = companies
         },
         (err) => console.error(err),

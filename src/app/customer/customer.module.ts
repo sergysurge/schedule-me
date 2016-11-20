@@ -12,7 +12,6 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
 import { EditAccountComponent } from './my-account/edit-account.component';
-import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
 import { EditAccountStartComponent } from './my-account/edit-account-start.component'
 import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component';
@@ -20,6 +19,7 @@ import { ScheduleAppointmentComponent } from './make-appointment/schedule-appoin
 import { EmployeeServiceService } from '../employee/employee-service.service'
 import { EmployeeModule } from '../employee/employee.module';
 import { DropdownModule, CalendarModule} from 'primeng/primeng';
+import { PublicCompanyProfileComponent } from './make-appointment/public-company-profile/public-company-profile.component';
 
 @NgModule({
   imports: [
@@ -45,9 +45,9 @@ import { DropdownModule, CalendarModule} from 'primeng/primeng';
     SearchFormComponent,
     EditAccountComponent,
     EditAccountStartComponent,
-    MakeAppointmentCompanyProfileComponent,
     SelectEmployeeFormComponent,
-    ScheduleAppointmentComponent
+    ScheduleAppointmentComponent,
+    PublicCompanyProfileComponent
   ],
   providers: [CustomerService, EditAccountGuard, EmployeeServiceService]
 })
