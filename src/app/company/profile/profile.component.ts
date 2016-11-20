@@ -11,7 +11,6 @@ import { Subscription } from "rxjs/Rx";
   styleUrls: ['./profile.component.css']
 })
 
-//
 export class ProfileComponent implements OnDestroy, OnInit{
   private subscription: Subscription
   private company: any

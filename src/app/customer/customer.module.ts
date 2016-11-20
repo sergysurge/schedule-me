@@ -12,7 +12,6 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
 import { EditAccountComponent } from './my-account/edit-account.component';
-import { MakeAppointmentCompanyProfileComponent } from './make-appointment/make-appointment-company-profile.component';
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
 import { EditAccountStartComponent } from './my-account/edit-account-start.component'
 import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component';
@@ -46,7 +45,6 @@ import { PublicCompanyProfileComponent } from './make-appointment/public-company
     SearchFormComponent,
     EditAccountComponent,
     EditAccountStartComponent,
-    MakeAppointmentCompanyProfileComponent,
     SelectEmployeeFormComponent,
     ScheduleAppointmentComponent,
     PublicCompanyProfileComponent

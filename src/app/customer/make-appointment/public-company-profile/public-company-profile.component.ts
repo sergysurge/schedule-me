@@ -18,6 +18,7 @@ export class PublicCompanyProfileComponent implements OnDestroy, OnChanges {
   constructor(private customerService: CustomerService) { }
 
   ngOnChanges(changes: SimpleChanges) { 
+    console.log(changes, 'chanages')
     let newId = changes['companyId'].currentValue
     if (newId) {
       this.companySubscription = this.customerService.getCompanyById(newId)
@@ -26,6 +27,7 @@ export class PublicCompanyProfileComponent implements OnDestroy, OnChanges {
             this.company = company
             this.company.image && (this.companyImage = this.company.image)
             this.company.logo && (this.logoImage = this.company.logo)
+            console.log(this.company, 'comp')
           },
           (err) => {  console.log(err) }
         )
