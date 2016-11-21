@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input, OnChanges, Output } from '@angular/core';
 import * as jQuery from 'jquery';
 import 'fullcalendar';
 import * as moment from 'moment';
@@ -16,6 +16,7 @@ export class CalendarComponent implements OnChanges {
   
   @Input() calendarConfig
   @Input() eventSources
+
   schedule: any;
 
   // ngAfterViewInit() {

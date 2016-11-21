@@ -14,6 +14,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   public customerCalendarEvents: Array<any>
   public eventSources: Array<any>
   userId = localStorage.getItem('userId')
+  selectedAppointment: any
   headers: any
   private subscription: Subscription
 
@@ -25,9 +26,12 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
     }
     this.calendarConfig = {
       header: this.headers,
-      defaultView: 'agendaWeek',
+      defaultView: 'listMonth',
       eventSources: [],
-      editable: false
+      editable: false,
+      eventClick: (calEvent, jsEvent, view) => {
+        this.onCalendarEventClick(calEvent)
+      }
     }
   }
 
@@ -36,6 +40,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
       .subscribe(
         (appointments) => { 
           this.customerAppointments = appointments
+          console.log('asdfasdf', appointments)
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
               let comment = ''
@@ -43,12 +48,12 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
                 comment = `${appointment.description} at ${appointment.company.name}`
               } 
               return {
+                id: appointment.id,
                 title: comment,
                 start: appointment.startTime,
                 end: appointment.endTime
               }
             })
-          console.log(this.customerCalendarEvents, '++++++++74')
         
           this.eventSources = [{
             events: this.customerCalendarEvents,
@@ -62,5 +67,13 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe()
+  }
+
+  onCalendarEventClick(calEvent) {
+    for (let i = 0; i < this.customerAppointments.length; i++) {
+      if (this.customerAppointments[i].id === calEvent.id) {
+        this.selectedAppointment = this.customerAppointments[i]
+      }
+    }
   }
 }

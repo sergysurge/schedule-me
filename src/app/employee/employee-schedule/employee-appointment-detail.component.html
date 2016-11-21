@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h4>Details</h4>
+        </div>
+    </div>
+
+    <div class="panel-body" *ngIf="!eventType">
+        Select an event to view details
+    </div>
+
+    <div class="panel-body" *ngIf="eventType == 'appointment'">
+        Appointment ID: {{selectedEvent?.id}}
+        <br>
+        Contact Name: {{selectedEvent?.contactName}}
+        <br>
+        Contact Number: {{selectedEvent?.contactNumber}}
+        <br>
+        Employee: {{selectedEvent.employee.firstName}} {{selectedEvent.employee.lastName}}
+        <br>
+        Service: {{selectedEvent?.description}}
+        <br>
+        Time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedEvent?.endTime | date: 'h:mm a'}}
+        <br>
+        Customer comments: {{selectedEvent?.comment || 'NA'}}
+    </div>
+
+    <div class="panel-body" *ngIf="eventType == 'schedule'">
+        Work start time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}}
+        <br>
+        Work end time: {{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}
+        <br>
+        Comments: {{selectedEvent?.description}}
+    </div>
+
+</div>

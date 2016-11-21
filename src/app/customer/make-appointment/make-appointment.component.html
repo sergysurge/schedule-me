@@ -8,14 +8,27 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel heading">
-        <h1 class="panel-title">Book an Appointment!</h1>
+    <div class="panel-heading">
+        <h1 class="panel-title">Schedule</h1>
     </div>
     <div class="panel-body">
-        <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
-        <app-select-employee-form (checkedEmployeeChange)="onCheckedEmployeeChange($event)" [employees]="employees"></app-select-employee-form>
-        <app-schedule-appointment [companyId]="companyId"></app-schedule-appointment>
+        <div class="row">
+            <div class="col-xs-9">
+                <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+            </div>
+            <div class="col-xs-3">
+                <app-select-employee-form (checkedEmployeeChange)="onCheckedEmployeeChange($event)" [employees]="employees"></app-select-employee-form>
+            </div>
+        </div>
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">Book an Appointment!</h1>
+    </div>
+    <div class="panel-body">
+        <app-schedule-appointment [companyId]="companyId" (newAppointment)="onNewAppointment($event)"></app-schedule-appointment>
+    </div>
+</div>
 

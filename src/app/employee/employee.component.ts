@@ -5,11 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent {
 
   constructor() { }
+  appointment: any
 
-  ngOnInit() {
+  onNewAppointment($event) {
+    this.appointment = $event
   }
+  
 
 }

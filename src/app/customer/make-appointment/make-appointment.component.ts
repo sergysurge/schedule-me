@@ -19,12 +19,13 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   public employees: any = []
   public companyAppointments: any
   public checkedEmployees: any = {} // keep track of selected employees for calendar
+  public eventSources: Array<any> = []
 
   private mapUserCompanyIdToUser: any = {}
   private companyIdSubscription: Subscription
   private calendarSubscription: Subscription
   private companyId: any
-  public eventSources: Array<any> = []
+  private employeeSubscription: Subscription
 
   
   constructor(private route: ActivatedRoute, private customerService: CustomerService) {
@@ -42,7 +43,7 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.customerService.getEmployees()
+    this.employeeSubscription = this.customerService.getEmployees()
       .subscribe(
         (employees) => { 
           this.employees = employees 
@@ -116,6 +117,22 @@ export class MakeAppointmentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.companyIdSubscription && this.companyIdSubscription.unsubscribe()
     this.calendarSubscription && this.calendarSubscription.unsubscribe()
+    this.employeeSubscription && this.employeeSubscription.unsubscribe()
+  }
+
+  onNewAppointment($event) {
+    let employeeName = ''
+    for(let key in this.employees) {
+      if (this.employees[key].id === $event.employeeId) {
+        employeeName = this.employees[key].firstName + ' ' + this.employees[key].lastName
+      }
+    }
+    this.employeeAppointments[$event.employeeId].push({
+      title: `Apppointment for ${$event.contactName}`,
+      start: $event.startTime,
+      end: $event.endTime
+    })
+    this.updateEventSources(this.employees)
   }
 
   categorizeByEmployeeId(schedules, type) {
