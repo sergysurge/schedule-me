@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import * as moment from 'moment'
-
+import { Subscription } from 'rxjs/Rx'
 import {SelectItem} from 'primeng/primeng';
 
 import { EmployeeServiceService } from '../../employee/employee-service.service'
@@ -58,9 +58,10 @@ import { CompanyService } from '../../company/company.service'
     <button (click)='makeAppointment()' class="btn btn-default">Submit</button>
   </form>
   `,
+
   styles: []
 })
-export class ScheduleAppointmentComponent {
+export class ScheduleAppointmentComponent implements OnDestroy {
   
   date : Date ; 
     user: any;
@@ -76,6 +77,11 @@ export class ScheduleAppointmentComponent {
     temp;
     scheduleStorage = [];
 
+    public appointmentSuccess: boolean = false
+    public serverError: boolean = false
+    private subscription: Subscription
+
+
     person = {
       contactName: undefined,
       contactNumber: undefined,
@@ -87,15 +93,16 @@ export class ScheduleAppointmentComponent {
       companyId : undefined
     }
     
-  @Output() clicked = new EventEmitter<string>();
+  // @Output() clicked = new EventEmitter<string>();
 
   @Input() companyId
-
-    getTime(employeeServiceService:EmployeeServiceService){
+  @Output() newAppointment = new EventEmitter<any>()
+  getTime(employeeServiceService:EmployeeServiceService){
 
     let arr= []
     let arr2= []
     let current = []
+    // let values.mapent = []
     if(this.person.employeeId === undefined || this.person.description === undefined){
       alert('Please select all fields')
     }else{
@@ -134,10 +141,12 @@ export class ScheduleAppointmentComponent {
       )
     }
   }
+
   
   editBlock(){
       let remove = this.available.indexOf(this.open[0])
       for(var i = remove; i< remove+(this.person.description[0].duration)/15; i++){
+        console.log(this.available[i], i, 'asdf')
         this.available[i].label = "Not available"
       }
       
@@ -150,7 +159,7 @@ export class ScheduleAppointmentComponent {
   }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
-
+    // debugger;
       if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
         if(this.open[0].label === "Not available"){
           alert('Appointment Not Available')
@@ -174,9 +183,21 @@ export class ScheduleAppointmentComponent {
         .then(
           appointment => {
             console.log(appointment)
-            }
+            this.appointmentSuccess = true
+            this.newAppointment.emit(appointment)
+          }
+        )
+        .catch(
+          (err) => {
+            this.serverError = true
+            console.log(err)
+          }
         )
     }
+}
+
+ngOnDestroy() {
+  this.subscription && this.subscription.unsubscribe()
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
@@ -184,10 +205,12 @@ export class ScheduleAppointmentComponent {
       this.person.customerId = localStorage.getItem('userId')
       this.person.companyId =localStorage.getItem('localCompanyId')
 
+
       employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users
+          console.log('get employees', this.employees)
         }
         )
 

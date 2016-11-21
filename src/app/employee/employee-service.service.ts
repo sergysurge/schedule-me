@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx'
-// import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/forkJoin';
