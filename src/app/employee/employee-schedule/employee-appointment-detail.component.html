@@ -20,7 +20,7 @@
         <br>
         Service: {{selectedEvent?.description}}
         <br>
-        Time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}
+        Time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedEvent?.endTime | date: 'h:mm a'}}
         <br>
         Customer comments: {{selectedEvent?.comment || 'NA'}}
     </div>

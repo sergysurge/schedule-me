@@ -1,10 +1,28 @@
-<h3>My Appointments</h3>
+<div class="panel panel-default">
 
-    <div id="calendar">
-      <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h2>My Appointments</h2>
     </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="col-sm-7">
+        <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+      </div>
+
+      <div class="col-sm-5">
+        <app-customer-appointment-detail [selectedAppointment]="selectedAppointment"></app-customer-appointment-detail>
+      </div>
+
+    </div>
+  </div>
+</div>
+
     
-    <div id="appointments">
+    <!--<div id="appointments">
 
       <h4>My Upcoming Appointments</h4>
 
@@ -16,6 +34,6 @@
         <span>For: {{appointment?.contactName}}</span>
         <br>
         <span class="appointment-start">{{appointment.startTime | date: 'MMM d, y h:mm a'}}</span>
-      </div>
+      </div>-->
 
-</div>
+<!--</div>-->

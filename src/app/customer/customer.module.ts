@@ -20,6 +20,7 @@ import { EmployeeServiceService } from '../employee/employee-service.service'
 import { EmployeeModule } from '../employee/employee.module';
 import { DropdownModule, CalendarModule} from 'primeng/primeng';
 import { PublicCompanyProfileComponent } from './make-appointment/public-company-profile/public-company-profile.component';
+import { CustomerAppointmentDetailComponent } from './appointment-calendar/customer-appointment-detail.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { PublicCompanyProfileComponent } from './make-appointment/public-company
     EditAccountStartComponent,
     SelectEmployeeFormComponent,
     ScheduleAppointmentComponent,
-    PublicCompanyProfileComponent
+    PublicCompanyProfileComponent,
+    CustomerAppointmentDetailComponent
   ],
   providers: [CustomerService, EditAccountGuard, EmployeeServiceService]
 })

@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Appointment Details
+        </div>
+    </div>
+
+    <div class="panel-body" *ngIf="selectedAppointment">
+        Appointment for: {{selectedAppointment?.contactName}}
+        <br>
+        Service: {{selectedAppointment?.description}}
+        <br>
+        Employee: {{selectedAppointment?.employee.firstName}} {{selectedAppointment?.employee.lastName}}
+        <br>
+        Business: {{selectedAppointment?.company.name}}
+        <br>
+        Location: {{selectedAppointment?.company.address}}
+        <br>
+        Time: {{selectedAppointment?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedAppointment?.endTime | date: 'h:mm a'}}
+        <br>
+        Your comments: {{selectedAppointment?.comment || 'NA'}}
+    </div>
+
+    <div class="panel-body" *ngIf="!selectedAppointment">
+        Select an appointment to view details
+    </div>
+</div>
