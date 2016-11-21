@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-employee-schedule',
   template: `
-    <p>employee schedule</p>
     <div id="employee-calendar">
       <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
     </div>
