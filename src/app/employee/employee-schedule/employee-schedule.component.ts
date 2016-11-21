@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs/Rx'
       <div class="col-sm-5">
         <app-employee-appointment-detail [selectedEvent]="selectedEvent" [eventType]="eventType"></app-employee-appointment-detail>
       </div>
-    </div>
   `,
   styles: []
 })
