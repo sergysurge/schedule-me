@@ -26,6 +26,7 @@ export class EmployeeFormComponent {
     open;
     service: {};
     temp;
+    scheduleStorage = [];
 
     person = {
       contactName: undefined,
@@ -67,21 +68,22 @@ export class EmployeeFormComponent {
               this.temp = curr
             }
           })
+          for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
+            let conflict = false;
+            for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
+              if(this.available[i+j].label === "Not available"){
+                conflict = true;
+              }
+            }
+            if(!conflict){
+              this.scheduleStorage.push(this.available[i])
+            }
+          }
           }
       )
     }
   }
 
-  checkBlock(){
-    let check = this.available.indexOf(this.open[0])
-    let dur = (this.person.description[0].duration)/15
-    if(this.available[check+dur].label === "Not Available"){
-      return false
-    }else{
-      return true
-    }
-  }
-  
   editBlock(){
       let remove = this.available.indexOf(this.open[0])
       for(var i = remove; i< remove+(this.person.description[0].duration)/15; i++){
@@ -105,9 +107,6 @@ export class EmployeeFormComponent {
           alert('Please select all fields')
         }
       }else{
-        if(this.checkBlock()){
-          alert('Not enough time for the service')
-        }else{
         this.editBlock()
         this.person.employeeId = this.person.employeeId.id
         let start = moment(this.start).utcOffset(0)
@@ -126,7 +125,6 @@ export class EmployeeFormComponent {
             console.log(appointment)
             }
         )
-      }
     }
 }
 

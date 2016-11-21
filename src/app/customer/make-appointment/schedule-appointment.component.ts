@@ -50,7 +50,7 @@ import { CompanyService } from '../../company/company.service'
     <div class="form-group">
       <label>Available</label>
       <select multiple name="available" class="form-control" [(ngModel)]="open" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of available" [value]="hour">{{hour.label}}</option>
+        <option *ngFor="let hour of scheduleStorage" [value]="hour">{{hour.label}}</option>
       </select>
     </div>
     </div>
@@ -74,6 +74,7 @@ export class ScheduleAppointmentComponent {
     open;
     service: {};
     temp;
+    scheduleStorage = [];
 
     person = {
       contactName: undefined,
@@ -114,22 +115,23 @@ export class ScheduleAppointmentComponent {
           })
           current.forEach(curr=>{
             if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
-              this.available = JSON.parse(curr.block)
+              this.available =JSON.parse(curr.block)
               this.temp = curr
             }
           })
+          for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
+            let conflict = false;
+            for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
+              if(this.available[i+j].label === "Not available"){
+                conflict = true;
+              }
+            }
+            if(!conflict){
+              this.scheduleStorage.push(this.available[i])
+            }
           }
+        }
       )
-    }
-  }
-
-  checkBlock(){
-    let check = this.available.indexOf(this.open[0])
-    let dur = (this.person.description[0].duration)/15
-    if(this.available[check+dur].label === "Not available"){
-      return false
-    }else{
-      return true
     }
   }
   
@@ -141,10 +143,10 @@ export class ScheduleAppointmentComponent {
       
       this.temp.block = JSON.stringify(this.available)
 
-      // this.employeeServiceService.updateBlock(this.temp)
-      // .then(
-      //   update => {console.log(update)}
-      // )
+      this.employeeServiceService.updateBlock(this.temp)
+      .then(
+        update => {console.log(update)}
+      )
   }
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
@@ -156,9 +158,6 @@ export class ScheduleAppointmentComponent {
           alert('Please select all fields')
         }
       }else{
-        if(!this.checkBlock()){
-          alert('Not enough time for the service')
-        }else{
         this.editBlock()
         this.person.employeeId = this.person.employeeId.id
         let start = moment(this.start).utcOffset(0)
@@ -171,25 +170,21 @@ export class ScheduleAppointmentComponent {
         this.person.description = this.person.description[0].service
         this.person.endTime = end
 
-        console.log(this.person)
         this.employeeServiceService.makeAppointment(this.person)
         .then(
           appointment => {
             console.log(appointment)
             }
         )
-      }
     }
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
 
+      this.person.customerId = localStorage.getItem('userId')
+      this.person.companyId =localStorage.getItem('localCompanyId')
 
-
-          this.person.customerId = localStorage.getItem('userId')
-          this.person.companyId =localStorage.getItem('localCompanyId')
-      
-        employeeServiceService.getEmployees(this.person.companyId)
+      employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
           this.employees = employee.json()[0].users

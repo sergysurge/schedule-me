@@ -29,16 +29,10 @@
       </select>
     </div>
     <button (click)='getTime()' class="btn btn-default">check</button>
-    <!--<div class="form-group">
-      <label>Times</label>
-      <select multiple name="hours" class="form-control" [(ngModel)]="times" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of hours" [value]="hour.value">{{hour.label}}</option>
-      </select>
-    </div>-->
     <div class="form-group">
       <label>Available</label>
       <select multiple name="available" class="form-control" [(ngModel)]="open" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let hour of available" [value]="hour">{{hour.label}}</option>
+        <option *ngFor="let hour of scheduleStorage" [value]="hour">{{hour.label}}</option>
       </select>
     </div>
     </div>
