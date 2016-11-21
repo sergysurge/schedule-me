@@ -4,16 +4,8 @@ import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-select-employee-form',
-  template: `
-    <div class="form-group">
-        <label for="options">Employees: </label>
-        <div *ngFor="let employee of employees" class="input-group">
-          <input type="checkbox" value="true" (change)="updateChecked(employee, $event)" checked>
-          {{employee.firstName}} {{employee.lastName}}
-        </div>
-    </div>
-  `,
-  styles: []
+  templateUrl: './select-employee-form.component.html',
+  styleUrls: ['./select-employee-form.component.css']
 })
 export class SelectEmployeeFormComponent implements OnChanges {
 
@@ -34,8 +26,9 @@ export class SelectEmployeeFormComponent implements OnChanges {
     }, this.checkedEmployees)
   }
   
-  updateChecked(employee, $event) {
+  updateChecked(employee) {
       this.checkedEmployees[employee.id] = !this.checkedEmployees[employee.id]
+      console.log('updated', this.checkedEmployees)
       this.checkedEmployeeChange.emit(this.checkedEmployees)
   }
 }

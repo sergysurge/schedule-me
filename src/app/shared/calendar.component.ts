@@ -16,7 +16,6 @@ export class CalendarComponent implements OnChanges {
   
   @Input() calendarConfig
   @Input() eventSources
-  // @Output() eventClick
 
   schedule: any;
 
