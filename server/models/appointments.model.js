@@ -8,7 +8,17 @@ appointmentsModel.getEmployeeAppointments = (employeeId) => {
     .findAll({
       where: {
         employeeId: employeeId
-      }
+      },
+      include: [{
+        model: User,
+        as: 'customer'
+      }, {
+        model: User,
+        as: 'employee',
+        attributes: {
+          exclude: ['password']
+        }
+      }]
     })
     .then(appointments => {
       return appointments
@@ -27,7 +37,10 @@ appointmentsModel.getCustomerAppointments = (customerId) => {
       },
       include: [{
         model: User,
-        as: 'employee'
+        as: 'employee',
+        attributes: {
+          exclude: ['password']
+        }
       }, {
         model: Company
       }]

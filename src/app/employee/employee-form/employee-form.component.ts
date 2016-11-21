@@ -38,7 +38,8 @@ export class EmployeeFormComponent {
       companyId : undefined
     }
     
-  @Output() clicked = new EventEmitter<string>();
+  // @Output() clicked = new EventEmitter<string>();
+  @Output() newAppointment = new EventEmitter<any>()
 
   getTime(employeeServiceService:EmployeeServiceService){
     let arr= []
@@ -124,7 +125,8 @@ export class EmployeeFormComponent {
         .then(
           appointment => {
             console.log(appointment)
-            }
+            this.newAppointment.emit(appointment)
+          }
         )
       }
     }

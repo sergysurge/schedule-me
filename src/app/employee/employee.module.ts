@@ -8,6 +8,7 @@ import { EmployeeAppointmentsComponent } from './employee-appointments/employee-
 import { DropdownModule, CalendarModule} from 'primeng/primeng';
 import { SharedModule } from '../shared/shared.module';
 import { EmployeeServiceService } from './employee-service.service';
+import { EmployeeAppointmentDetailComponent } from './employee-schedule/employee-appointment-detail.component';
 // import { AuthService } from '../auth/auth.service'
 
 @NgModule({
@@ -25,7 +26,7 @@ import { EmployeeServiceService } from './employee-service.service';
     EmployeeAppointmentsComponent
   ],
   providers: [EmployeeServiceService],
-  declarations: [EmployeeComponent, EmployeeScheduleComponent, EmployeeFormComponent, EmployeeAppointmentsComponent]
+  declarations: [EmployeeComponent, EmployeeScheduleComponent, EmployeeFormComponent, EmployeeAppointmentsComponent, EmployeeAppointmentDetailComponent]
 })
 export class EmployeeModule { 
 

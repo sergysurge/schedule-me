@@ -48,7 +48,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
                 end: appointment.endTime
               }
             })
-          console.log(this.customerCalendarEvents, '++++++++74')
         
           this.eventSources = [{
             events: this.customerCalendarEvents,
