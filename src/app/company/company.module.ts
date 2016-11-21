@@ -9,6 +9,12 @@ import { OptionsComponent } from './options/options.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CalendarModule } from 'primeng/primeng';
 import { CompanyRoutingModule } from './company-routing.module';
+import { CompanyCalendarComponent } from './employee-schedule/company-calendar/company-calendar.component';
+import { CustomerModule } from '../customer/customer.module'
+import { CustomerService } from '../customer/customer.service'
+import { SharedModule } from '../shared/shared.module';
+import { SelectCompanyEmployeesComponent } from './employee-schedule/company-calendar/select-company-employees.component';
+import { CalendarEventDetailComponent } from './employee-schedule/company-calendar/calendar-event-detail.component';
 
 @NgModule({
   imports: [
@@ -16,19 +22,24 @@ import { CompanyRoutingModule } from './company-routing.module';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule,
-    CompanyRoutingModule
+    CompanyRoutingModule,
+    CustomerModule,
+    SharedModule
   ],
   declarations: [
     CompanyComponent,
     AddEmployeeComponent,
     EmployeeScheduleComponent,
     OptionsComponent,
-    ProfileComponent
+    ProfileComponent,
+    CompanyCalendarComponent,
+    SelectCompanyEmployeesComponent,
+    CalendarEventDetailComponent
   ],
   exports: [
     CompanyComponent,
     ProfileComponent
   ],
-  providers: [CompanyService]
+  providers: [CompanyService, CustomerService]
 })
 export class CompanyModule { }

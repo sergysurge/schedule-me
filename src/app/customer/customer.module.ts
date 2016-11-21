@@ -35,7 +35,8 @@ import { CustomerAppointmentDetailComponent } from './appointment-calendar/custo
     CalendarModule
   ],
   exports: [
-    CustomerComponent
+    CustomerComponent,
+    MakeAppointmentComponent
   ],
   declarations: [
     CustomerComponent, 
