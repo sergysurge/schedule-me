@@ -28,7 +28,6 @@ export class SelectEmployeeFormComponent implements OnChanges {
   
   updateChecked(employee) {
       this.checkedEmployees[employee.id] = !this.checkedEmployees[employee.id]
-      console.log('updated', this.checkedEmployees)
       this.checkedEmployeeChange.emit(this.checkedEmployees)
   }
 }

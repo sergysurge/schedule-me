@@ -6,6 +6,8 @@
     </div>
 
     <div class="panel-body" *ngIf="selectedAppointment">
+        Appointment ID: {{selectedAppointment?.id}}
+        <br>
         Appointment for: {{selectedAppointment?.contactName}}
         <br>
         Service: {{selectedAppointment?.description}}
