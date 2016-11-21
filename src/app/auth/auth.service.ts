@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 // import 'rxjs/add/operator/map';
 import 'rxjs/Rx'
-import { Subject } from 'rxjs/Subject'
+import { BehaviorSubject } from 'rxjs/Rx'
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router'
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 export class AuthService {
 
   isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
-  private subject: Subject<boolean> = new Subject<boolean>()
+  subject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isUserLoggedIn)
 
   constructor(private http: Http, private router: Router) { }
   
@@ -64,8 +64,8 @@ export class AuthService {
     this.isUserLoggedIn = loggedIn
     this.subject.next(loggedIn)
   }
+  
   getIsUserLoggedIn(): Observable<boolean> {
-    console.log('inside get', this.isUserLoggedIn)
     return this.subject.asObservable()
   }
 
