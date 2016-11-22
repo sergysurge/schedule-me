@@ -1,3 +1,11 @@
+<ul>
+<li *ngFor="let opt of this.companyService.allOptions">
+  {{opt.duration}}
+  {{opt.service}}
+  {{opt.description}}
+</li>
+</ul>
+
 <form>
     <div class="form-group">
       <label>Service</label>

@@ -15,6 +15,7 @@ import { CustomerService } from '../customer/customer.service'
 import { SharedModule } from '../shared/shared.module';
 import { SelectCompanyEmployeesComponent } from './employee-schedule/company-calendar/select-company-employees.component';
 import { CalendarEventDetailComponent } from './employee-schedule/company-calendar/calendar-event-detail.component';
+import { CompanyLandingComponent } from './company-landing.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { CalendarEventDetailComponent } from './employee-schedule/company-calend
     ProfileComponent,
     CompanyCalendarComponent,
     SelectCompanyEmployeesComponent,
-    CalendarEventDetailComponent
+    CalendarEventDetailComponent,
+    CompanyLandingComponent
   ],
   exports: [
     CompanyComponent,
