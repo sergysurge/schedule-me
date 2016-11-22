@@ -6,15 +6,15 @@ import { Router } from '@angular/router'
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styles: []
+  styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
-  public submitted: Boolean = false
-  public incorrectMsg: Boolean = false
-  public errorMsg: Boolean = false
+  public submitted: boolean = false
+  public incorrectMsg: boolean = false
+  public errorMsg: boolean = false
   public signinForm: FormGroup
   private subscription: any
 
@@ -36,6 +36,8 @@ export class SigninComponent implements OnInit {
               this.router.navigate(['users'])
             } else if (res.response.message === 'incorrect password' || res.response.message === 'user not found') {
               this.incorrectMsg = true
+              this.signinForm.controls['email'].setValue('')
+              this.signinForm.controls['password'].setValue('')
             }
           },
           (err) => {

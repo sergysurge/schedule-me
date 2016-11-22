@@ -25,7 +25,6 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       .subscribe(
         (user) => { 
           this.user = user
-          console.log(this.user, '++++28')
           this.editAccountForm.controls['firstName'].setValue(this.user.firstName || '')
           this.editAccountForm.controls['lastName'].setValue(this.user.lastName || '')
           this.editAccountForm.controls['phoneNumber'].setValue(this.user.phoneNumber || '')
@@ -59,9 +58,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(update) {
-    console.log('update', update)
     this.submitted = true
-    console.log('valid?', this.editAccountForm.valid)
     if (this.editAccountForm.valid) {
       let updateFields = {}
       for (let field in update) {
@@ -69,7 +66,6 @@ export class EditAccountComponent implements OnInit, OnDestroy {
           updateFields[field] = update[field]
         }
       }
-      console.log(updateFields)
       this.submitSubscription = this.customerService.submitUserUpdates(this.userId, updateFields)
         .subscribe(
           (res) => {

@@ -173,10 +173,7 @@ export class CompanyService {
 
   postOneEmployeeSched(employeeSched) {
     return this.http.post('/api/schedules/oneschedule', employeeSched)
-      .map((response: Response) => {
-        console.log('+++++++1444', response)
-        return response.json()
-      })
+      .map((response: Response) => response.json())
   }
 
   getUsersFromCompany(companyId) {

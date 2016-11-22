@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Subject } from 'rxjs/Rx';
-// import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -18,7 +17,6 @@ export class CustomerService {
   private token = localStorage.getItem('jwt-token');
   private authHeader = `Bearer ${this.token}`
   private headers = new Headers({ 'authorization': this.authHeader })
-
   private userSubject: Subject<any> = new Subject<any>()
   private employeesSubject: Subject<any> = new Subject<any>()
 
@@ -34,7 +32,6 @@ export class CustomerService {
   
   getCompanyById(companyId) {
     let options = new RequestOptions({ headers: this.headers })
-
     return this.http.get(`/api/companies/getonecompany/${companyId}`, options)
       .map((response: Response) => {
         this.company = response.json() 
@@ -130,40 +127,6 @@ export class CustomerService {
         })
     )
   }
-  // getCompanySchedules(companyId): Observable<any> {
-  //   let options = new RequestOptions({
-  //     headers: this.headers
-  //   })
-  //   return this.http.get(`/api/users/employees/${companyId}`, options)
-  //     .map((response: Response) => {
-  //       let parsed = response.json().response
-  //       if (!parsed.success) { // company not found
-  //         return []
-  //       } 
-  //       this.setEmployees(parsed.employees)
-  //       // this.companyEmployees = parsed.employees
-  //       return this.companyEmployees.map((employee) => employee.UserCompany.id)
-  //     })
-  //     .flatMap((userCompanyIds) => {
-  //       let userCompanyIdsString = JSON.stringify(userCompanyIds)
-  //       return this.http.get(`/api/schedules/?userCompanyIds=${userCompanyIdsString}`, options)
-  //         .map((response: Response) => {
-  //           this.companySchedules = response.json()
-  //           return this.companySchedules
-  //         })
-  //     })
-  // }
-
-  // getCompanyAppointments(companyId): Observable<any> {
-  //   let options = new RequestOptions({
-  //     headers: this.headers
-  //   })
-  //   return this.http.get(`/api/appointments/company/${companyId}`, options)
-  //     .map((response: Response) => {
-  //       this.companyAppointments = response.json().response.appointments
-  //       return this.companyAppointments
-  //     })
-  // }
 
   handleError(err: Response) {
     return Observable.throw(err.json() || 'Server error')
