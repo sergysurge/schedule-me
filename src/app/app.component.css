@@ -3,3 +3,37 @@
     height: 100%;
     border: 2px solid blue;
 }
+
+.sergNav {
+  background-color: white;
+}
+
+.sergNav a {
+  color: #015249;
+}
+
+.sergNav a:hover {
+  color: #57bc90;
+}
+
+.sergNav a:active {
+  color: white;
+  background-color: #57bc90;
+}
+
+.active {
+  color: white;
+}
+
+.activated {
+  background-color: #57bc90;
+  color: white;
+}
+.activated a {
+  color: white;
+}
+
+.activated a:hover {
+  color: #015249;
+}
+
