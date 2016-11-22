@@ -7,10 +7,10 @@ import { Subscription } from 'rxjs/Rx'
   selector: 'app-employee-schedule',
   template: `
     <div class="row">
-      <div class="col-sm-7">
+      <div class="col-sm-8">
         <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <app-employee-appointment-detail [selectedEvent]="selectedEvent" [eventType]="eventType"></app-employee-appointment-detail>
       </div>
   `,

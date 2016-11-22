@@ -1,22 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CustomerService } from '../../../customer/customer.service';
 import { Subscription } from 'rxjs/Rx';
 import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-company-calendar',
-  templateUrl: './company-calendar.component.html',
-  styles: [
-    `
-      div.fc-title {
-        color: black;
-      }
-    `
-  ]
+  templateUrl: './company-calendar.component.html'
 })
-export class CompanyCalendarComponent implements OnInit {
+export class CompanyCalendarComponent implements OnInit, OnChanges {
 
   @Input() companyId: any
+  @Input() newSchedule: any
   public companySchedules: any
   public calendarConfig: any
   public calendarHeaders: any
@@ -99,6 +93,22 @@ export class CompanyCalendarComponent implements OnInit {
       )
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    let schedule = changes['newSchedule'].currentValue
+    if (schedule) {
+      let employee = this.mapUserCompanyIdToUser[schedule.UserCompanyId]
+      this.employeeSchedules[employee.employeeId].push({
+        id: schedule.id,
+        title: `${employee.firstName} ${employee.lastName} working`,
+        start: schedule.startTime,
+        end: schedule.endTime,
+        className: 'schedule'
+      })
+      this.schedulesRaw.push(schedule)
+    }
+    this.updateEventSources(this.employees)
+  }
+
   onCheckedEmployeeChange(checkedEmployees) {
     let updatedEmployees = []
     for(var employee in checkedEmployees) {
@@ -115,16 +125,6 @@ export class CompanyCalendarComponent implements OnInit {
   ngOnDestroy() {
     this.calendarSubscription && this.calendarSubscription.unsubscribe()
     this.employeeSubscription && this.employeeSubscription.unsubscribe()
-  }
-
-  onNewSchedule($event) {
-    let employee = this.mapUserCompanyIdToUser[$event.UserCompanyId]
-    this.employeeAppointments[employee.id].push({
-      title: `Apppointment for ${$event.contactName}`,
-      start: $event.startTime,
-      end: $event.endTime
-    })
-    this.updateEventSources(this.employees)
   }
 
   categorizeByEmployeeId(schedules, type) {
