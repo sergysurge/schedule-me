@@ -1,17 +1,21 @@
-<!--<app-employee-schedule [newAppointment]="newAppointment"> </app-employee-schedule>
-<app-employee-form (newAppointment)="onNewAppointment($event)"></app-employee-form>
-<app-employee-appointments></app-employee-appointments>-->
-<!--<app-employee-schedule> </app-employee-schedule>
-<app-employee-form></app-employee-form>
-<app-employee-appointments></app-employee-appointments>-->
-
-<nav class="navbar navbar-default">
-      <ul class="nav navbar-nav navbar-left">
-
-        <li><a [routerLink]="['schedule']">My Schedule</a></li>
-        <li><a [routerLink]="['form']">Make Appointments</a></li>
-        <li><a [routerLink]="['appointments']">All Appointments</a></li>
+<div class=".container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a [routerLink]="['schedule']">My Schedule</a></li>
+            <li><a [routerLink]="['form']">Make Appointments</a></li>
+            <li><a [routerLink]="['appointments']">All Appointments</a></li>
+          </ul>
+        <li class="nav navbar-nav navbar-right dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Your Companies
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let company of companies" [value]="company" ><a (click)="changeCompany(company)">{{company.name}}</a></li>
+          </ul>
+        </li>
       </ul>
+    </div>
   </nav>
-
-    <router-outlet></router-outlet>
+<router-outlet></router-outlet>
+</div>

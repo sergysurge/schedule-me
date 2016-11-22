@@ -13,6 +13,16 @@ companiesController.GETALLOPTIONS = (req, res) => {
     })
 }
 
+companiesController.USERCOMPANIES = (req, res) => {
+  companiesModel.getUserCompanies(req.params.id)
+  .then(companies => {
+    res.send(companies)
+  })
+  .catch(err => {
+    return err
+  })
+}
+
 companiesController.POSTONEOPTION = (req, res) => {
   //console.log(req.body, 'req.body POSTONEOPTION, companiesController')
   companiesModel.postoneoption(req.body)

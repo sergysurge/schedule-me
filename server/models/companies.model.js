@@ -1,6 +1,7 @@
 const Company = require('../db').Company
 const BrandName = require('../db').BrandName
 const Option = require('../db').Option
+const User = require('../db').User
 const companiesModel = {}
 
 /*            OPTIONS             */
@@ -15,6 +16,19 @@ companiesModel.getalloptions = (companyId) => {
   })
 }
 
+companiesModel.getUserCompanies = (userId) => {
+  return User.find({
+    where: {
+      id: userId
+    }
+  })
+  .then(user => {
+    return user.getCompanies()
+    .then(companies => {
+      return companies
+    })
+  })
+}
 companiesModel.postoneoption = (option) => {
   return Option.findOrCreate({
     where: {
