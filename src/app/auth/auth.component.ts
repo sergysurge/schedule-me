@@ -32,13 +32,6 @@ import { Subscription } from 'rxjs/Rx'
   `,
   styles: [
     `
-      #signin {
-        width: 400px;
-        height: 550px;
-        border: 2px solid black;
-        font-size: 14px;
-        border-radius: 8px;
-      } 
     `
   ]
 })

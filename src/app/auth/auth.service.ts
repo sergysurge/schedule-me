@@ -25,6 +25,7 @@ export class AuthService {
             if (parsed.response.success) {
               localStorage.setItem('userId', parsed.response.userId)
               localStorage.setItem('jwt-token', parsed.token)
+              this.setUserLoggedIn(true)
             }
             return parsed
         })
@@ -73,6 +74,9 @@ export class AuthService {
   getUserAssociations() {
     // return object of form { <UserCompanyId>: [<companyId>, <isAdmin>,], ...}
     let associations = JSON.parse(localStorage.getItem('userAssociations'))
+    if (!associations) {
+      return {}
+    }
     return associations.reduce((mapping, association) => {
       mapping[association.id] = [association.companyId, association.admin]
       return mapping

@@ -25,16 +25,18 @@ export class AppComponent implements OnInit, OnDestroy {
           this.isUserLoggedIn = loggedIn
           if (this.isUserLoggedIn) {
             this.userAssociations = this.authService.getUserAssociations()
-
-            this.userAssociations && (this.isUserEmployee = true)
-            for(let entry in this.userAssociations) {
-              if (this.userAssociations[entry][1]) {
-                this.isUserAdmin = true
+            if (!this.userAssociations.length) {
+              this.isUserAdmin = false
+              this.isUserEmployee = false
+            } else {
+              this.isUserEmployee = true
+              this.isUserAdmin = false
+              for (let entry in this.userAssociations) {
+                if (this.userAssociations[entry][1]) {
+                  this.isUserAdmin = true
+                }
               }
             }
-          } else {
-            this.isUserEmployee = false
-            this.isUserAdmin = false
           }
         },
         (err) => { console.error(err) },
