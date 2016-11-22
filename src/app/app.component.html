@@ -6,7 +6,7 @@
       </div>
       <ul class="nav navbar-nav navbar-left">
         <li [routerLinkActive]="['active']"><a [routerLink]="['users']">Personal Dashboard</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['company']" *ngIf="isUserAdmin">Admin Dashboard</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['admin']" *ngIf="isUserAdmin">Admin Dashboard</a></li>
         <li [routerLinkActive]="['active']"><a [routerLink]="['work']" *ngIf="isUserEmployee">Work Dashboard</a></li>
         <li (click)="onSignOut()"><a>Sign Out</a></li>
       </ul>

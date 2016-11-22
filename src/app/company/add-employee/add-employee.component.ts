@@ -16,9 +16,10 @@ export class AddEmployeeComponent implements OnInit {
   userShow = false
   userFetched = {
     id: '',
-    email: '',
-    lastName: '',
-    firstName: ''
+    email: 'JohnSmith@schedule-me.com',
+    name: 'John Smith',
+    image: 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
+    phoneNumber: '818-111-1111'
   }
   userSearch
   
@@ -33,10 +34,12 @@ export class AddEmployeeComponent implements OnInit {
           this.userNotFound = false
           this.userShow = true
         }
+        console.log(data, 'data from search user')
         this.userFetched.id = data.response.user.id
         this.userFetched.email = data.response.user.email
-        this.userFetched.lastName = data.response.user.lastName
-        this.userFetched.firstName = data.response.user.firstName
+        this.userFetched.name = data.response.user.firstName + data.response.user.lastName
+        this.userFetched.image = data.response.user.image || "//www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png",
+        this.userFetched.phoneNumber = data.response.user.phoneNumber
       })
   }
   /* USER SEARCH END */
@@ -50,17 +53,33 @@ export class AddEmployeeComponent implements OnInit {
   userId
   companyId
 
+  
+  addEmployeeAdmin
   onSubmit() {
+    console.log(this.addEmployeeAdmin, 'we should be passed a boolean here')
     this.companyService.addEmployee({
-      userId : this.addEmployeeForm.value.userId,
-      companyId : this.addEmployeeForm.value.companyId,
-      isAdmin : this.addEmployeeForm.value.isAdmin
+      userId : this.userFetched.id,
+      companyId : localStorage.getItem('localCompanyId'),
+      isAdmin : this.addEmployeeAdmin
     })
     .subscribe(data => {
       console.log(data, 'dis da data')
+      if (data.status === 200) {
       this.companyService.getEmployees(localStorage.getItem('localCompanyId'))
       .subscribe(data => console.log(data, 'after submitting'))
       //this.asyncString = this.companyService.getUsersFromCompany(1)
+      this.userFetched = {
+        id: '',
+        email: 'JohnSmith@schedule-me.com',
+        name: 'John Smith',
+        image: 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
+        phoneNumber: '818-111-1111'
+      }
+      this.userSearch = ''
+      this.userShow = false
+      } else {
+        alert("please make sure all forms are filled")
+      }
     })
     console.log(this.addEmployee)
   }
