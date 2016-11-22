@@ -18,7 +18,6 @@ export class EmployeeComponent implements OnInit {
     this.id = localStorage.getItem('userId');
   }
   ngOnInit() {
-    console.log(this.id, 'asfadfasd')
     this.employeeServiceService.getUserCompanies(this.id)
       .then(companies =>{
         this.companies = companies
