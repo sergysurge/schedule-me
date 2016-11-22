@@ -1,0 +1,43 @@
+form {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.submitted .ng-invalid {
+    border: 2px solid red;
+}
+.firstName {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+}
+.lastName {
+    position: absolute;
+    top: 110px;
+    left: 40px;
+}
+.email {
+    position: absolute;
+    top: 190px;
+    left: 40px;
+}
+.password {
+    position: absolute;
+    top: 280px;
+    left: 40px;
+}
+button {
+    position: absolute;
+    top: 430px;
+    left: 40px;
+}
+div.alert {
+    color: #d9534f;
+    padding: 0px;
+    margin: 0px;
+}
+div.alert.user-exists {
+    position: absolute;
+    top: 410px;
+}

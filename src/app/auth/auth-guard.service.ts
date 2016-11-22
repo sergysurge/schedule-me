@@ -8,7 +8,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
-        return localStorage.getItem('userId') !== null && localStorage.getItem('jwt-token') !== null
+        if (localStorage.getItem('userId') !== null && localStorage.getItem('jwt-token') !== null) {
+            return true
+        }
+        this.router.navigate(['/'])
+        return false
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {

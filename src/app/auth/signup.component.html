@@ -1,46 +1,42 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)" novalidate>
 
-    <div class="from-group">
+    <div class="from-group firstName">
         <label for="firstName">First Name</label>
         <br>
         <input class="form-control" type="text" formControlName="firstName">
-        <br>
-        <span *ngIf="!signupForm.controls.firstName.valid && submitted">First name is required.</span>
+        <div class="alert" *ngIf="!signupForm.controls.firstName.valid && submitted">First name is required.</div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group lastName">
         <label for="lastName">Last Name</label>
         <br>
         <input class="form-control" type="text" formControlName="lastName">
-        <br>
-        <span *ngIf="!signupForm.controls.lastName.valid && submitted">Last name is required.</span>
+        <div class="alert" *ngIf="!signupForm.controls.lastName.valid && submitted">Last name is required.</div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group email">
         <label for="email">Email</label>
         <br>
         <input class="form-control" type="email" formControlName="email">
-        <br>
-        <span *ngIf="!signupForm.controls.email.valid && submitted">Email is required.</span>
+        <div class="alert" *ngIf="!signupForm.controls.email.valid && submitted">Email is required.</div>
     </div>
 
-    <div class="form-group">
-        <label for="password">Password</label>
+    <div class="form-group password">
+        <label for="password">Password (minimum 6 characters)</label>
         <br>
         <input type="password" formControlName="password">
         <br>
-        <span *ngIf="signupForm.controls.password.hasError('required') && submitted">Password is required</span>
-        <span *ngIf="signupForm.controls.password.hasError('minLength') && submitted">Password must be at least 6 characters</span>
+        <div class="alert" *ngIf="signupForm.controls.password.hasError('required') && submitted">Password is required</div>
+        <div class="alert" *ngIf="signupForm.controls.password.hasError('minLength') && submitted">Password must be at least 6 characters</div>
         <br>
         <label for="verifyPassword">Verify Password</label>
         <br>
         <input type="password" formControlName="verifyPassword">
         <br>
-        <span *ngIf="signupForm.controls.verifyPassword.hasError('required') && submitted">Please verify your password.</span>
-        <span *ngIf="submitted && passwordError">Passwords don't match</span>
+        <div class="alert" *ngIf="signupForm.controls.verifyPassword.hasError('required') && submitted">Please verify your password.</div>
+        <div class="alert" *ngIf="submitted && passwordError">Passwords don't match</div>
     </div>
     
-    <button class="btn btn-default" type="submit">Signup</button>
-    <br>
-    <span *ngIf="userExists">Account already exists under this email, please sign in</span>
+    <button class="btn btn-default btn-lg" type="submit">Signup</button>
+    <div class="alert user-exists" *ngIf="userExists">Account already exists under this email, please sign in</div>
 </form>

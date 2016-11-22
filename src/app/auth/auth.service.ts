@@ -56,6 +56,7 @@ export class AuthService {
     localStorage.removeItem('jwt-token')
     localStorage.removeItem('userId')
     localStorage.removeItem('userAssociations')
+    localStorage.removeItem('localCompanyId')
     this.setUserLoggedIn(false)
     this.router.navigate([''])
   }

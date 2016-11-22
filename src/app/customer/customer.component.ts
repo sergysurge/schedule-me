@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav navbar-left">
-        <li><a [routerLink]="['account']">My Account</a></li>
-        <li><a [routerLink]="['appointments']">My Appointments</a></li>
-        <li><a [routerLink]="['search']">Search Businesses</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['account']">My Account</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['appointments']">My Appointments</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['search']">Search Businesses</a></li>
       </ul>
     </nav>
 
