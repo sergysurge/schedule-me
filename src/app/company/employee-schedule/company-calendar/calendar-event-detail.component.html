@@ -10,6 +10,8 @@
     </div>
 
     <div class="panel-body" *ngIf="eventType == 'appointment'">
+        <span>Appointment</span>
+        <br>
         Appointment ID: {{selectedEvent?.id}}
         <br>
         Contact Name: {{selectedEvent?.contactName}}
@@ -26,9 +28,13 @@
     </div>
 
     <div class="panel-body" *ngIf="eventType == 'schedule'">
-        Work start time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}}
+        <span>Working Hours</span>
         <br>
-        Work end time: {{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}
+        Employee: {{selectedEvent?.employee.firstName}} {{selectedEvent?.employee.lastName}}
+        <br>
+        Start time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}}
+        <br>
+        End time: {{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}
         <br>
         Comments: {{selectedEvent?.description}}
     </div>
