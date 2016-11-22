@@ -18,47 +18,45 @@ export class EmployeeScheduleComponent {
   private date
 
   blockConst(start, end) {
-    let minInc = ['15','30','45','00','15','30','45','00']
-    let startNum = Number(start.slice(0,2))
-    let startNum12 = Number(start.slice(0,2))
-    let startNumLast = Number(start.slice(3))
-    let startNumString = startNumLast => {
-      if (startNumLast === 0) {
-        return '00'
-      } else {
-        return startNumLast.toString()
-      }
-    }
-    let startIndex = minInc.indexOf(startNumString(startNumLast))
-    let endNum = Number(end.slice(0,2))
-    let endNumLast = Number(end.slice(3))
-    let totalHours = endNum - startNum
-    let dayTime = 'AM'
+    let cur
     let block = []
-    let first00 = () => {
-        if (startNumLast === 0) {
-        startNum12--
-        startNum--
-        } 
+    let startTime = start.split(':')
+    let label;
+    let hour = startTime[0]
+    let minutes = startTime[1]
+    let minInc = ['00','15','30','45']
+    let count = minInc.indexOf(minutes)
+    let check = false;
+
+
+    while(!check){
+      if(count>3){
+        hour++
+        count = 0
       }
-    first00()  
-    for(let i = 0; i < totalHours; i++) {
-      for(let j = startIndex; j < startIndex + 4; j++) {
-        if (minInc[j] === '00') {
-            startNum12++
-            startNum++ 
+      let time= `${hour}:${minInc[count]}`
+      if(hour>11){
+        if(hour>12){
+          if(hour>21){
+            label = hour-12
+          }else{
+            label= `0${hour-12}`
+          }
+        }else{
+          label = hour
         }
-        if (startNum > 11 ) {
-          dayTime = 'PM'
+        block.push({label: `${label}:${minInc[count]} PM` , value:time})
+        if(moment(time,'h:mma').isSame(moment(end,'h:mma'))){
+          check = true
         }
-        if (startNum12 > 12) {
-        startNum12 = startNum12 - 12
-       } 
-        block.push({
-          label: startNum12 + ':' + minInc[j] + ' ' + dayTime,
-          value: startNum + ':' + minInc[j]
-        })
+      }else{
+        label = hour
+        block.push({label: `${label}:${minInc[count]} AM` , value:time})
+        if(moment(time,'h:mma').isSame(moment(end,'h:mma'))){
+          check = true
+        }
       }
+      count++
     }
     return block
   }
@@ -104,6 +102,8 @@ export class EmployeeScheduleComponent {
     let blockCreated = this.blockConst(this.employeeScheduleForm.value.startTime, this.employeeScheduleForm.value.endTime)
     let blockStrinified = JSON.stringify(blockCreated)
 
+    console.log('blockStrinified',blockStrinified)
+    console.log('employee',this.employeeScheduleForm)
     this.companyService.postOneEmployeeSched({
       startTime : this.employeeScheduleForm.value.date + ' ' +  this.employeeScheduleForm.value.startTime,
       endTime : this.employeeScheduleForm.value.date + ' ' + this.employeeScheduleForm.value.endTime,
@@ -112,7 +112,7 @@ export class EmployeeScheduleComponent {
       block: blockStrinified
     })
     .subscribe( 
-      (result) => {}
+      (result) => {console.log(result)}
     )
   }
   employeeScheduleForm : FormGroup
