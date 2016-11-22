@@ -6,6 +6,7 @@ var CompaniesRouter = express.Router()
 
 CompaniesRouter.get('/getonecompany/:id', companiesController.GETONECOMPANY)
 CompaniesRouter.get('/getallcompanies', companiesController.GETALLCOMPANIES)
+CompaniesRouter.get('/usercompanies/:id', companiesController.USERCOMPANIES)
 CompaniesRouter.post('/postcompany', companiesController.POSTCOMPANY)
 CompaniesRouter.delete('/deletecompany', companiesController.DELETECOMPANY)
 CompaniesRouter.put('/updatecompany', companiesController.UPDATECOMPANY)
