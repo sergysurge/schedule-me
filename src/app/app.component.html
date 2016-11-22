@@ -1,13 +1,13 @@
 <div class="container">
-  <nav class="navbar navbar-default" [hidden]="!isUserLoggedIn">
+  <nav class="navbar navbar-default sergNav" [hidden]="!isUserLoggedIn">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">ScheduleMe</a>
+        <a class="navbar-brand active" href="/">ScheduleMe</a>
       </div>
-      <ul class="nav navbar-nav navbar-left">
-        <li [routerLinkActive]="['active']"><a [routerLink]="['users']">Personal Dashboard</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['admin']" *ngIf="isUserAdmin">Admin Dashboard</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['work']" *ngIf="isUserEmployee">Work Dashboard</a></li>
+      <ul class="nav navbar-nav navbar-left ">
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['users']">Personal Dashboard</a></li>
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['admin']" *ngIf="isUserAdmin">Admin Dashboard</a></li>
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['work']" *ngIf="isUserEmployee">Work Dashboard</a></li>
         <li (click)="onSignOut()"><a>Sign Out</a></li>
       </ul>
     </div>
