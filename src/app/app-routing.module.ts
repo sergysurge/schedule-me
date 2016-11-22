@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'users', component: CustomerComponent, canActivate: [AuthGuard] },
     { path: 'admin', component: CompanyLandingComponent},
     { path: 'work', component: EmployeeComponent },
-    { path: '**', redirectTo: 'users', pathMatch: 'full' }
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ]
 
 @NgModule({
