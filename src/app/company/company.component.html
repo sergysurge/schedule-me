@@ -5,7 +5,7 @@
         <img alt="Brand" [src]="this.companyService.company.logo" height="30" width="auto" style="margin-top: 10px;">
      </div>   
      
-        <button [routerLink]="['/company/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Preview</button>
+        <button [routerLink]="['/users/search/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Preview</button>
 
         <button [routerLink]="['/admin/company/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Update Profile</button>
 
