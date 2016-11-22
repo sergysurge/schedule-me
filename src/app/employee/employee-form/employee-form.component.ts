@@ -131,7 +131,6 @@ export class EmployeeFormComponent {
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
-
         this.user = this.authService.getUserAssociations()
         for(var key in this.user){
           this.user.companyId = this.user[key][0]
@@ -141,17 +140,13 @@ export class EmployeeFormComponent {
         employeeServiceService.getEmployees(this.user.companyId)
         .subscribe(
           employee => {
-          this.employees = employee.json()[0].users
-        }
+            this.employees = employee.json()[0].users
+          }
         )
-
         companyService.getOptions(this.user.companyId)
         .subscribe(options=>{
             this.services = options
         })
-
         this.employees = [];
- 
   }
-
 }
