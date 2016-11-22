@@ -10,18 +10,19 @@ import { AuthService } from '../../auth/auth.service'
   styleUrls: ['./options.component.css']
 })
 export class OptionsComponent implements OnInit {
+  COMPANYID  = localStorage.getItem('localCompanyId')
   option = {
     service : undefined,
     duration : undefined,
     description: undefined,
-    companyId: undefined
+    companyId: this.COMPANYID
   }
 
   addOption() {
-    let obj = this.authService.getUserAssociations()
-    for (var key in obj){
-      this.option.companyId = obj[key][0]
-    }
+    // let obj = this.authService.getUserAssociations()
+    // for (var key in obj){
+    //   this.option.companyId = obj[key][0]
+    // }
     this.companyService.addOptions(this.option)
     .subscribe(option=>{
       console.log('end Option', option)
@@ -32,6 +33,7 @@ export class OptionsComponent implements OnInit {
   constructor(private companyService: CompanyService, private authService: AuthService) {
     this.companyService.navigateProfilePageOnRefresh()
     this.companyService.adminCheck()
+    this.companyService.getOptions(this.COMPANYID).subscribe()
    }
 
   ngOnInit() {

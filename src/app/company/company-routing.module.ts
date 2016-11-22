@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile/profile.component'
 import { AddEmployeeComponent } from './add-employee/add-employee.component'
 import { EmployeeScheduleComponent } from './employee-schedule/employee-schedule.component'
 import { OptionsComponent } from './options/options.component'
+import { CompanyLandingComponent } from './company-landing.component'
 
 const routes: Routes = [
     { 
@@ -12,7 +13,7 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          component: CompanyComponent
+          component: CompanyLandingComponent
         },
         {
           path: 'company/:id',

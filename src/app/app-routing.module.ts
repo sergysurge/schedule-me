@@ -12,7 +12,6 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'users', component: CustomerComponent, canActivate: [AuthGuard] },
     { path: 'work', component: EmployeeComponent },
-    { path: 'admins', component: CompanyComponent },
     { path: '**', redirectTo: 'users', pathMatch: 'full' }
 ]
 

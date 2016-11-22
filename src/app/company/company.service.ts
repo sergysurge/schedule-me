@@ -7,6 +7,39 @@ import { Router } from '@angular/router';
 @Injectable()
 export class CompanyService {
 
+  private companiesLanding = []
+  /* COMPANY-LANDING COMPONENT */
+  getAllCompaniesByUserId(userId) {
+    return this.http.get('api/companies/usercompanies/' + userId)
+    .map((response: Response) => {
+      this.companiesLanding = [];
+      let comps = response.json()
+      comps.forEach(data => {
+      if (data.UserCompany.admin === true) {
+        this.companiesLanding.push({
+         BrandNameId : data.BrandNameId || null,
+         address : data.address || null,
+         createdAt : data.createdAt || null,
+         description : data.description || null,
+         id : data.id || null,
+         image : data.image || null,
+         logo : data.logo || null,
+         name : data.name || null,
+         phoneNumber : data.phoneNumber || null,
+         updatedAt : data.updatedAt || null,
+         website : data.website || null
+        })
+      }
+      })
+      console.log(this.companiesLanding, 'resulting companies, check to see if admin is good')
+      return response.json()
+    })
+  }
+
+  /* COMPANY-LANDING END */
+
+
+
   /* COMPANY PROFILE COMPONENT */
   company: any = {
     id: localStorage.getItem('localCompanyId')
@@ -95,7 +128,7 @@ export class CompanyService {
     if (window.location.pathname.indexOf("employees") 
     || window.location.pathname.indexOf("schedules") || window.location.pathname.indexOf("options")) {
       if (!!this.company.name === false) {
-        this.router.navigate(['/users/search/', this.company.id])
+        this.router.navigate(['/admin'])
       }
     }
   }
@@ -186,14 +219,21 @@ export class CompanyService {
   //options
   addOptions (body:any): Observable<any>{
     return this.http.post('api/companies/postoneoption',body)
-    .map((response:Response) => response)
-  }
-
-  getOptions (body:any): Observable<any>{
-    return this.http.get('api/companies/getalloptions/'+body)
     .map((response:Response) => response.json())
   }
+
+  allOptions = []
   
-  constructor(private http: Http, private router: Router) { }
+  getOptions (body:any): Observable<any>{
+    return this.http.get('api/companies/getalloptions/'+body)
+    .map((response:Response) => {
+      this.allOptions = response.json()
+      return response.json()
+    })
+  }
+  
+  constructor(private http: Http, private router: Router) { 
+    
+  }
 
 }
