@@ -6,23 +6,33 @@ import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-home',
   template: `
-    <div id="signin" *ngIf="!isUserLoggedIn">
-      <app-tabs tabsStyle="nav nav-tabs nav-justified">
-        <app-tab title="Signup">
-          <app-signup></app-signup>
-        </app-tab>
-        <app-tab title="Signin">
-          <app-signin></app-signin>
-        </app-tab>
-      </app-tabs>
+    <div class="row">
+      <div class="col-xs-8">
+      asdf
+      </div>
+      <div class="col-xs-4">
+        <div id="signin" *ngIf="!isUserLoggedIn">
+          <app-tabs tabsStyle="nav nav-tabs nav-justified">
+            <app-tab title="Signup">
+              <app-signup></app-signup>
+            </app-tab>
+            <app-tab title="Signin">
+              <app-signin></app-signin>
+            </app-tab>
+          </app-tabs>
+        </div>
+      </div>
     </div>
   `,
   styles: [
     `
+
       #signin {
-        width: 500px;
-        height: 500px;
+        width: 400px;
+        height: 550px;
         border: 2px solid black;
+        font-size: 14px;
+        border-radius: 8px;
       } 
     `
   ]

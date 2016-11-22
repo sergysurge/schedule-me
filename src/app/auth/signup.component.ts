@@ -5,11 +5,9 @@ import { Router } from '@angular/router'
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styles: []
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   public submitted: Boolean = false
   public signupForm: FormGroup
@@ -17,9 +15,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   public userExists: Boolean = false
   public passwordError: Boolean = false
   private subscription: any
+  
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-
     this.signupForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],

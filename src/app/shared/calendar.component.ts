@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Input, OnChanges, Output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input, OnChanges, Output, ViewEncapsulation } from '@angular/core';
 import * as jQuery from 'jquery';
 import 'fullcalendar';
 import * as moment from 'moment';
@@ -7,12 +7,7 @@ require('style-loader!fullcalendar/dist/fullcalendar.css');
 
 @Component({
   selector: 'app-calendar',
-  template: `<div></div>`,
-  styles: [`
-      div.fc-title {
-        color: black;
-      }
-  `]
+  template: `<div></div>`
 })
 export class CalendarComponent implements OnChanges {
 
@@ -24,17 +19,12 @@ export class CalendarComponent implements OnChanges {
 
   schedule: any;
 
-  // ngAfterViewInit() {
-  //   this.schedule = jQuery(this.el.nativeElement.children[0]);
-  // }
-
   ngOnChanges(changes:any) {
     if (!this.schedule) {
       this.schedule = jQuery(this.el.nativeElement.children[0])
     }
     if(changes.calendarConfig) {
       this.schedule.fullCalendar(changes.calendarConfig.currentValue)
-
     }
     if(changes.eventSources && changes.eventSources.currentValue) {
       this.schedule.fullCalendar('removeEventSources')

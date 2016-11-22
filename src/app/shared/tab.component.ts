@@ -18,8 +18,7 @@ import { TabsComponent } from './tabs.component'
     <div *ngIf="active" [@fadeInOut]="!active">
       <ng-content></ng-content>
     </div>
-  `,
-  styles: []
+  `
 })
 export class TabComponent {
 

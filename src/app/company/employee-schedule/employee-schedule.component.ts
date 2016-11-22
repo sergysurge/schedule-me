@@ -11,6 +11,7 @@ import { CompanyService } from '../company.service';
 })
 export class EmployeeScheduleComponent {
   companyId = localStorage.getItem('companyId') || 1;
+  newSchedule
   private employees
   private start
   private startTimes
@@ -113,7 +114,9 @@ export class EmployeeScheduleComponent {
       block: blockStrinified
     })
     .subscribe( 
-      (result) => {console.log(result)}
+      (result) => {
+        this.newSchedule = result
+      }
     )
   }
   employeeScheduleForm : FormGroup

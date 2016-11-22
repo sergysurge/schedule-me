@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-appointment-calendar',
-  templateUrl: './appointment-calendar.component.html',
-  styleUrls: []
+  templateUrl: './appointment-calendar.component.html'
 })
 export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   public calendarConfig: any
@@ -22,7 +21,7 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
     this.headers = {
       left: 'prev, next, today',
       center: 'title',
-      right: 'month, agendaWeek, agendaDay, listDay'
+      right: 'month, agendaWeek, agendaDay, listMonth'
     }
     this.calendarConfig = {
       header: this.headers,
@@ -40,7 +39,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
       .subscribe(
         (appointments) => { 
           this.customerAppointments = appointments
-          console.log('asdfasdf', appointments)
           this.customerCalendarEvents = this.customerAppointments
             .map((appointment) => {
               let comment = ''

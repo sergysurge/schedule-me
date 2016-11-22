@@ -4,10 +4,8 @@ const generateToken = require('../helpers').generateToken
 const usersController = {}
 
 usersController.GETALLEMPLOYEES = (req, res) => {
-  console.log(req.params, 'look here ****')
   usersModel.getAllEmployeesCompanyId(req.params)
     .then(response => {
-      console.log(response, '**here**')
       res.send(response)
     })
     .catch(err => {
@@ -33,7 +31,7 @@ usersController.SIGNIN = (req, res) => {
           token: token
         })
       } else if (response.message === 'incorrect password') {
-        res.status(403).json({
+        res.status(200).json({
           response: response
         })
       } else if (response.message === 'user not found') {

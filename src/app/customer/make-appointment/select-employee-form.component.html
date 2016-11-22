@@ -7,7 +7,7 @@
     <div class="panel-body">
         <a *ngFor="let employee of employees" (click)="updateChecked(employee)">
             <div class="employee" [ngClass]="{'selected': checkedEmployees[employee.id]}">
-                <img src="{{employee.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}" height="120px" width="auto">
+                <img src="{{employee.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}" height="100px" width="auto">
                 <br>
                 <span>{{employee.firstName}} {{employee.lastName}}</span>
             </div>
