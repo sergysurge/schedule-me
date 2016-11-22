@@ -8,14 +8,22 @@ import { OptionsComponent } from './options/options.component'
 
 const routes: Routes = [
     { 
-      path: 'admin/company/:id',
-      component: CompanyComponent,
+      path: 'admin',
       children: [
         {
           path: '',
-          component: ProfileComponent
+          component: CompanyComponent
         },
-        { 
+        {
+          path: 'company/:id',
+          component: CompanyComponent,
+          children: [
+            { 
+            path: '', 
+            component: ProfileComponent,
+            //canDeactivate: [EditAccountGuard]
+        },
+            { 
             path: 'employees', 
             component: AddEmployeeComponent,
             //canDeactivate: [EditAccountGuard]
@@ -31,6 +39,9 @@ const routes: Routes = [
             component: OptionsComponent,
             //canDeactivate: [EditAccountGuard]
         }
+          ]
+        }
+        
       ]
   }
 ]
