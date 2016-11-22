@@ -4,8 +4,7 @@ import { EmployeeServiceService } from '../employee-service.service'
 
 @Component({
   selector: 'app-employee-appointments',
-  templateUrl: './employee-appointments.component.html',
-  styleUrls: ['./employee-appointments.component.css']
+  templateUrl: './employee-appointments.component.html'
 })
 export class EmployeeAppointmentsComponent {
 

@@ -102,11 +102,12 @@ export class EmployeeScheduleComponent {
     let blockCreated = this.blockConst(this.employeeScheduleForm.value.startTime, this.employeeScheduleForm.value.endTime)
     let blockStrinified = JSON.stringify(blockCreated)
 
-    console.log('blockStrinified',blockStrinified)
-    console.log('employee',this.employeeScheduleForm)
+    let start = moment(this.employeeScheduleForm.value.date + ' ' +  this.employeeScheduleForm.value.startTime +' '+'+0000')
+    let end = moment(this.employeeScheduleForm.value.date + ' ' + this.employeeScheduleForm.value.endTime+' '+'+0000')
+
     this.companyService.postOneEmployeeSched({
-      startTime : this.employeeScheduleForm.value.date + ' ' +  this.employeeScheduleForm.value.startTime,
-      endTime : this.employeeScheduleForm.value.date + ' ' + this.employeeScheduleForm.value.endTime,
+      startTime : start,
+      endTime : end,
       description : this.employeeScheduleForm.value.description,
       UserCompanyId : this.selectedEmployeeId.userCompanyId,
       block: blockStrinified
