@@ -18,13 +18,15 @@ import { SignupComponent } from './auth/signup.component';
 import { SigninComponent } from './auth/signin.component';
 import { AuthService } from './auth/auth.service'
 import { AuthGuard } from './auth/auth-guard.service';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
