@@ -1,0 +1,31 @@
+body {
+  background-color: #D5D5D5;
+
+}
+.container {
+  background-color: #D5D5D5;
+}
+
+.sergNav {
+  background-color: #6D7993;
+  color: white;
+}
+
+.sergNav a {
+  color: white;
+}
+
+.sergNav a active {
+  background-color: #96858f;
+  color: white;
+}
+
+.sergNavSec {
+  background-color: #96858f;
+  color: white;
+}
+
+.sergNavSec a {
+  color: white;
+}
+
