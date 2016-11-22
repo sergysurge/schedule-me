@@ -1,14 +1,15 @@
-<div class="container">
-  <nav class="navbar navbar-default" [hidden]="!isUserLoggedIn">
+<div class="container-fluid">
+  <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">ScheduleMe</a>
+        <a class="navbar-brand" [routerLink]="['']">ScheduleMe</a>
       </div>
       <ul class="nav navbar-nav navbar-left">
-        <li [routerLinkActive]="['active']"><a [routerLink]="['users']">Personal Dashboard</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['admin']" *ngIf="isUserAdmin">Admin Dashboard</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['work']" *ngIf="isUserEmployee">Work Dashboard</a></li>
-        <li (click)="onSignOut()"><a>Sign Out</a></li>
+        <li [routerLinkActive]="['active']" *ngIf="isUserLoggedIn"><a [routerLink]="['users']">Personal Dashboard</a></li>
+        <li [routerLinkActive]="['active']" *ngIf="isUserLoggedIn && isUserAdmin"><a [routerLink]="['admin']">Admin Dashboard</a></li>
+        <li [routerLinkActive]="['active']" *ngIf="isUserLoggedIn && isUserEmployee"><a [routerLink]="['work']">Work Dashboard</a></li>
+        <li [routerLinkActive]="['active']" *ngIf="!isUserLoggedIn"><a [routerLink]="['signin']">Signin/Signup</a></li>
+        <li  *ngIf="isUserLoggedIn" (click)="onSignOut()"><a>Sign Out</a></li>
       </ul>
     </div>
   </nav>
