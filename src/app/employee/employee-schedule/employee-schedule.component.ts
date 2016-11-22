@@ -36,7 +36,7 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
     this.headers = {
       left: 'prev, next, today',
       center: 'title',
-      right: 'month, agendaWeek, agendaDay, listDay'
+      right: 'month, agendaWeek, agendaDay, listMonth'
     }
 
     this.calendarConfig = {
@@ -92,7 +92,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
               color: 'green'
             }
           ]
-          console.log(this.appointmentsRaw, '++++++94')
         },
         (err) => console.error(err)
       )
