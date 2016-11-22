@@ -10,24 +10,15 @@ import { Observable } from 'rxjs/Observable';
 export class EmployeeServiceService {
 
   constructor(private http: Http) { }
-  // getAppointment(id:Number): Observable<any> {
-  //   return this.http.get(`/api/appointments/5`)
-  //     .map((response: Response) => response)
-  //     // .catch((error))
-  //     // .toPromise()
-  //     // .then(response => console.log(response))
-  //     // .map(response => {
-  //     //   console.log(response)
-  //     // })
-  // }
 
-  //chris MAYBE USE 
-  // available: any = []
+  getUserCompanies(id: any): Promise<any>{
+    return this.http.get(`/api/companies/usercompanies/${id}`)
+    .toPromise()
+    .then(response=>{
+        return response.json()
+    })
+  }
 
-  // setAvailable(body: Object) {
-  //   this.available = body
-  //   console.log('Whats up',this.available)
-  // }
   updateBlock(body: Object): Promise<any> {
     return this.http.put('/api/schedules', body)
     .toPromise()
