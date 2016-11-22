@@ -122,7 +122,6 @@ export class CompanyService {
       console.log(response, 'dis **** response');
       this.employees = []
       let allEmployees = response.json()[0].users
-
       allEmployees.forEach( data => {
         let employee = {
         id: data.id,
@@ -135,12 +134,16 @@ export class CompanyService {
       }
       this.employees.push(employee)
       })
-      
+      return allEmployees
     })
   }
 
   postOneEmployeeSched(employeeSched) {
     return this.http.post('/api/schedules/oneschedule', employeeSched)
+      .map((response: Response) => {
+        console.log('+++++++1444', response)
+        return response.json()
+      })
   }
 
   getUsersFromCompany(companyId) {

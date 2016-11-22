@@ -6,7 +6,13 @@ import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-company-calendar',
   templateUrl: './company-calendar.component.html',
-  styles: []
+  styles: [
+    `
+      div.fc-title {
+        color: black;
+      }
+    `
+  ]
 })
 export class CompanyCalendarComponent implements OnInit {
 
@@ -111,14 +117,9 @@ export class CompanyCalendarComponent implements OnInit {
     this.employeeSubscription && this.employeeSubscription.unsubscribe()
   }
 
-  onNewAppointment($event) {
-    let employeeName = ''
-    for(let key in this.employees) {
-      if (this.employees[key].id === $event.employeeId) {
-        employeeName = this.employees[key].firstName + ' ' + this.employees[key].lastName
-      }
-    }
-    this.employeeAppointments[$event.employeeId].push({
+  onNewSchedule($event) {
+    let employee = this.mapUserCompanyIdToUser[$event.UserCompanyId]
+    this.employeeAppointments[employee.id].push({
       title: `Apppointment for ${$event.contactName}`,
       start: $event.startTime,
       end: $event.endTime
@@ -173,7 +174,6 @@ export class CompanyCalendarComponent implements OnInit {
   }
 
   onCalendarEventClick(calEvent) {
-    console.log('asdfasdf', calEvent)
     if (calEvent.className[0] === 'schedule') {
       for( let i = 0; i < this.schedulesRaw.length; i++) {
         if(this.schedulesRaw[i].id === calEvent.id) {
@@ -190,7 +190,6 @@ export class CompanyCalendarComponent implements OnInit {
         }
       }
     }
-    console.log('asdfasdfasdf', this.selectedEvent)
   }
 
 }

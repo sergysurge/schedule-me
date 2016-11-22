@@ -7,7 +7,12 @@ require('style-loader!fullcalendar/dist/fullcalendar.css');
 
 @Component({
   selector: 'app-calendar',
-  template: `<div></div>`
+  template: `<div></div>`,
+  styles: [`
+      div.fc-title {
+        color: black;
+      }
+  `]
 })
 export class CalendarComponent implements OnChanges {
 

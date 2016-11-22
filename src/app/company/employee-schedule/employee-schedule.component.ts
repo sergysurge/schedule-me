@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Response } from "@angular/http";
-import * as moment from 'moment'
-
+import * as moment from 'moment';
 import { CompanyService } from '../company.service';
 
 @Component({
@@ -10,14 +9,14 @@ import { CompanyService } from '../company.service';
   templateUrl: './employee-schedule.component.html',
   styleUrls: ['./employee-schedule.component.css']
 })
-export class EmployeeScheduleComponent implements OnInit {
+export class EmployeeScheduleComponent {
   companyId = localStorage.getItem('companyId') || 1;
   private employees
   private start
   private startTimes
   private endTimes
   private date
-  
+
   blockConst(start, end) {
     let minInc = ['15','30','45','00','15','30','45','00']
     let startNum = Number(start.slice(0,2))
@@ -77,15 +76,16 @@ export class EmployeeScheduleComponent implements OnInit {
     this.selectedDay = index
   }
   step2GotEmployee = false
-  setEmployee(id, nameFirst, nameLast, admin) {
+  setEmployee(id, userCompanyId, nameFirst, nameLast, admin) {
     console.log(id)
     this.step2GotEmployee = true
     this.selectedEmployeeId = {
       id: id,
+      userCompanyId: userCompanyId,
       nameFirst: nameFirst,
       nameLast: nameLast,
       admin: admin
-      }
+    }
   }
 
   startTime
@@ -93,38 +93,33 @@ export class EmployeeScheduleComponent implements OnInit {
   description
   selectedEmployeeId: {
       id: '',
+      userCompanyId: '',
       nameFirst: '',
       nameLast: '',
       admin: ''
-      }
+  }
   selectedDay
-  UserCompanyId = 1
-  postOneSched() {console.log({
-      startTime : this.employeeScheduleForm.value.date + ' ' +  this.employeeScheduleForm.value.startTime,
-      endTime : this.employeeScheduleForm.value.date + ' ' + this.employeeScheduleForm.value.endTime,
-      description : this.employeeScheduleForm.value.description,
-      UserCompanyId : this.selectedEmployeeId.id,
-      block: this.blockConst(this.employeeScheduleForm.value.startTime, this.employeeScheduleForm.value.endTime)
-  })
+  // UserCompanyId = 1
+  postOneSched() {
     let blockCreated = this.blockConst(this.employeeScheduleForm.value.startTime, this.employeeScheduleForm.value.endTime)
     let blockStrinified = JSON.stringify(blockCreated)
 
-    console.log(typeof blockStrinified)
     this.companyService.postOneEmployeeSched({
       startTime : this.employeeScheduleForm.value.date + ' ' +  this.employeeScheduleForm.value.startTime,
       endTime : this.employeeScheduleForm.value.date + ' ' + this.employeeScheduleForm.value.endTime,
       description : this.employeeScheduleForm.value.description,
-      UserCompanyId : this.selectedEmployeeId.id,
+      UserCompanyId : this.selectedEmployeeId.userCompanyId,
       block: blockStrinified
     })
-    .subscribe(result => console.log(result))
+    .subscribe( 
+      (result) => {}
+    )
   }
   employeeScheduleForm : FormGroup
 
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
     this.companyService.navigateProfilePageOnRefresh()
     this.companyService.adminCheck()
-
     this.companyService.getEmployees(this.companyId)
     .subscribe(data => {
       this.employees = data
@@ -138,9 +133,7 @@ export class EmployeeScheduleComponent implements OnInit {
       'employeeId' : [this.selectedEmployeeId],
       'selectedDay' : [this.selectedDay]
     })
-    }
-  ngOnInit() {
-    
   }
+
 
 }
