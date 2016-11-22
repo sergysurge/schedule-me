@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx'
 import 'rxjs/add/operator/map';
+import { Subject } from 'rxjs/Rx'
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class EmployeeServiceService {
+  companyId: number
+  subject: Subject<number> = new Subject<number>()
 
   constructor(private http: Http) { }
 
@@ -77,6 +80,15 @@ export class EmployeeServiceService {
     )
   }
   
+  getCompanyId() {
+    return this.subject.asObservable()
+  }
+
+  setCompanyId(companyId: number) {
+    this.companyId = companyId
+    this.subject.next(this.companyId)
+  }
+
   handleError(err: Response) {
     return Observable.throw(err.json() || 'Server error')
   }

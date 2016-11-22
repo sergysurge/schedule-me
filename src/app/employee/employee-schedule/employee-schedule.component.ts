@@ -27,8 +27,11 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
   schedulesRaw: any[]
   appointmentsRaw: any[]
   eventType: string
+  companyId: number
+  userCompanyId: number
   private userAssociations
   private calendarSubscription: Subscription
+  private companyIdSubscription: Subscription
 
   @Input() newAppointment: any
 
@@ -54,48 +57,69 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
     this.userAssociations = this.authService.getUserAssociations()
     this.userId = Number(localStorage.getItem('userId'))
-    let userCompanyIds = Object.keys(this.userAssociations)
-    this.calendarSubscription = this.employeeService.getEmployeeCalendarData(this.userId, userCompanyIds)
-      .subscribe(
-        (calendarEntries) => {
-          this.schedulesRaw = calendarEntries[0]
-          this.schedules = calendarEntries[0]
-            .map((calendarEntry) => {
-              return {
-                id: calendarEntry.id,
-                title: `calendarEntry.description`,
-                start: calendarEntry.startTime,
-                end: calendarEntry.endTime
-              }
-            })
-          
-          this.appointmentsRaw = calendarEntries[1]
-          this.appointments = calendarEntries[1]
-            .map((calendarEntry) => {
-              return {
-                id: calendarEntry.id,
-                title: `${calendarEntry.description || 'Appointment'} for ${calendarEntry.contactName}`,
-                start: calendarEntry.startTime,
-                end: calendarEntry.endTime
-              }
-            })
 
-          this.eventSources = [
-            {
-              id: 0,
-              events: this.schedules,
-              color: 'light blue'
-            },
-            {
-              id: 1,
-              events: this.appointments,
-              color: 'green'
+    this.companyIdSubscription = this.employeeService.getCompanyId()
+      .subscribe(
+        (companyId) => {
+          console.log('getting inside cal', companyId, this.userAssociations)
+          this.companyId = companyId
+          // find corresponding userCompanyId
+          for(let key in this.userAssociations) {
+            if (this.userAssociations[key][0] === this.companyId) {
+              this.userCompanyId = Number(key)
+              console.log(this.userCompanyId, 'userCompanyId')
             }
-          ]
-        },
-        (err) => console.error(err)
+          }
+          this.getCalendarData(this.userId, this.userCompanyId)
+        }
       )
   }
+    // let userCompanyIds = Object.keys(this.userAssociations)
+    getCalendarData(userId, userCompanyId) {
+      this.calendarSubscription = this.employeeService.getEmployeeCalendarData(userId, userCompanyId)
+        .subscribe(
+          (calendarEntries) => {
+            this.schedulesRaw = calendarEntries[0]
+            this.schedules = calendarEntries[0]
+              .map((calendarEntry) => {
+                console.log(calendarEntry)
+                return {
+                  id: calendarEntry.id,
+                  title: 'Work',
+                  start: calendarEntry.startTime,
+                  end: calendarEntry.endTime
+                }
+              })
+            
+            this.appointmentsRaw = calendarEntries[1]
+            this.appointments = calendarEntries[1]
+              .map((calendarEntry) => {
+                return {
+                  id: calendarEntry.id,
+                  title: `${calendarEntry.description || 'Appointment'} for ${calendarEntry.contactName}`,
+                  start: calendarEntry.startTime,
+                  end: calendarEntry.endTime
+                }
+              })
+
+            this.eventSources = [
+              {
+                id: 0,
+                events: this.schedules,
+                color: 'light blue'
+              },
+              {
+                id: 1,
+                events: this.appointments,
+                color: 'green'
+              }
+            ]
+          },
+          (err) => console.error(err)
+        )
+
+    }
+  
 
   ngOnChanges(changes: SimpleChanges) {
     let newAppointment = changes["newAppointment"].currentValue

@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import * as moment from 'moment'
 
 import {SelectItem} from 'primeng/primeng';
-
+import { Subscription } from 'rxjs/Rx'
 import { EmployeeServiceService } from '../employee-service.service'
 import { AuthService } from '../../auth/auth.service'
 import { CompanyService } from '../../company/company.service'
@@ -13,7 +13,7 @@ import { CompanyService } from '../../company/company.service'
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.css']
 })
-export class EmployeeFormComponent {
+export class EmployeeFormComponent implements OnInit, OnDestroy {
     date : Date ; 
     user: any;
     employees: SelectItem[];
@@ -27,6 +27,8 @@ export class EmployeeFormComponent {
     service: {};
     temp;
     scheduleStorage = [];
+    companyId
+    companyIdSubscription: Subscription
 
     person = {
       contactName: undefined,
@@ -41,6 +43,30 @@ export class EmployeeFormComponent {
     
   // @Output() clicked = new EventEmitter<string>();
   @Output() newAppointment = new EventEmitter<any>()
+
+  ngOnInit() {
+    this.companyIdSubscription = this.employeeServiceService.getCompanyId()
+      .subscribe(
+        (companyId) => {
+          console.log('asdfdsf getting companyId', companyId)
+          this.companyId = companyId
+          this.person.companyId = this.companyId
+
+          this.employeeServiceService.getEmployees(this.companyId)
+            .subscribe(
+              employee => {
+                console.log('getting employees', employee)
+                this.employees = employee.json()[0].users
+              }
+            )
+          this.companyService.getOptions(this.companyId)
+            .subscribe(options => {
+              console.log('getting options', options)
+              this.services = options
+            })
+          }
+      )
+  }
 
   getTime(employeeServiceService:EmployeeServiceService){
     let arr= []
@@ -102,11 +128,7 @@ export class EmployeeFormComponent {
   makeAppointment(employeeServiceService:EmployeeServiceService){
 
       if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
-        if(this.open[0].label === "Not available"){
-          alert('Appointment Not Available')
-        }else{
           alert('Please select all fields')
-        }
       }else{
         this.editBlock()
         this.person.employeeId = this.person.employeeId.id
@@ -131,22 +153,18 @@ export class EmployeeFormComponent {
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
-        this.user = this.authService.getUserAssociations()
-        for(var key in this.user){
-          this.user.companyId = this.user[key][0]
-          this.person.customerId = key
-          this.person.companyId =this.user[key][0]
-        }
-        employeeServiceService.getEmployees(this.user.companyId)
-        .subscribe(
-          employee => {
-            this.employees = employee.json()[0].users
-          }
-        )
-        companyService.getOptions(this.user.companyId)
-        .subscribe(options=>{
-            this.services = options
-        })
+        // this.user = this.authService.getUserAssociations()
+        this.person.customerId = Number(localStorage.getItem('userId'))
+        // for(var key in this.user){
+        //   this.user.companyId = this.user[key][0]
+        //   this.person.customerId = key
+        //   this.person.companyId =this.user[key][0]
+        // }
+
         this.employees = [];
+  }
+
+  ngOnDestroy() {
+    this.companyIdSubscription.unsubscribe()
   }
 }

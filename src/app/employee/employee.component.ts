@@ -6,27 +6,29 @@ import { AuthService } from '../auth/auth.service'
   selector: 'app-employee',
   templateUrl: './employee.component.html'
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit {
   companies: any;
   user: any;
   appointment: any;
   current: any;
-
+  id: any
+ 
   constructor(private employeeServiceService:EmployeeServiceService,private authService: AuthService) { 
     this.user = this.authService.getUserAssociations()
-    let id;
-    for(var key in this.user){
-      id = key
-    }
-    employeeServiceService.getUserCompanies(id)
-    .then(companies =>{
-      this.companies = companies
-      console.log('this companies',this.companies)
-    })
+    this.id = localStorage.getItem('userId');
   }
+  ngOnInit() {
+    console.log(this.id, 'asfadfasd')
+    this.employeeServiceService.getUserCompanies(this.id)
+      .then(companies =>{
+        this.companies = companies
+        this.employeeServiceService.setCompanyId(this.companies[0].id)
+        console.log('this companies',this.companies)
+      })
 
+  }
   changeCompany(company){
-    console.log('company', company)
+    this.employeeServiceService.setCompanyId(company.id)
   }
   onNewAppointment($event) {
     this.appointment = $event
