@@ -5,35 +5,8 @@ import { AuthService } from './auth.service'
 import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-auth',
-  template: `
-    <div class="row">
-      asdfasdfsadf
-    </div>
-    <div class="row">
-      <div class="col-xs-8">
-      asdf
-      </div>
-      <div class="col-xs-4">
-        <div id="signin" *ngIf="!isUserLoggedIn">
-          <app-tabs tabsStyle="nav nav-tabs nav-justified">
-            <app-tab title="Signup">
-              <app-signup></app-signup>
-            </app-tab>
-            <app-tab title="Signin">
-              <app-signin></app-signin>
-            </app-tab>
-          </app-tabs>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      asdfasdf
-    </div>
-  `,
-  styles: [
-    `
-    `
-  ]
+  templateUrl: './auth.html',
+  styleUrls: ['./auth.css']
 })
 export class AuthComponent implements OnInit {
   isUserLoggedIn: boolean

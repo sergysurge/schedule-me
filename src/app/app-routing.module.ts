@@ -7,11 +7,13 @@ import { HomeComponent } from './home.component'
 import { CompanyLandingComponent } from './company/company-landing.component'
 import { AuthComponent } from './auth/auth.component'
 import { AuthGuard } from './auth/auth-guard.service'
+import { SigninComponent } from './auth/signin.component'
+import { SignupComponent } from './auth/signup.component'
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'signin', component: AuthComponent },
-    { path: 'users', component: CustomerComponent, canActivate: [AuthGuard] },
+    { path: 'auth', component: AuthComponent },
+    { path: 'users', component: CustomerComponent, canActivate: [AuthGuard]},
     { path: 'admin', component: CompanyLandingComponent},
     { path: 'work', component: EmployeeComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
