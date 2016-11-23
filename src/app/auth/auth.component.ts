@@ -7,14 +7,9 @@ import { Subscription } from 'rxjs/Rx'
   selector: 'app-auth',
   template: `
     <div class="row">
-      asdfasdfsadf
-    </div>
-    <div class="row">
-      <div class="col-xs-8">
-      asdf
-      </div>
-      <div class="col-xs-4">
-        <div id="signin" *ngIf="!isUserLoggedIn">
+      <div class="col-xs-6 offset-xs-3">
+        
+        <div id="signin">
           <app-tabs tabsStyle="nav nav-tabs nav-justified">
             <app-tab title="Signup">
               <app-signup></app-signup>
@@ -23,11 +18,9 @@ import { Subscription } from 'rxjs/Rx'
               <app-signin></app-signin>
             </app-tab>
           </app-tabs>
+        
         </div>
       </div>
-    </div>
-    <div class="row">
-      asdfasdf
     </div>
   `,
   styles: [
