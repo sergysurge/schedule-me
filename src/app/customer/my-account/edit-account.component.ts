@@ -6,7 +6,16 @@ import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
-  styleUrls: ['./edit-account.component.css']
+  styles: [
+    `
+      .input-group {
+        margin: auto;
+      }
+      button {
+        margin-top: 10px;
+      }
+    `
+  ]
 })
 export class EditAccountComponent implements OnInit, OnDestroy {
   
@@ -29,7 +38,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
           this.editAccountForm.controls['lastName'].setValue(this.user.lastName || '')
           this.editAccountForm.controls['phoneNumber'].setValue(this.user.phoneNumber || '')
           this.editAccountForm.controls['email'].setValue(this.user.email || '')
-          // this.editAccountForm.controls['image'].setValue(this.user.image || '') 
+          this.editAccountForm.controls['image'].setValue(this.user.image || '') 
         },
         (err) => { console.log(err) }
       )

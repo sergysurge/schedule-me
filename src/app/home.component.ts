@@ -5,25 +5,8 @@ import { Component, OnInit } from '@angular/core';
 // import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-home',
-  template: `
-    <div class="container-fluid">
-      <div class="row" style="height:70%">
-        <div class="col-xs-12">
-        </div>
-      </div>
-      <div class="row" style="height:30%">
-        <div class="col-xs-12">
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      .container-fluid {
-        height: 100vh;
-      }
-    `
-  ]
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
