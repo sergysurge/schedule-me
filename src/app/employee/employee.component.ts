@@ -12,6 +12,7 @@ export class EmployeeComponent implements OnInit {
   appointment: any;
   current: any;
   id: any
+  name: any;
  
   constructor(private employeeServiceService:EmployeeServiceService,private authService: AuthService) { 
     this.user = this.authService.getUserAssociations()
@@ -21,13 +22,15 @@ export class EmployeeComponent implements OnInit {
     this.employeeServiceService.getUserCompanies(this.id)
       .then(companies =>{
         this.companies = companies
+        this.name = this.companies[0].name
         this.employeeServiceService.setCompanyId(this.companies[0].id)
         console.log('this companies',this.companies)
       })
-
   }
   changeCompany(company){
     this.employeeServiceService.setCompanyId(company.id)
+    this.employeeServiceService.setCompanyName(company.name)
+    this.name = company.name
   }
   onNewAppointment($event) {
     this.appointment = $event

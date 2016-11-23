@@ -29,6 +29,7 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
   eventType: string
   companyId: number
   userCompanyId: number
+  companyName: any;
   private userAssociations
   private calendarSubscription: Subscription
   private companyIdSubscription: Subscription
@@ -71,6 +72,12 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
             }
           }
           this.getCalendarData(this.userId, this.userCompanyId)
+        }
+      )
+      this.employeeService.getCompanyName()
+      .subscribe(
+        companyName => {
+          this.companyName = companyName
         }
       )
   }
