@@ -3,3 +3,33 @@
   margin:auto;
   width:25%;
 }
+/*grey a5a5af*/
+/*blue 77c9d4*/
+.sergNav {
+  background-color: #57bc90;
+  color: white;
+}
+
+.sergNav a {
+  color: #015249;
+}
+
+.sergNav a:hover {
+  color: #57bc90;
+}
+
+.sergNav a:active {
+  color: white;
+  background-color: #57bc90;
+}
+
+.sergPanelBody {
+
+  background-color: #007ea7;
+  color: white;
+}
+
+.sergPanelBody2 {
+  background-color: #77c9d4;
+  color: white;
+}

@@ -1,14 +1,23 @@
 .container-fluid.wrapper {
-    /*width: 100%;*/
+    width: 100%;
+    padding: 0 10% 0 10%;
     /*height: 100vh;*/
-    background-image: url('../assets/flowers-desk-office-vintage.jpg');
+    /*background-image: url('../assets/flowers-desk-office-vintage.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover;*/
+    background-color: #00344A;
+
+    /*background: #015249;  For browsers that do not support gradients */
+    /*background: -webkit-linear-gradient(145deg, #015249, #57bc90, #77c9d4);  For Safari 5.1 to 6.0 */
+    /*background: -o-linear-gradient(145deg, #015249, #57bc90, #77c9d4);  For Opera 11.1 to 12.0 */
+    /*background: -moz-linear-gradient(145deg, #015249, #57bc90, #77c9d4);  For Firefox 3.6 to 15 */
+    /*background: linear-gradient(145deg, #015249, #57bc90, #77c9d4);  Standard syntax (must be last) */
+
 }
 
 .sergNav {
@@ -16,7 +25,7 @@
 }
 
 .sergNav a {
-  color: #015249;
+  color: #337ab7;
 }
 
 .sergNav a:hover {
@@ -33,7 +42,7 @@
 }
 
 .activated {
-  background-color: #57bc90;
+  background-color: #003459;
   color: white;
 }
 .activated a {
