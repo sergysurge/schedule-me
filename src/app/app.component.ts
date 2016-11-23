@@ -17,15 +17,16 @@ export class AppComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription
   private userAssociations: any
 
-  constructor (private authService: AuthService) { 
+  constructor (private authService: AuthService) { }
+
+  ngOnInit() {
     this.authSubscription = this.authService.getIsUserLoggedIn()
       .subscribe(
         (loggedIn) => { 
-          console.log('sub: ', loggedIn)
           this.isUserLoggedIn = loggedIn
           if (this.isUserLoggedIn) {
             this.userAssociations = this.authService.getUserAssociations()
-            if (!this.userAssociations.length) {
+            if (!this.userAssociations) {
               this.isUserAdmin = false
               this.isUserEmployee = false
             } else {
@@ -42,10 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
         (err) => { console.error(err) },
         () => { console.log('done') }
       )
-  }
-
-  ngOnInit() {
-    console.log('initing')
 
   }
 

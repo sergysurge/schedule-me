@@ -74,8 +74,8 @@ export class AuthService {
   getUserAssociations() {
     // return object of form { <UserCompanyId>: [<companyId>, <isAdmin>,], ...}
     let associations = JSON.parse(localStorage.getItem('userAssociations'))
-    if (!associations) {
-      return {}
+    if (associations === null) {
+      return null
     }
     return associations.reduce((mapping, association) => {
       mapping[association.id] = [association.companyId, association.admin]
