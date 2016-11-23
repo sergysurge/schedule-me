@@ -3,6 +3,23 @@
   margin:auto;
   width:25%;
 }
+
+.companyProfilePic {
+  /*background-image: url('../assets/flowers-desk-office-vintage.jpg');*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height:50vh;
+    /*overflow: visible;*/
+}
+
+.companyLogo {
+  max-height: 100px;
+  max-width: 200px;
+}
 /*grey a5a5af*/
 /*blue 77c9d4*/
 .sergNav {

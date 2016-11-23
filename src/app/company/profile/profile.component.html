@@ -5,23 +5,34 @@
 
 <!--COMPANY PROFILE PANEL-->
 <div class="panel panel-default ">
+
   <div class="panel-heading sergPanelBody">
     <h3 class="text-center"> Company Profile </h3>
   </div>
-  <div class="panel-body">
-    <img [src]="company.logo">
+  <div class="panel-body" >
+
+    <div class="col-sm-6 companyProfilePic" [ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}">
+    <!--<img [src]="this.companyService.company.image" width="95%" height="auto" margin="auto">-->
+    </div>
+
+    <div class="col-sm-6 text-center">
+    <img [src]="company.logo" width="auto" height="auto" class="companyLogo">
+    <br>
+    <br>
+    <br>
+    
+    <strong> Name :</strong> {{this.companyService.company.brandName}}
     <hr>
-    Name : {{this.companyService.company.brandName}}
+    <strong> Address : </strong> {{this.companyService.company.address}}
     <hr>
-    Address : {{this.companyService.company.address}}
+    <strong> Phone : </strong>{{this.companyService.company.phoneNumber}}
     <hr>
-    Phone : {{this.companyService.company.phoneNumber}}
+    <strong> Website : </strong><a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}} </a>
     <hr>
-    Website : <a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}} </a>
-    <hr>
-    Description : {{this.companyService.company.description}}
-    <hr>
-    <img [src]="this.companyService.company.image">
+    <strong> Description :</strong> {{this.companyService.company.description}}
+  
+    </div>
+
   </div>
 </div>
 
