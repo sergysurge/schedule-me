@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/Observable';
 export class EmployeeServiceService {
   companyId: number
   subject: Subject<number> = new Subject<number>()
-
+  nameSubject: Subject<any> = new Subject<any>()
+  companyName: any
   constructor(private http: Http) { }
 
   getUserCompanies(id: any): Promise<any>{
@@ -48,7 +49,7 @@ export class EmployeeServiceService {
 
 
   getEmployeeCalendarData(userId, userCompanyIds): Observable<any> {
-
+    console.log('asdfasdf', userCompanyIds)
     const employeeAppointmentsUrl = `/api/appointments/${userId}`
 
     let token = localStorage.getItem('jwt-token');
@@ -83,10 +84,18 @@ export class EmployeeServiceService {
   getCompanyId() {
     return this.subject.asObservable()
   }
+  getCompanyName(){
+    return this.nameSubject.asObservable()
+  }
 
   setCompanyId(companyId: number) {
     this.companyId = companyId
     this.subject.next(this.companyId)
+  }
+
+  setCompanyName(companyName: any) {
+    this.companyName = companyName
+    this.nameSubject.next(this.companyName)
   }
 
   handleError(err: Response) {
