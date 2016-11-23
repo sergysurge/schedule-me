@@ -6,13 +6,22 @@ import { Subscription } from 'rxjs/Rx'
 @Component({
   selector: 'app-employee-schedule',
   template: `
-    <div class="row">
-      <div class="col-sm-8">
-        <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <h2>My Calendar</h2>
+          </div>
       </div>
-      <div class="col-sm-4">
-        <app-employee-appointment-detail [selectedEvent]="selectedEvent" [eventType]="eventType"></app-employee-appointment-detail>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-7">
+            <app-calendar [calendarConfig]="calendarConfig" [eventSources]="eventSources"></app-calendar>
+          </div>
+          <div class="col-sm-5">
+            <app-employee-appointment-detail [selectedEvent]="selectedEvent" [eventType]="eventType"></app-employee-appointment-detail>
+        </div>
       </div>
+    </div>
   `,
   styles: []
 })
