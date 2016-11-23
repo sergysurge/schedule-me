@@ -1,11 +1,24 @@
 <div class=".container">
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default sergNav">
   <div class="container-fluid">
     <div class="navbar-header col-sm-2">
         <img alt="Brand" [src]="this.companyService.company.logo" height="30" width="auto" style="margin-top: 10px;">
      </div>   
-     
-        <button [routerLink]="['/users/search/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Preview</button>
+
+        <ul class="nav navbar-nav navbar-left">
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['/users/search/' + companyService.company.id]"> Preview </a>
+          </li>
+          <li [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}"> <a [routerLink]="['/admin/company/' + companyService.company.id]" > Update Profile </a>
+          </li>
+         <li [routerLinkActive]="['activated']" > <a [routerLink]="['employees']"> Update Employees </a>
+          </li>
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['schedules']"> Update Schedules </a>
+          </li>
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['options']"> Update Options </a>
+          </li>
+        </ul>
+
+        <!--<button [routerLink]="['/users/search/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Preview</button>
 
         <button [routerLink]="['/admin/company/' + companyService.company.id]" type="button" class="btn btn-default navbar-btn">Update Profile</button>
 
@@ -13,7 +26,7 @@
 
         <button [routerLink]="['schedules']" type="button" class="btn btn-default navbar-btn">Update Schedules</button>
 
-        <button [routerLink]="['options']" type="button" class="btn btn-default navbar-btn">Update Options</button>
+        <button [routerLink]="['options']" type="button" class="btn btn-default navbar-btn">Update Options</button>-->
       
   </div>
 </nav>
