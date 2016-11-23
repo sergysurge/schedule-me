@@ -6,9 +6,15 @@
      </div>   
 
         <ul class="nav navbar-nav navbar-left">
-          <li [routerLinkActive]="['activated']" > <a [routerLink]="['/admin/company/' + companyService.company.id]"> Profile </a>
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['/users/search/' + companyService.company.id]"> Preview </a>
           </li>
-         <li [routerLinkActive]="['activated']" > <a [routerLink]="['employees']"> Employees </a>
+          <li [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}"> <a [routerLink]="['/admin/company/' + companyService.company.id]" > Update Profile </a>
+          </li>
+         <li [routerLinkActive]="['activated']" > <a [routerLink]="['employees']"> Update Employees </a>
+          </li>
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['schedules']"> Update Schedules </a>
+          </li>
+          <li [routerLinkActive]="['activated']" > <a [routerLink]="['options']"> Update Options </a>
           </li>
         </ul>
 

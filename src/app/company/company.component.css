@@ -1,10 +1,14 @@
 .sergNav {
   background-color: white;
-  color: #015249;
 }
 .sergNav a {
-  color: #015249;
+  color: #008ea8;
 }
+
+.sergNav a:hover {
+  color: #003459;
+}
+
 .activated {
   background-color: #008ea8;
   color: white;
@@ -14,7 +18,7 @@
 }
 
 .activated a:hover {
-  color: #015249;
+  color: #003459;
 }
 /*
 .activated {
