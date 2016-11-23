@@ -1,21 +1,18 @@
 <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm.value)" novalidate>
     
-    <div class="form-group email">
-        <label for="email">Email</label>
-        <br>
-        <input type="email" class="form-control" formControlName="email">
-        <div class="alert" *ngIf="!signinForm.controls.email.valid && submitted">Email is required.</div>
+    <div>
+        <label for="email" class="login__label">Email</label>
+        <input type="email" id="login-input-user" class="login__input" formControlName="email">
+        <div class="login__label" *ngIf="!signinForm.controls.email.valid && submitted">Email is required.</div>
     </div>
-
-    <div class="form-group password">
-        <label for="password">Password</label>
-        <br>
-        <input type="password" class="form-control" formControlName="password">
-        <div class="alert" *ngIf="!signinForm.controls.password.valid && submitted">Password is required</div>
+    <div>
+        <label for="password" class="login__label">Password</label>
+        <input type="password" id="login-input-user" class="login__input" formControlName="password">
+        <div class="login__label" *ngIf="!signinForm.controls.password.valid && submitted">Password is required</div>
     </div>
-    <div class="alert incorrect" *ngIf="incorrectMsg">Wrong email or password</div>
-    <div class="alert server-error" *ngIf="errorMsg">Server error, try again later</div>
+    <div class="login__label" *ngIf="incorrectMsg">Wrong email or password</div>
+    <div class="login__label" *ngIf="errorMsg">Server error, try again later</div>
     
-    <button type="submit" class="btn btn-default btn-lg">Signin</button>
+    <button type="submit" class="login__submit">Signin</button>
 
 </form>
