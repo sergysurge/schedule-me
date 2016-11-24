@@ -1,0 +1,71 @@
+.container-fluid {
+    height: 180vh;
+    /*width: 100vh;*/
+    top: 0;
+    left: 0;
+    z-index: -100;
+    background-image: url('../assets/flowers-desk-office-vintage.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.fa-github, .fa-linkedin-square {
+    font-size: 30px;
+}
+.profile-img {
+    border: 8px solid white;
+    width: 150px;
+    height: auto;
+}
+.profile {
+    text-align: center;
+}
+a {
+    color: black;
+}
+.inside {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 100%;
+}
+.content {
+    height: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+.row-height {
+    height: 100%;
+}
+.tech-stack-logo {
+    float: left;
+}
+#angular.tech-stack-logo {
+    background-image: url('../assets/angular2.png');
+    background-size: contain;
+    width: 80px;
+    height: 80px;
+}
+#node.tech-stack-logo {
+    background-image: url('../assets/nodejs-logo.png');
+    background-size: contain;
+    width: 80px;
+    height: 80px;
+    z-index: 1;
+}
+#postgreSQL.tech-stack-logo {
+    background-image: url('../assets/postgresql_logo.png');
+    background-size: contain;
+    width: 80px;
+    height: 80px;
+}
+#fullcalendar.tech-stack-logo {
+    background-image: url('../assets/fullcalendar_logo.png');
+    background-size: contain;
+    width: 80px;
+    height: 80px;
+}

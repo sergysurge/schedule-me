@@ -3,6 +3,10 @@
     padding: 0 10% 0 10%;
     /*height: 100vh;*/
     /*background-image: url('../assets/flowers-desk-office-vintage.jpg');
+/*.container-fluid.wrapper {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../assets/flowers-desk-office-vintage.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -52,4 +56,3 @@
 .activated a:hover {
   color: #77c9d4;
 }
-
