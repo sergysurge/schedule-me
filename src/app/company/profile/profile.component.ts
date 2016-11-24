@@ -51,6 +51,133 @@ export class ProfileComponent implements OnDestroy, OnInit{
   })
   }
   /* profile component methods and variables */
+
+            // SUBMIT WHEN PRESSING ENTER IN INPUT
+            keyEnter(e, lineName){
+              if (e.charCode == 13) {
+                switch(lineName) {
+                  case 'profileName':
+                    this.profileEditName()
+                    break
+                  case 'profileAddress':
+                    this.profileEditAddress()
+                    break
+                  case 'profilePhone':
+                    this.profileEditPhone()
+                    break
+                  case 'profileWebsite':
+                    this.profileEditWebsite()
+                    break
+                  default:
+                    break
+                }
+                console.log('enter was pressed!')
+              }
+            }
+                              //  NAME / PROFILE EDITS
+            profileName = ''
+            editName = false
+            cssProfileName
+
+            profileEditName() {
+              this.editName === false ? this.editName = true : this.editName = false
+              // IF ITS A NEW PROFILE NAME, BLUE BACKGROUND
+              if (this.profileName !== '') {
+                if (this.profileName !== this.companyService.company.brandName) {
+                  this.cssProfileName = {
+                    'background-color': '#008ea8',
+                    'color' : 'white'
+                  }
+                }
+              } 
+              // IF ITS THE SAME AS BEFORE, BACKGROUND GOES BACK
+              if (this.profileName === this.companyService.company.brandName) {
+                this.cssProfileName = {
+                    'background-color': 'white',
+                    'color' : 'black'
+                  }
+              }
+            }
+
+                              //  ADDRESS / PROFILE EDITS
+            profileAddress = ''
+            editAddress = false
+            cssProfileAddress
+
+            profileEditAddress() {
+              this.editAddress === false ? this.editAddress = true : this.editAddress = false
+              // IF ITS A NEW PROFILE NAME, BLUE BACKGROUND
+              if (this.profileAddress !== '') {
+                if (this.profileAddress !== this.companyService.company.address) {
+                  this.cssProfileAddress = {
+                    'background-color': '#008ea8',
+                    'color' : 'white'
+                  }
+                }
+              } 
+              // IF ITS THE SAME AS BEFORE, BACKGROUND GOES BACK
+              if (this.profileAddress === this.companyService.company.address) {
+                this.cssProfileAddress = {
+                    'background-color': 'white',
+                    'color' : 'black'
+                  }
+              }
+            }
+
+                              //  PHONE / PROFILE EDITS
+            profilePhone = ''
+            editPhone = false;
+            cssProfilePhone
+
+            profileEditPhone() {
+              this.editPhone === false ? this.editPhone = true : this.editPhone = false
+              // IF ITS A NEW PROFILE NAME, BLUE BACKGROUND
+              if (this.profilePhone !== '') {
+                if (this.profilePhone !== this.companyService.company.phoneNumber) {
+                  this.cssProfilePhone = {
+                    'background-color': '#008ea8',
+                    'color' : 'white'
+                  }
+                }
+              } 
+              // IF ITS THE SAME AS BEFORE, BACKGROUND GOES BACK
+              if (this.profilePhone === this.companyService.company.phoneNumber) {
+                this.cssProfilePhone = {
+                    'background-color': 'white',
+                    'color' : 'black'
+                  }
+              }
+            }
+
+
+            profileWebsite = ''
+            editWebsite = false
+            cssProfileWebsite
+
+            profileEditWebsite() {
+              this.editWebsite === false ? this.editWebsite = true : this.editWebsite = false
+              // IF ITS A NEW PROFILE NAME, BLUE BACKGROUND
+              if (this.profileWebsite !== '') {
+                if (this.profileWebsite !== this.companyService.company.website) {
+                  this.cssProfileWebsite = {
+                    'background-color': '#008ea8',
+                    'color' : 'white'
+                  }
+                }
+              } 
+              // IF ITS THE SAME AS BEFORE, BACKGROUND GOES BACK
+              if (this.profileWebsite === this.companyService.company.website) {
+                this.cssProfileWebsite = {
+                    'background-color': 'white',
+                    'color' : 'black'
+                  }
+              }
+            }
+
+
+
+
+
   companyUpdateProfile() {
     let tempBrandName = this.companyService.company.brandName
     let body = {

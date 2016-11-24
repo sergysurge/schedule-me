@@ -11,47 +11,7 @@ export class CompanyService {
   /* COMPANY-LANDING COMPONENT */
 
   // PROFILE COMPONENT NGIF VARIABLES
-  profileName = ''
-  editName = false;
-  cssProfileName
-  keyEnter(e){
-    if (e.charCode == 13) {
-      console.log('enter was pressed!')
-      this.profileEditName()
-    }
-  }
-  profileEditName() {
-    this.editName === false ? this.editName = true : this.editName = false
-    // IF ITS A NEW PROFILE NAME, BLUE BACKGROUND
-    if (this.profileName !== '') {
-      if (this.profileName !== this.company.brandName) {
-        this.cssProfileName = {
-          'background-color': '#008ea8',
-          'color' : 'white'
-        }
-      }
-    } 
-    // IF ITS THE SAME AS BEFORE, BACKGROUND GOES BACK
-    if (this.profileName === this.company.brandName) {
-      this.cssProfileName = {
-          'background-color': 'white',
-          'color' : 'black'
-        }
-    }
-  }
-
-  editAddress = false;
-  profileEditAddress() {
-    this.editAddress === false ? this.editAddress = true : this.editAddress = false
-  }
-  editPhone = false;
-  profileEditPhone() {
-    this.editPhone === false ? this.editPhone = true : this.editPhone = false
-  }
-  editWebsite = false;
-  profileEditWebsite() {
-    this.editWebsite === false ? this.editWebsite = true : this.editWebsite = false
-  }
+  
 
   getAllCompaniesByUserId(userId) {
     return this.http.get('api/companies/usercompanies/' + userId)

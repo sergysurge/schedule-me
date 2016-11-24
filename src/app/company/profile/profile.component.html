@@ -28,24 +28,206 @@
 
       <div class="col-sm-12 down80">
         <ul class="compDesc">
-          <li class="thumbnail col-sm-12 compDesc " [ngStyle]="this.companyService.cssProfileName">  
-            <p *ngIf="this.companyService.editName || !this.companyService.editName &&  this.companyService.profileName === '' || this.companyService.profileName === this.companyService.company.brandName"  class="col-sm-11"> <strong> Name:</strong>  {{this.companyService.company.brandName}}</p>
-            <p *ngIf="!this.companyService.editName && this.companyService.profileName !== '' && this.companyService.profileName !== this.companyService.company.brandName "  class="col-sm-11"> <strong> Name:</strong>  {{this.companyService.profileName}}</p>
-            <input *ngIf="this.companyService.editName" class="col-sm-11" [(ngModel)]="this.companyService.profileName" style="color: black" (keypress)="this.companyService.keyEnter($event)">
-            <span height="50px" width="50px" class="glyphicon glyphicon-edit col-sm-1" aria-hidden="true" (click)="this.companyService.profileEditName()"></span>
-            </li>
-          <li class="thumbnail col-sm-12">  
-            <p class="col-sm-10"> <strong> Address:</strong> {{this.companyService.company.address}}</p> 
-            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span>
-            </li>
-          <li class="thumbnail col-sm-12">  
-            <p class="col-sm-10"> <strong> Phone:</strong> {{this.companyService.company.phoneNumber}}</p> 
-            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span>
-            </li>
-          <li class="thumbnail col-sm-12"> 
-            <p class="col-sm-10"> <strong> Website:</strong> <a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}}</a></p> 
-            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span> 
-            </li>
+          <!--PROFILE NAME-->
+          <li class="thumbnail col-sm-12 compDesc"
+          [ngStyle]="this.cssProfileName">
+
+              <!--CURRENT PROFILE NAME-->
+              <p *ngIf="this.editName || !this.editName &&  this.profileName === '' || this.profileName === this.companyService.company.brandName"    (click)="this.profileName = this.companyService.company.brandName"
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong *ngIf="!this.editName"> Name:</strong>
+                <strong *ngIf="this.editName"> USE
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </strong> 
+                {{this.companyService.company.brandName}}
+              </p>
+
+              <!--CHANGED PROFILE NAME-->
+              <p *ngIf="!this.editName && this.profileName !== '' && this.profileName !== this.companyService.company.brandName"  
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong> Name:</strong>
+                {{this.profileName}}
+              </p>
+
+              <!--INPUT FOR EDITING PROFILE NAME-->
+              <input *ngIf="this.editName" 
+                class="col-sm-11" 
+                [(ngModel)]="this.profileName" 
+                style="color: black" 
+                (keypress)="this.keyEnter($event, 'profileName')"
+                placeholder="text here">
+
+                <!--EDIT ICON-->
+              <span style="font-size: 20px" 
+              class="glyphicon glyphicon-edit col-sm-1" 
+              aria-hidden="true" 
+              (click)="this.profileEditName()">
+              </span>
+
+              <!--INSTRUCTIONS-->
+              <p *ngIf="this.editName"
+                class="col-sm-12"
+                style="margin: 0">
+                When finished, press enter or click 
+                  <span style="font-size: 20px" 
+                  class="glyphicon glyphicon-edit" 
+                  aria-hidden="true" 
+                  (click)="this.profileEditName()">
+                  </span>
+              </p>
+         </li>
+         <!--PROFILE ADDRESS-->
+        <li class="thumbnail col-sm-12 compDesc" 
+        [ngStyle]="this.cssProfileAddress">
+
+              <!--CURRENT PROFILE Address-->
+              <p *ngIf="this.editAddress || !this.editAddress &&  this.profileAddress === '' || this.profileAddress === this.companyService.company.address"    (click)="this.profileAddress = this.companyService.company.address"
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong *ngIf="!this.editAddress"> Address:</strong>
+                <strong *ngIf="this.editAddress"> USE
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </strong> 
+                {{this.companyService.company.address}}
+              </p>
+
+              <!--CHANGED PROFILE Address-->
+              <p *ngIf="!this.editAddress && this.profileAddress !== '' && this.profileAddress !== this.companyService.company.address"  
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong> Address:</strong>
+                {{this.profileAddress}}
+              </p>
+
+              <!--INPUT FOR EDITING PROFILE Address-->
+              <input *ngIf="this.editAddress" 
+                class="col-sm-11" 
+                [(ngModel)]="this.profileAddress" 
+                style="color: black" 
+                (keypress)="this.keyEnter($event, 'profileAddress')"
+                placeholder="text here">
+
+                <!--EDIT ICON-->
+              <span style="font-size: 20px" 
+              class="glyphicon glyphicon-edit col-sm-1" 
+              aria-hidden="true" 
+              (click)="this.profileEditAddress()">
+              </span>
+
+              <!--INSTRUCTIONS-->
+              <p *ngIf="this.editAddress"
+                class="col-sm-12"
+                style="margin: 0">
+                When finished, press enter or click 
+                  <span style="font-size: 20px" 
+                  class="glyphicon glyphicon-edit" 
+                  aria-hidden="true" 
+                  (click)="this.profileEditAddress()">
+                  </span>
+              </p>
+         </li>
+         <!--PROFILE PHONE-->
+         <li class="thumbnail col-sm-12 compDesc" 
+        [ngStyle]="this.cssProfilePhone">
+
+              <!--CURRENT PROFILE Phone-->
+              <p *ngIf="this.editPhone || !this.editPhone &&  this.profilePhone === '' || this.profilePhone === this.companyService.company.phoneNumber"    (click)="this.profilePhone = this.companyService.company.phoneNumber"
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong *ngIf="!this.editPhone"> Phone:</strong>
+                <strong *ngIf="this.editPhone"> USE
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </strong> 
+                {{this.companyService.company.phoneNumber}}
+              </p>
+
+              <!--CHANGED PROFILE Phone-->
+              <p *ngIf="!this.editPhone && this.profilePhone !== '' && this.profilePhone !== this.companyService.company.phoneNumber"  
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong> Phone:</strong>
+                {{this.profilePhone}}
+              </p>
+
+              <!--INPUT FOR EDITING PROFILE Phone-->
+              <input *ngIf="this.editPhone" 
+                class="col-sm-11" 
+                [(ngModel)]="this.profilePhone" 
+                style="color: black" 
+                (keypress)="this.keyEnter($event, 'profilePhone')"
+                placeholder="text here">
+
+                <!--EDIT ICON-->
+              <span style="font-size: 20px" 
+              class="glyphicon glyphicon-edit col-sm-1" 
+              aria-hidden="true" 
+              (click)="this.profileEditPhone()">
+              </span>
+
+              <!--INSTRUCTIONS-->
+              <p *ngIf="this.editPhone"
+                class="col-sm-12"
+                style="margin: 0">
+                When finished, press enter or click 
+                  <span style="font-size: 20px" 
+                  class="glyphicon glyphicon-edit" 
+                  aria-hidden="true" 
+                  (click)="this.profileEditPhone()">
+                  </span>
+              </p>
+         </li>
+         <!--PROFILE WEBSITE-->
+         <li class="thumbnail col-sm-12 compDesc" 
+        [ngStyle]="this.cssProfileWebsite">
+
+              <!--CURRENT PROFILE Website-->
+              <p *ngIf="this.editWebsite || !this.editWebsite &&  this.profileWebsite === '' || this.profileWebsite === this.companyService.company.website"    (click)="this.profileWebsite = this.companyService.company.website"
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong *ngIf="!this.editWebsite"> Website:</strong>
+                <strong *ngIf="this.editWebsite"> USE
+                  <span class="glyphicon glyphicon-share-alt"></span>
+                </strong> 
+                {{this.companyService.company.website}}
+              </p>
+
+              <!--CHANGED PROFILE Website-->
+              <p *ngIf="!this.editWebsite && this.profileWebsite !== '' && this.profileWebsite !== this.companyService.company.website"  
+                class="col-sm-11" 
+                style="margin: 0"> 
+                <strong> Website:</strong>
+                {{this.profileWebsite}}
+              </p>
+
+              <!--INPUT FOR EDITING PROFILE Website-->
+              <input *ngIf="this.editWebsite" 
+                class="col-sm-11" 
+                [(ngModel)]="this.profileWebsite" 
+                style="color: black" 
+                (keypress)="this.keyEnter($event, 'profileWebsite')"
+                placeholder="text here">
+
+                <!--EDIT ICON-->
+              <span style="font-size: 20px" 
+              class="glyphicon glyphicon-edit col-sm-1" 
+              aria-hidden="true" 
+              (click)="this.profileEditWebsite()">
+              </span>
+
+              <!--INSTRUCTIONS-->
+              <p *ngIf="this.editWebsite"
+                class="col-sm-12"
+                style="margin: 0">
+                When finished, press enter or click 
+                  <span style="font-size: 20px" 
+                  class="glyphicon glyphicon-edit" 
+                  aria-hidden="true" 
+                  (click)="this.profileEditWebsite()">
+                  </span>
+              </p>
+         </li>
         </ul>
       </div>
 
