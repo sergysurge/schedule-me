@@ -6,6 +6,7 @@ import {SelectItem} from 'primeng/primeng';
 import { EmployeeServiceService } from '../../employee/employee-service.service'
 import { AuthService } from '../../auth/auth.service'
 import { CompanyService } from '../../company/company.service'
+declare var swal: any;
 
 
 // import { EmployeeServiceService } from '../employee/employee-service.service'
@@ -97,14 +98,16 @@ export class ScheduleAppointmentComponent implements OnDestroy {
 
   @Input() companyId
   @Output() newAppointment = new EventEmitter<any>()
-  getTime(employeeServiceService:EmployeeServiceService){
 
+  getTime(employeeServiceService:EmployeeServiceService){
+    this.scheduleStorage = []
+    this.temp = undefined
     let arr= []
     let arr2= []
     let current = []
     // let values.mapent = []
     if(this.person.employeeId === undefined || this.person.description === undefined){
-      alert('Please select all fields')
+       swal("Oops...", "Please select all fields!", "error")
     }else{
       this.employees.forEach(curr=>{
         arr.push(curr)
@@ -126,15 +129,19 @@ export class ScheduleAppointmentComponent implements OnDestroy {
               this.temp = curr
             }
           })
-          for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
-            let conflict = false;
-            for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
-              if(this.available[i+j].label === "Not available"){
-                conflict = true;
+          if(this.temp === undefined){
+            swal("Please select another day!", "They're not currently schedule to work", "error")
+          }else{
+            for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
+              let conflict = false;
+              for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
+                if(this.available[i+j].label === "Not available"){
+                  conflict = true;
+                }
               }
-            }
-            if(!conflict){
-              this.scheduleStorage.push(this.available[i])
+              if(!conflict){
+                this.scheduleStorage.push(this.available[i])
+              }
             }
           }
         }
@@ -160,12 +167,8 @@ export class ScheduleAppointmentComponent implements OnDestroy {
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
     // debugger;
-      if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
-        if(this.open[0].label === "Not available"){
-          alert('Appointment Not Available')
-        }else{
-          alert('Please select all fields')
-        }
+      if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined|| this.open === undefined){
+        swal("Oops...", "Please select all fields!", "error")
       }else{
         this.editBlock()
         this.person.employeeId = this.person.employeeId.id
@@ -185,6 +188,7 @@ export class ScheduleAppointmentComponent implements OnDestroy {
             console.log(appointment)
             this.appointmentSuccess = true
             this.newAppointment.emit(appointment)
+            swal("Appointment Made!", "Your appointment has been succesfully made!", "success")
           }
         )
         .catch(

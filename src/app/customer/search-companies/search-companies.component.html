@@ -1,9 +1,15 @@
-<form>
-    <div class="form-group">
-        <label>Search</label>
-        <input type="text" class="form-control" #listFilter (keyup)="o">
-    </div>
-</form>
+<div class="panel panel-default">
+      <div class="panel-heading">
+          <div class="panel-title">
+              <h2>Search</h2>
+          </div>
+      </div>
+      <br>
+      <form>
+          <div class="form-group">
+              <input type="text" class="form-control" #listFilter (keyup)="o">
+          </div>
+      </form>
 <div id="container">
     <div class="company" *ngFor="let company of companies | companyFilter:listFilter.value">
         <span *ngIf="company == -1">Sorry no results match your search</span>
@@ -22,4 +28,5 @@
             more <span class="glyphicon glyphicon-triangle-right"></span>
         </button>
     </div>
+</div>
 </div>
