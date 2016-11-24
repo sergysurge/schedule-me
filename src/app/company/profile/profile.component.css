@@ -12,13 +12,28 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    height:50vh;
+    height:400px;
     /*overflow: visible;*/
 }
 
 .companyLogo {
+
   max-height: 100px;
   max-width: 200px;
+}
+
+.compDesc {
+  list-style: none;
+}
+
+.down40 {
+  position: relative;
+  top: 40px;
+}
+
+.down80 {
+  position: relative;
+  top: 80px;
 }
 /*grey a5a5af*/
 /*blue 77c9d4*/
@@ -43,10 +58,5 @@
 .sergPanelBody {
 
   background-color: #007ea7;
-  color: white;
-}
-
-.sergPanelBody2 {
-  background-color: #77c9d4;
   color: white;
 }
