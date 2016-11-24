@@ -6,14 +6,14 @@
 
 .companyProfilePic {
   /*background-image: url('../assets/flowers-desk-office-vintage.jpg');*/
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;
     background-position: center;
     background-size:cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
-    -o-background-size: cover;
-    height:400px;
-    /*overflow: visible;*/
+    -o-background-size: cover;*/
+    /*height:400px;*/
+    overflow: visible;
 }
 
 .companyLogo {
@@ -24,6 +24,12 @@
 
 .compDesc {
   list-style: none;
+  margin: auto;
+}
+
+.down20 {
+  position: relative;
+  top: 20px;
 }
 
 .down40 {
