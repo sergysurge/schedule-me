@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Rx'
 import { EmployeeServiceService } from '../employee-service.service'
 import { AuthService } from '../../auth/auth.service'
 import { CompanyService } from '../../company/company.service'
+declare var swal: any;
 
 
 @Component({
@@ -48,7 +49,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.companyIdSubscription = this.employeeServiceService.getCompanyId()
       .subscribe(
         (companyId) => {
-          console.log('asdfdsf getting companyId', companyId)
           this.companyId = companyId
           this.person.companyId = this.companyId
 
@@ -69,11 +69,14 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   }
 
   getTime(employeeServiceService:EmployeeServiceService){
+    this.scheduleStorage = []
+    this.temp = undefined
     let arr= []
     let arr2= []
     let current = []
     if(this.person.employeeId === undefined || this.person.description === undefined){
-      alert('Please select all fields')
+      // alert('Please select all fields')
+      swal("Oops...", "Please select all fields!", "error")
     }else{
       this.employees.forEach(curr=>{
         arr.push(curr)
@@ -95,18 +98,22 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
               this.temp = curr
             }
           })
-          for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
-            let conflict = false;
-            for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
-              if(this.available[i+j].label === "Not available"){
-                conflict = true;
+          if(this.temp === undefined){
+            swal("Please select another day!", "They're not currently schedule to work", "error")
+          }else{
+            for(var i = 0; i <this.available.length-(this.person.description[0].duration)/15; i++){
+              let conflict = false;
+              for(let j = 0; j < ((this.person.description[0].duration)/15); j++){
+                if(this.available[i+j].label === "Not available"){
+                  conflict = true;
+                }
+              }
+              if(!conflict){
+                this.scheduleStorage.push(this.available[i])
               }
             }
-            if(!conflict){
-              this.scheduleStorage.push(this.available[i])
-            }
           }
-          }
+        }
       )
     }
   }
@@ -127,8 +134,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   makeAppointment(employeeServiceService:EmployeeServiceService){
 
-      if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined||this.open[0].label === "Not available"){
-          alert('Please select all fields')
+      if(this.person.contactName === undefined || this.person.employeeId === undefined || this.person.description === undefined || this.open === undefined){
+          // alert('Please select all fields')
+      swal("Oops...", "Please select all fields!", "error")
       }else{
         this.editBlock()
         this.person.employeeId = this.person.employeeId.id
@@ -147,6 +155,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
           appointment => {
             console.log(appointment)
             this.newAppointment.emit(appointment)
+            swal("Appointment Made!", "Your appointment has been succesfully made!", "success")
           }
         )
     }
