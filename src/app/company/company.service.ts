@@ -9,6 +9,10 @@ export class CompanyService {
 
   private companiesLanding = []
   /* COMPANY-LANDING COMPONENT */
+
+  // PROFILE COMPONENT NGIF VARIABLES
+  
+
   getAllCompaniesByUserId(userId) {
     return this.http.get('api/companies/usercompanies/' + userId)
     .map((response: Response) => {
