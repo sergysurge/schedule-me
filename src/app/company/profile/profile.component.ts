@@ -77,7 +77,9 @@ export class ProfileComponent implements OnDestroy, OnInit{
                               //  NAME / PROFILE EDITS
             profileName = ''
             editName = false
-            cssProfileName
+            cssProfileName:any = {
+              'margin-bottom' : '5px'
+            }
 
             profileEditName() {
               this.editName === false ? this.editName = true : this.editName = false
@@ -102,7 +104,9 @@ export class ProfileComponent implements OnDestroy, OnInit{
                               //  ADDRESS / PROFILE EDITS
             profileAddress = ''
             editAddress = false
-            cssProfileAddress
+            cssProfileAddress:any = {
+              'margin-bottom' : '5px'
+            }
 
             profileEditAddress() {
               this.editAddress === false ? this.editAddress = true : this.editAddress = false
@@ -111,7 +115,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
                 if (this.profileAddress !== this.companyService.company.address) {
                   this.cssProfileAddress = {
                     'background-color': '#008ea8',
-                    'color' : 'white'
+                    'color' : 'white',
+                    'margin-bottom' : '5px'
                   }
                 }
               } 
@@ -119,7 +124,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
               if (this.profileAddress === this.companyService.company.address) {
                 this.cssProfileAddress = {
                     'background-color': 'white',
-                    'color' : 'black'
+                    'color' : 'black',
+                    'margin-bottom' : '5px'
                   }
               }
             }
@@ -127,7 +133,9 @@ export class ProfileComponent implements OnDestroy, OnInit{
                               //  PHONE / PROFILE EDITS
             profilePhone = ''
             editPhone = false;
-            cssProfilePhone
+            cssProfilePhone:any = {
+              'margin-bottom' : '5px'
+            }
 
             profileEditPhone() {
               this.editPhone === false ? this.editPhone = true : this.editPhone = false
@@ -136,7 +144,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
                 if (this.profilePhone !== this.companyService.company.phoneNumber) {
                   this.cssProfilePhone = {
                     'background-color': '#008ea8',
-                    'color' : 'white'
+                    'color' : 'white',
+                    'margin-bottom' : '5px'
                   }
                 }
               } 
@@ -144,7 +153,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
               if (this.profilePhone === this.companyService.company.phoneNumber) {
                 this.cssProfilePhone = {
                     'background-color': 'white',
-                    'color' : 'black'
+                    'color' : 'black',
+                    'margin-bottom' : '5px'
                   }
               }
             }
@@ -152,7 +162,9 @@ export class ProfileComponent implements OnDestroy, OnInit{
 
             profileWebsite = ''
             editWebsite = false
-            cssProfileWebsite
+            cssProfileWebsite:any = {
+              'margin-bottom' : '5px'
+            }
 
             profileEditWebsite() {
               this.editWebsite === false ? this.editWebsite = true : this.editWebsite = false
@@ -161,7 +173,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
                 if (this.profileWebsite !== this.companyService.company.website) {
                   this.cssProfileWebsite = {
                     'background-color': '#008ea8',
-                    'color' : 'white'
+                    'color' : 'white',
+                    'margin-bottom' : '5px'
                   }
                 }
               } 
@@ -169,7 +182,8 @@ export class ProfileComponent implements OnDestroy, OnInit{
               if (this.profileWebsite === this.companyService.company.website) {
                 this.cssProfileWebsite = {
                     'background-color': 'white',
-                    'color' : 'black'
+                    'color' : 'black',
+                    'margin-bottom' : '5px'
                   }
               }
             }

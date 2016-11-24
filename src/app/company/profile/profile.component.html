@@ -10,23 +10,24 @@
     <h3 class="text-center"> Company Profile </h3>
   </div>
 
-  <div class="panel-body">
+  <div class="panel-body row">
     <!--LEFT SIDE/ IMAGE SIDE-->
-    <div class="col-sm-6 companyProfilePic thumbnail" [ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}">
-    <img [src]="this.companyService.company.image" width="95%" height="auto" margin="auto">
-    <div class="caption">
-    </div>
+    <div class="col-sm-6 companyProfilePic text-center" >
+      <!--[ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}"-->
+    <img [src]="this.companyService.company.image"  [ngStyle]="{'width': '95%', 'height': 'auto', 'margin': 'auto'}" class=" img-rounded">
     </div>
     <!--RIGHT SIDE/ INFO SIDE-->
     <div class="col-sm-6 ">
-
-      <div class="companyLogoDescription down40 text-center col-sm-12">
+      <!--logo-->
+      <div class="companyLogoDescription text-center col-sm-12" style="margin-top: 20px">
         <img [src]="company.logo" width="auto" height="auto" class="companyLogo img-thumbnail">
         <br>
-        <strong> {{this.companyService.company.description}} </strong> 
+        <p [ngStyle]="{'margin-top': '20px'}"><strong > {{this.companyService.company.description}} </strong>
+        </p> 
+        <hr>
       </div>
 
-      <div class="col-sm-12 down80">
+      <div class="col-sm-12 " style="margin-top: 20px">
         <ul class="compDesc">
           <!--PROFILE NAME-->
           <li class="thumbnail col-sm-12 compDesc"
