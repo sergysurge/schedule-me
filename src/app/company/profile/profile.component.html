@@ -9,28 +9,47 @@
   <div class="panel-heading sergPanelBody">
     <h3 class="text-center"> Company Profile </h3>
   </div>
-  <div class="panel-body" >
 
-    <div class="col-sm-6 companyProfilePic" [ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}">
-    <!--<img [src]="this.companyService.company.image" width="95%" height="auto" margin="auto">-->
+  <div class="panel-body">
+    <!--LEFT SIDE/ IMAGE SIDE-->
+    <div class="col-sm-6 companyProfilePic thumbnail" [ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}">
+    <img [src]="this.companyService.company.image" width="95%" height="auto" margin="auto">
+    <div class="caption">
     </div>
+    </div>
+    <!--RIGHT SIDE/ INFO SIDE-->
+    <div class="col-sm-6 ">
 
-    <div class="col-sm-6 text-center">
-    <img [src]="company.logo" width="auto" height="auto" class="companyLogo">
-    <br>
-    <br>
-    <br>
-    
-    <strong> Name :</strong> {{this.companyService.company.brandName}}
-    <hr>
-    <strong> Address : </strong> {{this.companyService.company.address}}
-    <hr>
-    <strong> Phone : </strong>{{this.companyService.company.phoneNumber}}
-    <hr>
-    <strong> Website : </strong><a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}} </a>
-    <hr>
-    <strong> Description :</strong> {{this.companyService.company.description}}
-  
+      <div class="companyLogoDescription down40 text-center col-sm-12">
+        <img [src]="company.logo" width="auto" height="auto" class="companyLogo img-thumbnail">
+        <br>
+        <strong> {{this.companyService.company.description}} </strong> 
+      </div>
+
+      <div class="col-sm-12 down80">
+        <ul class="compDesc">
+          <li class="thumbnail col-sm-12 compDesc " [ngStyle]="this.companyService.cssProfileName">  
+            <p *ngIf="this.companyService.editName || !this.companyService.editName &&  this.companyService.profileName === '' || this.companyService.profileName === this.companyService.company.brandName"  class="col-sm-11"> <strong> Name:</strong>  {{this.companyService.company.brandName}}</p>
+            <p *ngIf="!this.companyService.editName && this.companyService.profileName !== '' && this.companyService.profileName !== this.companyService.company.brandName "  class="col-sm-11"> <strong> Name:</strong>  {{this.companyService.profileName}}</p>
+            <input *ngIf="this.companyService.editName" class="col-sm-11" [(ngModel)]="this.companyService.profileName" style="color: black" (keypress)="this.companyService.keyEnter($event)">
+            <span height="50px" width="50px" class="glyphicon glyphicon-edit col-sm-1" aria-hidden="true" (click)="this.companyService.profileEditName()"></span>
+            </li>
+          <li class="thumbnail col-sm-12">  
+            <p class="col-sm-10"> <strong> Address:</strong> {{this.companyService.company.address}}</p> 
+            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span>
+            </li>
+          <li class="thumbnail col-sm-12">  
+            <p class="col-sm-10"> <strong> Phone:</strong> {{this.companyService.company.phoneNumber}}</p> 
+            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span>
+            </li>
+          <li class="thumbnail col-sm-12"> 
+            <p class="col-sm-10"> <strong> Website:</strong> <a href="{{this.companyService.company.website}}"> {{this.companyService.company.website}}</a></p> 
+            <span class="glyphicon glyphicon-edit col-sm-2" aria-hidden="true"></span> 
+            </li>
+        </ul>
+      </div>
+
+
     </div>
 
   </div>
