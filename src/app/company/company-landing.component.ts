@@ -7,12 +7,19 @@ import { Router } from '@angular/router'
 @Component({
   selector: 'app-company-landing',
   template: `
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h1>Your Companies</h1>
+        </div>
+      <div>
     <ul>
       <li *ngFor="let compies of this.companyService.companiesLanding" (click)="navigateToCompany(compies.id)">
       {{compies.name}}
       {{compies.address}}
       </li>
     </ul>
+    </div>
   `,
   styles: []
 })
