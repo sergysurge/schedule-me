@@ -23,6 +23,9 @@
     /*background: linear-gradient(145deg, #015249, #57bc90, #77c9d4);  Standard syntax (must be last) */
 
 }
+.container-fluid.wrapper.landing-page {
+  background-color: transparent;
+}
 
 .sergNav {
   background-color: white;
