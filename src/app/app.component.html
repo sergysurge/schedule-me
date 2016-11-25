@@ -1,8 +1,10 @@
-<div class="container-fluid wrapper">
+<div class="container-fluid wrapper" [ngClass]="{'landing-page': homeLink.classList.contains('home-active')}">
   <nav class="navbar navbar-default sergNav">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" [routerLink]="['']">ScheduleMe</a>
+      <div #homeLink class="navbar-header" [routerLinkActive]="['home-active']" [routerLinkActiveOptions]="{exact: true}">
+        <a class="navbar-brand" [routerLink]="['']">
+          ScheduleMe
+        </a>
       </div>
       <ul class="nav navbar-nav navbar-left">
         <li [routerLinkActive]="['activated']" *ngIf="isUserLoggedIn"><a [routerLink]="['users']">Personal Dashboard</a></li>

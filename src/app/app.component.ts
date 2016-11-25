@@ -3,6 +3,7 @@ import { AppServiceService } from './app-service.service';
 import { NgForm } from "@angular/forms";
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription
   private userAssociations: any
 
-  constructor (private authService: AuthService) { }
+  constructor (private authService: AuthService, public router: Router) {
+    // router.currentInstruction.component
+  }
 
   ngOnInit() {
+    // console.log(homeLink.classList.contains('activated'))
+    // console.log(this.router.isRouteActive(this.router.generate([''])))
     this.authSubscription = this.authService.getIsUserLoggedIn()
       .subscribe(
         (loggedIn) => { 
