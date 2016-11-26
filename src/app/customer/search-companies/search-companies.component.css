@@ -1,56 +1,40 @@
 .company {
     font-size: 16px;
-    width: 700px;
-    height: 300px;
+    height: 350px;
     border-radius: 8px;
     border: 1px solid darkgray;
-    box-shadow: 2px 2px 8px darkgray;
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+    margin: 2% auto 2% auto;
+    width: 60%;
+    padding: 2%;
+    font-size: 18px;
 }
-.brandName {
-    font-size: 24px;
-    position: absolute;
-    left: 20px;
+.company:hover {
+    box-shadow: 2px 2px 8px darkgray;
+}
+.col-height {
+    height: 100%;
+}
+.company-image {
+    max-width: 95%;
+    margin: 0 auto 0 auto;
+    max-height: 95%;
+    box-shadow: 2px 2px 8px darkgray;
+    border-radius: 2px;
+}
+.brand {
+    font-size: 20px;
+    color: #003459;
 }
 .name {
     font-size: 24px;
-    position: absolute;
-    left: 20px;
-    top: 40px;
 }
-.image {
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translate(0%, -50%)
-}
-.contact {
-    position: absolute;
-    left: 20px;
-    top: 80px;
-}
-.address {
-    position: absolute;
-    left: 20px;
-    top: 120px;
-    margin: 20px 0px 20px 0px;
+.brandName, .name, .phone, .website, .address, .description {
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 .description {
-    position: absolute;
-    left: 20px;
-    top: 180px;
-}
-.company>button {
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
+    color: #666666;
+    margin-top: 10%;
 }
 .panel-heading {
     background-color: #008ea8;
@@ -60,4 +44,13 @@
 .form-group {
     width: 60%;
     margin: auto;
+}
+.btn-default:hover {
+    color: white;
+    background-color: #008ea8;
+}
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
+    margin: 10% auto 0 auto;
 }

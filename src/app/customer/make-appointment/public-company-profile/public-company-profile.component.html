@@ -1,15 +1,25 @@
-<div>
-    <img id="logo-image" src="{{logoImage}}">
-    <hr>
-    Name : {{company?.BrandName.name}}
-    <hr>
-    Address : {{company?.address}}
-    <hr>
-    Phone : {{company?.phoneNumber}}
-    <hr>
-    Website : <a href="{{company?.website}}">{{company?.website}}</a>
-    <hr>
-    Description : {{company?.description}}
-    <hr>
-    <img id="company-image" src="{{companyImage}}">
+<div class="row company-profile">
+    <div class="col-xs-6 col-height">
+        <img class="company-image" src="{{companyImage}}">
+    </div>
+    <div class="col-xs-6 col-height details">
+        <div class="row brand">
+            <div class="col-xs-4 row-brand-height">
+                <img class="logo-image" src="{{logoImage}}">
+            </div>
+            <div class="col-xs-8 row-brand-height">
+                <div class="company-name">
+                    <h2>{{company?.BrandName.name}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row contact">
+            <div class="phone">Phone Number: {{company?.phoneNumber}}</div>
+            <div class="website">
+                <a href="{{company?.website}}">{{company?.website}}</a>
+            </div>
+            <div class="address">Location: {{company?.address}}</div>
+            <div class="description">{{company?.description}}</div>
+        </div>
+    </div>
 </div>

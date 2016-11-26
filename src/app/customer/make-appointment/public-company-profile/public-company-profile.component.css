@@ -1,9 +1,45 @@
-#company-image {
-    height: 400px;
-    width: auto;
+.company-profile {
+    height: 500px;
+    width: 90%;
+    margin: auto;
 }
-
-#logo-image {
-    height: 80px;
-    width: auto;
+.col-height {
+    height: 100%;
+}
+.company-image {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px darkgray;
+    /*margin: 0 auto 0 auto;*/
+    margin: auto;
+}
+.row.brand {
+    height: 20%;
+}
+.row.contact {
+    height: 80%;
+    padding-top: 5%;
+}
+.row-brand-height {
+    height: 100%;
+}
+.logo-image {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto 0 auto;
+    float: right;
+}
+.details {
+    font-size: 20px;
+}
+.company-name {
+    color: #003459;
+    margin: auto;
+}
+.phone, .website, .address, .description {
+    margin: 3% 0 3% 0;
+}
+.description {
+    color: #666666;
 }

@@ -11,8 +11,8 @@ export class SelectEmployeeFormComponent implements OnChanges {
 
   @Input() employees: any
   @Output() checkedEmployeeChange = new EventEmitter()
-  checkedEmployees = {}
-
+  checkedEmployees: any = {}
+  
   constructor(private customerService: CustomerService) { }
 
   ngOnChanges(changes: any) {
@@ -30,4 +30,5 @@ export class SelectEmployeeFormComponent implements OnChanges {
       this.checkedEmployees[employee.id] = !this.checkedEmployees[employee.id]
       this.checkedEmployeeChange.emit(this.checkedEmployees)
   }
+
 }

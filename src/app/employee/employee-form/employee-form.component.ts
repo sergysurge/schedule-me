@@ -49,6 +49,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.companyIdSubscription = this.employeeServiceService.getCompanyId()
       .subscribe(
         (companyId) => {
+          console.log('asdasdf', companyId)
           this.companyId = companyId
           this.person.companyId = this.companyId
 

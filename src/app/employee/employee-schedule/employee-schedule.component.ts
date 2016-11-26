@@ -23,7 +23,15 @@ import { Subscription } from 'rxjs/Rx'
       </div>
     </div>
   `,
-  styles: []
+  styles: [
+    `
+      .panel-heading {
+        background-color: #008ea8;
+        color: white;
+        text-align: center;
+      }
+    `
+  ]
 })
 export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
   calendarConfig: any
