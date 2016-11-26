@@ -10,33 +10,62 @@
     </div>
 
     <div class="panel-body" *ngIf="eventType == 'appointment'">
-        <span>Appointment</span>
-        <br>
-        Appointment ID: {{selectedEvent?.id}}
-        <br>
-        Contact Name: {{selectedEvent?.contactName}}
-        <br>
-        Contact Number: {{selectedEvent?.contactNumber}}
-        <br>
-        Employee: {{selectedEvent.employee.firstName}} {{selectedEvent.employee.lastName}}
-        <br>
-        Service: {{selectedEvent?.description || 'NA'}}
-        <br>
-        Time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedEvent?.endTime | date: 'h:mm a'}}
-        <br>
-        Customer comments: {{selectedEvent?.comment || 'NA'}}
+        <div class="table-responsive">
+            <table class="table borderless table-sm">
+                <tbody>
+                    <tr>
+                        <th scope="row">Appointment ID:</th>
+                        <td>{{selectedEvent?.id}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact name:</th>
+                        <td>{{selectedEvent?.contactName}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact phone number:</th>
+                        <td>{{selectedEvent?.contactNumber}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Service:</th>
+                        <td>{{selectedEvent?.description || 'NA'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Employee:</th>
+                        <td>
+                            {{selectedEvent?.employee.firstName}} {{selectedEvent?.employee.lastName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Time:</th>
+                        <td>{{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedEvent?.endTime | date: 'h:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Customer comments:</th>
+                        <td>{{selectedEvent?.comment || 'NA'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="panel-body" *ngIf="eventType == 'schedule'">
-        <span>Working Hours</span>
-        <br>
-        Employee: {{selectedEvent?.employee.firstName}} {{selectedEvent?.employee.lastName}}
-        <br>
-        Start time: {{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}}
-        <br>
-        End time: {{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}
-        <br>
-        Comments: {{selectedEvent?.description}}
+         <div class="table-responsive">
+            <table class="table borderless table-sm">
+                <tbody>
+                    <tr>
+                        <th scope="row">Work start time:</th>
+                        <td>{{selectedEvent?.startTime | date: 'MMM d, y h:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Work end time:</th>
+                        <td>{{selectedEvent?.endTime | date: 'MMM d, y h:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Supervisor comments:</th>
+                        <td>{{selectedEvent?.description || 'NA'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>

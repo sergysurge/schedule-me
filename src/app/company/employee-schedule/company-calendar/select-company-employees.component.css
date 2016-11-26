@@ -1,6 +1,12 @@
+.panel-heading {
+    background-color: #008ea8;
+    color: white;
+    text-align: center;
+}
 .employee {
+    border: 1px solid darkgray;
     border-radius: 8px;
-    padding: 20px 30px;
+    padding: 5% 0;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
@@ -8,12 +14,27 @@
     font-size: 16px;
     text-align: center;
 }
-
-.selected {
-    background-color: #80b3ff;
+.col-height {
+    height: 100%;
+    padding: 5px;
 }
-
+.employee-image {
+    max-width: 60%;
+    max-height: 60%;
+    border-radius: 4px;
+}
+.employee-name {
+    font-size: 18px;
+    margin-top: 2%;
+}
+.selected {
+    box-shadow: inset 3px 3px 10px darkgray;
+    transform: translate(3px, 3px);
+}
 .panel-default {
     max-height: 800px;
     overflow-y: scroll;
+}
+.employee-phone, .employee-email {
+    font-size: 14px;
 }

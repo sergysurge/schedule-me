@@ -5,7 +5,16 @@ import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-company-calendar',
-  templateUrl: './company-calendar.component.html'
+  templateUrl: './company-calendar.component.html',
+  styles: [
+    `
+      .panel-heading {
+        background-color: #008ea8;
+        color: white;
+        text-align: center;
+      }
+    `
+  ]
 })
 export class CompanyCalendarComponent implements OnInit, OnChanges {
 
