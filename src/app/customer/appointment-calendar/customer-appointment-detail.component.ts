@@ -13,9 +13,6 @@ import { Component, OnInit, Input } from '@angular/core';
       .appointment-details {
         font-size: 18px;
       }
-      .appointment-id, .contact-name, .service, .employee, .company-location, .appointment-time, .comments {
-        margin: 2% 0 2% 0;
-      }
       .borderless td, .borderless tr, .borderless th {
         border: none;
       }

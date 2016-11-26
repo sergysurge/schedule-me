@@ -4,11 +4,21 @@ import { EmployeeServiceService } from '../employee-service.service'
 @Component({
   selector: 'app-employee-appointment-detail',
   templateUrl: './employee-appointment-detail.component.html',
-  styles: [`
-  h1{
-    margin-top: 0px;
-  }
-  `]
+  styles: [
+    `
+      .panel-heading {
+        background-color: #008ea8;
+        color: white;
+        text-align: center;
+      }
+      .borderless td, .borderless tr, .borderless th {
+        border: none;
+      }
+      .table {
+        font-size: 18px;
+      }
+    `
+  ]
 })
 export class EmployeeAppointmentDetailComponent implements OnInit {
   @Input() selectedEvent: any

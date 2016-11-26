@@ -20,6 +20,9 @@
 .activated a:hover {
   color: #003459;
 }
+.navbar .nav > .activated > a {
+  color: white;
+}
 /*
 .activated {
   background-color: #57bc90;
