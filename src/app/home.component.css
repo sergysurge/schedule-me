@@ -1,10 +1,11 @@
 .container-fluid {
-    height: 1800px;
+    height: 2700px;
     width: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: -1;
+    background-image: url('../assets/stripe_background.png');
 }
 .carousel-container {
     padding: 0px;
@@ -21,7 +22,6 @@
     transform: translate(5%,0%);
     height: 90%;
     width: 90%;
-    border: 2px solid black;
 }
 .item {
     height: 90%;
@@ -36,57 +36,164 @@
 #carousel-landing {
     height: 100%;
 }
+.carousel.slide-1 {
+    height: 90%;
+    width: 70%;
+    margin: 3% auto 10% auto;
+    text-align: center;
+}
 .carousel-caption {
     color: white;
+    top: 15%;
+    text-shadow: 4px 4px 8px black;
 }
-.placeholder {
-    height: 300px;
-    background-color: white;
+.carousel-caption>h1 {
+    font-size: 56px;
+}
+.carousel-caption>h4 {
+    font-size: 36px;
+}
+.description {
+    height: 500px;
+    background-image: url('../assets/concrete_seamless.png');
+    padding: 0px;
+    color: #00344A;
+}
+#description-header {
+    margin: auto;
+    font-size: 32px;
+    text-align: center;
+    margin-top: 2%;
+}
+.description-detail {
+    width: 33.33%;
+    height: 80%;
+    float: left;
+    padding: 2%;
+    margin: auto;
+    text-align: center;
+}
+.description-detail-header {
+    font-size: 26px;
+}
+.description-detail-more {
+    font-size: 18px;
+    width: 80%;
+    margin: auto;
+}
+.description-icon {
+    width: 50%;
+    height: 50%;
+    margin: 5% auto 5% auto;
+}
+.description-icon.search {
+    background-image: url('../assets/magnifier.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+.description-icon.admin {
+    background-image: url('../assets/organization_icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+.description-icon.employee {
+    background-image: url('../assets/calendar-check.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
 }
 .tech-stack {
-    height: 300px;
-    background-color: lightgreen;
+    height: 500px;
+    background-image: url('../assets/concrete_seamless.png');
+    text-align: center;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+#tech-stack-header {
+    text-align: center;
+    font-size: 32px;
+    margin: 2% auto 2% auto;
+    color: #00344A;
 }
 .tech-stack-logo {
     float: left;
-    margin: 0px 10px 0px 10px;
+    width: 33.333%;
+    height: 100px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+#contribute {
+    width: 33.33%;
+    margin: auto;
+    font-size: 24px;
 }
 #angular.tech-stack-logo {
     background-image: url('../assets/angular2.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 25%;
 }
 #node.tech-stack-logo {
     background-image: url('../assets/nodejs-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
-    width: 50px;
-    height: 50px;
-    z-index: 1;
+}
+#express.tech-stack-logo {
+    background-image: url('../assets/express_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
 }
 #postgreSQL.tech-stack-logo {
     background-image: url('../assets/postgresql_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
-    width: 50px;
-    height: 50px;
+}
+#bootstrap.tech-stack-logo {
+    background-image: url('../assets/bootstrap_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 25%;
 }
 #fullcalendar.tech-stack-logo {
     background-image: url('../assets/fullcalendar_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 25%;
+}
+#github.tech-stack-logo {
+    background-image: url('../assets/github_icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 25%;
 }
 .dev-team {
     padding: 0px;
+    height: 800px;
+}
+#dev-team-header {
+    text-align: center;
+    font-size: 32px;
+    margin: 5% auto 10% auto;
+    color: white;
 }
 .profile {
     text-align: center;
     width: 33.333%;
-    height: 300px;
     float: left;
-    background-color: lightslategray;
 }
-footer {
-    height: 100px;
-    background-color: lightblue;
+.footer {
+    padding: 2%;
+    font-size: 16px;
+    text-align: center;
+    height: 200px;
+    color: white;
 }
