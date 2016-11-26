@@ -7,7 +7,15 @@ import { CustomerService } from '../customer.service';
 @Component({
   selector: 'app-make-appointment',
   templateUrl: './make-appointment.component.html',
-  styles: []
+  styles: [
+    `
+      .panel-heading {
+        background-color: #008ea8;
+        color: white;
+        text-align: center;
+      }
+    `
+  ]
 })
 export class MakeAppointmentComponent implements OnInit, OnDestroy {
   public company: any
