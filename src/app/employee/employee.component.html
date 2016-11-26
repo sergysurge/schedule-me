@@ -3,8 +3,8 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav">
         <ul class="nav navbar-nav navbar-left">
-            <li><a [routerLink]="['schedule']">My Schedule</a></li>
-            <li><a [routerLink]="['form']">Make Appointments</a></li>
+            <li [routerLinkActive]="['activated']"><a [routerLink]="['schedule']">My Schedule</a></li>
+            <li [routerLinkActive]="['activated']"><a [routerLink]="['form']">Make Appointments</a></li>
         </ul>
         <li class="nav navbar-nav navbar-right dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Your Companies

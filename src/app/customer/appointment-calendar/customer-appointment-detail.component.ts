@@ -10,15 +10,35 @@ import { Component, OnInit, Input } from '@angular/core';
         color: white;
         text-align: center;
       }
+      .appointment-details {
+        font-size: 18px;
+      }
+      .borderless td, .borderless tr, .borderless th {
+        border: none;
+      }
+      .employee-contact {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+      }
+      .employee-image {
+        width: 50%;
+        height: auto;
+        border-radius: 4px;
+      }
     `
   ]
 })
 export class CustomerAppointmentDetailComponent implements OnInit {
-
+  public showContact: boolean = false
   @Input() selectedAppointment: any
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onContactClick() {
+    this.showContact = !this.showContact
   }
 
 }

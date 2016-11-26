@@ -1,16 +1,18 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h4 class="panel-title">Employees</h4>
-        <br>
-        <span>Select employees to view their availabilities</span>
+        <div class="panel-title">
+            <h3 class="panel-title">Employees</h3>
+        </div>
     </div>
     <div class="panel-body">
-        <a *ngFor="let employee of employees" (click)="updateChecked(employee)">
-            <div class="employee" [ngClass]="{'selected': checkedEmployees[employee.id]}">
-                <img src="{{employee.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}" height="100px" width="auto">
-                <br>
-                <span>{{employee.firstName}} {{employee.lastName}}</span>
+        <h5>Select employees to view their availabilities</h5>
+        <div class="row employee" *ngFor="let employee of employees" (click)="updateChecked(employee)" [ngClass]="{'selected': checkedEmployees[employee.id]}">
+            <div class="col-xs-12 col-height">
+                <img class="employee-image" src="{{employee.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}">
+                <div class="employee-name">{{employee.firstName}} {{employee.lastName}}</div>
+                <div class="employee-phone">Phone Number: {{employee.phoneNumber}}</div>
+                <div class="employee-email">Email: {{employee.email}}</div>
             </div>
-        </a>
+        </div>
     </div>
 </div>

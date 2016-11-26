@@ -35,8 +35,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
               }
             }
           },
-          (err) => {console.error(err)},
-          () => {console.log('done')}
+          (err) => {console.log(err)}
         )
     }
   }

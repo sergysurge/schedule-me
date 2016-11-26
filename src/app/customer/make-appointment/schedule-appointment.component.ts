@@ -14,7 +14,6 @@ declare var swal: any;
 @Component({
   selector: 'app-schedule-appointment',
   template: `
-   <h1>Make Appointment</h1>
 <form >
     <div class="form-group">
       <label>Name</label>

@@ -4,7 +4,20 @@ import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'app-employee',
-  templateUrl: './employee.component.html'
+  templateUrl: './employee.component.html',
+  styles: [
+    `
+      li:hover {
+        color: #003459;
+      }
+      .activated {
+        background-color: #008ea8;
+      }
+      .navbar .nav > .activated > a {
+        color: white;
+      } 
+    `
+  ]
 })
 export class EmployeeComponent implements OnInit {
   companies: any;
