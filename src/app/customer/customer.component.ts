@@ -6,15 +6,29 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav navbar-left">
-        <li [routerLinkActive]="['active']"><a [routerLink]="['account']">My Account</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['appointments']">My Appointments</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['search']">Search Businesses</a></li>
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['account']">My Account</a></li>
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['appointments']">My Appointments</a></li>
+        <li [routerLinkActive]="['activated']"><a [routerLink]="['search']">Search Businesses</a></li>
       </ul>
     </nav>
 
     <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [
+    `
+    li:hover {
+      color: #003459;
+    }
+    .activated {
+      background-color: #008ea8;
+    }
+    .navbar .nav > .activated > a {
+      color: white;
+    }
+
+    `
+    
+  ]
 })
 export class CustomerComponent implements OnInit {
 

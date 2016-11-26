@@ -5,7 +5,16 @@ import { Subscription } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-appointment-calendar',
-  templateUrl: './appointment-calendar.component.html'
+  templateUrl: './appointment-calendar.component.html',
+  styles: [
+    `
+      .panel-heading {
+        background-color: #008ea8;
+        color: white;
+        text-align: center;
+      }
+    `
+  ]
 })
 export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   public calendarConfig: any
