@@ -1,26 +1,58 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
-            <h2>Appointment Details</h2>
+            <h3>Appointment Details</h3>
         </div>
     </div>
 
-    <div class="panel-body" *ngIf="selectedAppointment">
-        Appointment ID: {{selectedAppointment?.id}}
-        <br>
-        Appointment for: {{selectedAppointment?.contactName}}
-        <br>
-        Service: {{selectedAppointment?.description}}
-        <br>
-        Employee: {{selectedAppointment?.employee.firstName}} {{selectedAppointment?.employee.lastName}}
-        <br>
-        Business: {{selectedAppointment?.company.name}}
-        <br>
-        Location: {{selectedAppointment?.company.address}}
-        <br>
-        Time: {{selectedAppointment?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedAppointment?.endTime | date: 'h:mm a'}}
-        <br>
-        Your comments: {{selectedAppointment?.comment || 'NA'}}
+    <div class="panel-body appointment-details" *ngIf="selectedAppointment">
+        <div class="table-responsive">
+            <table class="table borderless">
+                <tbody>
+                    <tr>
+                        <th scope="row">Appointment ID:</th>
+                        <td>{{selectedAppointment?.id}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Appointment for:</th>
+                        <td>{{selectedAppointment?.contactName}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Service:</th>
+                        <td>{{selectedAppointment?.description}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Employee:</th>
+                        <td>
+                            {{selectedAppointment?.employee.firstName}} {{selectedAppointment?.employee.lastName}}
+                            <br>
+                            <a (click)="onContactClick()">Contact</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Location:</th>
+                        <td>
+                            {{selectedAppointment?.company.name}}
+                            <br>
+                            {{selectedAppointment?.company.address}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Time:</th>
+                        <td>{{selectedAppointment?.startTime | date: 'MMM d, y h:mm a'}} to {{selectedAppointment?.endTime | date: 'h:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Your comments:</th>
+                        <td>{{selectedAppointment?.comment || 'NA'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="employee-contact" *ngIf="showContact">
+            <img class="employee-image" src="{{selectedAppointment?.employee.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}">
+            <div>Phone: {{selectedAppointment?.employee.phoneNumber}}</div>
+            <div>Email: {{selectedAppointment?.employee.email}}</div>
+        </div>
     </div>
 
     <div class="panel-body" *ngIf="!selectedAppointment">

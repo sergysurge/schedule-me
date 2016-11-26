@@ -15,9 +15,9 @@
     height: 100%;
 }
 .company-image {
-    width: 95%;
+    max-width: 95%;
     margin: 0 auto 0 auto;
-    height: auto;
+    max-height: 95%;
     box-shadow: 2px 2px 8px darkgray;
     border-radius: 2px;
 }

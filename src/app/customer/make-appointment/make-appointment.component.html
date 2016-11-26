@@ -1,6 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h1 class="panel-title">{{company?.name}}</h1>
+        <div class="panel-title">
+            <h2>{{company?.name}}</h2>
+        </div>
     </div>
     <div class="panel-body">
         <app-public-company-profile [companyId]="companyId"></app-public-company-profile>
@@ -9,7 +11,9 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h1 class="panel-title">Schedule</h1>
+        <div class="panel-title">
+            <h2>Current Schedule</h2>
+        </div>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -25,7 +29,9 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h1 class="panel-title">Book an Appointment!</h1>
+        <div class="panel-title">
+            <h2>Book an Appointment!</h2>
+        </div>
     </div>
     <div class="panel-body">
         <app-schedule-appointment [companyId]="companyId" (newAppointment)="onNewAppointment($event)"></app-schedule-appointment>
