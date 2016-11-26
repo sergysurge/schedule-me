@@ -1,0 +1,176 @@
+
+<div class="panel panel-default container-fluid">
+
+      <!--heading-->
+      <div class="panel-heading col-sm-12 sergPanelBody">
+          
+              <h1 *ngIf="startedAddCompany" class="text-center"> Create a Company </h1>
+              
+              <h1 *ngIf="!startedAddCompany">Your Companies 
+              <button  *ngIf="step0" class="btn btn-default" type="submit" (click)="step0to1()"> <span class="glyphicon glyphicon-plus-sign"> </span>
+              Add Company </button>  
+              </h1>
+      </div>
+
+      <!--body-->
+      <div class="panel-body col-sm-12">
+
+        <div *ngIf="step1" class="col-sm-12">
+          <!--select brand name-->
+          <div class="col-sm-6">
+            <h3> Select a Brand Name </h3>
+              <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
+            <select multiple class="form-control">
+                <option *ngFor="let b of companyService.brandNamesAll" (click)="companySelectedBrandNamesAll(b.id, b.name)"> {{b.id}} {{b.name}} </option>
+            </select>
+            <button class="btn btn-default col-sm-offset-2 " [disabled]="selectedBrandNamesAll.id === false" (click)="companySetBrand()"> select brand </button>
+        </div>
+        <!--create brand name if none exists-->
+        <div class="col-sm-6">
+          <h3> Create a Brand Not Listed</h3>
+          <p *ngIf="selectedBrandNamesAll.id"> Selected : {{selectedBrandNamesAll.id}} {{selectedBrandNamesAll.name}} </p> 
+          <input [(ngModel)]="brandNameCustom" placeholder="Your Brand Name Here">
+          <button class="btn btn-default" [disabled]="brandNameCustom === ''" (click)="companyPostBrandName()">CREATE!</button>
+
+          <h3 *ngIf="brandNameExists === 'no'"> Success! </h3>
+          <p *ngIf="brandNameExists === 'no'"> Please find your brand name in the list and submit! </p>
+
+          <h3 *ngIf="brandNameExists === 'yes'"> Brand exists! Try Again! </h3>
+        </div>
+      </div> 
+
+
+      <!--PROFILE FORM -->
+      <div *ngIf="step2" class="col-sm-12">
+        <h3> Setting Up Your Profile </h3>
+        <p> We just need some more information </p>
+        
+        <form class="form horizontal" 
+        [formGroup]="addCompanyForm" 
+        (ngSubmit)="companyUpdateProfile()"
+        >
+
+          <div class="form-group">
+                      <!--BRAND NAME ID-->
+            <!--<label for="BrandNameId" 
+            class="col-sm-2 control-label">BrandNameId</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" aria-describedby="helpBlock" id="BrandNameId" [value]="this.companyService.company.BrandNameId" formControlName="BrandNameId">
+              <span class="help-block" id="helpBlock"> enter your BrandNameId here</span>
+            </div> -->
+                      <!--ADDRESS-->
+            <label for="address" class="col-sm-2 control-label">address</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" aria-describedby="helpBlock" id="address" [(ngModel)]="this.companyService.company.address" formControlName="address">
+              <span class="help-block" id="helpBlock"> enter your address here</span>
+            </div>
+                        <!--DESCRIPTION-->
+            <label for="description" class="col-sm-2 control-label">description</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" aria-describedby="helpBlock" id="description" [(ngModel)]="this.companyService.company.description" formControlName="description">
+              <span class="help-block" id="helpBlock"> enter your description here</span>
+            </div>
+                  <!--IMAGE-->
+            <label for="image" class="col-sm-2 control-label">image</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" aria-describedby="helpBlock" id="image" [(ngModel)]="this.companyService.company.image" formControlName="image">
+              <span class="help-block" id="helpBlock"> enter your image here</span>
+            </div>
+                  <!--LOGO-->
+            <label for="logo" class="col-sm-2 control-label">logo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" aria-describedby="helpBlock" id="logo" [(ngModel)]="this.companyService.company.logo" formControlName="logo">
+              <span class="help-block" id="helpBlock"> enter your logo here</span>
+           </div>
+                        <!--NAME-->
+          <label for="name" class="col-sm-2 control-label">name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" aria-describedby="helpBlock" id="name" [(ngModel)]="this.companyService.company.name" formControlName="name">
+            <span class="help-block" id="helpBlock"> enter your store name here</span>
+          </div>
+                      <!--PHONE NUMBER-->
+          <label for="phoneNumber" class="col-sm-2 control-label">phoneNumber</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" aria-describedby="helpBlock" id="phoneNumber" [(ngModel)]="this.companyService.company.phoneNumber" formControlName="phoneNumber">
+            <span class="help-block" id="helpBlock"> enter your phoneNumber here</span>
+          </div>
+                    <!--WEBSITE-->
+          <label for="website" class="col-sm-2 control-label">website</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" aria-describedby="helpBlock" id="website" [(ngModel)]="this.companyService.company.website" formControlName="website">
+            <span class="help-block" id="helpBlock"> enter your website here</span>
+         </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default" > create </button>
+        </div>
+      </div>
+    </form>
+    <!--PROFILE FORM END-->
+  </div> 
+   <!--PROFILE END-->
+
+        <!--POPULATED COMPANY LIST-->
+        <div class="col-sm-12" *ngIf="!startedAddCompany">
+
+          <ul [ngStyle]="{'list-style' : 'none', 'margin' : 'auto'}">
+            <!--EACH COMPANY PROFILE-->
+            <li *ngFor="let compies of this.companyService.companiesLanding" 
+            (click)="navigateToCompany(compies.id)"
+            class="panel panel-default col-sm-6 adminCompModules">
+
+              <!--HEADING OF EACH COMPANY PROFILE-->
+              <div class="panel-heading sergPanelBody col-sm-12">
+                <h3 class="text-center"> {{compies.name}}</h3>
+              </div>
+              
+              <!--BODY OF EACH COMPANY PROFILE-->
+              <div class="panel-body col-sm-12"
+              [ngStyle]="{'margin':'auto'}">
+
+                  <!--LEFT SIDE OF COMPANY PROFILE-->
+                <div class="col-sm-3"
+                [ngStyle]="{'margin':'auto'}">
+                  <img [src]="compies.logo"
+                  [ngStyle]="{'width': '95%', 'height': 'auto', 'margin': 'auto'}">
+                  <h5 class="text-center"> {{compies.description}} </h5>
+                </div>
+
+                  <!--RIGHT SIDE OF COMPANY PROFILE-->
+                <div class="col-sm-9"
+                [ngStyle]="{'margin':'auto'}">
+
+                  <!--COMPNAY INFO LIST-->
+                  <ul class="compDesc col-sm-12">
+
+                        <!--ADDRESS-->
+                    <li class="thumbnail compDesc"
+                    style="margin: 0">
+                      <p > <strong> Address: </strong>{{compies.address}} </p>
+                    </li>
+                          <!--PHONE-->
+                    <li class="thumbnail compDesc"
+                    style="margin: 0">
+                      <p > <strong> Phone: </strong>{{compies.phoneNumber}} </p>
+                    </li>
+                          <!--WEBSITE-->
+                    <li class="thumbnail compDesc"
+                    style="margin: 0">
+                      <p > <strong> Website: </strong>{{compies.website}} </p>
+                    </li>
+                  </ul>
+                  
+                </div>
+
+              </div>
+            </li>
+          </ul>
+
+        </div> 
+          <!--POPULATE COMPANY LIST END-->
+
+     
+      </div> <!--BODY END -->
+    </div> <!--PANEL END-->
