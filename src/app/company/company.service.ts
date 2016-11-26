@@ -46,7 +46,15 @@ export class CompanyService {
 
   /* COMPANY PROFILE COMPONENT */
   company: any = {
-    id: localStorage.getItem('localCompanyId')
+    id: localStorage.getItem('localCompanyId') || null,
+    BrandNameId :null,
+    address : null,
+    description :  null,
+    image :   null,
+    logo :  null,
+    name :  null,
+    phoneNumber :  null,
+    website :  null,
   }
   
   getCompanyById(companyId) {
@@ -81,14 +89,28 @@ export class CompanyService {
       brandNamesReturned.forEach((data) => {
       let brandName = {
         id: data.id,
-        name: data.name,
-        companyId: data.companyId
+        name: data.name
       }
       this.brandNamesAll.push(brandName)
       })
       console.log(this.brandNamesAll, 'after being populated')
       return response.json()
       })
+  }
+  //need when creating a company account to auto
+  //log in the current user to company
+  getOneBrandNameAddCompany(brandId) {
+    return this.http.get('api/companies/getbrandname/' + brandId)
+    .map((response:Response) => {
+      let brandCompanies = response.json().companies
+      brandCompanies.forEach(item=> {
+        if (this.company.name === item.name) {
+          this.company = item
+          console.log(this.company, 'end result after getting one brand name')
+        }
+      })
+      return brandCompanies
+    })
   }
 
   updateProfile(body) {
