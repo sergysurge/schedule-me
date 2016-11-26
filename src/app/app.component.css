@@ -44,10 +44,6 @@
   color: white;
 }
 
-.active {
-  color: white;
-}
-
 .activated {
   background-color: #003459;
   color: white;
@@ -55,7 +51,9 @@
 .activated a {
   color: white;
 }
-
+.navbar .nav > .activated > a {
+  color: white;
+}
 .activated a:hover {
   color: #77c9d4;
 }
