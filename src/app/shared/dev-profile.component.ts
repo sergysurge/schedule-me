@@ -15,25 +15,12 @@ import { Component, OnInit, Input, animate, transition, trigger, state, style } 
           <a href="{{github}}">
             <i class="fa fa-github"></i>
           </a>
-          <div class="bio" *ngIf="showDetails" [@shrinkOut]="showDetails">
-              <ng-content></ng-content>
-          </div>
+          <div class="bio" *ngIf="showDetails">
+            <ng-content></ng-content>
+          </div>       
         </div>
     </div>
   `,
-  animations: [
-    trigger('shrinkOut', [
-      state('in', style({height: '*'})),
-      transition('void => *', [
-        style({height: 0}),
-        animate(250, style({height: '*'}))
-      ]),
-      transition('* => void', [
-        style({height: '*'}),
-        animate(250, style({height: 0}))
-      ])
-    ])
-  ],
   styles: [
     `
     .profile-container {
@@ -53,19 +40,19 @@ import { Component, OnInit, Input, animate, transition, trigger, state, style } 
       transform: scale(1.1);
       transition: all .1s ease-in-out;
     }
-    .bio {
+    .bio, .bio>* {
       width: 250px;
       height: 100px;
-      background-color: pink;
       margin: auto;
-      font-size: 16px;
+      font-size: 18px;
       color: white;
     }
     a {
       color: black;
     }
-    a:hover {
-      color: #00344A;
+    .fa-github:hover, .fa-linkedin-square:hover {
+      transform: scale(1.2);
+      transition: all .1s ease-in-out;
     }
     .name {
       font-size: 22px;
@@ -73,11 +60,8 @@ import { Component, OnInit, Input, animate, transition, trigger, state, style } 
       text-decoration: bold;
       margin: 5% auto 0 auto;
     }
-    .bio {
-      width:50%;
-    }
     .fa-github, .fa-linkedin-square {
-      font-size: 36px;
+      font-size: 40px;
       margin: 10px;
     }
     `
