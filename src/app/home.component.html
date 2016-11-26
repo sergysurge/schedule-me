@@ -10,8 +10,11 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
-                        <div class="carousel overlay">
-                            <h2>ScheduleMe</h2>
+                        <div class="carousel slide-1">
+                            <div class="carousel-caption">
+                                <h1>ScheduleMe</h1>
+                                <h4>Manage your business calendar on the run</h4>
+                            </div>
                         </div>
                     </div>
                     <div class="item">
@@ -42,42 +45,76 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 placeholder">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-8 col-md-offset-2 tech-stack">
-            <div>Built with</div>
-            <div class="tech-stack-logo" id="angular"></div>
-            <div class="tech-stack-logo" id="node"></div>
-            <div class="tech-stack-logo" id="postgreSQL"></div>
-            <div class="tech-stack-logo" id="fullcalendar"></div>
+        <div class="col-xs-12 description">
+            <div id="description-header">Sign up for an account and use ScheduleMe as:</div>
+            <div class="description-detail">
+                <div class="description-detail-header">Organization or Business Admin</div>
+                <div class="description-icon admin"></div>
+                <div class="description-detail-more">Manage your employees' schedules</div>
+            </div>
+            <div class="description-detail">
+                <div class="description-detail-header">Employee</div>
+                <div class="description-icon employee"></div>
+                <div class="description-detail-more">Manage your work schedule and appointments</div>
+            </div>
+            <div class="description-detail">
+                <div class="description-detail-header">Customer</div>
+                <div class="description-icon search"></div>
+                <div class="description-detail-more">Search businesses, book appointments, manage your calendar</div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-8 col-md-offset-2 dev-team">
+            <div id="dev-team-header">Who we are</div>
             <div class="profile">
                 <app-dev-profile [imgSource]="'../assets/sergeyProfile.jpg'" [name]="'Sergey Sarkisyan'" [github]="'https://github.com/sergysurge'" [linkedIn]="'https://www.linkedin.com/in/sergey-sarkisyan-25665185'">
-                    <div>asdfasd</div>
+                    <div>
+                        Full Stack Software Engineer
+                    </div>
                 </app-dev-profile>  
             </div>
        
             <div class="profile">
                  <app-dev-profile [imgSource]="'../assets/LJ.jpg'" [name]="'Lucy Ji'" [github]="'https://github.com/lucyji1000'" [linkedIn]="'https://www.linkedin.com/in/lucy-ji'">
-                    <div>asdfasd</div>
+                    <div>
+                        Full Stack Software Engineer
+                    </div>
                 </app-dev-profile>  
             </div>
 
             <div class="profile">
-                 <app-dev-profile [imgSource]="'../assets/chris.jpg'" [name]="'Chris Phan'" [github]="'https://github.com/cpp6d'" [linkedIn]="'https://www.linkedin.com/in/christopher-phan-66120562'">
-                    <div>asdfasd</div>
+                 <app-dev-profile [imgSource]="'../assets/chris.jpg'" [name]="'Christopher Phan'" [github]="'https://github.com/cpp6d'" [linkedIn]="'https://www.linkedin.com/in/christopher-phan-66120562'">
+                    <div>
+                        Full Stack Software Engineer
+                    </div>
                 </app-dev-profile>  
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-12 tech-stack">
+            <div id="tech-stack-header">This site was built with</div>
+            <div class="row">
+                <a href="http://nodejs.org"><div class="tech-stack-logo" id="node"></div></a>
+                <a href="http://www.expressjs.com"><div class="tech-stack-logo" id="express"></div></a>
+                <a href="http://www.postgresql.com"><div class="tech-stack-logo" id="postgreSQL"></div></a>
+            </div>
+            <div class="row">
+                <a href="http://angular.io/docs/ts/latest/"><div class="tech-stack-logo" id="angular"></div></a>
+                <a href="http://www.getbootstrap.com"><div class="tech-stack-logo" id="bootstrap"></div></a>
+                <a href="http://fullcalendar.io"><div class="tech-stack-logo" id="fullcalendar"></div></a>
+                <a href="http://github.com"><div class="tech-stack-logo" id="github"></div></a>
+            </div>
+            <div class="row">
+                <a id="contribute" href="https://github.com/schedule-me/schedule-me">Contribute on GitHub</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 footer">
-            <span>(c) 2016 ScheduleMe</span>
+            <div>&copy; 2016 ScheduleMe</div>
+            <div>Icons made by <a href="http://www.simpleicon.com">Simpleicon</a> from <a href="http://www.flaticon.com">www.flaticon.com</a></div>
         </div>
     </div>
 </div>
