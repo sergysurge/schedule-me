@@ -8,18 +8,17 @@ import { Router } from '@angular/router'
   selector: 'app-company-landing',
   template: `
     <div class="panel panel-default container-fluid">
-      <div class="panel-heading col-sm-12">
+      <div class="panel-heading col-sm-12 sergPanelBody">
           <div class="panel-title">
-              <h1>Your Companies</h1>
+              <h1 *ngIf="startedAddCompany" class="text-center"> Create a Company </h1>
+              <h1 *ngIf="!startedAddCompany">Your Companies 
+              <button  *ngIf="step0" class="btn btn-default" type="submit" (click)="step0to1()"> <span class="glyphicon glyphicon-plus-sign" > </span>
+              Add Company </button>  
+              </h1>
           </div>
       <div>
 
       <div class="panel-body col-sm-12">
-
-      <div *ngIf="step0" class="col-sm-12 col-sm-offset-3">
-        <button  type="submit" (click)="step0to1()"> <span class="glyphicon glyphicon-plus-sign" > </span>
-        Add Company </button>  
-      </div>
 
       <div *ngIf="step1" class="col-sm-12">
         <div class="col-sm-6">
@@ -98,7 +97,7 @@ import { Router } from '@angular/router'
 
         <div
       </div>
-
+      <div class="col-sm-12" *ngIf="!startedAddCompany">
         <ul>
           <li *ngFor="let compies of this.companyService.companiesLanding" (click)="navigateToCompany(compies.id)">
           {{compies.name}}
@@ -106,9 +105,74 @@ import { Router } from '@angular/router'
           </li>
         </ul>
       </div>
+      </div>
     </div>
   `,
-  styles: []
+  styles: [
+    `
+    .companyProfilePic {
+  /*background-image: url('../assets/flowers-desk-office-vintage.jpg');*/
+    /*background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;*/
+    /*height:400px;*/
+    overflow: visible;
+}
+
+.companyLogo {
+
+  max-height: 100px;
+  max-width: 200px;
+}
+
+.compDesc {
+  list-style: none;
+  margin: auto;
+}
+
+.down20 {
+  position: relative;
+  top: 20px;
+}
+
+.down40 {
+  position: relative;
+  top: 40px;
+}
+
+.down80 {
+  position: relative;
+  top: 80px;
+}
+/*grey a5a5af*/
+/*blue 77c9d4*/
+.sergNav {
+  background-color: #57bc90;
+  color: white;
+}
+
+.sergNav a {
+  color: #015249;
+}
+
+.sergNav a:hover {
+  color: #57bc90;
+}
+
+.sergNav a:active {
+  color: white;
+  background-color: #57bc90;
+}
+
+.sergPanelBody {
+
+  background-color: #007ea7;
+  color: white;
+}`
+  ]
 })
 export class CompanyLandingComponent implements OnInit {
 
@@ -117,9 +181,11 @@ export class CompanyLandingComponent implements OnInit {
   }
 
   // ADD COMPANY STEP 0 BUTTON
+  startedAddCompany = false
   step0 = true
   step0to1() {
     this.step0 = false
+    this.startedAddCompany = true
     this.step1 = true
     this.companyService.company = []
     this.companyGetAllBrandNames()
@@ -207,6 +273,7 @@ export class CompanyLandingComponent implements OnInit {
   }
   step2to3() {
     this.step2 = false
+    this.startedAddCompany = false
     console.log('SHOULD BE GOING TO COMPANY PAGE!')
     this.router.navigate(['/admin/company', this.companyService.company.id])
     // this.router.navigate('admin')
