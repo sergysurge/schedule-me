@@ -159,7 +159,8 @@ export class CompanyLandingComponent implements OnInit {
       logo: this.companyService.company.logo || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
       BrandNameId: this.companyService.company.BrandNameId
     }
-    this.companyService.updateProfile(body)
+    console.log(body, 'dis da body we get')
+    this.companyService.postProfile(body)
       .subscribe(data => {
         console.log(data, "wow fucking idiot")
         if (data.status === 200) {

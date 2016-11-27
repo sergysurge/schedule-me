@@ -85,6 +85,7 @@ export class CompanyService {
   getAllBrandNames() {
     return this.http.get('api/companies/getallbrandnames')
     .map((response:Response) => {
+      this.brandNamesAll = []
       let brandNamesReturned = response.json()
       brandNamesReturned.forEach((data) => {
       let brandName = {
@@ -115,6 +116,10 @@ export class CompanyService {
 
   updateProfile(body) {
     return this.http.put('api/companies/updatecompany', body)
+  }
+
+  postProfile(body) {
+    return this.http.post('api/companies/postcompany', body)
   }
   /* COMPANY PROFILE COMPONENT END */
   
