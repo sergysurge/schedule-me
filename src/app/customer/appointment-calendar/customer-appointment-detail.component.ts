@@ -11,7 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
         text-align: center;
       }
       .appointment-details {
-        font-size: 18px;
+        font-size: 16px;
       }
       .borderless td, .borderless tr, .borderless th {
         border: none;
