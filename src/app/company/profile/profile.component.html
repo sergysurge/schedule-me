@@ -12,19 +12,35 @@
 
   <div class="panel-body row">
     <!--LEFT SIDE/ IMAGE SIDE-->
-    <div class="col-sm-6 companyProfilePic text-center" >
+    <div class="col-sm-6 companyProfilePic text-center" [ngStyle]="cssProfileImageEdited"
+    (mouseenter)="mouseenterProfileImage()" 
+    (mouseleave)="mouseleaveProfileImage()">
       <!--[ngStyle]="{'background-image': 'url(' + this.companyService.company.image +')'}"-->
-    <img [src]="this.companyService.company.image"  [ngStyle]="{'width': '95%', 'height': 'auto', 'margin': 'auto'}" class=" img-rounded">
+    <img [src]="profileImage"  [ngStyle]="cssProfileImage" class=" img-rounded" >
+    <h3 *ngIf="cssProfileControl === 'on'"> Insert new picture URL here:</h3>
+    <input type="url" *ngIf="cssProfileControl === 'on'" [(ngModel)]="profileImage">
     </div>
+
     <!--RIGHT SIDE/ INFO SIDE-->
     <div class="col-sm-6 ">
+
       <!--logo-->
-      <div class="companyLogoDescription text-center col-sm-12" style="margin-top: 20px">
-        <img [src]="company.logo" width="auto" height="auto" class="companyLogo img-thumbnail">
+      <div class="col-sm-12 text-center" 
+      [ngStyle]="cssProfileLogoEdited"
+      (mouseenter)="mouseenterProfileLogo()"
+      (mouseleave)="mouseleaveProfileLogo()">
+
+        <img [src]="profileLogo" [ngStyle]="cssProfileLogo"
+        class="companyLogo img-thumbnail">
+        <h3 *ngIf="cssProfileLogoControl === 'on'"> Insert new logo URL here:</h3>
+    <input type="text" *ngIf="cssProfileLogoControl === 'on'" [(ngModel)]="profileLogo">
         <br>
-        <p [ngStyle]="{'margin-top': '20px'}"><strong > {{this.companyService.company.description}} </strong>
+        <p *ngIf="cssProfileLogoControl === 'off'" [ngStyle]="{'margin-top': '20px'}"><strong > {{this.companyService.company.description}} </strong>
+        </p> 
+        <p *ngIf="cssProfileLogoControl === 'on'" [ngStyle]="{'margin-top': '20px', 'color': 'white'}"><strong > {{this.companyService.company.description}} </strong>
         </p> 
         <hr>
+
       </div>
 
       <div class="col-sm-12 " style="margin-top: 20px">
@@ -236,10 +252,17 @@
     </div>
 
   </div>
+  <div class="panel-footer col-sm-12 text-center sergPanelBody">
+    <button class="btn btn-default"
+    *ngIf="submitButtonUpdateCompany"
+    (click)="updateCompany()"> 
+    SAVE CHANGES!
+    </button>
+  </div>
 </div>
 
 <!--UPDATE COMPANY PROFILE PANEL-->
-<div class="panel panel-default" *ngIf="companyService.profileUpdate">
+<!--<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
     <h3 class="text-center"> Update Profile </h3>
   </div>
@@ -300,13 +323,16 @@
         </div>
       </div>
     </form>
-  </div>
-</div>
+  </div>-->
+  <!--submit button-->
+  
+
+<!--</div>-->
 <!--[disabled]="!profileUpdateForm.valid"-->
 
 
 <!--AVAILABLE BRAND NAMES PANEL-->
-<div class="panel panel-default" *ngIf="companyService.profileUpdate">
+<!--<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
     <h3 class="text-center"> Available Brand Names</h3>
   </div>
@@ -317,10 +343,10 @@
     </select>
     <button class="btn btn-default col-sm-offset-2 col-sm-2" [disabled]="selectedBrandNamesAll.id === false" (click)="companySetBrand()"> select brand </button> {{selectedbrandNamesAll}}
   </div>
-</div>
+</div>-->
 
 <!--ADD BRAND NAME PANEL-->
-<div class="panel panel-default" *ngIf="companyService.profileUpdate">
+<!--<div class="panel panel-default" *ngIf="companyService.profileUpdate">
   <div class="panel-heading">
   <h3 class="text-center"> Add Brand Name </h3>
   </div>
@@ -344,4 +370,4 @@
       </div>
     </form>
   </div>
-</div>
+</div>-->
