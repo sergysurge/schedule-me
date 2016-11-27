@@ -33,6 +33,11 @@
     background-color: rgba(242,242,242,0.8);
     text-align: center;
 }
+.carousel-gif {
+    max-width: 60%;
+    max-height: 60%;
+    margin: auto;
+}
 #carousel-landing {
     height: 100%;
 }

@@ -15,17 +15,17 @@
     <div class="row company" *ngFor="let company of companies | companyFilter:listFilter.value">
         <div class="col-xs-7 col-height">
             <span *ngIf="company == -1">Sorry no results match your search</span>
-            <div *ngIf="company !== -1" class="brand">{{company.BrandName.name}}</div>
-            <div *ngIf="company !== -1" class="name">{{company.name}}</div>
-            <div *ngIf="company !== -1" class="phone">Phone Number: {{company.phoneNumber}}</div>
+            <div *ngIf="company !== -1" class="brand">{{company.BrandName?.name}}</div>
+            <div *ngIf="company !== -1" class="name">{{company?.name}}</div>
+            <div *ngIf="company !== -1" class="phone">Phone Number: {{company?.phoneNumber}}</div>
             <div *ngIf="company !== -1" class="website">
-              <a href="{{company.website}}">Visit website</a>
+              <a href="{{company?.website}}">Visit website</a>
             </div>
-            <div *ngIf="company !== -1" class="address">Address: {{company.address}}</div>
-            <div *ngIf="company !== -1" class="description">{{company.description}}</div>
+            <div *ngIf="company !== -1" class="address">Address: {{company?.address}}</div>
+            <div *ngIf="company !== -1" class="description">{{company?.description}}</div>
         </div>
         <div class="col-xs-5 col-height">
-            <img *ngIf="company !== -1" class="company-image" src="{{company.image || this.defaultCompanyImage}}">
+            <img *ngIf="company !== -1" class="company-image" src="{{company?.image || this.defaultCompanyImage}}">
             <button *ngIf="company !== -1" type="button" class="btn btn-default btn-lg btn-responsive" (click)="onCompanyClick(company)">
                 Book an appointment! <span class="glyphicon glyphicon-triangle-right"></span>
             </button>
