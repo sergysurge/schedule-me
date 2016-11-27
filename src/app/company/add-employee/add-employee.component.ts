@@ -45,11 +45,7 @@ export class AddEmployeeComponent implements OnInit {
   /* USER SEARCH END */
   
   admin = ['true', 'false']
-  addEmployee = {
-    userId: '1',
-    companyId: '1',
-    isAdmin: 'true'
-  }
+ 
   userId
   companyId
 
@@ -81,7 +77,6 @@ export class AddEmployeeComponent implements OnInit {
         alert("please make sure all forms are filled")
       }
     })
-    console.log(this.addEmployee)
   }
 
 
@@ -139,13 +134,7 @@ export class AddEmployeeComponent implements OnInit {
     /* CONTROLLER get employees END */
 
 
-    /* FORM add employee */
-    this.addEmployeeForm = formBuilder.group({
-      'userId' : [this.addEmployee.userId, Validators.required],
-      'companyId' : [this.addEmployee.companyId, Validators.required],
-      'isAdmin' : [this.addEmployee.isAdmin]
-    })
-     /* FORM add employee END */
+  
 
     this.deleteEmployeeForm = formBuilder.group({
       'userId' : [this.userId, Validators.required],
