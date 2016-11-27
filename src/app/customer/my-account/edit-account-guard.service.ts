@@ -3,14 +3,14 @@ import { CanDeactivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } fr
 import { EditAccountComponent } from './edit-account.component'
 
 @Injectable()
-export class EditAccountGuard implements CanDeactivate<EditAccountComponent> {
+export class EditAccountGuard{
     
     constructor(private router: Router) { }
-    canDeactivate( component: EditAccountComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log('inside can deactivate')
-        if(component && component.editAccountForm.pristine || component.submitted) {
-            return true
-        }
-        return window.confirm("Discard changes?")
-    }
+    // canDeactivate( component: EditAccountComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    //     console.log('inside can deactivate')
+    //     if(component && component.editAccountForm.pristine || component.submitted) {
+    //         return true
+    //     }
+    //     return window.confirm("Discard changes?")
+    // }
 }
