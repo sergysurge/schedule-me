@@ -1,177 +1,141 @@
 <!--EMPLOYEE ADDDING-->
-<div class="panel panel-default">
+<div class="panel panel-default col-sm-12">
 
   <!--HEADER-->
-  <div class="panel-heading text-center">
+  <div class="panel-heading text-center col-sm-12 sergPanelBody">
     <h3>Add Employees</h3>
   </div> <!--HEADER END -->
 
-  <div class="panel-body">
-    <div class="row ">
-      <div class="col-sm-6">
-       
-  
-    <label> Insert id or e-mail </label>
-    <input type="text" placeholder="insert e-mail or id" [(ngModel)]="userSearch">
-    
-    <button type="submit" (click)="searchUser(userSearch)"> search 
-    </button>
-    <br>
-    <p *ngIf="userNotFound"> Please Try Again! </p>
-    <div *ngIf="userShow">
-        {{userFetched.id}} {{userFetched.email}}
-        <br>
-      Admin: 
-      <label class="radio" for="ads" *ngFor="let ads of admin">
-        <input type="radio" name="ads" (click)="addEmployeeAdmin ? addEmployeeAdmin = false : addEmployeeAdmin = true"> {{ads}}
-      </label>
+      <!--ADDING BODY-->
+    <div class="panel-body">
+
+          <!--ROW START-->
+      <div class="row "> 
+
+        <!--LEFT PANEL -->
+        <div class="col-sm-6 panel panel-default">
+
+          <!--INSERT ID OR EMAIL-->
+          <div class="col-sm-12 text-center panel-heading">
+            <label> Insert id or e-mail </label>
+            <input type="text" placeholder="insert e-mail or id" [(ngModel)]="userSearch">
+            <button type="submit" class="btn btn-default"(click)="searchUser(userSearch)"> search </button>
+          </div>
+          
+          <!--BODY-->
+          <div class="col-sm-12 text-center panel-body">
+            <h3 *ngIf="userNotFound"> Please Try Again! </h3>
+            <p *ngIf="userNotFound"> User id or email does not exist </p>
+
+            <div *ngIf="userShow">
+              <strong> Id: </strong> {{userFetched.id}} 
+              <br>
+              <strong> Email:</strong> {{userFetched.email}}
+              <hr>
+              <h3> Give User Admin Rights? </h3>
+              <label class="radio" for="ads" *ngFor="let ads of admin">
+              <input type="radio" name="ads" (click)="addEmployeeAdmin ? addEmployeeAdmin = false : addEmployeeAdmin = true"> {{ads}}
+              </label>
+              <hr>
+              <h3> Preview and Add Employee --></h3>
+            </div>
+          </div>   <!--BODY END-->
+
+      </div> <!--LEFT PANEL END -->
+
+          <!--RIGHT PANEL-->
+      <div *ngIf="userShow" class="col-sm-6 panel panel-default" [ngStyle]="{'margin':'60px auto auto auto'}">
+
+        <div class="panel-heading sergPanelBody col-sm-12">
+          <h3 class="text-center"> {{userFetched.name}}</h3>
+        </div>
+          <!--body panel-->
+        <div class="panel-body col-sm-12"> 
+
+          <!--photo employee-->
+          <div class="col-sm-4">
+            <img [src]="userFetched.image" class="img-rounded col-sm-12" width="auto" height="auto">
+          </div>
+
+          <div class="col-sm-8" style="line-height: 200%">
+            <strong> Phone: </strong> {{userFetched.phoneNumber}}
+            <br>
+            <strong> Email: </strong> {{userFetched.email}}<br>
+            <strong> Admin: </strong> {{addEmployeeAdmin}} <br>
+          </div>
+
+        </div><!--body panel END--> 
+
+        <div class="panel-footer col-sm-12 sergPanelBody">
+          <button class="btn btn-default" type="submit" (click)="onSubmit()" > add employee </button>
+        </div>
       
+    
+
+
+      </div> <!--RIGHT PANEL END-->
+    </div> <!--ROW START END-->
+
+  </div> <!--ADDING BODY END-->
   
-    
-  </div>
-      </div>
-
-      <div class="col-sm-6">
-   
-
-
-
-    <div class="panel panel-default">
-
-      <div class="panel-heading ">
-        <h3 class="text-center"> {{userFetched.name}}</h3>
-      </div>
-
-      <div class="panel-body col-sm-4">
-        <img [src]="userFetched.image" class="img-rounded col-sm-12" width="auto" height="auto">
-      </div>
-
-      <div class="panel-body col-sm-8" style="line-height: 200%">
-        <strong> phone: </strong> {{userFetched.phoneNumber}}<br>
-        <strong> email: </strong> {{userFetched.email}}<br>
-        <strong> admin: </strong> {{addEmployeeAdmin}} <br>
-      </div>
-
-      <div class="panel-footer">
-        <button type="submit" (click)="onSubmit()"> add employee </button>
-      </div>
-      
-    
-    
-  </div>
-
-
-      </div>
-    </div>
-
-  </div>
-  
-  <!--INPUT FOR SEARCH-->
-
-  <!--Employee Model-->
-  <!--Employee Model END -->
 
 </div>  <!-- END OF EMPLOYEE ADDDING -->
 
 
-<!--<h3> Search for User </h3>
-  <input type="text" placeholder="email@gmail.com OR 23 (userId)" [(ngModel)]="userSearch"> 
-  <button type="submit" (click)="searchUser(userSearch)">search</button>
-  <br>
-  <p *ngIf="userNotFound"> Please Try Again! <p>
-    <div *ngIf="userShow">
-      {{userFetched.id}} {{userFetched.email}}
-    </div>
-<hr>-->
-<!--
-<h3> Add Employee </h3>
-
-<form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
-
-  <div class="form-group">
-    <label for="userId"> UserId </label>
-    <input type="number" id="userId" class="form-control" formControlName="userId">
-    <div *ngIf="!addEmployeeForm.controls['userId'].valid">
-      INVAID, TRY AGAIN
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="companyId"> CompanyId </label>
-    <input type="number" id="companyId" class="form-control" formControlName="companyId">
-    <div *ngIf="!addEmployeeForm.controls['companyId'].valid">
-      INVAID, TRY AGAIN
-    </div>
-  </div>
-
-  <div class="radio" *ngFor="let a of admin">
-    <label>
-      <input type="radio" formControlName="isAdmin" [value]="a"> {{a}}
-    </label>
-  </div>
-
-  <button type="submit" [disabled]="!addEmployeeForm.valid">Submit</button>
-
-</form>-->
-
 
 <!--NEW CURRENT EMPLOYEES PANEL-->
-<div class="panel panel-default">  
+<div class="panel panel-default col-sm-12">  
 
   <!--HEADING-->
-  <div class="panel-heading text-center">
+  <div class="panel-heading text-center col-sm-12 sergPanelBody">
     <h3> Current Employees</h3>
   </div>
 
   <!--MAIN BODY EMPLOYEE MODEL HOLDER-->
-  <div class="panel-body">
+  <div class="panel-body col-sm-12">
 
     <!--EACH EMPLOYEE MODEL-->
     <div class="panel panel-default col-sm-6" *ngFor="let empAll of this.companyService.employees">
+
       <!--EMPLOYEE MODEL HEADING-->
-      <div class="panel-heading ">
+      <div class="panel-heading col-sm-12 sergPanelBody">
         <h3 class="text-center"> {{empAll.name}}</h3>
       </div>
-      <!--EMPLOYEE MODEL USER IMAGE-->
-      <div class="panel-body col-sm-4">
-        <img [src]="empAll.image" class="img-rounded col-sm-12" width="auto" height="auto">
-      </div>
-      <!--EMPLOYEE MODEL USER INFORMATION-->
-      <div class="panel-body col-sm-8" style="line-height: 200%">
-        <strong> phone: </strong> {{empAll.phoneNumber}}<br>
-        <strong> email: </strong> {{empAll.email}}<br>
-        <strong> admin: </strong> {{empAll.admin}} <br>
- 
-        <div *ngIf="showAdminControl">
-          <hr>
-          admin: 
-        <label class="radio" *ngFor="let add of admin" >
-          <input  name="add" (click)="updateAdminSubmit(add)" type="radio" value="add"> {{add}}
-          </label>
+
+        <!--EMPLOYEE MODEL BODY-->
+      <div class="panel-body col-sm-12">
+
+            <!--EMPLOYEE MODEL USER IMAGE-->
+          <div class="col-sm-4">
+            <img [src]="empAll.image" class="img-rounded col-sm-12" [ngStyle]="{'margin': 'auto', 'max-width':'100px', 'max-height': '100px' , 'height':'auto', 'width': 'auto'}">
+          </div>
+
+          <!--EMPLOYEE MODEL USER INFORMATION-->
+          <div class="panel-body col-sm-8" style="line-height: 200%">
+            <strong> Phone: </strong> {{empAll.phoneNumber}}<br>
+            <strong> Email: </strong> {{empAll.email}}<br>
+            <strong> Admin: </strong> {{empAll.admin}} <br>
+              <div *ngIf="showAdminControl">
+                <hr>
+                Admin: 
+                <label class="radio" *ngFor="let add of admin" >
+                  <input  name="add" (click)="updateAdminSubmit(add)" type="radio" value="add"> {{add}}
+                </label>
+              </div>
+          </div>
+
+        </div> <!--EMPLOYEE MODEL BODY END -->
+
+        <!--FOOTER EMPLOYEE MODEL-->
+        <div class="panel-footer sergPanelBody col-sm-12">
+          <button type="button" class="btn btn-default" (click)="deleteEmployeeSubmit(empAll.id, empAll.name)"> Delete Employee</button>
+          <button class="btn btn-default" type="button" (click)="updateAdminSubmit()"> Update Admin</button>
         </div>
-      </div>
-      <!--FOOTER EMPLOYEE MODEL-->
-      <div class="panel-footer">
-        <button type="button" (click)="deleteEmployeeSubmit(empAll.id, empAll.name)"> Delete Employee</button>
-        <button type="button" (click)="updateAdminSubmit()"> Update Admin</button>
-      </div>
 
     </div> <!--EACH EMPLOYEE MODEL END-->
   </div> <!--MAIN BODY EMPLOYEE MODEL HOLDER END-->
 </div> <!--NEW CURRENT EMPLOYEES PANEL END-->
 
-
-<!--<h3> Delete Employee </h3>
-
-<form [formGroup]="deleteEmployeeForm" (ngSubmit)="deleteEmployeeSubmit()">
-  <div class="form-group">
-    <label for="userId">Enter User Id</label>
-    <input type="number" id="userId" class="form-control" formControlName="userId">
-    <label for="companyId">Enter Company Id</label>
-    <input type="number" id="companyId" class="form-control" formControlName="companyId">
-  </div>
-  <button type="submit" [disabled]="!deleteEmployeeForm.valid">Submit</button>
-</form>-->
 
 
 <!-- classes - ng-untouched, ng-pristine, ng-invalid -->
