@@ -1,5 +1,6 @@
 import { Injectable, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -12,9 +13,17 @@ export class CompanyService {
 
   // PROFILE COMPONENT NGIF VARIABLES
   
+  private token = localStorage.getItem('jwt-token');
+  private authHeader = `Bearer ${this.token}`
+  private headers = new Headers({ 'authorization': this.authHeader })
+  private userSubject: Subject<any> = new Subject<any>()
+  private employeesSubject: Subject<any> = new Subject<any>()
+
 
   getAllCompaniesByUserId(userId) {
-    return this.http.get('api/companies/usercompanies/' + userId)
+     let options = new RequestOptions({ headers: this.headers })
+
+    return this.http.get('api/companies/usercompanies/' + userId, options)
     .map((response: Response) => {
       this.companiesLanding = [];
       let comps = response.json()
@@ -58,7 +67,9 @@ export class CompanyService {
   }
   
   getCompanyById(companyId) {
-    return this.http.get('api/companies/getonecompany/' + companyId)
+    let options = new RequestOptions({ headers: this.headers })
+
+    return this.http.get('api/companies/getonecompany/' + companyId, options)
     .map((response: Response) => {
       let data = response.json()
       console.log(data, '***IS THIS WHERE THE ERROR IS')
@@ -83,7 +94,8 @@ export class CompanyService {
   brandNamesAll: any = [];
 
   getAllBrandNames() {
-    return this.http.get('api/companies/getallbrandnames')
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.get('api/companies/getallbrandnames', options)
     .map((response:Response) => {
       let brandNamesReturned = response.json()
       brandNamesReturned.forEach((data) => {
@@ -100,7 +112,8 @@ export class CompanyService {
   //need when creating a company account to auto
   //log in the current user to company
   getOneBrandNameAddCompany(brandId) {
-    return this.http.get('api/companies/getbrandname/' + brandId)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.get('api/companies/getbrandname/' + brandId, options)
     .map((response:Response) => {
       let brandCompanies = response.json().companies
       brandCompanies.forEach(item=> {
@@ -114,7 +127,11 @@ export class CompanyService {
   }
 
   updateProfile(body) {
-    return this.http.put('api/companies/updatecompany', body)
+    let options = new RequestOptions({
+      headers: this.headers,
+      body: body
+    })
+    return this.http.put('api/companies/updatecompany', options)
   }
   /* COMPANY PROFILE COMPONENT END */
   
@@ -176,7 +193,8 @@ export class CompanyService {
   employees: any = []
 
   getEmployees(companyId) {
-    return this.http.get('/api/users/getemployees/' + companyId)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.get('/api/users/getemployees/' + companyId, options)
     .map((response:Response) => {
       console.log(response, 'dis **** response');
       this.employees = []
@@ -198,23 +216,39 @@ export class CompanyService {
   }
 
   postOneEmployeeSched(employeeSched) {
-    return this.http.post('/api/schedules/oneschedule', employeeSched)
+    let options = new RequestOptions({
+      headers: this.headers,
+      body: employeeSched
+    })
+    
+    return this.http.post('/api/schedules/oneschedule', options)
       .map((response: Response) => response.json())
   }
 
   getUsersFromCompany(companyId) {
-    return this.http.get('/api/users/employees?companyId=' + companyId)
+    let options = new RequestOptions({
+      headers: this.headers
+    })
+    return this.http.get('/api/users/employees?companyId=' + companyId, options)
     .map((response: Response) => response.json().response.employees)
   }
 
   deleteEmployee(body) {
-    return this.http.delete('api/users/employees?userId=' + body.userId + '&' + 'companyId=' + body.companyId)
+    let options = new RequestOptions({
+      headers: this.headers
+    })
+    return this.http.delete('api/users/employees?userId=' + body.userId + '&' + 'companyId=' + body.companyId, options)
     .map((response:Response) => response)
   }
 
   addEmployee(body: any): Observable<any> {
+    let options = new RequestOptions({
+      headers: this.headers,
+      body: body
+    })
+    
     // const headers = new Headers('Content-Type', 'Application/json');
-    return this.http.put('/api/users/employees', body)
+    return this.http.put('/api/users/employees', options)
     .map((response:Response) => response)
     //.catch(err => return err)
   }
@@ -222,18 +256,25 @@ export class CompanyService {
   /*  COMPANY MODEL */
   //GOOD
   getUsers(input) {
+    let options = new RequestOptions({
+      headers: this.headers
+    })
     if (1 + input > 1) {
-      return this.http.get('api/users/?userId=' + input + '&email=')
+      return this.http.get('api/users/?userId=' + input + '&email=', options)
       .map((response: Response) => response.json())
     } else if (typeof input === 'string') {
-      return this.http.get('api/users/?userId=&email=' + input)
+      return this.http.get('api/users/?userId=&email=' + input, options)
       .map((response:Response) => response.json())
     }
   }
   //getAllBrandNames
 
   postBrandName(body) {
-    return this.http.post('/api/companies/postbrandname', body)
+    let options = new RequestOptions({
+      headers: this.headers,
+      body: body
+    })
+    return this.http.post('/api/companies/postbrandname', options)
     .map((response:Response) => {
       //this.getAllBrandNames()
       return response.json()
@@ -241,21 +282,28 @@ export class CompanyService {
   }  
   //options
   addOptions (body:any): Observable<any>{
-    return this.http.post('api/companies/postoneoption',body)
+    let options = new RequestOptions({
+      headers: this.headers,
+      body: body
+    })
+    return this.http.post('api/companies/postoneoption',options)
     .map((response:Response) => response.json())
   }
 
   allOptions = []
   
   getOptions (body:any): Observable<any>{
-    return this.http.get('api/companies/getalloptions/'+body)
+    let options = new RequestOptions({
+      headers: this.headers
+    })
+    return this.http.get('api/companies/getalloptions/'+body, options)
     .map((response:Response) => {
       this.allOptions = response.json()
       return response.json()
     })
   }
   
-  constructor(private http: Http, private router: Router) { 
+  constructor(private http: Http, private router: Router, private requestOptions: RequestOptions) { 
     
   }
 
