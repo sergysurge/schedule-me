@@ -1,5 +1,5 @@
 .container-fluid {
-    height: 2700px;
+    height: 2800px;
     width: 100%;
     position: absolute;
     top: 0px;
@@ -54,7 +54,7 @@
     font-size: 36px;
 }
 .description {
-    height: 500px;
+    height: 600px;
     background-image: url('../assets/concrete_seamless.png');
     padding: 0px;
     color: #00344A;
@@ -64,10 +64,11 @@
     font-size: 32px;
     text-align: center;
     margin-top: 2%;
+    height: 10%;
 }
 .description-detail {
     width: 33.33%;
-    height: 80%;
+    height: 60%;
     float: left;
     padding: 2%;
     margin: auto;
@@ -104,6 +105,26 @@
     background-position: center;
     background-size: 50%;
 }
+.description-footer {
+    height: 10%;
+    float:left;
+    width: 100%;
+    text-align:center;
+}
+.btn-primary {
+    width: 25%;
+    height: 100%;
+    font-size: 24px;
+    border-radius: 30px;
+    background-color: #00344A;
+}
+.btn-primary:hover {
+    background-color: #008ea8;
+}
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
 .tech-stack {
     height: 500px;
     background-image: url('../assets/concrete_seamless.png');
@@ -123,6 +144,13 @@
     height: 100px;
     margin-top: 2%;
     margin-bottom: 2%;
+}
+.tech-stack-name {
+    display: none;
+}
+.tech-stack-logo:hover {
+    transform: scale(1.1);
+    transition: all .1s ease-in-out;
 }
 #contribute {
     width: 33.33%;
