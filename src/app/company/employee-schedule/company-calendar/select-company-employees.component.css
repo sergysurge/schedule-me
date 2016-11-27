@@ -13,6 +13,7 @@
     margin-bottom: 5%;
     font-size: 16px;
     text-align: center;
+    overflow-wrap: break-word;
 }
 .col-height {
     height: 100%;
