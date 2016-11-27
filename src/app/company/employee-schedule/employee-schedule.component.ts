@@ -10,7 +10,7 @@ import { CompanyService } from '../company.service';
   styleUrls: ['./employee-schedule.component.css']
 })
 export class EmployeeScheduleComponent {
-  companyId = localStorage.getItem('companyId') || 1;
+  companyId = localStorage.getItem('localCompanyId')
   newSchedule
   private employees
   private start
@@ -110,12 +110,15 @@ export class EmployeeScheduleComponent {
       startTime : start,
       endTime : end,
       description : this.employeeScheduleForm.value.description,
-      UserCompanyId : this.selectedEmployeeId.userCompanyId,
+      UserCompanyId : this.selectedEmpUserCompanyId,
       block: blockStrinified
     })
     .subscribe( 
       (result) => {
         this.newSchedule = result
+        if (result.UserCompanyId === this.selectedEmpUserCompanyId) {
+          this.step2()
+        }
       }
     )
   }
@@ -126,7 +129,21 @@ export class EmployeeScheduleComponent {
     this.companyService.adminCheck()
     this.companyService.getEmployees(this.companyId)
     .subscribe(data => {
-      this.employees = data
+
+      this.employees = data.map(item=> {
+        return {
+          id: item.id,
+          name: item.firstName + item.lastName,
+          email: item.email,
+          admin: item.UserCompany.admin,
+          phoneNumber: item.phoneNumber,
+          image: item.image,
+          userCompanyId: item.UserCompany.id
+
+        }
+      })
+        
+      console.log(this.employees, '***actual emploeyes***')
     })
 
     this.employeeScheduleForm = formBuilder.group({
@@ -140,4 +157,43 @@ export class EmployeeScheduleComponent {
   }
 
 
+
+  // MAIN SCHEDULE MODULE
+  sched0 = true
+  sched1 = false
+  sched2 = false
+  selectedEmpId
+  selectedEmpName
+  selectedEmpEmail
+  selectedEmpAdmin
+  selectedEmpPhoneNumber
+  selectedEmpImage
+  selectedEmpUserCompanyId
+
+  step0() {
+    this.sched1 = true
+  }
+
+  step1(id, name, email, admin, phone, image, userCompanyId) {
+    console.log(id, 'should be an id')
+    this.selectedEmpId = id
+    this.selectedEmpName = name
+    this.selectedEmpEmail = email
+    this.selectedEmpAdmin = admin
+    this.selectedEmpPhoneNumber = phone
+    this.selectedEmpImage = image
+    this.selectedEmpUserCompanyId = userCompanyId
+    this.sched1 = false
+    this.sched2 = true
+}
+  step2() {
+    this.sched2 = false
+    this.selectedEmpId = ''
+    this.selectedEmpName = ''
+    this.selectedEmpEmail = ''
+    this.selectedEmpAdmin = ''
+    this.selectedEmpPhoneNumber = ''
+    this.selectedEmpImage = ''
+    this.selectedEmpUserCompanyId = ''
+  }
 }

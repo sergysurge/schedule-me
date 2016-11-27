@@ -83,11 +83,15 @@ export class ProfileComponent implements OnDestroy, OnInit{
   }
   cssProfileControl = 'off'
   cssProfileImageEdited:any 
-  profileImage:any = this.companyService.company.image
+  profileImage:any
   editImage = false
 
   //MOUSE ON
   mouseenterProfileImage() {
+    if (this.profileImage === undefined) {
+      this.profileImage = this.companyService.company.image
+      console.log(this.profileImage, 'this.profileImage')
+    }
     this.cssProfileImage = 
     { 'width': '80%',
     'height': 'auto',
@@ -125,11 +129,15 @@ export class ProfileComponent implements OnDestroy, OnInit{
   }
   cssProfileLogoControl = 'off'
   cssProfileLogoEdited:any 
-  profileLogo:any = this.companyService.company.logo
+  profileLogo:any 
   editLogo = false
 
   //MOUSE ON
   mouseenterProfileLogo() {
+    if (this.profileLogo === undefined) {
+      this.profileLogo = this.companyService.company.logo
+      console.log(this.profileLogo, 'this.profileLogo')
+    }
     this.cssProfileLogo = { 
       'height': '50px',
       'width': 'auto',
@@ -169,6 +177,7 @@ export class ProfileComponent implements OnDestroy, OnInit{
   }
   
   companyGetAllBrandNames() {
+    this.companyService.brandNamesAll = []
     this.companyService.getAllBrandNames()
       .subscribe(data => console.log(data, "from companyGetAllBrandNames"))
   } 
