@@ -177,6 +177,7 @@ export class ProfileComponent implements OnDestroy, OnInit{
   }
   
   companyGetAllBrandNames() {
+    this.companyService.brandNamesAll = []
     this.companyService.getAllBrandNames()
       .subscribe(data => console.log(data, "from companyGetAllBrandNames"))
   } 
