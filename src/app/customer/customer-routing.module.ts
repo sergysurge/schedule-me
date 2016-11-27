@@ -27,8 +27,8 @@ const routes: Routes = [
                     },
                     { 
                         path: 'edit', 
-                        component: EditAccountComponent,
-                        canDeactivate: [EditAccountGuard]
+                        component: EditAccountComponent
+                        // canDeactivate: [EditAccountGuard]
                     }
                 ] 
             },

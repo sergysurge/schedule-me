@@ -13,10 +13,16 @@ export class EmployeeServiceService {
   subject: Subject<number> = new Subject<number>()
   nameSubject: Subject<any> = new Subject<any>()
   companyName: any
+  
+  private token = localStorage.getItem('jwt-token');
+  private authHeader = `Bearer ${this.token}`
+  private headers = new Headers({ 'authorization': this.authHeader })
+
   constructor(private http: Http) { }
 
   getUserCompanies(id: any): Promise<any>{
-    return this.http.get(`/api/companies/usercompanies/${id}`)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.get(`/api/companies/usercompanies/${id}`,options)
     .toPromise()
     .then(response=>{
         return response.json()
@@ -24,31 +30,36 @@ export class EmployeeServiceService {
   }
 
   updateBlock(body: Object): Promise<any> {
-    return this.http.put('/api/schedules', body)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.put('/api/schedules', body, options)
     .toPromise()
     .then(response => response.json())
   }
   
   makeAppointment(body: Object): Promise<any> {
-    return this.http.post('/api/appointments', body)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.post('/api/appointments', body, options)
       .toPromise()
       .then(response => response.json())
   }
 
   getEmployees(id: Number): Observable<any> {
-    return this.http.get(`api/users/getemployees/${id}`)
+    let options = new RequestOptions({ headers: this.headers })
+    return this.http.get(`api/users/getemployees/${id}`, options)
       .map((response: Response) => response)
   }
 
   getSchedule(body: any): Promise<any>{
+    let options = new RequestOptions({ headers: this.headers })
     let id = JSON.stringify(body)
-    return this.http.get(`/api/schedules/?userCompanyIds=${id}`)
+    return this.http.get(`/api/schedules/?userCompanyIds=${id}`, options)
     .toPromise()
     .then(response => response.json())
   }
 
 
   getEmployeeCalendarData(userId, userCompanyIds): Observable<any> {
+    let options = new RequestOptions({ headers: this.headers })
     console.log('asdfasdf', userCompanyIds)
     const employeeAppointmentsUrl = `/api/appointments/${userId}`
 

@@ -45,9 +45,4 @@ export class MyAccountComponent implements OnInit, OnDestroy {
     this.userSubscription && this.userSubscription.unsubscribe()
   }
 
-  onEdit() {
-    this.router.navigate(['users/account/edit'])
-  }
-
-
 }

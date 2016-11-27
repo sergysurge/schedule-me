@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CustomerService } from '../customer.service'
 import { Subscription } from 'rxjs/Rx'
+declare var swal: any;
 
 @Component({
   selector: 'app-edit-account',
@@ -79,14 +80,17 @@ export class EditAccountComponent implements OnInit, OnDestroy {
         .subscribe(
           (res) => {
             if (res.response.success) {
-              this.showSuccessMsg = true
+              // this.showSuccessMsg = true
               // this.userUpdate.emit(update)
+              swal("Saved!", "Changes have been saved!", "success")
             } else if (res.response.message === 'incorrect password') {
-              this.incorrectPassword = true
+              // this.incorrectPassword = true
+              swal("Oops...", "Incorrect password, try again!", "error")
             }
           },
           (err) => {
-            this.showErrorMsg = true
+            swal("Oops...", "Unable to save changes, Please try again!", "error")
+            // this.showErrorMsg = true
             console.error(err)
           },
           () => {
