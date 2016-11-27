@@ -1,41 +1,122 @@
-<h1> Schedules </h1>
-<h3> Choose An Employee </h3>
-<div>
-  <ul>
-    <li (click)="setEmployee(e.id, e.UserCompany.id, e.firstName, e.lastName, e.UserCompany.admin)" *ngFor="let e of employees"> user id: {{e.id}} | {{e.firstName}} {{e.lastName}} | admin: {{e.UserCompany.admin}}
-    </li>
-  </ul>
-</div>
-<h2 *ngIf="step2GotEmployee"> Grabbed {{selectedEmployeeId.id}} | {{selectedEmployeeId.nameFirst}} {{selectedEmployeeId.nameLast}} | admin: {{selectedEmployeeId.admin}}</h2>
-<h3> Employee Schedule</h3>
+<div class="panel panel-default col-sm-12">
 
-<div *ngIf="step2GotEmployee">
-  <h3 > Set one day </h3>
-  <form [formGroup]="employeeScheduleForm" (ngSubmit)="postOneSched()">
-    <!--<input type="date" id="date" class="form-control" formControlName="date" placeholder="11">  Month /
+  <div class="panel-heading text-center col-sm-12 sergPanelBody">
+    <h3 *ngIf="sched0" (click)="step0()"> <span class="glyphicon glyphicon-plus-sign"> </span> Add Schedule </h3>
+  </div>
+
+  <div *ngIf="sched2" class="panel-body col-sm-12">
+
+    <div class="panel panel-default col-sm-6">
+       <!--EMPLOYEE MODEL HEADING-->
+        <div class="panel-heading col-sm-12 sergPanelBody">
+          <h3 class="text-center"> {{selectedEmpName}} </h3>
+        </div>
+
+          <!--EMPLOYEE MODEL BODY-->
+          <div class="col-sm-4">
+            <img [src]="selectedEmpImage" class="img-rounded col-sm-12" [ngStyle]="{'margin': 'auto', 'max-width':'100px', 'max-height': '100px' , 'height':'auto', 'width': 'auto'}"> 
+          </div>
+ 
+
+
+          <!--EMPLOYEE MODEL USER INFORMATION-->
+          <div class="panel-body col-sm-8" style="line-height: 200%">
+            <strong> Phone: </strong> {{selectedEmpPhoneNumber}}<br>
+            <strong> Email: </strong> {{selectedEmpEmail}}<br>
+            <strong> Admin: </strong> {{selectedEmpAdmin}} <br>
+          </div>
+    </div>
+
+    <div class="panel panel-default col-sm-6">
+
+      <div class="panel-heading col-sm-12 sergPanelBody">
+        <h3 class="text-center"> Block Schedule </h3>
+      </div>
+
+      <div class="panel-body col-sm-12">
+            
+
+
+
+          <form [formGroup]="employeeScheduleForm" (ngSubmit)="postOneSched()"
+          class="text-center">
+              
+              <label class="text-center"> date 
+              <input type="date"  formControlName="date"/>
+              </label>
+              <br>
+              <label> start Time </label>
+              <input type="time"  step="900" formControlName="startTime"/>
+              <label> end Time </label>
+              <input type="time"  step="900" formControlName="endTime"/>
+              <br>
+              <label for="description"> description </label>
+              <input type="text" id="description" formControlName="description">
+              <button type="submit" [disabled]="!employeeScheduleForm.valid">Submit</button>
+            </form>
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="sched1" class="panel-body col-sm-12">
+
+    <h3 class="text-center"> SELECT Employee!</h3>
+    <!--EACH EMPLOYEE MODULE-->
+                            <!--MAKE CLICK HERE-->
+    <div class="panel panel-default col-sm-6" *ngFor="let empAll of this.employees" (click)="step1(empAll.id, empAll.name, empAll.email, empAll.admin, empAll.phoneNumber, empAll.image, empAll.userCompanyId)">
+      
+        <!--EMPLOYEE MODEL HEADING-->
+        <div class="panel-heading col-sm-12 sergPanelBody">
+          <h3 class="text-center"> {{empAll.name}} </h3>
+        </div>
+
+          <!--EMPLOYEE MODEL BODY-->
+          <div class="col-sm-4">
+            <img [src]="empAll.image" class="img-rounded col-sm-12" [ngStyle]="{'margin': 'auto', 'max-width':'100px', 'max-height': '100px' , 'height':'auto', 'width': 'auto'}">
+          </div>
+ 
+
+
+          <!--EMPLOYEE MODEL USER INFORMATION-->
+          <div class="panel-body col-sm-8" style="line-height: 200%">
+            <strong> Phone: </strong> {{empAll.phoneNumber}}<br>
+            <strong> Email: </strong> {{empAll.email}}<br>
+            <strong> Admin: </strong> {{empAll.admin}} <br>
+          </div>
+
+        </div> <!--EMPLOYEE MODEL BODY END -->
+
+    </div>
+
+
+
+
+
+
+
+
     
-    <input type="date"/>
-    <input type="datetime"/>-->
-    <label> date </label>
-    <input type="date"  formControlName="date"/>
-    <label> start Time </label>
-    <input type="time"  step="900" formControlName="startTime"/>
-    <label> end Time </label>
-    <input type="time"  step="900" formControlName="endTime"/>
-    <br>
-    <!--<input min='8' max="24" step="15" type="time">
-    <input min='8:00' max="24:00" step="00:15" type="time">
-    <input min='28800' max="12:00" step="900" type="time">-->
-    <!--<input type="date" id="day" class="form-control" formControlName="day" placeholder="30"> Day /
-    <input type="date" id="year" class="form-control" formControlName="year" placeholder="2016"> Year-->
-    <!--<label for="startTime"> start </label>
-    <input type="data" id="startTime" class="form-control" formControlName="startTime" placeholder="2016-11-11 16:30:48.999 +00:00" [value]="startTime">
-    <label for="endTime"> end </label>
-    <input type="data" id="endTime" class="form-control" formControlName="endTime">-->
-    <label for="description"> description </label>
-    <input type="text" id="description" formControlName="description">
-    <button type="submit" [disabled]="!employeeScheduleForm.valid">Submit</button>
-  </form>
-</div>
+     
+
+  </div>
+
+
+
+
+
+
+
 <app-company-calendar [companyId]="companyId" [newSchedule]="newSchedule"></app-company-calendar>
 
