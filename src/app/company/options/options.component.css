@@ -1,0 +1,73 @@
+#profileImage {
+  float:left;
+  margin:auto;
+  width:25%;
+}
+
+.companyProfilePic {
+  /*background-image: url('../assets/flowers-desk-office-vintage.jpg');*/
+    /*background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;*/
+    /*height:400px;*/
+    overflow: visible;
+}
+
+.companyLogo {
+
+  max-height: 100px;
+  max-width: 200px;
+}
+
+.compDesc {
+  list-style: none;
+  margin: auto;
+}
+
+.down20 {
+  position: relative;
+  top: 20px;
+}
+
+.down40 {
+  position: relative;
+  top: 40px;
+}
+
+.down80 {
+  position: relative;
+  top: 80px;
+}
+/*grey a5a5af*/
+/*blue 77c9d4*/
+.sergNav {
+  background-color: #57bc90;
+  color: white;
+}
+
+.sergNav a {
+  color: #015249;
+}
+
+.sergNav a:hover {
+  color: #57bc90;
+}
+
+.sergNav a:active {
+  color: white;
+  background-color: #57bc90;
+}
+
+.sergPanelBody {
+
+  background-color: #007ea7;
+  color: white;
+}
+
+.allOptions:hover {
+  background-color: #007ea7;
+  color: white;
+}
