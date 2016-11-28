@@ -17,7 +17,6 @@ import { Component, OnInit, Input } from '@angular/core';
         border: none;
       }
     `
-
   ]
 })
 export class CalendarEventDetailComponent {

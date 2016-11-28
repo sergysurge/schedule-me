@@ -1,90 +1,72 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Response } from "@angular/http";
 import { CompanyService } from './company.service';
 import { Router } from '@angular/router'
+import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'app-company-landing',
   templateUrl: './company-landing.component.html',
   styles: [
     `
-    .companyProfilePic {
-  /*background-image: url('../assets/flowers-desk-office-vintage.jpg');*/
-    /*background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;*/
-    /*height:400px;*/
-    overflow: visible;
-}
-
-.companyLogo {
-
-  max-height: 100px;
-  max-width: 200px;
-}
-
-.compDesc {
-  list-style: none;
-  margin: auto;
-}
-
-.adminCompModules:hover {
-  background-color: #008ea8;
-  color: white;
-  margin-bottom : 5px;
-}
-
-.adminCompModules:hover li {
-  background-color: #008ea8;
-  color: white;
-}
-
-.down20 {
-  position: relative;
-  top: 20px;
-}
-
-.down40 {
-  position: relative;
-  top: 40px;
-}
-
-.down80 {
-  position: relative;
-  top: 80px;
-}
-/*grey a5a5af*/
-/*blue 77c9d4*/
-.sergNav {
-  background-color: #57bc90;
-  color: white;
-}
-
-.sergNav a {
-  color: #015249;
-}
-
-.sergNav a:hover {
-  color: #57bc90;
-}
-
-.sergNav a:active {
-  color: white;
-  background-color: #57bc90;
-}
-
-.sergPanelBody {
-
-  background-color: #007ea7;
-  color: white;
-}`
+      .companyProfilePic {
+        overflow: visible;
+      }
+      .companyLogo {
+        max-height: 100px;
+        max-width: 200px;
+      }
+      .compDesc {
+        list-style: none;
+        margin: auto;
+      }
+      li.compDesc>div {
+        overflow-wrap: break-word;
+      }
+      .adminCompModules:hover {
+        background-color: #008ea8;
+        color: white;
+        margin-bottom : 5px;
+      }
+      .adminCompModules:hover li {
+        background-color: #008ea8;
+        color: white;
+      }
+      .down20 {
+        position: relative;
+        top: 20px;
+      }
+      .down40 {
+        position: relative;
+        top: 40px;
+      }
+      .down80 {
+        position: relative;
+        top: 80px;
+      }
+      .sergNav {
+        background-color: #57bc90;
+        color: white;
+      }
+      .sergNav a {
+        color: #015249;
+      }
+      .sergNav a:hover {
+        color: #57bc90;
+      }
+      .sergNav a:active {
+        color: white;
+        background-color: #57bc90;
+      }
+      .sergPanelBody {
+        background-color: #007ea7;
+        color: white;
+      }
+    `
   ]
 })
-export class CompanyLandingComponent implements OnInit {
+export class CompanyLandingComponent {
 
   navigateToCompany(companyId) {
   this.router.navigate(['/admin/company', companyId])
@@ -159,10 +141,8 @@ export class CompanyLandingComponent implements OnInit {
       logo: this.companyService.company.logo,
       BrandNameId: this.companyService.company.BrandNameId.toString()
     }
-    console.log(body, 'dis da body we get')
     this.companyService.postProfile(body)
       .subscribe(data => {
-        console.log(data, "wow fucking idiot")
         if (data.status === 200) {
           this.companyService.getOneBrandNameAddCompany(this.companyService.company.BrandNameId)
           .subscribe(data=> {
@@ -172,29 +152,30 @@ export class CompanyLandingComponent implements OnInit {
             isAdmin : true
           })
           .subscribe( data => {
-            console.log('hope its true!!!')
+            let parsed = data.json()
+            if (parsed.response.associations) {
+              localStorage.removeItem('userAssociations')
+              localStorage.setItem('userAssociations', JSON.stringify(parsed.response.associations))
+              this.authService.setUserAssociations()
+            }
             this.step2to3()
           })
-          console.log(data, 'company updated')
-          }
-          )
-        }
-        else (console.log('inccorrent updating'))
-      
+        })
+      }
+      else (console.log('inccorrent updating'))
     })
   }
 
   step2to3() {
     this.step2 = false
     this.startedAddCompany = false
-    console.log('SHOULD BE GOING TO COMPANY PAGE!')
     this.router.navigate(['/admin/company', this.companyService.company.id])
     // this.router.navigate('admin')
   }
 
   addCompanyForm : FormGroup
   
-  constructor(private companyService: CompanyService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private companyService: CompanyService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.companyService.getAllCompaniesByUserId(localStorage.getItem('userId'))
       .subscribe(data => console.log(data, 'logging the data in constructure company service'))
 
@@ -210,11 +191,5 @@ export class CompanyLandingComponent implements OnInit {
         'description' : [this.companyService.company.description, Validators.required]
       })
       /* FORM addCompany END */
-
-      
    }   
-
-  ngOnInit() {
-  }
-
 }

@@ -124,7 +124,7 @@ usersModel.getEmployeesByCompany = (companyId) => {
     })
 }
 
-usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
+usersModel.addUserToCompany = function (userId, companyId, isAdmin, getUserAssociations) {
   return User.findById(userId)
     .then((user) => {
       if (!user) {
@@ -156,11 +156,25 @@ usersModel.addUserToCompany = function (userId, companyId, isAdmin) {
               }
             }
             return user.addCompany(company, { admin: isAdmin })
-              .then((association) => {
-                return {
-                  'success': true,
-                  'message': 'user added to company',
-                  'association': association[0][0]
+              .then((result) => {
+                if (getUserAssociations) {
+                  return UserCompany.findAll({
+                    where: {
+                      userId: user.id
+                    }
+                  })
+                  .then((associations) => {
+                    return {
+                      'success': true,
+                      'message': 'user added to company',
+                      'associations': associations
+                    }
+                  })
+                } else {
+                  return {
+                    'success': true,
+                    'message': 'user added to company'
+                  }
                 }
               })
               .catch((err) => {

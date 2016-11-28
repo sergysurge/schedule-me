@@ -30,8 +30,7 @@ export class EmployeeComponent implements OnInit {
   id: any
   name: any;
  
-  constructor(private employeeServiceService:EmployeeServiceService,private authService: AuthService) { 
-    this.user = this.authService.getUserAssociations()
+  constructor(private employeeServiceService:EmployeeServiceService,private authService: AuthService) {
     this.id = localStorage.getItem('userId');
   }
   ngOnInit() {
