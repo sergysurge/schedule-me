@@ -54,7 +54,7 @@
 
           <!--photo employee-->
           <div class="col-sm-4">
-            <img [src]="userFetched.image" class="img-rounded col-sm-12" width="auto" height="auto">
+            <img src="{{userFetched.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}" class="img-rounded col-sm-12" width="auto" height="auto">
           </div>
 
           <div class="col-sm-8" style="line-height: 200%">

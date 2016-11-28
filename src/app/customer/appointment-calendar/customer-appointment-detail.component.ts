@@ -6,12 +6,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styles: [
     `
       .panel-heading {
-        background-color: #008ea8;
+        background-color: #007ea7;
         color: white;
         text-align: center;
       }
       .appointment-details {
-        font-size: 18px;
+        font-size: 16px;
       }
       .borderless td, .borderless tr, .borderless th {
         border: none;

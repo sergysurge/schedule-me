@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styles: [
     `
       .panel-heading {
-        background-color: #008ea8;
+        background-color: #007ea7;
         color: white;
         text-align: center;
       }
