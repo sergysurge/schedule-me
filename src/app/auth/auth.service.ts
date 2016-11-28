@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-// import 'rxjs/add/operator/map';
 import 'rxjs/Rx'
 import { BehaviorSubject } from 'rxjs/Rx'
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +9,7 @@ import { Router } from '@angular/router'
 export class AuthService {
 
   isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
-  userAssociations: any = localStorage.getItem('userAssociations')
+  userAssociations: any = this.extractUserAssociations()//= localStorage.getItem('userAssociations')
   loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isUserLoggedIn)
   userAssociationsSubject: BehaviorSubject<any> = new BehaviorSubject<boolean>(this.userAssociations)
   constructor(private http: Http, private router: Router) { }
