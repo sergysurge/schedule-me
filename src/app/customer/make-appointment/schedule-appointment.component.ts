@@ -114,6 +114,22 @@ export class ScheduleAppointmentComponent implements OnDestroy {
     //         this.services = options
     //     })
     //     })
+
+       this.person.customerId = localStorage.getItem('userId')
+      this.person.companyId =localStorage.getItem('localCompanyId')
+      this.employeeServiceService.getEmployees(this.person.companyId)
+        .subscribe(
+          employee => {
+          this.employees = employee.json()[0].users
+          console.log('get employees', this.employees)
+        }
+        )
+
+        this.companyService.getOptions(this.person.companyId)
+        .subscribe(options=>{
+            this.services = options
+        })
+      
   }
 
   getTime(employeeServiceService:EmployeeServiceService){
@@ -241,6 +257,29 @@ ngOnDestroy() {
         .subscribe(options=>{
             this.services = options
         })
+      
+
+          // this.companyIdSubscription = this.customerService.getCompanyId()
+          //   .subscribe(
+          //     (companyId) => {
+          //       console.log('asdasdf', companyId)
+          //       this.companyId = companyId
+          //       this.person.companyId = this.companyId
+
+          //     this.employeeServiceService.getEmployees(this.person.companyId)
+          //     .subscribe(
+          //       employee => {
+          //       this.employees = employee.json()[0].users
+          //       console.log('get employees ln 116', this.employees)
+          //     }
+          //     )
+
+          //     this.companyService.getOptions(this.person.companyId)
+          //       .subscribe(options=>{
+          //         console.log(options)
+          //         this.services = options
+          //     })
+          //     })
         this.employees = [];
   }
 
