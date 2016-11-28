@@ -20,8 +20,13 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.customerService.getUser()
       .subscribe(
-        (user) => {this.user = user},
-        (err) => {console.log(err)}
+        (user) => {
+          this.user = user
+          if (this.user.image) {
+            this.userPicture = this.user.image
+          }
+        },
+        (err) => { console.log(err) }
       )
     if (!this.user) {
       this.subscription = this.customerService.getUserInformation(this.userId, null)
@@ -34,7 +39,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
               }
             }
           },
-          (err) => {console.log(err)}
+          (err) => { console.log(err) } 
         )
     }
   }

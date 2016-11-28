@@ -23,7 +23,6 @@ import { TabsComponent } from './tabs.component'
 export class TabComponent {
 
   public active: Boolean
-  // @Input() tabClass: string
   @Input() title: string
   
   constructor(tabs: TabsComponent) { 

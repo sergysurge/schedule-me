@@ -59,43 +59,43 @@
               <span class="help-block" id="helpBlock"> enter your BrandNameId here</span>
             </div> -->
                       <!--ADDRESS-->
-            <label for="address" class="col-sm-2 control-label">address</label>
+            <label for="address" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" aria-describedby="helpBlock" id="address" [(ngModel)]="this.companyService.company.address" formControlName="address">
               <span class="help-block" id="helpBlock"> enter your address here</span>
             </div>
                         <!--DESCRIPTION-->
-            <label for="description" class="col-sm-2 control-label">description</label>
+            <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" aria-describedby="helpBlock" id="description" [(ngModel)]="this.companyService.company.description" formControlName="description">
               <span class="help-block" id="helpBlock"> enter your description here</span>
             </div>
                   <!--IMAGE-->
-            <label for="image" class="col-sm-2 control-label">image</label>
+            <label for="image" class="col-sm-2 control-label">Image</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" aria-describedby="helpBlock" id="image" [(ngModel)]="this.companyService.company.image" formControlName="image">
               <span class="help-block" id="helpBlock"> enter your image here</span>
             </div>
                   <!--LOGO-->
-            <label for="logo" class="col-sm-2 control-label">logo</label>
+            <label for="logo" class="col-sm-2 control-label">Logo</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" aria-describedby="helpBlock" id="logo" [(ngModel)]="this.companyService.company.logo" formControlName="logo">
               <span class="help-block" id="helpBlock"> enter your logo here</span>
            </div>
                         <!--NAME-->
-          <label for="name" class="col-sm-2 control-label">name</label>
+          <label for="name" class="col-sm-2 control-label">Name</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" aria-describedby="helpBlock" id="name" [(ngModel)]="this.companyService.company.name" formControlName="name">
             <span class="help-block" id="helpBlock"> enter your store name here</span>
           </div>
                       <!--PHONE NUMBER-->
-          <label for="phoneNumber" class="col-sm-2 control-label">phoneNumber</label>
+          <label for="phoneNumber" class="col-sm-2 control-label">Phone Number</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" aria-describedby="helpBlock" id="phoneNumber" [(ngModel)]="this.companyService.company.phoneNumber" formControlName="phoneNumber">
-            <span class="help-block" id="helpBlock"> enter your phoneNumber here</span>
+            <span class="help-block" id="helpBlock"> enter your phone number here</span>
           </div>
                     <!--WEBSITE-->
-          <label for="website" class="col-sm-2 control-label">website</label>
+          <label for="website" class="col-sm-2 control-label">Website</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" aria-describedby="helpBlock" id="website" [(ngModel)]="this.companyService.company.website" formControlName="website">
             <span class="help-block" id="helpBlock"> enter your website here</span>
@@ -104,7 +104,7 @@
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default" > create </button>
+          <button type="submit" class="btn btn-default" > Create </button>
         </div>
       </div>
     </form>
@@ -113,7 +113,7 @@
    <!--PROFILE END-->
 
         <!--POPULATED COMPANY LIST-->
-        <div class="col-sm-12" *ngIf="!startedAddCompany">
+        <div class="col-sm-12 company-list" *ngIf="!startedAddCompany">
 
           <ul [ngStyle]="{'list-style' : 'none', 'margin' : 'auto'}">
             <!--EACH COMPANY PROFILE-->
@@ -127,38 +127,38 @@
               </div>
               
               <!--BODY OF EACH COMPANY PROFILE-->
-              <div class="panel-body col-sm-12"
-              [ngStyle]="{'margin':'auto'}">
+              <div class="panel-body col-sm-12" [ngStyle]="{'margin':'auto'}">
 
                   <!--LEFT SIDE OF COMPANY PROFILE-->
                 <div class="col-sm-3"
-                [ngStyle]="{'margin':'auto'}">
-                  <img [src]="compies.logo"
-                  [ngStyle]="{'width': '95%', 'height': 'auto', 'margin': 'auto'}">
+                  [ngStyle]="{'margin':'auto'}">
+                  <img [src]="compies.logo" [ngStyle]="{'width': '95%', 'height': 'auto', 'margin': 'auto'}">
                   <h5 class="text-center"> {{compies.description}} </h5>
                 </div>
 
                   <!--RIGHT SIDE OF COMPANY PROFILE-->
-                <div class="col-sm-9"
-                [ngStyle]="{'margin':'auto'}">
+                <div class="col-sm-9" [ngStyle]="{'margin':'auto'}">
 
                   <!--COMPNAY INFO LIST-->
                   <ul class="compDesc col-sm-12">
 
                         <!--ADDRESS-->
-                    <li class="thumbnail compDesc"
-                    style="margin: 0">
-                      <p > <strong> Address: </strong>{{compies.address}} </p>
+                    <li class="thumbnail compDesc" style="margin: 0">
+                      <div> 
+                        <strong> Address: </strong>{{compies.address}}
+                      </div>
                     </li>
                           <!--PHONE-->
-                    <li class="thumbnail compDesc"
-                    style="margin: 0">
-                      <p > <strong> Phone: </strong>{{compies.phoneNumber}} </p>
+                    <li class="thumbnail compDesc" style="margin: 0">
+                      <div> 
+                        <strong> Phone: </strong>{{compies.phoneNumber}}
+                      </div>
                     </li>
                           <!--WEBSITE-->
-                    <li class="thumbnail compDesc"
-                    style="margin: 0">
-                      <p > <strong> Website: </strong>{{compies.website}} </p>
+                    <li class="thumbnail compDesc" style="margin: 0">
+                      <div> 
+                        <strong> Website: </strong>{{compies.website}}
+                      </div>
                     </li>
                   </ul>
                   

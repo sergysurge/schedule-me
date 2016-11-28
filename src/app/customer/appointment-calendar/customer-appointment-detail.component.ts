@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-customer-appointment-detail',
@@ -29,14 +29,11 @@ import { Component, OnInit, Input } from '@angular/core';
     `
   ]
 })
-export class CustomerAppointmentDetailComponent implements OnInit {
+export class CustomerAppointmentDetailComponent {
   public showContact: boolean = false
   @Input() selectedAppointment: any
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  
   onContactClick() {
     this.showContact = !this.showContact
   }

@@ -8,6 +8,7 @@ import { MyAccountComponent } from './my-account/my-account.component'
 import { EditAccountComponent } from './my-account/edit-account.component'
 import { AuthGuard } from '../auth/auth-guard.service'
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
+
 const routes: Routes = [
     { 
         path: 'users', 
