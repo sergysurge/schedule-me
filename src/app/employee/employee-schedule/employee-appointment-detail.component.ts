@@ -7,7 +7,7 @@ import { EmployeeServiceService } from '../employee-service.service'
   styles: [
     `
       .panel-heading {
-        background-color: #008ea8;
+        background-color: #007ea7;
         color: white;
         text-align: center;
       }
