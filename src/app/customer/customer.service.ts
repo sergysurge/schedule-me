@@ -17,13 +17,12 @@ export class CustomerService {
   private token = localStorage.getItem('jwt-token');
   private authHeader = `Bearer ${this.token}`
   private headers = new Headers({ 'authorization': this.authHeader })
+  private options = new RequestOptions({ headers: this.headers })
   private userSubject: Subject<any> = new Subject<any>()
   private employeesSubject: Subject<any> = new Subject<any>()
 
   getCustomerAppointments(userId): Observable<any> {
-    let options = new RequestOptions({ headers: this.headers })
-
-    return this.http.get(`/api/appointments/customer/${userId}`, options)
+    return this.http.get(`/api/appointments/customer/${userId}`, this.options)
       .map((response: Response) => {
         return response.json()
       })
@@ -31,8 +30,7 @@ export class CustomerService {
   }
   
   getCompanyById(companyId) {
-    let options = new RequestOptions({ headers: this.headers })
-    return this.http.get(`/api/companies/getonecompany/${companyId}`, options)
+    return this.http.get(`/api/companies/getonecompany/${companyId}`, this.options)
       .map((response: Response) => {
         this.company = response.json() 
         return this.company
@@ -41,8 +39,7 @@ export class CustomerService {
   }
 
   getCompanies() {
-    let options = new RequestOptions({ headers: this.headers })
-    return this.http.get('/api/companies/getallcompanies', options)
+    return this.http.get('/api/companies/getallcompanies', this.options)
       .map((response: Response) => { return response.json() })
       .catch(this.handleError)
   }
@@ -70,16 +67,15 @@ export class CustomerService {
     userId && params.set('userId', userId)
     email && params.set('email', email)
 
-    let options = new RequestOptions({ 
+    let userOptions = new RequestOptions({ 
       headers: this.headers,
       search: params 
     })
 
-    return this.http.get('/api/users/', options)
+    return this.http.get('/api/users/', userOptions)
       .map((response: Response) => {
         if(response.json().response.success){
           this.setUser(response.json().response.user)
-          // this.user = response.json().response.user
         }
         return response.json()
       })
@@ -88,28 +84,20 @@ export class CustomerService {
 
   submitUserUpdates(userId, updatedValues) {
     this.setUser(updatedValues)
-
-    let options = new RequestOptions({
-      headers: this.headers,
-      body: updatedValues
-    })
-    return this.http.put(`/api/users/${userId}/update`, options)
+    return this.http.put(`/api/users/${userId}/update`, updatedValues, this.options)
       .map((response: Response) => response.json())
       .catch(this.handleError)
   }
 
   getCompanySchedulesAndAppointments(companyId): Observable<any> {
-    let options = new RequestOptions({
-      headers: this.headers
-    })
     return Observable.forkJoin(
-      this.http.get(`/api/appointments/company/${companyId}`, options)
+      this.http.get(`/api/appointments/company/${companyId}`, this.options)
         .map((response: Response) => {
           this.companyAppointments = response.json().response.appointments
           return this.companyAppointments
         }),
 
-      this.http.get(`/api/users/employees/${companyId}`, options)
+      this.http.get(`/api/users/employees/${companyId}`, this.options)
         .map((response: Response) => {
           let parsed = response.json().response
           if (!parsed.success) return []
@@ -119,7 +107,7 @@ export class CustomerService {
         })
         .flatMap((userCompanyIds) => {
           let userCompanyIdsString = JSON.stringify(userCompanyIds)
-          return this.http.get(`api/schedules/?userCompanyIds=${userCompanyIdsString}`, options)
+          return this.http.get(`api/schedules/?userCompanyIds=${userCompanyIdsString}`, this.options)
             .map((response: Response) => {
               this.companySchedules = response.json()
               return this.companySchedules
