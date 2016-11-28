@@ -16,6 +16,9 @@ import { AuthService } from '../auth/auth.service'
       .navbar .nav > .activated > a {
         color: white;
       } 
+      .companyName {
+        font-size: 33px;
+      }
     `
   ]
 })
