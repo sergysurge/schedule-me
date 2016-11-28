@@ -15,6 +15,11 @@ declare var swal: any;
       button {
         margin-top: 10px;
       }
+      .panel-heading {
+        background-color: #007ea7;
+        color: white;
+        text-align: center;
+      }
     `
   ]
 })

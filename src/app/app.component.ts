@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppServiceService } from './app-service.service';
 import { NgForm } from "@angular/forms";
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs/Rx';

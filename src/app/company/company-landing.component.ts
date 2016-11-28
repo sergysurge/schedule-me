@@ -21,6 +21,9 @@ import { AuthService } from '../auth/auth.service'
         list-style: none;
         margin: auto;
       }
+      li.compDesc>div {
+        overflow-wrap: break-word;
+      }
       .adminCompModules:hover {
         background-color: #008ea8;
         color: white;

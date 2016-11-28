@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 require('dotenv').config()
 const logger = require('morgan')
 const bodyParser = require('body-parser')
@@ -15,11 +14,6 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
-
-// app.use(express.static(path.join(__dirname, '../src')))
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../src/index.html'))
-// })
 
 app.use('/api', rootRouter)
 

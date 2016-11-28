@@ -10,10 +10,10 @@ import { Router } from '@angular/router'
 
 export class SearchCompaniesComponent implements OnInit, OnDestroy {
 
+  public defaultCompanyImage = 'http://www.freeiconspng.com/uploads/retail-store-icon-15.png'
   private companies = []
   private subscription: any
 
-  public defaultCompanyImage = 'http://www.freeiconspng.com/uploads/retail-store-icon-15.png'
   constructor(private customerService: CustomerService, private router: Router) { }
   
   ngOnInit() {
@@ -22,8 +22,7 @@ export class SearchCompaniesComponent implements OnInit, OnDestroy {
         (companies) => {
           this.companies = companies
         },
-        (err) => console.error(err),
-        () => console.log('done')
+        (err) => { console.error(err) }
       )
   }
 

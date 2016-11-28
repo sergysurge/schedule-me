@@ -31,11 +31,9 @@ export class AuthService {
             return parsed
         })
         .catch(this.handleError)
-
   }
 
   signin(user) {
-
     let headers = new Headers()
     let encodedCredentials = btoa(`${user.email}:${user.password}`)
     headers.append('authorization', encodedCredentials)
@@ -84,12 +82,12 @@ export class AuthService {
       return mapping
     }, {})
   }
+
   getUserAssociations() {
-    console.log(this.userAssociations , 'asdfasdfasdf')
     return this.userAssociationsSubject.asObservable()
   }
+
   setUserAssociations() {
-    console.log('setting user associations+++++++++++++')
     this.userAssociations = this.extractUserAssociations()
     this.userAssociationsSubject.next(this.userAssociations)
   }

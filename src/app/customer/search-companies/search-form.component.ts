@@ -13,11 +13,11 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class SearchFormComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private el: ElementRef) { }
   public submitted: boolean
   public searchForm: FormGroup
   public filteredList = []
 
+  constructor(private formBuilder: FormBuilder, private el: ElementRef) { }
 
   ngOnInit() {
     this.submitted = false

@@ -26,7 +26,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
             this.userPicture = this.user.image
           }
         },
-        (err) => {console.log(err)}
+        (err) => { console.log(err) }
       )
     if (!this.user) {
       this.subscription = this.customerService.getUserInformation(this.userId, null)
@@ -39,7 +39,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
               }
             }
           },
-          (err) => {console.log(err)}
+          (err) => { console.log(err) } 
         )
     }
   }

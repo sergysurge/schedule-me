@@ -38,7 +38,6 @@ export class CompanyService {
         })
       }
       })
-      console.log(this.companiesLanding, 'resulting companies, check to see if admin is good')
       return response.json()
     })
   }
@@ -92,7 +91,6 @@ export class CompanyService {
       }
       this.brandNamesAll.push(brandName)
       })
-      console.log(this.brandNamesAll, 'after being populated')
       return response.json()
       })
   }
@@ -105,7 +103,6 @@ export class CompanyService {
       brandCompanies.forEach(item=> {
         if (this.company.name === item.name) {
           this.company = item
-          console.log(this.company, 'end result after getting one brand name')
         }
       })
       return brandCompanies
@@ -125,7 +122,6 @@ export class CompanyService {
   adminSuccessLink() {
     let ans = false
     let associations = JSON.parse(localStorage.getItem('userAssociations'))
-    // console.log(associations, 'these are the user associations in company.service', typeof associations)
     associations.forEach(item => {
       if (this.company.id === item.companyId) {
         ans = item.admin
@@ -138,7 +134,6 @@ export class CompanyService {
   }
   adminCheck() {
     let associations = JSON.parse(localStorage.getItem('userAssociations')) || [{id: 1, admin: false}]
-    // console.log(associations, 'these are the user associations in company.service', typeof associations)
     let isAdmin = false;
     associations.forEach(item => {
       if (Number(this.company.id) === Number(item.companyId)) {
@@ -186,7 +181,7 @@ export class CompanyService {
         let employee = {
         id: data.id,
         name : data.firstName + ' ' + data.lastName,
-        image : data.image || 'DEFAULT',
+        image : data.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
         email : data.email,
         phoneNumber: data.phoneNumber,
         empSince: data.UserCompany.createdAt,
@@ -214,10 +209,8 @@ export class CompanyService {
   }
 
   addEmployee(body: any): Observable<any> {
-    // const headers = new Headers('Content-Type', 'Application/json');
     return this.http.put('/api/users/employees', body, this.options)
     .map((response:Response) => response)
-    //.catch(err => return err)
   }
 
   /*  COMPANY MODEL */
@@ -235,13 +228,12 @@ export class CompanyService {
   postBrandName(body) {
     return this.http.post('/api/companies/postbrandname', body, this.options)
     .map((response:Response) => {
-      //this.getAllBrandNames()
       return response.json()
     })
   }  
   //options
   addOptions (body:any): Observable<any>{
-    return this.http.post('api/companies/postoneoption',body, this.options)
+    return this.http.post('api/companies/postoneoption', body, this.options)
     .map((response:Response) => response.json())
   }
 

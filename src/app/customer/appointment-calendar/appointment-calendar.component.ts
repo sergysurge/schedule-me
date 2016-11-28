@@ -21,9 +21,9 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
   public customerAppointments: Array<any>
   public customerCalendarEvents: Array<any>
   public eventSources: Array<any>
-  userId = localStorage.getItem('userId')
-  selectedAppointment: any
-  headers: any
+  public headers: any
+  public selectedAppointment: any
+  private userId = localStorage.getItem('userId')
   private subscription: Subscription
 
   constructor(private customerService: CustomerService) { 
@@ -72,10 +72,6 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
       )
   }
 
-  ngOnDestroy() {
-    this.subscription && this.subscription.unsubscribe()
-  }
-
   onCalendarEventClick(calEvent) {
     for (let i = 0; i < this.customerAppointments.length; i++) {
       if (this.customerAppointments[i].id === calEvent.id) {
@@ -83,4 +79,9 @@ export class AppointmentCalendarComponent implements OnInit, OnDestroy {
       }
     }
   }
+  
+  ngOnDestroy() {
+    this.subscription && this.subscription.unsubscribe()
+  }
+
 }

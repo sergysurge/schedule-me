@@ -110,8 +110,6 @@ companiesController.GETONECOMPANY = (req, res) => {
   //console.log(req.params, 'req.params GETONECOMPANY, companiesController')
   companiesModel.getonecompany(req.params)
     .then(company => {
-      //console.log('ABOUT TO SEND ONE COMPANY FROM CONTROLLER ', company)
-      console.log(company)
       res.send(company)
     })
     .catch(err => {

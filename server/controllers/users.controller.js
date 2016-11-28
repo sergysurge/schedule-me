@@ -18,9 +18,6 @@ usersController.GETALLEMPLOYEES = (req, res) => {
 
 usersController.SIGNIN = (req, res) => {
   const encodedCredentials = req.headers['authorization']
-
-  // let email = req.query.email
-  // let password = req.query.password
   let decoded = new Buffer(encodedCredentials, 'base64').toString().split(':')
   let email = decoded[0]
   let password = decoded[1]

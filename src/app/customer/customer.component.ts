@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-// import { AppointmentCalendarComponent } from './appointment-calendar/appointment-calendar.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-customer',
@@ -16,25 +15,20 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [
     `
-    li:hover {
-      color: #003459;
-    }
-    .activated {
-      background-color: #008ea8;
-    }
-    .navbar .nav > .activated > a {
-      color: white;
-    }
-
+      li:hover {
+        color: #003459;
+      }
+      .activated {
+        background-color: #008ea8;
+      }
+      .navbar .nav > .activated > a {
+        color: white;
+      }
     `
-    
   ]
 })
-export class CustomerComponent implements OnInit {
+export class CustomerComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

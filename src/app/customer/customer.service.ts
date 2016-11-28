@@ -6,14 +6,12 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CustomerService {
 
-  constructor(private http: Http, private requestOptions: RequestOptions) { }
-  
-  user: any
-  companyEmployees: any
-  companySchedules: any
-  companyAppointments: any
-  companyId: any
-  company: any
+  public companyEmployees: any
+  public companySchedules: any
+  public companyAppointments: any
+  public companyId: any
+  public company: any
+  public user: any
   private token = localStorage.getItem('jwt-token');
   private authHeader = `Bearer ${this.token}`
   private headers = new Headers({ 'authorization': this.authHeader })
@@ -21,6 +19,8 @@ export class CustomerService {
   private userSubject: Subject<any> = new Subject<any>()
   private employeesSubject: Subject<any> = new Subject<any>()
 
+  constructor(private http: Http, private requestOptions: RequestOptions) { }
+  
   getCustomerAppointments(userId): Observable<any> {
     return this.http.get(`/api/appointments/customer/${userId}`, this.options)
       .map((response: Response) => {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Response } from "@angular/http";
 
@@ -10,7 +10,7 @@ import { CompanyService } from '../company.service';
   styleUrls: ['./add-employee.component.css']
 })
 
-export class AddEmployeeComponent implements OnInit {
+export class AddEmployeeComponent {
  /* USER SEARCH */
   userNotFound = false
   userShow = false
@@ -24,7 +24,6 @@ export class AddEmployeeComponent implements OnInit {
   userSearch
   
   searchUser(name) {
-    console.log(name, 'this is name')
     this.companyService.getUsers(name)
       .subscribe(data => {
         if (!data.response.success) {
@@ -38,7 +37,7 @@ export class AddEmployeeComponent implements OnInit {
         this.userFetched.id = data.response.user.id
         this.userFetched.email = data.response.user.email
         this.userFetched.name = data.response.user.firstName + data.response.user.lastName
-        this.userFetched.image = data.response.user.image || "//www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png",
+        this.userFetched.image = data.response.user.image || "http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png",
         this.userFetched.phoneNumber = data.response.user.phoneNumber
       })
   }
@@ -79,7 +78,6 @@ export class AddEmployeeComponent implements OnInit {
     })
   }
 
-
   // SELECT AND DELETE AN EMPLOYEE
 
   consolelog(ds) {
@@ -96,7 +94,6 @@ export class AddEmployeeComponent implements OnInit {
       companyId: localStorage.getItem('localCompanyId')
     })
     .subscribe(data => {
-      console.log(data)
       this.companyService.getEmployees(localStorage.getItem('localCompanyId'))
       .subscribe(data => console.log(data, 'after submitting'))
       // this.asyncString = this.companyService.getUsersFromCompany(1)
@@ -128,13 +125,9 @@ export class AddEmployeeComponent implements OnInit {
     this.companyService.adminCheck()
     /* DO NOT TOUCH, AUTH AND REDIRECT END */
 
-
     /* CONTROLLER get employees */
     this.companyService.getEmployees(localStorage.getItem('localCompanyId')).subscribe()
     /* CONTROLLER get employees END */
-
-
-  
 
     this.deleteEmployeeForm = formBuilder.group({
       'userId' : [this.userId, Validators.required],
@@ -142,7 +135,5 @@ export class AddEmployeeComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-  }
 }
 
