@@ -1,5 +1,5 @@
 .panel-heading {
-    background-color: #008ea8;
+    background-color: #007ea7;
     color: white;
     text-align: center;
 }
@@ -13,6 +13,7 @@
     margin-bottom: 5%;
     font-size: 16px;
     text-align: center;
+    overflow-wrap: break-word;
 }
 .col-height {
     height: 100%;
