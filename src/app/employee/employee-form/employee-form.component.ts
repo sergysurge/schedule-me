@@ -83,7 +83,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         arr.push(curr)
       })
       arr.forEach(curr=>{
-        arr2.push(curr.id)
+        arr2.push(curr.UserCompany.id)
       })
 
       this.employeeServiceService.getSchedule(arr2)
