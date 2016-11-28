@@ -1,5 +1,5 @@
 import { Injectable, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -8,13 +8,17 @@ import { Router } from '@angular/router';
 export class CompanyService {
 
   private companiesLanding = []
+  private token = localStorage.getItem('jwt-token');
+  private authHeader = `Bearer ${this.token}`
+  private headers = new Headers({ 'authorization': this.authHeader })
+  private options = new RequestOptions({headers: this.headers})
   /* COMPANY-LANDING COMPONENT */
 
   // PROFILE COMPONENT NGIF VARIABLES
   
 
   getAllCompaniesByUserId(userId) {
-    return this.http.get('api/companies/usercompanies/' + userId)
+    return this.http.get('api/companies/usercompanies/' + userId, this.options)
     .map((response: Response) => {
       this.companiesLanding = [];
       let comps = response.json()
@@ -58,11 +62,9 @@ export class CompanyService {
   }
   
   getCompanyById(companyId) {
-    return this.http.get('api/companies/getonecompany/' + companyId)
+    return this.http.get('api/companies/getonecompany/' + companyId, this.options)
     .map((response: Response) => {
       let data = response.json()
-      console.log(data, '***IS THIS WHERE THE ERROR IS')
-      //console.log(data.BrandName.name, 'SHOULD NOT BE HERE')
       this.company.BrandNameId = data.BrandNameId || null;
       this.company.brandName = data.BrandName.name
       this.company.address = data.address || null;
@@ -75,7 +77,6 @@ export class CompanyService {
       this.company.phoneNumber = data.phoneNumber || null;
       this.company.updatedAt = data.updatedAt || null;
       this.company.website = data.website || null;
-      console.log(this.company, 'COMPANYSERVICE = POPULATED COMPANY')
       return response.json()
     })
   }
@@ -83,7 +84,7 @@ export class CompanyService {
   brandNamesAll: any = [];
 
   getAllBrandNames() {
-    return this.http.get('api/companies/getallbrandnames')
+    return this.http.get('api/companies/getallbrandnames', this.options)
     .map((response:Response) => {
       this.brandNamesAll = []
       let brandNamesReturned = response.json()
@@ -101,7 +102,7 @@ export class CompanyService {
   //need when creating a company account to auto
   //log in the current user to company
   getOneBrandNameAddCompany(brandId) {
-    return this.http.get('api/companies/getbrandname/' + brandId)
+    return this.http.get('api/companies/getbrandname/' + brandId, this.options)
     .map((response:Response) => {
       let brandCompanies = response.json().companies
       brandCompanies.forEach(item=> {
@@ -115,11 +116,11 @@ export class CompanyService {
   }
 
   updateProfile(body) {
-    return this.http.put('api/companies/updatecompany', body)
+    return this.http.put('api/companies/updatecompany', body, this.options)
   }
 
   postProfile(body) {
-    return this.http.post('api/companies/postcompany', body)
+    return this.http.post('api/companies/postcompany', body, this.options)
   }
   /* COMPANY PROFILE COMPONENT END */
   
@@ -181,7 +182,7 @@ export class CompanyService {
   employees: any = []
 
   getEmployees(companyId) {
-    return this.http.get('/api/users/getemployees/' + companyId)
+    return this.http.get('/api/users/getemployees/' + companyId, this.options)
     .map((response:Response) => {
       console.log(response, 'dis **** response');
       this.employees = []
@@ -203,23 +204,23 @@ export class CompanyService {
   }
 
   postOneEmployeeSched(employeeSched) {
-    return this.http.post('/api/schedules/oneschedule', employeeSched)
+    return this.http.post('/api/schedules/oneschedule', employeeSched, this.options)
       .map((response: Response) => response.json())
   }
 
   getUsersFromCompany(companyId) {
-    return this.http.get('/api/users/employees?companyId=' + companyId)
+    return this.http.get('/api/users/employees?companyId=' + companyId, this.options)
     .map((response: Response) => response.json().response.employees)
   }
 
   deleteEmployee(body) {
-    return this.http.delete('api/users/employees?userId=' + body.userId + '&' + 'companyId=' + body.companyId)
+    return this.http.delete('api/users/employees?userId=' + body.userId + '&' + 'companyId=' + body.companyId, this.options)
     .map((response:Response) => response)
   }
 
   addEmployee(body: any): Observable<any> {
     // const headers = new Headers('Content-Type', 'Application/json');
-    return this.http.put('/api/users/employees', body)
+    return this.http.put('/api/users/employees', body, this.options)
     .map((response:Response) => response)
     //.catch(err => return err)
   }
@@ -228,17 +229,17 @@ export class CompanyService {
   //GOOD
   getUsers(input) {
     if (1 + input > 1) {
-      return this.http.get('api/users/?userId=' + input + '&email=')
+      return this.http.get('api/users/?userId=' + input + '&email=', this.options)
       .map((response: Response) => response.json())
     } else if (typeof input === 'string') {
-      return this.http.get('api/users/?userId=&email=' + input)
+      return this.http.get('api/users/?userId=&email=' + input, this.options)
       .map((response:Response) => response.json())
     }
   }
   //getAllBrandNames
 
   postBrandName(body) {
-    return this.http.post('/api/companies/postbrandname', body)
+    return this.http.post('/api/companies/postbrandname', body, this.options)
     .map((response:Response) => {
       //this.getAllBrandNames()
       return response.json()
@@ -246,22 +247,20 @@ export class CompanyService {
   }  
   //options
   addOptions (body:any): Observable<any>{
-    return this.http.post('api/companies/postoneoption',body)
+    return this.http.post('api/companies/postoneoption',body, this.options)
     .map((response:Response) => response.json())
   }
 
   allOptions = []
   
   getOptions (body:any): Observable<any>{
-    return this.http.get('api/companies/getalloptions/'+body)
+    return this.http.get('api/companies/getalloptions/' + body, this.options)
     .map((response:Response) => {
       this.allOptions = response.json()
       return response.json()
     })
   }
   
-  constructor(private http: Http, private router: Router) { 
-    
-  }
+  constructor(private http: Http, private router: Router, requestOptions: RequestOptions) { }
 
 }

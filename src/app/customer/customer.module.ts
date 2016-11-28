@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFormComponent } from './search-companies/search-form.component';
 import { EditAccountComponent } from './my-account/edit-account.component';
 import { EditAccountGuard } from './my-account/edit-account-guard.service'
-import { EditAccountStartComponent } from './my-account/edit-account-start.component'
 import { SelectEmployeeFormComponent } from './make-appointment/select-employee-form.component';
 import { ScheduleAppointmentComponent } from './make-appointment/schedule-appointment.component';
 import { EmployeeServiceService } from '../employee/employee-service.service'
@@ -46,7 +45,6 @@ import { CustomerAppointmentDetailComponent } from './appointment-calendar/custo
     MyAccountComponent,
     SearchFormComponent,
     EditAccountComponent,
-    EditAccountStartComponent,
     SelectEmployeeFormComponent,
     ScheduleAppointmentComponent,
     PublicCompanyProfileComponent,
