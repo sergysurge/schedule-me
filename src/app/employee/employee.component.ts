@@ -50,6 +50,9 @@ export class EmployeeComponent implements OnInit {
   onNewAppointment($event) {
     this.appointment = $event
   }
-  
+  refresh(){
+    console.log('refreshing')
+    location.reload();
+  }
 
 }
