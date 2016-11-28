@@ -15,7 +15,13 @@ const UserCompany = db.define('UserCompany', {
 })
 
 const BrandName = db.define('BrandName', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   name: Sequelize.STRING
+
 })
 
 const Option = db.define('Option', {

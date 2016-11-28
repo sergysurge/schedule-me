@@ -2,6 +2,11 @@ const Sequelize = require('sequelize')
 
 module.exports = function (db) {
   const Company = db.define('company', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     name: {
       type: Sequelize.STRING
     },

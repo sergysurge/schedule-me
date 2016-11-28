@@ -155,31 +155,31 @@ export class CompanyLandingComponent implements OnInit {
       phoneNumber: this.companyService.company.phoneNumber,
       description: this.companyService.company.description,
       website: this.companyService.company.website,
-      image: this.companyService.company.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
-      logo: this.companyService.company.logo || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png',
+      image: this.companyService.company.image ,
+      logo: this.companyService.company.logo,
       BrandNameId: this.companyService.company.BrandNameId.toString()
     }
     console.log(body, 'dis da body we get')
     this.companyService.postProfile(body)
       .subscribe(data => {
-        // console.log(data, "wow fucking idiot")
-        // if (data.status === 200) {
-        //   this.companyService.getOneBrandNameAddCompany(this.companyService.company.BrandNameId)
-        //   .subscribe(data=> {
-        //   this.companyService.addEmployee({
-        //     userId : localStorage.getItem('userId'),
-        //     companyId : this.companyService.company.id,
-        //     isAdmin : true
-        //   })
-        //   .subscribe( data => {
-        //     console.log('hope its true!!!')
-        //     this.step2to3()
-        //   })
-        //   console.log(data, 'company updated')
-        //   }
-        //   )
-        // }
-        // else (console.log('inccorrent updating'))
+        console.log(data, "wow fucking idiot")
+        if (data.status === 200) {
+          this.companyService.getOneBrandNameAddCompany(this.companyService.company.BrandNameId)
+          .subscribe(data=> {
+          this.companyService.addEmployee({
+            userId : localStorage.getItem('userId'),
+            companyId : this.companyService.company.id,
+            isAdmin : true
+          })
+          .subscribe( data => {
+            console.log('hope its true!!!')
+            this.step2to3()
+          })
+          console.log(data, 'company updated')
+          }
+          )
+        }
+        else (console.log('inccorrent updating'))
       
     })
   }
