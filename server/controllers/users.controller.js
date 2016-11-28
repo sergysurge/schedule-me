@@ -131,7 +131,7 @@ usersController.GET_USER_DETAILS = (req, res) => {
 
 usersController.UPDATE_USER_INFO = (req, res) => {
   const userId = req.params.userId
-  const userData = req.body.body
+  const userData = req.body
   usersModel.updateUserInfo(userId, userData)
     .then((response) => {
       res.status(200).json({

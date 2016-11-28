@@ -23,13 +23,12 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   public user: any
   public editAccountForm: FormGroup
   public submitted: boolean = false
-  public incorrectPassword: boolean = false
-  public showErrorMsg: boolean = false
-  public showSuccessMsg: boolean = false
   private submitSubscription: Subscription
   private userSubscription: Subscription
   private userId: number = Number(localStorage.getItem('userId'))
   
+  @Output() userUpdate: any = new EventEmitter()
+
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService) {
     this.userSubscription = this.customerService.getUser()
       .subscribe(
@@ -80,17 +79,13 @@ export class EditAccountComponent implements OnInit, OnDestroy {
         .subscribe(
           (res) => {
             if (res.response.success) {
-              // this.showSuccessMsg = true
-              // this.userUpdate.emit(update)
               swal("Saved!", "Changes have been saved!", "success")
             } else if (res.response.message === 'incorrect password') {
-              // this.incorrectPassword = true
               swal("Oops...", "Incorrect password, try again!", "error")
             }
           },
           (err) => {
             swal("Oops...", "Unable to save changes, Please try again!", "error")
-            // this.showErrorMsg = true
             console.error(err)
           },
           () => {

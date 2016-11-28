@@ -15,15 +15,14 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   private subscription: Subscription
   private userSubscription: Subscription
 
-  constructor(private customerService: CustomerService, private router: Router) { 
+  constructor(private customerService: CustomerService, private router: Router) { }
+
+  ngOnInit() {
     this.userSubscription = this.customerService.getUser()
       .subscribe(
         (user) => {this.user = user},
         (err) => {console.log(err)}
       )
-  }
-
-  ngOnInit() {
     if (!this.user) {
       this.subscription = this.customerService.getUserInformation(this.userId, null)
         .subscribe(
@@ -39,7 +38,7 @@ export class MyAccountComponent implements OnInit, OnDestroy {
         )
     }
   }
-
+  
   ngOnDestroy() {
     this.subscription && this.subscription.unsubscribe()
     this.userSubscription && this.userSubscription.unsubscribe()
