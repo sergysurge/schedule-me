@@ -20,6 +20,8 @@ export class CustomerService {
   private options = new RequestOptions({ headers: this.headers })
   private userSubject: Subject<any> = new Subject<any>()
   private employeesSubject: Subject<any> = new Subject<any>()
+  private subject: Subject<number> = new Subject<number>()
+
 
   getCustomerAppointments(userId): Observable<any> {
     return this.http.get(`/api/appointments/customer/${userId}`, this.options)
@@ -118,5 +120,13 @@ export class CustomerService {
 
   handleError(err: Response) {
     return Observable.throw(err.json() || 'Server error')
+  }
+
+  getCompanyId() {
+    return this.subject.asObservable()
+  }
+  setCompanyId(companyId: number) {
+    this.companyId = companyId
+    this.subject.next(this.companyId)
   }
 }

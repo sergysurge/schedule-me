@@ -32,6 +32,7 @@ export class SearchCompaniesComponent implements OnInit, OnDestroy {
   }
 
   onCompanyClick(company) {
+    this.customerService.setCompanyId(company.id)
     this.router.navigate(['/users/search/', company.id])
   }
 }

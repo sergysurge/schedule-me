@@ -31,6 +31,7 @@ schedulesController.CHANGESCHEDULE = (req, res) => {
 //should send the user_company_id as array [1,2,3]
 schedulesController.GETSCHEDULES = (req, res) => {
   const userCompanyIdsArray = JSON.parse(req.query.userCompanyIds)
+  console.log('req.query inside schedule controller', req.query.userCompanyIds)
   //console.log(req.params. 'req.params GETSCHEDULES, scheduleController')
   scheduleModel.getschedules(userCompanyIdsArray)
     .then(schedules => {
