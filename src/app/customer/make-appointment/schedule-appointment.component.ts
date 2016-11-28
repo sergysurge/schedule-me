@@ -6,6 +6,7 @@ import {SelectItem} from 'primeng/primeng';
 import { EmployeeServiceService } from '../../employee/employee-service.service'
 import { AuthService } from '../../auth/auth.service'
 import { CompanyService } from '../../company/company.service'
+import { CustomerService } from '../customer.service'
 declare var swal: any;
 
 @Component({
@@ -71,6 +72,7 @@ export class ScheduleAppointmentComponent implements OnDestroy {
     public appointmentSuccess: boolean = false
     public serverError: boolean = false
     private subscription: Subscription
+    private companyIdSubscription: Subscription
 
 
     person = {
@@ -89,6 +91,31 @@ export class ScheduleAppointmentComponent implements OnDestroy {
   @Input() companyId
   @Output() newAppointment = new EventEmitter<any>()
 
+  ngOnInit(){
+    
+    // this.companyIdSubscription = this.customerService.getCompanyId()
+    //   .subscribe(
+    //     (companyId) => {
+    //       console.log('asdasdf', companyId)
+    //       this.companyId = companyId
+    //       this.person.companyId = this.companyId
+
+    //     this.employeeServiceService.getEmployees(this.person.companyId)
+    //     .subscribe(
+    //       employee => {
+    //       this.employees = employee.json()[0].users
+    //       console.log('get employees ln 116', this.employees)
+    //     }
+    //     )
+
+    //     this.companyService.getOptions(this.person.companyId)
+    //       .subscribe(options=>{
+    //         console.log(options)
+    //         this.services = options
+    //     })
+    //     })
+  }
+
   getTime(employeeServiceService:EmployeeServiceService){
     this.scheduleStorage = []
     this.temp = undefined
@@ -99,23 +126,26 @@ export class ScheduleAppointmentComponent implements OnDestroy {
     if(this.person.employeeId === undefined || this.person.description === undefined){
        swal("Oops...", "Please select all fields!", "error")
     }else{
+      // console.log('this is company id',this.companyId)
       this.employees.forEach(curr=>{
         arr.push(curr)
       })
       arr.forEach(curr=>{
-        arr2.push(curr.id)
+        arr2.push(curr.UserCompany.id)
       })
-
+      // console.log('arr2', arr2)
       this.employeeServiceService.getSchedule(arr2)
       .then(
         schedule => { 
+          // console.log('this.schedule',schedule)
           this.available = schedule
           this.available.forEach(curr=>{
             current.push(curr)
           })
-          current.forEach(curr=>{
+
+          current.forEach((curr , i) =>{
             if(curr.UserCompanyId === this.person.employeeId.UserCompany.id && moment(curr.startTime).isSame(this.start,'day')){
-              this.available =JSON.parse(curr.block)
+              this.available = JSON.parse(curr.block)
               this.temp = curr
             }
           })
@@ -194,12 +224,11 @@ ngOnDestroy() {
   this.subscription && this.subscription.unsubscribe()
 }
 
-    constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
+    constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService,private customerService: CustomerService) {
 
+      
       this.person.customerId = localStorage.getItem('userId')
       this.person.companyId =localStorage.getItem('localCompanyId')
-
-
       employeeServiceService.getEmployees(this.person.companyId)
         .subscribe(
           employee => {
