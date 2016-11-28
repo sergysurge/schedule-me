@@ -134,7 +134,7 @@ companiesController.GETALLCOMPANIES = (req, res) => {
 }
 
 companiesController.POSTCOMPANY = (req, res) => {
-  //console.log(req.body, 'req.body POSTCOMPANY, companiesController')
+  console.log(req.body, 'req.body POSTCOMPANY, companiesController')
   companiesModel.postcompany(req.body)
     .then(data => {
       console.log('Company created :', data)
@@ -144,6 +144,14 @@ companiesController.POSTCOMPANY = (req, res) => {
       console.log('error in POSTCOMPANY company controller', err)
       return err
     })
+  // companiesModel.createCompany(req.body)
+  //   .then(data => {
+  //     console.log('company created', data)
+  //     res.send(data)
+  //   })
+  //   .catch(err => {
+  //     return err
+  //   })
 }
 
 companiesController.DELETECOMPANY = (req, res) => {

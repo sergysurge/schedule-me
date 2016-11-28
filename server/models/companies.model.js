@@ -200,6 +200,19 @@ companiesModel.deletecompany = data => {
   })
 }
 
+companiesModel.createCompany = data =>{
+  console.log('this is Data', data)
+  return Company.create(data)
+    .then(data => {
+      return data
+    })
+    .catch(err => {
+      console.log('you have an error in Create company Model')
+      return err
+    })
+
+}
+
 //should be given all values to change
 companiesModel.updatecompany = data => {
   console.log('MODEL updatecompany:', data)
