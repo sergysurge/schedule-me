@@ -50,6 +50,7 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
   private userAssociations
   private calendarSubscription: Subscription
   private companyIdSubscription: Subscription
+  private userAssociationsSubscription: Subscription
 
   @Input() newAppointment: any
 
@@ -73,19 +74,23 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
 
-    this.userAssociations = this.authService.getUserAssociations()
+    this.userAssociationsSubscription = this.authService.getUserAssociations()
+      .subscribe(
+        (userAssociations) => {
+          this.userAssociations = userAssociations
+        }
+      )
+
     this.userId = Number(localStorage.getItem('userId'))
 
     this.companyIdSubscription = this.employeeService.getCompanyId()
       .subscribe(
         (companyId) => {
-          console.log('getting inside cal', companyId, this.userAssociations)
           this.companyId = companyId
           // find corresponding userCompanyId
           for(let key in this.userAssociations) {
             if (this.userAssociations[key][0] === this.companyId) {
               this.userCompanyId = Number(key)
-              console.log(this.userCompanyId, 'userCompanyId')
             }
           }
           this.getCalendarData(this.userId, this.userCompanyId)
@@ -106,7 +111,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
             this.schedulesRaw = calendarEntries[0]
             this.schedules = calendarEntries[0]
               .map((calendarEntry) => {
-                console.log(calendarEntry)
                 return {
                   id: calendarEntry.id,
                   title: 'Work',
@@ -156,9 +160,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  ngOnDestroy() {
-    this.calendarSubscription && this.calendarSubscription.unsubscribe()
-  }
 
   onCalendarEventClick(calEvent) {
     if (calEvent.source.id === 0) {
@@ -176,5 +177,11 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
         }
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.calendarSubscription && this.calendarSubscription.unsubscribe()
+    this.companyIdSubscription && this.companyIdSubscription.unsubscribe()
+    this.userAssociationsSubscription && this.userAssociationsSubscription.unsubscribe()
   }
 }
