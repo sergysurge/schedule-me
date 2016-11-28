@@ -16,7 +16,6 @@ export class CompanyService {
 
   // PROFILE COMPONENT NGIF VARIABLES
   
-
   getAllCompaniesByUserId(userId) {
     return this.http.get('api/companies/usercompanies/' + userId, this.options)
     .map((response: Response) => {
@@ -45,8 +44,6 @@ export class CompanyService {
   }
 
   /* COMPANY-LANDING END */
-
-
 
   /* COMPANY PROFILE COMPONENT */
   company: any = {
@@ -169,7 +166,6 @@ export class CompanyService {
 
   profileUpdateControl() {
     let path = window.location.pathname.slice(1,6)
-    console.log(path, 'this is the path')
     if (path === 'admin') {
       this.profileUpdate = true
     } else {
@@ -184,7 +180,6 @@ export class CompanyService {
   getEmployees(companyId) {
     return this.http.get('/api/users/getemployees/' + companyId, this.options)
     .map((response:Response) => {
-      console.log(response, 'dis **** response');
       this.employees = []
       let allEmployees = response.json()[0].users
       allEmployees.forEach( data => {
@@ -226,7 +221,6 @@ export class CompanyService {
   }
 
   /*  COMPANY MODEL */
-  //GOOD
   getUsers(input) {
     if (1 + input > 1) {
       return this.http.get('api/users/?userId=' + input + '&email=', this.options)

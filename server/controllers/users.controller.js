@@ -1,5 +1,7 @@
 const usersModel = require('../models').usersModel
 const generateToken = require('../helpers').generateToken
+const getToken = require('../helpers').getToken
+const jwt = require('jwt-simple')
 
 const usersController = {}
 
@@ -84,7 +86,14 @@ usersController.ADD_USER_TO_COMPANY = (req, res) => {
   const userId = req.body.userId
   const companyId = req.body.companyId
   const isAdmin = req.body.isAdmin
-  usersModel.addUserToCompany(userId, companyId, isAdmin)
+  let getUserAssociations = false
+  const token = getToken(req.headers)
+  const decoded = jwt.decode(token, process.env.JWT_TOKEN_SECRET)
+  if (decoded.userId === Number(userId)) {
+    console.log('setting getuserassociations to true')
+    getUserAssociations = true
+  }
+  usersModel.addUserToCompany(userId, companyId, isAdmin, getUserAssociations)
     .then((response) => {
       res.status(200).json({
         response: response

@@ -20,7 +20,12 @@ export class MyAccountComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.customerService.getUser()
       .subscribe(
-        (user) => {this.user = user},
+        (user) => {
+          this.user = user
+          if (this.user.image) {
+            this.userPicture = this.user.image
+          }
+        },
         (err) => {console.log(err)}
       )
     if (!this.user) {

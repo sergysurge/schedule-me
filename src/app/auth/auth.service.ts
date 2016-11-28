@@ -10,8 +10,9 @@ import { Router } from '@angular/router'
 export class AuthService {
 
   isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
-  subject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isUserLoggedIn)
-
+  userAssociations: any = localStorage.getItem('userAssociations')
+  loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isUserLoggedIn)
+  userAssociationsSubject: BehaviorSubject<any> = new BehaviorSubject<boolean>(this.userAssociations)
   constructor(private http: Http, private router: Router) { }
   
   submitUserData(user) {
@@ -47,6 +48,7 @@ export class AuthService {
           localStorage.setItem('userId', parsed.response.userId)
           localStorage.setItem('jwt-token', parsed.token)
           localStorage.setItem('userAssociations', JSON.stringify(parsed.response.associations))
+          this.setUserAssociations()
           this.setUserLoggedIn(true)
         }
         return parsed
@@ -64,14 +66,14 @@ export class AuthService {
 
   setUserLoggedIn(loggedIn: boolean): void {
     this.isUserLoggedIn = loggedIn
-    this.subject.next(loggedIn)
+    this.loggedInSubject.next(loggedIn)
   }
   
   getIsUserLoggedIn(): Observable<boolean> {
-    return this.subject.asObservable()
+    return this.loggedInSubject.asObservable()
   }
 
-  getUserAssociations() {
+  extractUserAssociations() {
     // return object of form { <UserCompanyId>: [<companyId>, <isAdmin>,], ...}
     let associations = JSON.parse(localStorage.getItem('userAssociations'))
     if (associations === null) {
@@ -81,6 +83,15 @@ export class AuthService {
       mapping[association.id] = [association.companyId, association.admin]
       return mapping
     }, {})
+  }
+  getUserAssociations() {
+    console.log(this.userAssociations , 'asdfasdfasdf')
+    return this.userAssociationsSubject.asObservable()
+  }
+  setUserAssociations() {
+    console.log('setting user associations+++++++++++++')
+    this.userAssociations = this.extractUserAssociations()
+    this.userAssociationsSubject.next(this.userAssociations)
   }
 
   handleError(err: Response) {
