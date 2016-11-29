@@ -14,6 +14,7 @@ declare var swal: any;
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.css']
 })
+
 export class EmployeeFormComponent implements OnInit, OnDestroy {
     date : Date ; 
     user: any;
@@ -49,20 +50,17 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     this.companyIdSubscription = this.employeeServiceService.getCompanyId()
       .subscribe(
         (companyId) => {
-          console.log('asdasdf', companyId)
           this.companyId = companyId
           this.person.companyId = this.companyId
 
           this.employeeServiceService.getEmployees(this.companyId)
             .subscribe(
               employee => {
-                console.log('getting employees', employee)
                 this.employees = employee.json()[0].users
               }
             )
           this.companyService.getOptions(this.companyId)
             .subscribe(options => {
-              console.log('getting options', options)
               this.services = options
             })
           }
@@ -76,7 +74,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     let arr2= []
     let current = []
     if(this.person.employeeId === undefined || this.person.description === undefined){
-      // alert('Please select all fields')
       swal("Oops...", "Please select all fields!", "error")
     }else{
       this.employees.forEach(curr=>{
@@ -129,7 +126,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
       this.employeeServiceService.updateBlock(this.temp)
       .then(
-        update => {console.log(update)}
+        update => {}
       )
   }
 
@@ -154,7 +151,6 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
         this.employeeServiceService.makeAppointment(this.person)
         .then(
           appointment => {
-            console.log(appointment)
             this.newAppointment.emit(appointment)
             swal("Appointment Made!", "Your appointment has been succesfully made!", "success")
           }
@@ -163,30 +159,21 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 }
 
     constructor(private employeeServiceService:EmployeeServiceService, private authService: AuthService, private companyService: CompanyService) {
-        // this.user = this.authService.getUserAssociations()
         this.person.customerId = Number(localStorage.getItem('userId'))
-        // for(var key in this.user){
-        //   this.user.companyId = this.user[key][0]
-        //   this.person.customerId = key
-        //   this.person.companyId =this.user[key][0]
-        // }
         this.companyIdSubscription = this.employeeServiceService.getCompanyId()
           .subscribe(
             (companyId) => {
-              console.log('asdasdf', companyId)
               this.companyId = companyId
               this.person.companyId = this.companyId
 
               this.employeeServiceService.getEmployees(this.companyId)
                 .subscribe(
                   employee => {
-                    console.log('getting employees', employee)
                     this.employees = employee.json()[0].users
                   }
                 )
               this.companyService.getOptions(this.companyId)
                 .subscribe(options => {
-                  console.log('getting options', options)
                   this.services = options
                 })
               }

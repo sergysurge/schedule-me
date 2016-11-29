@@ -68,14 +68,14 @@ import { AuthService } from '../auth/auth.service'
 })
 export class CompanyLandingComponent {
 
-  navigateToCompany(companyId) {
-  this.router.navigate(['/admin/company', companyId])
-  }
-
-  // ADD COMPANY STEP 0 BUTTON
-
   startedAddCompany = false
   step0 = true
+  step1 = false
+  private brandNameCustom = ''
+  private selectedBrandNamesAll = {
+    id: false,
+    name: '',
+  }
   step0to1() {
     this.step0 = false
     this.startedAddCompany = true
@@ -83,22 +83,18 @@ export class CompanyLandingComponent {
     this.companyService.company = []
     this.companyGetAllBrandNames()
   }
+  navigateToCompany(companyId) {
+    this.router.navigate(['/admin/company', companyId])
+  }
 
-  // STEP 1 SELECTING BRAND NAME OR CREATING ONE 
-  step1 = false
   companyGetAllBrandNames() {
     this.companyService.getAllBrandNames()
-      .subscribe(data => console.log(data, "from companyGetAllBrandNames"))
+      .subscribe(data => {})
   } 
-  private brandNameCustom = ''
-  private selectedBrandNamesAll = {
-    id: false,
-    name: '',
-  }
+ 
   companySelectedBrandNamesAll(id, name) {
     this.selectedBrandNamesAll.id = id
     this.selectedBrandNamesAll.name = name
-    console.log(this.selectedBrandNamesAll, 'from companySelectedBrandNamesAll')
   }
   //sets brand name, people should then first click this then update/create profile
   companySetBrand() {
@@ -114,7 +110,6 @@ export class CompanyLandingComponent {
     }
     this.companyService.postBrandName(body)
     .subscribe(data => {
-      console.log(data, '**LOOK** .id?')
       if (data.success === true) {
         this.companyService.brandNamesAll = []
         this.companyGetAllBrandNames()
@@ -162,7 +157,6 @@ export class CompanyLandingComponent {
           })
         })
       }
-      else (console.log('inccorrent updating'))
     })
   }
 
@@ -170,15 +164,13 @@ export class CompanyLandingComponent {
     this.step2 = false
     this.startedAddCompany = false
     this.router.navigate(['/admin/company', this.companyService.company.id])
-    // this.router.navigate('admin')
   }
 
   addCompanyForm : FormGroup
   
   constructor(private companyService: CompanyService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.companyService.getAllCompaniesByUserId(localStorage.getItem('userId'))
-      .subscribe(data => console.log(data, 'logging the data in constructure company service'))
-
+      .subscribe(data => {})
       /* FORM addCompany */
       this.addCompanyForm = formBuilder.group({
         'name' : [this.companyService.company.name, Validators.required],

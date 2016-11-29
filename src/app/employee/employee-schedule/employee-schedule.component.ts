@@ -73,7 +73,6 @@ export class EmployeeScheduleComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-
     this.userAssociationsSubscription = this.authService.getUserAssociations()
       .subscribe(
         (userAssociations) => {
