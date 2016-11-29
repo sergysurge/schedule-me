@@ -17,6 +17,21 @@ export class EmployeeScheduleComponent {
   private startTimes
   private endTimes
   private date
+  days = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
+  step1GotDay = false
+  step2GotEmployee = false
+  startTime
+  endTime
+  description
+  selectedEmployeeId: {
+      id: '',
+      userCompanyId: '',
+      nameFirst: '',
+      nameLast: '',
+      admin: ''
+  }
+  selectedDay
+  employeeScheduleForm : FormGroup
 
   blockConst(start, end) {
     let cur
@@ -28,7 +43,7 @@ export class EmployeeScheduleComponent {
     let minInc = ['00','15','30','45']
     let count = minInc.indexOf(minutes)
     let check = false;
-
+    
 
     while(!check){
       if(count>3){
@@ -62,21 +77,12 @@ export class EmployeeScheduleComponent {
     return block
   }
 
-  checkings(){
-    console.log(this.start, 'this is start')
-    console.log(this.startTimes, 'start times')
-    console.log(this.endTimes, 'this is endtimes')
-  }
-  days = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-  step1GotDay = false
   setDay(index) {
-    console.log(this.days[index])
     this.step1GotDay = true
     this.selectedDay = index
   }
-  step2GotEmployee = false
+
   setEmployee(id, userCompanyId, nameFirst, nameLast, admin) {
-    console.log(id)
     this.step2GotEmployee = true
     this.selectedEmployeeId = {
       id: id,
@@ -86,18 +92,6 @@ export class EmployeeScheduleComponent {
       admin: admin
     }
   }
-
-  startTime
-  endTime
-  description
-  selectedEmployeeId: {
-      id: '',
-      userCompanyId: '',
-      nameFirst: '',
-      nameLast: '',
-      admin: ''
-  }
-  selectedDay
   // UserCompanyId = 1
   postOneSched() {
     let blockCreated = this.blockConst(this.employeeScheduleForm.value.startTime, this.employeeScheduleForm.value.endTime)
@@ -122,7 +116,6 @@ export class EmployeeScheduleComponent {
       }
     )
   }
-  employeeScheduleForm : FormGroup
 
   constructor(private companyService: CompanyService, private formBuilder: FormBuilder) {
     this.companyService.navigateProfilePageOnRefresh()
@@ -139,11 +132,8 @@ export class EmployeeScheduleComponent {
           phoneNumber: item.phoneNumber,
           image: item.image,
           userCompanyId: item.UserCompany.id
-
         }
       })
-        
-      console.log(this.employees, '***actual emploeyes***')
     })
 
     this.employeeScheduleForm = formBuilder.group({
@@ -155,8 +145,6 @@ export class EmployeeScheduleComponent {
       'selectedDay' : [this.selectedDay]
     })
   }
-
-
 
   // MAIN SCHEDULE MODULE
   sched0 = true

@@ -60,7 +60,6 @@ export class EmployeeServiceService {
 
   getEmployeeCalendarData(userId, userCompanyIds): Observable<any> {
     let options = new RequestOptions({ headers: this.headers })
-    console.log('asdfasdf', userCompanyIds)
     const employeeAppointmentsUrl = `/api/appointments/${userId}`
 
     let token = localStorage.getItem('jwt-token');

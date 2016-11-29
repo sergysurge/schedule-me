@@ -5,28 +5,22 @@
   <div class="panel-heading text-center col-sm-12 sergPanelBody">
     <h3>Add Employees</h3>
   </div> <!--HEADER END -->
-
       <!--ADDING BODY-->
     <div class="panel-body">
-
           <!--ROW START-->
       <div class="row "> 
-
         <!--LEFT PANEL -->
         <div class="col-sm-6 panel panel-default">
-
           <!--INSERT ID OR EMAIL-->
           <div class="col-sm-12 text-center panel-heading">
             <label> Insert id or e-mail </label>
             <input type="text" placeholder="insert e-mail or id" [(ngModel)]="userSearch">
             <button type="submit" class="btn btn-default"(click)="searchUser(userSearch)"> search </button>
           </div>
-          
           <!--BODY-->
           <div class="col-sm-12 text-center panel-body">
             <h3 *ngIf="userNotFound"> Please Try Again! </h3>
             <p *ngIf="userNotFound"> User id or email does not exist </p>
-
             <div *ngIf="userShow">
               <strong> Id: </strong> {{userFetched.id}} 
               <br>
@@ -40,76 +34,52 @@
               <h3> Preview and Add Employee --></h3>
             </div>
           </div>   <!--BODY END-->
-
       </div> <!--LEFT PANEL END -->
-
           <!--RIGHT PANEL-->
       <div *ngIf="userShow" class="col-sm-6 panel panel-default" [ngStyle]="{'margin':'60px auto auto auto'}">
-
         <div class="panel-heading sergPanelBody col-sm-12">
           <h3 class="text-center"> {{userFetched.name}}</h3>
         </div>
           <!--body panel-->
         <div class="panel-body col-sm-12"> 
-
           <!--photo employee-->
           <div class="col-sm-4">
             <img src="{{userFetched.image || 'http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-md.png'}}" class="img-rounded col-sm-12" width="auto" height="auto">
           </div>
-
           <div class="col-sm-8" style="line-height: 200%">
             <strong> Phone: </strong> {{userFetched.phoneNumber}}
             <br>
             <strong> Email: </strong> {{userFetched.email}}<br>
             <strong> Admin: </strong> {{addEmployeeAdmin}} <br>
           </div>
-
         </div><!--body panel END--> 
-
         <div class="panel-footer col-sm-12 sergPanelBody">
           <button class="btn btn-default" type="submit" (click)="onSubmit()" > add employee </button>
         </div>
-      
-    
-
-
       </div> <!--RIGHT PANEL END-->
     </div> <!--ROW START END-->
-
   </div> <!--ADDING BODY END-->
-  
-
 </div>  <!-- END OF EMPLOYEE ADDDING -->
-
-
-
 <!--NEW CURRENT EMPLOYEES PANEL-->
 <div class="panel panel-default col-sm-12">  
-
   <!--HEADING-->
   <div class="panel-heading text-center col-sm-12 sergPanelBody">
     <h3> Current Employees</h3>
   </div>
-
   <!--MAIN BODY EMPLOYEE MODEL HOLDER-->
   <div class="panel-body col-sm-12">
-
     <!--EACH EMPLOYEE MODEL-->
     <div class="panel panel-default col-sm-6" *ngFor="let empAll of this.companyService.employees">
-
       <!--EMPLOYEE MODEL HEADING-->
       <div class="panel-heading text-center col-sm-12 sergPanelBody">
         <h3 class="text-center"> {{empAll.name}}</h3>
       </div>
-
         <!--EMPLOYEE MODEL BODY-->
       <div class="panel-body col-sm-12">
-
             <!--EMPLOYEE MODEL USER IMAGE-->
           <div class="col-sm-4">
             <img [src]="empAll.image" class="img-rounded col-sm-12" [ngStyle]="{'margin': 'auto', 'max-width':'100px', 'max-height': '100px' , 'height':'auto', 'width': 'auto'}">
           </div>
-
           <!--EMPLOYEE MODEL USER INFORMATION-->
           <div class="panel-body col-sm-8" style="line-height: 200%">
             <strong> Phone: </strong> {{empAll.phoneNumber}}<br>
@@ -123,19 +93,15 @@
                 </label>
               </div>
           </div>
-
         </div> <!--EMPLOYEE MODEL BODY END -->
-
         <!--FOOTER EMPLOYEE MODEL-->
         <div class="panel-footer sergPanelBody col-sm-12">
           <button type="button" class="btn btn-default" (click)="deleteEmployeeSubmit(empAll.id, empAll.name)"> Delete Employee</button>
           <button class="btn btn-default" type="button" (click)="updateAdminSubmit()"> Update Admin</button>
         </div>
-
     </div> <!--EACH EMPLOYEE MODEL END-->
   </div> <!--MAIN BODY EMPLOYEE MODEL HOLDER END-->
 </div> <!--NEW CURRENT EMPLOYEES PANEL END-->
-
 
 
 <!-- classes - ng-untouched, ng-pristine, ng-invalid -->

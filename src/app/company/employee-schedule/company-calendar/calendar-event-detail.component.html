@@ -4,11 +4,9 @@
             <h4>Details</h4>
         </div>
     </div>
-
     <div class="panel-body" *ngIf="!eventType">
         Select an event to view details
     </div>
-
     <div class="panel-body" *ngIf="eventType == 'appointment'">
         <div class="table-responsive">
             <table class="table borderless table-sm">
@@ -47,7 +45,6 @@
             </table>
         </div>
     </div>
-
     <div class="panel-body" *ngIf="eventType == 'schedule'">
          <div class="table-responsive">
             <table class="table borderless table-sm">

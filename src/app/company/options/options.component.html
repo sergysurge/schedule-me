@@ -1,9 +1,7 @@
 <div class="panel panel-default col-sm-12">
-
   <div class="panel-heading col-sm-12 sergPanelBody">
     <h3 class="text-center"> Available Options </h3>
   </div>
-
   <div class="panel-body col-sm-12"
   [ngStyle]="{'padding': '20px'}">
     <div class="thumbnail col-sm-4 text-center allOptions"
@@ -14,22 +12,20 @@
       <h3> {{opt.service}}</h3>
       <h5> <strong>{{opt.description}}</strong> </h5>
     </div>
-
     <div *ngIf="!addOptionInit" class="thumbnail col-sm-4 text-center allOptions" (click)="step0()"
     [ngStyle]="{'height': '180px', 'verticle-align': 'middle'}">
       <span  class="glyphicon glyphicon-plus-sign text-center"
       [ngStyle]="{'font-size': '70px', 'position': 'relative', 'top' : '45px'}"
-      ></span>
+      >
+      </span>
     </div>
-
   <div *ngIf="addOptionInit" class="thumbnail col-sm-4 text-center allOptions">
     <h5> <strong>Duration in min</strong> </h5>
       <input [ngStyle]="{'color': 'black', 'font-size': '20px'}" class="text-center" type="text" [(ngModel)]="addOptionItem.duration" placeholder="30">
       <hr>
       <input [ngStyle]="{'color': 'black', 'font-size': '20px'}" class="text-center" type="text" [(ngModel)]="addOptionItem.service" placeholder="Massage">
       <br>
-      <input [ngStyle]="{'color': 'black'}" class="text-center" type="text" [(ngModel)]="addOptionItem.description" placeholder="Full Body Massage">
-          
+      <input [ngStyle]="{'color': 'black'}" class="text-center" type="text" [(ngModel)]="addOptionItem.description" placeholder="Full Body Massage">       
   </div>
   <div *ngIf="addOptionInit" class="thumbnail col-sm-4 text-center allOptions" (click)="step1()"
         [ngStyle]="{'height': '180px', 'verticle-align': 'middle'}">
@@ -37,9 +33,5 @@
           [ngStyle]="{'font-size': '70px', 'position': 'relative', 'top' : '45px'}"
           > <h3>Click To Add!</h3></span>
         </div>
-
-
   </div>
-
-  
 </div>

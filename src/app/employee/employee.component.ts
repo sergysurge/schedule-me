@@ -39,7 +39,6 @@ export class EmployeeComponent implements OnInit {
         this.companies = companies
         this.name = this.companies[0].name
         this.employeeServiceService.setCompanyId(this.companies[0].id)
-        console.log('this companies',this.companies)
       })
   }
   changeCompany(company){
@@ -51,7 +50,6 @@ export class EmployeeComponent implements OnInit {
     this.appointment = $event
   }
   refresh(){
-    console.log('refreshing')
     location.reload();
   }
 
