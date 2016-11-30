@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
-//const db = new Sequelize('postgres://superuser:superuser@scheduleme.cqwyei9xxclz.us-west-1.rds.amazonaws.com:5432/scheduleme')
-// const db = new Sequelize('postgres://ffkgdwnz:DwIxYC_uxOROnlYvKEwt3KH57rUQzqDw@elmer.db.elephantsql.com:5432/ffkgdwnz')
-const db = new Sequelize('postgres://oywoznir:p5_J_YyQIoQTUDEXqbXrJ3L-d0F2ww3b@elmer.db.elephantsql.com:5432/oywoznir')
+const db = new Sequelize(`postgres://${process.env.ELEPHANT_USER}:${process.env.ELEPHANT_PASSWORD}@elmer.db.elephantsql.com:5432/${process.env.ELEPHANT_USER}`)
 
 db.authenticate()
   .then(() => {

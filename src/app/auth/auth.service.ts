@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
 export class AuthService {
 
   isUserLoggedIn: boolean = localStorage.getItem('jwt-token') !== null
-  userAssociations: any = this.extractUserAssociations()//= localStorage.getItem('userAssociations')
+  userAssociations: any = this.extractUserAssociations()
   loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isUserLoggedIn)
   userAssociationsSubject: BehaviorSubject<any> = new BehaviorSubject<boolean>(this.userAssociations)
   constructor(private http: Http, private router: Router) { }
