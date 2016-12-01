@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./server/server.js | mocha --reporter nyan ./server/spec/server.spec.js",
-    "start": "nodemon ./server/server.js | ng serve --proxy-config proxy.conf.json",
+    "start": "nodemon ./server/server.js",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor"
   },
